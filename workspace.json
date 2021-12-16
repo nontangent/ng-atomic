@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "atomic-framework-demo": "apps/atomic-framework-demo",
+    "atomic-framework-demo-e2e": "apps/atomic-framework-demo-e2e",
+    "components": "libs/components",
+    "schematics": "libs/schematics"
+  }
 }

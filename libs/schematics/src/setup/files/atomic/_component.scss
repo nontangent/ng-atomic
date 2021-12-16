@@ -1,0 +1,12 @@
+@import 'host-variable';
+
+@mixin component($host) {
+  display: block;
+
+  @include hvar(--cell, 8px);
+
+	* {
+    --cell: #{hvar(--cell)};
+  }
+}
+
