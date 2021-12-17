@@ -26,5 +26,4 @@ describe('Page Schematics', () => {
     expect(input.replace(/\s/g, '')).toEqual(expected.replace(/\s/g, ''));
     
   });
-
 });

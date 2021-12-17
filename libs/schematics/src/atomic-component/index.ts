@@ -9,8 +9,9 @@ import * as format from 'string-template';
 import { join } from 'path';
 import { Schema } from './schema';
 
-export const atomicComponent =(options: Schema): Rule => async (host: Tree, _: SchematicContext) => {
-	options.path ??= await createDefaultPath(host, options.project);
+export const atomicComponent = (options: Schema): Rule => async (host: Tree, _: SchematicContext) => {
+	options.prefix ??= 'extras';
+	options.path = join(await createDefaultPath(host, options.project), options?.path ?? '');
 	const { name, path, type } = options = {...options, ...parseName(options.path, options.name)};
 	delete options.styleHeader;
 
@@ -29,13 +30,13 @@ export const organism = (options: Schema): Rule => atomicComponent(buildOptions(
 export const template = (options: Schema): Rule => atomicComponent(buildOptions(options, 'template'));
 
 const buildOptions = (options: Schema, type: string) => 
-	({...options, type: options.type || type, prefix: options.prefix || `${options.type}s`});
+	({...options, type: options.type || type, prefix: options.prefix || `${options.type || type}s`});
 
 const addExportIntoIndexTs = ({path, name}: Schema) => (tree: Tree) => {
 	const indexTsPath = join(path, 'index.ts');
 	tree.exists(indexTsPath) || tree.create(indexTsPath, '');
 	const lines = tree.read(indexTsPath)!.toString('utf-8').split('\n').filter(line => line.length);
-	const line = `export * from './${strings.dasherize(name)}';`;
+	const line = `export { ${strings.classify(name)}Module } from './${strings.dasherize(name)}';`;
 	tree.overwrite(indexTsPath, (lines.includes(line) ? lines : [...lines, line]).join('\n'));
 	return tree;
 };

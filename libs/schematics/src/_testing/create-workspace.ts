@@ -12,7 +12,7 @@ export const defaultAppOptions = {
   inlineTemplate: false,
   viewEncapsulation: 'Emulated',
   routing: false,
-  style: 'css',
+  style: 'scss',
   skipTests: false,
 };
 
@@ -29,5 +29,15 @@ export async function createWorkspace(
 ) {
   host = await runner.runExternalSchematicAsync('@schematics/angular', 'workspace', workspaceOptions).toPromise();
   host = await runner.runExternalSchematicAsync('@schematics/angular', 'application', options, host).toPromise();
+  host = await runner.runExternalSchematicAsync('@schematics/angular', 'application', {...options, name: 'app2'}, host).toPromise();
+  return host;
+}
+
+export async function createNxWorkspace(
+  runner: SchematicTestRunner, host: UnitTestTree,
+  workspaceOptions = defaultWorkspaceOptions, options = defaultAppOptions
+) {
+  host = await runner.runExternalSchematicAsync('@nrwl/angular', 'workspace', {...workspaceOptions, cli: 'angular'}).toPromise();
+  host = await runner.runExternalSchematicAsync('@nrwl/angular', 'application', options, host).toPromise();
   return host;
 }
