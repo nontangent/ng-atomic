@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Injectable, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Injectable, Input, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { LINE_UP_ANIMATIONS } from './line-up.animations';
 import { fromResize } from './resize-observer';
 
+const _fromResize = (el: ElementRef) => fromResize(el.nativeElement)
+  .pipe(map(({contentRect}: {contentRect: {width: number}}) => contentRect?.width ?? 0))
+  .pipe(distinctUntilChanged());
 
 @Injectable({providedIn: 'root'})
 class LineUpService {
@@ -28,11 +31,8 @@ export class LineUpFrame {
   @Input()
   outlet?: RouterOutlet;
 
-  @Output()
-  changeNextWidth = new EventEmitter<number>();
-
-  @ViewChild('main', {static: true})
-  main!: ElementRef;
+  @Input()
+  minNextWidth: number = 360;
 
   @ViewChild('next', {static: true})
   next!: ElementRef;
@@ -44,22 +44,14 @@ export class LineUpFrame {
 
   constructor(
     public service: LineUpService,
-    private el: ElementRef,
     private cd: ChangeDetectorRef,
   ) { }
 
-  width = 0;
-
   ngOnInit(): void {
     if (this.label === 'root') return; 
-    const _fromResize = (el: ElementRef) => fromResize(el.nativeElement).pipe(
-      map(({contentRect}) => contentRect?.width ?? 0),
-      distinctUntilChanged(),
-    );
 
-    _fromResize(this.next).subscribe(width => {
-      this.width = width;
-      this.isMainHidden = this.width > 360;
+    _fromResize(this.next).subscribe((width: number) => {
+      this.isMainHidden = width > this.minNextWidth;
       this.cd.detectChanges();
     });
   }
