@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActionItem } from '@ng-atomic/common/models';
 import { FormGroup } from '@ngneat/reactive-forms';
-import { ActionItem } from '@smooth/domain/models';
 
 @Component({
   selector: 'templates-smart-crud',
@@ -18,7 +18,7 @@ export class SmartCrudTemplate {
   form!: FormGroup<any>;
 
   @Input()
-  mode: 'create' | 'update';
+  mode: 'create' | 'update' = 'create';
 
   @Output()
   createButtonClick = new EventEmitter<void>();

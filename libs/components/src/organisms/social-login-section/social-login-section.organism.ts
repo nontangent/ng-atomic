@@ -7,6 +7,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SocialLoginSectionOrganism {
+
   @Output()
   signInWithGoogleButtonClick = new EventEmitter<void>();
+  
 }

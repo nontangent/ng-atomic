@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { ActionItem } from '@ng-atomic/common/models';
 import { FormControl } from '@ngneat/reactive-forms';
-import { ActionItem } from '@smooth/domain/models';
 
 export interface Page extends PageEvent { }
 

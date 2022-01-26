@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem, Store } from '@smooth/domain/models';
+import { ActionItem } from '@ng-atomic/common/models';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { ActionItem, Store } from '@smooth/domain/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {class: 'organism'}
 })
-export class SmartTableOrganism<Item extends Store> {
+export class SmartTableOrganism<Item extends object> {
 
   @Input()
   columns: (keyof Item)[] = [];

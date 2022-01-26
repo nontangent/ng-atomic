@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'organisms-back-navigator',
   templateUrl: './back-navigator.organism.html',
-  styleUrls: ['./back-navigator.organism.scss']
+  styleUrls: ['./back-navigator.organism.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BackNavigatorOrganism implements OnInit {
+export class BackNavigatorOrganism {
 
   @Input()
   title?: string;
@@ -14,10 +15,5 @@ export class BackNavigatorOrganism implements OnInit {
 
   @Output()
   backButtonClick = new EventEmitter<void>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

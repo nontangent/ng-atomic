@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { ActionItem } from '@smooth/domain/models';
+import { ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'organisms-menu',
@@ -8,6 +8,7 @@ import { ActionItem } from '@smooth/domain/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuOrganism {
+  
   @Input()
   actionItems: ActionItem[] = [];
 

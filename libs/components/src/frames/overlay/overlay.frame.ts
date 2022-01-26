@@ -9,9 +9,9 @@ import { slideInAnimation } from './overlay.animations';
   animations: [slideInAnimation],
 })
 export class OverlayFrame {
-
+  
   @Input()
-  outlet?: RouterOutlet = null;
+  outlet?: RouterOutlet | null = null;
 
   @Input()
   isLoading: boolean = false;

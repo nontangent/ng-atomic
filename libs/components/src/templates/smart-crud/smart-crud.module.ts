@@ -8,10 +8,10 @@ import { BackNavigatorModule } from '@ng-atomic/components/organisms/back-naviga
 import { InputFieldSectionModule } from '@ng-atomic/components/organisms/input-field-section';
 import { DateInputSectionModule } from '@ng-atomic/components/organisms/date-input-section';
 import { SelectInputSectionModule } from '@ng-atomic/components/organisms/select-input-section';
+import { SmartFieldModule } from '@ng-atomic/common/pipes/smart-field';
 import { DomainModule } from '@smooth/finance/_shared/pipes/domain';
 
 import { SmartCrudTemplate } from './smart-crud.template';
-import { SmartFieldModule } from '../../pipes/smart-field';
 
 
 @NgModule({

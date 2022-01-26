@@ -13,7 +13,7 @@ export class InputFieldSectionOrganism {
   label = '';
 
   @Input()
-  placeholder: '';
+  placeholder = '';
 
   @Input()
   control = new FormControl('');

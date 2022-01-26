@@ -1,6 +1,6 @@
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef, CdkTable, TextColumnOptions, TEXT_COLUMN_OPTIONS } from '@angular/cdk/table';
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ActionItem } from '@smooth/domain/models';
+import { ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'molecules-actions-column',
@@ -18,7 +18,7 @@ export class ActionsColumnMolecule<T> {
     this._name = name;
     this._syncColumnDefName();
   }
-  _name: string;
+  _name!: string;
 
   @Input()
   actionItems: ActionItem[] = [];
@@ -27,17 +27,20 @@ export class ActionsColumnMolecule<T> {
   @Output()
   actionItemClick = new EventEmitter<[ActionItem, T]>();
 
-  @ViewChild(CdkColumnDef, {static: true}) columnDef: CdkColumnDef;
+  @ViewChild(CdkColumnDef, {static: true})
+  columnDef!: CdkColumnDef;
+  
+  @ViewChild(CdkCellDef, {static: true})
+  cell!: CdkCellDef;
 
-  @ViewChild(CdkCellDef, {static: true}) cell: CdkCellDef;
-
-  @ViewChild(CdkHeaderCellDef, {static: true}) headerCell: CdkHeaderCellDef;
+  @ViewChild(CdkHeaderCellDef, {static: true})
+  headerCell!: CdkHeaderCellDef;
 
   constructor(
     @Optional() private _table: CdkTable<T>,
     @Optional() @Inject(TEXT_COLUMN_OPTIONS) private _options: TextColumnOptions<T>,
   ) {
-    this._options = _options || {};
+    this._options ??= {};
   }
 
   ngOnInit() {

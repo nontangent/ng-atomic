@@ -25,11 +25,14 @@ export class CheckboxColumnMolecule<T> implements OnInit {
   @Output()
   checkboxClick = new EventEmitter<T>();
 
-  @ViewChild(CdkColumnDef, {static: true}) columnDef: CdkColumnDef;
+  @ViewChild(CdkColumnDef, {static: true})
+  columnDef!: CdkColumnDef;
 
-  @ViewChild(CdkCellDef, {static: true}) cell: CdkCellDef;
+  @ViewChild(CdkCellDef, {static: true})
+  cell!: CdkCellDef;
 
-  @ViewChild(CdkHeaderCellDef, {static: true}) headerCell: CdkHeaderCellDef;
+  @ViewChild(CdkHeaderCellDef, {static: true})
+  headerCell!: CdkHeaderCellDef;
 
   constructor(@Optional() private _table: CdkTable<T>) { }
 

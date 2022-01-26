@@ -1,9 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { MenuItem } from '@ng-atomic/common/models';
 
-export interface MenuItem {
-  id: number | string;
-  name: string;
-}
 
 @Component({
   selector: 'organisms-top-navigator',
@@ -12,6 +9,7 @@ export interface MenuItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopNavigatorOrganism {
+
   @Input()
   title?: string;
 

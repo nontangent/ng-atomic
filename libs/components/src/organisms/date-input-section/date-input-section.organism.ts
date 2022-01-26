@@ -16,7 +16,7 @@ export class DateInputSectionOrganism {
   label = '';
 
   @Input()
-  placeholder: '';
+  placeholder = '';
 
   ngOnInit() {
     this.control.valueChanges.subscribe(console.debug);

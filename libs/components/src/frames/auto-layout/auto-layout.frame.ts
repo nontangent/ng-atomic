@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'frames-auto-layout',
   templateUrl: './auto-layout.frame.html',
-  styleUrls: ['./auto-layout.frame.scss']
+  styleUrls: ['./auto-layout.frame.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutoLayoutFrame implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class AutoLayoutFrame { }

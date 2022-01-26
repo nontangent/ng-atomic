@@ -3,6 +3,7 @@
   "projects": {
     "atomic-framework-demo": "apps/atomic-framework-demo",
     "atomic-framework-demo-e2e": "apps/atomic-framework-demo-e2e",
+    "common": "libs/common",
     "components": "libs/components",
     "schematics": "libs/schematics"
   }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem } from '@smooth/domain/models';
+import { ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'organisms-action-buttons-section',

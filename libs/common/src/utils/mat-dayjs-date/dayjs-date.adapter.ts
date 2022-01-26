@@ -42,7 +42,7 @@ function range<T>(length: number, valueFunction: (index: number) => T): T[] {
 
 /** Adapts Dayjs Dates for use with Angular Material. */
 export class DayjsDateAdapter extends DateAdapter<Dayjs> {
-  private localeData: {
+  private localeData!: {
     firstDayOfWeek: number,
     longMonths: string[],
     shortMonths: string[],
@@ -194,7 +194,7 @@ export class DayjsDateAdapter extends DateAdapter<Dayjs> {
       }
       date = this.dayJs(value).toISOString();
     }
-    if (date && this.isValid(date)) {
+    if (date && this.isValid(date as Dayjs)) {
       return this.dayJs(date); // NOTE: Is this necessary since Dayjs is immutable and Moment was not?
     }
     return super.deserialize(value);

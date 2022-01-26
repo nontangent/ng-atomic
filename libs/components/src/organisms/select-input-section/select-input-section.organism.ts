@@ -17,8 +17,5 @@ export class SelectInputSectionOrganism<T> {
 
   @Input()
   options: {name: string, value: T}[] = [];
-
-  ngOnInit() {
-    console.debug(this.options);
-  }
+  
 }
