@@ -1,4 +1,4 @@
-import { animate, query, sequence, state, style, transition, trigger } from '@angular/animations';
+import { animate, query, sequence, state, style, transition, trigger, group } from '@angular/animations';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Injectable, Input, Output, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
@@ -26,7 +26,11 @@ const visibleHiddenAnimation = trigger('visibleHidden', [
 ]);
 
 const routeAnimation = trigger('pageChange', [
-  state('Next', style({
+  state('NextMainIsHidden', style({
+    position: 'relative',
+    width: '100%',
+  })),
+  state('NextMainIsVisible', style({
     position: 'relative',
     width: '100%',
   })),
@@ -34,24 +38,38 @@ const routeAnimation = trigger('pageChange', [
     position: 'relative',
     display: 'none',
   })),
-  transition('Blank => Next', [
+  transition('Blank => NextMainIsHidden', [
     query(':enter', [animate('0.5s')], { optional: true }),
     sequence([
       style({ display: 'inherit', width: '100%' }),
       animate('0.5s'),
     ]),
   ]),
-  transition('Next => Blank', [
-    query(':leave', 
-    [
-      animate('0.5s', style({width: '100%'})),
-    ], { optional: true }),
+  transition('Blank => NextMainIsVisible', [
+    query(':enter', [animate('0.5s')], { optional: true }),
     sequence([
-      style({position: 'absolute', left: '100%', display: 'block'}),
-      animate('0.5s', style({position: 'absolute', left: '200%', display: 'block'})),
+      style({ display: 'inherit', width: '100%' }),
+      animate('0.5s'),
+    ]),
+  ]),
+  transition('NextMainIsHidden => Blank', group([
+    query(':leave', animate('0.5s', style({width: '100%'})), { optional: true }),
+    sequence([
+      style({position: 'absolute', display: 'block'}),
+      style({left: '0%', display: 'block'}),
+      animate('0.5s', style({left: '100%', display: 'block'})),
       style({display: 'block'}),
-    ])
-  ])
+    ]),
+  ])),
+  transition('NextMainIsVisible => Blank', group([
+    query(':leave', animate('0.5s', style({width: '100%'})), { optional: true }),
+    sequence([
+      style({position: 'absolute', display: 'block'}),
+      style({left: '100%', display: 'block'}),
+      animate('0.5s', style({})),
+      style({display: 'block'}),
+    ]),
+  ])),
 ]);
 
 const routeAnimation2 = trigger('expand', [
@@ -107,12 +125,14 @@ export class LineUpFrame {
   @ViewChild('next', {static: true})
   next!: ElementRef;
 
-  @HostBinding('attr.page')
+  // @HostBinding('attr.page')
   private _page: string = 'Blank';
   get page(): string {
-    const page = this.outlet?.activatedRouteData?.page;
-    if (page === 'Blank') this.isMainHidden = false;
-    return this._page === page ? this._page : page;
+    const page: string = this.outlet?.activatedRouteData?.page;
+    // if (page === 'Blank') this.isMainHidden = false;
+    let res = page === 'Blank' ? page : this.isMainHidden ? `NextMainIsHidden` : `NextMainIsVisible`;
+    console.debug('res:', res);
+    return this._page = this._page === res ? this._page : res;
   }
 
   constructor(
