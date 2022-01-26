@@ -1,93 +1,10 @@
-import { animate, query, sequence, state, style, transition, trigger, group } from '@angular/animations';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, Injectable, Input, Output, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, filter, map, mapTo, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { LINE_UP_ANIMATIONS } from './line-up.animations';
 import { fromResize } from './resize-observer';
 
-const visibleHiddenAnimation = trigger('visibleHidden', [
-  state('visible', style({
-    width: '100%',
-  })),
-  state('hidden', style({
-    display: 'none',
-    width: '0%',
-  })),
-  transition('visible => hidden', [
-    animate('0.5s', style({ width: '0%' })),
-    style({display: 'none'}),
-  ]),
-  transition('hidden => visible', [
-    sequence([
-      style({ display: 'inherit' }),
-      animate('0.5s', style({ width: '100%' })),
-    ]),
-  ]),
-]);
-
-const routeAnimation = trigger('pageChange', [
-  state('NextMainIsHidden', style({
-    position: 'relative',
-    width: '100%',
-  })),
-  state('NextMainIsVisible', style({
-    position: 'relative',
-    width: '100%',
-  })),
-  state('Blank', style({
-    position: 'relative',
-    display: 'none',
-  })),
-  transition('Blank => NextMainIsHidden', [
-    query(':enter', [animate('0.5s')], { optional: true }),
-    sequence([
-      style({ display: 'inherit', width: '100%' }),
-      animate('0.5s'),
-    ]),
-  ]),
-  transition('Blank => NextMainIsVisible', [
-    query(':enter', [animate('0.5s')], { optional: true }),
-    sequence([
-      style({ display: 'inherit', width: '100%' }),
-      animate('0.5s'),
-    ]),
-  ]),
-  transition('NextMainIsHidden => Blank', group([
-    query(':leave', animate('0.5s', style({width: '100%'})), { optional: true }),
-    sequence([
-      style({position: 'absolute', display: 'block'}),
-      style({left: '0%', display: 'block'}),
-      animate('0.5s', style({left: '100%', display: 'block'})),
-      style({display: 'block'}),
-    ]),
-  ])),
-  transition('NextMainIsVisible => Blank', group([
-    query(':leave', animate('0.5s', style({width: '100%'})), { optional: true }),
-    sequence([
-      style({position: 'absolute', display: 'block'}),
-      style({left: '100%', display: 'block'}),
-      animate('0.5s', style({})),
-      style({display: 'block'}),
-    ]),
-  ])),
-]);
-
-const routeAnimation2 = trigger('expand', [
-  state('Next', style({
-    width: '100%',
-  })),
-  state('Blank', style({
-    width: '100%',
-  })),
-  transition('B => N', [
-    // style({width: '0%'}),
-    // animate('0.5s', style({width: '100%'})),
-  ]),
-  transition('N => B', [
-    // style({width: '0%'}),
-    // animate('0.5s', style({width: '100%'})),
-  ])
-]);
 
 @Injectable({providedIn: 'root'})
 class LineUpService {
@@ -99,15 +16,10 @@ class LineUpService {
   templateUrl: './line-up.frame.html',
   styleUrls: ['./line-up.frame.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
-  animations: [
-    visibleHiddenAnimation,
-    routeAnimation,
-    routeAnimation2,
-  ]
+  animations: LINE_UP_ANIMATIONS,
 })
 export class LineUpFrame {
   @HostBinding('attr.is-main-hidden')
-  // @Input()
   isMainHidden = false;
 
   @Input()
@@ -125,14 +37,9 @@ export class LineUpFrame {
   @ViewChild('next', {static: true})
   next!: ElementRef;
 
-  // @HostBinding('attr.page')
-  private _page: string = 'Blank';
   get page(): string {
     const page: string = this.outlet?.activatedRouteData?.page;
-    // if (page === 'Blank') this.isMainHidden = false;
-    let res = page === 'Blank' ? page : this.isMainHidden ? `NextMainIsHidden` : `NextMainIsVisible`;
-    console.debug('res:', res);
-    return this._page = this._page === res ? this._page : res;
+    return page === 'Blank' ? 'Blank' : this.isMainHidden ? `Next` : `NextWithMainPage`;
   }
 
   constructor(
@@ -153,22 +60,7 @@ export class LineUpFrame {
     _fromResize(this.next).subscribe(width => {
       this.width = width;
       this.isMainHidden = this.width > 360;
-      console.debug(this.label, this.width, this.isMainHidden);
       this.cd.detectChanges();
     });
-
-    console.debug('this.main:', this.main)
-    // _fromResize(this.main).subscribe((width: number) => {
-    //   console.debug('this.main:', this.main)
-    //   console.debug('width:', width);
-    //   this.el.nativeElement.style.width = `${width}px`;
-    //   this.cd.detectChanges();
-    // })
-
-    // this.service.pageAnimationDone$.subscribe(() => {
-    //   this.isMainHidden = this.width > 361;
-    //   console.debug('===animation end===');
-    //   console.debug(this.label, this.isMainHidden);
-    // });
   }
 }
