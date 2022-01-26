@@ -1,0 +1,6 @@
+<mat-list>
+  <mat-list-item (click)="actionItemClick.emit([item])" *ngFor="let item of actionItems">
+    <mat-icon mat-list-icon> {{ item?.icon }}</mat-icon>
+    <div mat-line>{{item.name}}</div>
+  </mat-list-item>
+</mat-list>

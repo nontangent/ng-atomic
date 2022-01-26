@@ -1,0 +1,9 @@
+<div class="loading" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="main page">
+    <ng-content select=[mainPage]></ng-content>
+</div>
+<div class="next page" [@routeAnimations]="prepareRoute(outlet)">
+    <ng-content select=[nextPage]></ng-content>
+</div>

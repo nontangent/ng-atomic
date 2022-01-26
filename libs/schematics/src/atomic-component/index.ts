@@ -28,6 +28,7 @@ export const atom = (options: Schema): Rule => atomicComponent(buildOptions(opti
 export const molecule = (options: Schema): Rule => atomicComponent(buildOptions(options, 'molecule'));
 export const organism = (options: Schema): Rule => atomicComponent(buildOptions(options, 'organism'));
 export const template = (options: Schema): Rule => atomicComponent(buildOptions(options, 'template'));
+export const frame = (options: Schema): Rule => atomicComponent(buildOptions(options, 'frame'));
 
 const buildOptions = (options: Schema, type: string) => 
 	({...options, type: options.type || type, prefix: options.prefix || `${options.type || type}s`});

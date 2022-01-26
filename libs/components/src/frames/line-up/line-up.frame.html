@@ -1,0 +1,14 @@
+<div class="main contents" 
+  [@visibleHidden]="isMainHidden ? 'hidden' : 'visible' "
+  (@visibleHidden.done)="service.pageAnimationDone$.next($event)"
+>
+  <ng-content select="[main]"></ng-content>
+</div>
+<div class="next contents"
+  [@visibleHidden]="page === 'Blank' ? 'hidden' : 'visible'"
+  [@pageChange]="page"
+  (@pageChange.start)="service.pageAnimationDone$.next($event)"
+  #next
+>
+  <ng-content select="[next]"></ng-content>
+</div>

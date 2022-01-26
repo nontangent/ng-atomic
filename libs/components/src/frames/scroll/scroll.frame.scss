@@ -1,0 +1,24 @@
+@use 'scoped-var/strict' as * with ($host: 'scroll');
+
+:host {
+	@include property(--height, 100%);
+	@include property(--navigator-height, 56px);
+}
+
+:host {
+	height: var(--height);
+	overflow: hidden;
+
+	.navigator-container {
+		height: var(--navigator-height);
+		overflow: hidden;
+		touch-action: none;
+	}
+
+	.contents-container {
+		height: calc(#{var(--height)} - #{var(--navigator-height)});
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+
+}

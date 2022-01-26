@@ -1,0 +1,38 @@
+@use 'scoped-var/strict' as * with ($host: 'menu');
+
+:host {
+	@include property(--primary-color, blue);
+	@include property(--secondary-color, blue);
+	@include property(--color, white);
+}
+
+:host {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: var(--primary-color);
+	color: var(--color);
+
+	.mat-list-item {
+		height: 3rem !important;
+	}
+
+	::ng-deep .mat-list-item {
+		.mat-list-item-content {
+			display: flex;
+			align-items: center;
+			grid-gap: 8px;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			cursor: pointer;
+
+			color: var(--color);
+			font-size: 12px;
+		}
+
+		.mat-list-text {
+			padding-left: 8px !important;
+		}
+	}
+
+}

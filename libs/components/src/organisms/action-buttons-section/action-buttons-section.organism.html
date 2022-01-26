@@ -1,0 +1,3 @@
+<ng-container *ngFor="let item of actionItems">
+  <button mat-raised-button color="primary" (click)="actionItemClick.emit([item])">{{ item?.name }}</button>
+</ng-container>

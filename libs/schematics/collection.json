@@ -1,5 +1,5 @@
 {
-  "extends": "@schematics/angular",
+  "extends": ["@schematics/angular"],
   "schematics": {
     "atomic-component": {
       "aliases": ["ac"],
@@ -25,6 +25,11 @@
     "template": {
       "description": "Create a template.",
       "factory": "./src/atomic-component/index#template",
+      "schema": "./src/atomic-component/schema.json"
+    },
+    "frame": {
+      "description": "Create a template.",
+      "factory": "./src/atomic-component/index#frame",
       "schema": "./src/atomic-component/schema.json"
     },
     "page": {

@@ -1,0 +1,21 @@
+<table mat-table [dataSource]="items" matSort matSortDisableClear matSortDirection="desc">
+  <ng-container *ngFor="let name of displayedColumns" [ngSwitch]="name">
+    <molecules-checkbox-column
+      *ngSwitchCase="'__checkbox'"
+      name="__checkbox"
+      [selectedIdSet]="selectedIdSet"
+      (checkboxClick)="checkboxClick.emit($event)"
+    ></molecules-checkbox-column>
+    <molecules-actions-column 
+      *ngSwitchCase="'__actions'" 
+      name="__actions" 
+      [actionItems]="actionItems"
+      (actionItemClick)="actionItemClick.emit($event)"
+    ></molecules-actions-column>
+    <molecules-smart-column *ngSwitchDefault [name]="name" [headerText]="name | D"></molecules-smart-column>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let item; columns: displayedColumns;"></tr>
+</table>
+<div *ngIf="!items?.length" class="no-data-message">データがありません。</div>
