@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { scan, map, distinctUntilChanged, delay } from 'rxjs/operators';
 
 type LoadingMap = Record<string, boolean>;
@@ -11,21 +11,15 @@ export class LoadingService {
   private loadingEntries$ = new Subject<[string, boolean]>();
 
   loadingMap: LoadingMap = {};
-  loadingMap$: Observable<LoadingMap> = this.loadingEntries$.pipe(
+  loadingMap$ = this.loadingEntries$.pipe(
     scan((pre, [key, value]) => ({ ...pre, [key]: value }), {} as LoadingMap),
-    map((m: LoadingMap) => {
-      return (
-        Object.entries(m)
-          // loadingがfalseになったkeyを削除
-          .filter(([k, v]: [string, boolean]) => v)
-          // 重複したkeyを削除
-          .reduce((p, [k, v]) => ({ ...p, [k]: v }), {} as LoadingMap)
-      );
-    }),
+    map((m: LoadingMap) => Object.entries(m)
+      .filter(([k, v]: [string, boolean]) => v)
+      .reduce((p, [k, v]) => ({ ...p, [k]: v }), {} as LoadingMap)),
     distinctUntilChanged((pre, cur) => JSON.stringify(pre) === JSON.stringify(cur)),
   );
 
-  isLoading$: Observable<boolean> = this.loadingMap$.pipe(
+  isLoading$ = this.loadingMap$.pipe(
     map((m) => !!Object.keys(m).length),
     delay(0),
   );

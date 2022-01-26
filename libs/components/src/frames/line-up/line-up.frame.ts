@@ -27,11 +27,12 @@ const visibleHiddenAnimation = trigger('visibleHidden', [
 
 const routeAnimation = trigger('pageChange', [
   state('Next', style({
+    position: 'relative',
     width: '100%',
   })),
   state('Blank', style({
+    position: 'relative',
     display: 'none',
-    width: '100%',
   })),
   transition('Blank => Next', [
     query(':enter', [animate('0.5s')], { optional: true }),
@@ -41,11 +42,32 @@ const routeAnimation = trigger('pageChange', [
     ]),
   ]),
   transition('Next => Blank', [
-    query(':leave', [animate('0.5s')], { optional: true }),
+    query(':leave', 
+    [
+      animate('0.5s', style({width: '100%'})),
+    ], { optional: true }),
     sequence([
-      animate('0.5s', style({ width: '0%' })),
-      // style({display: 'none'}),
-    ]),
+      style({position: 'absolute', left: '100%', display: 'block'}),
+      animate('0.5s', style({position: 'absolute', left: '200%', display: 'block'})),
+      style({display: 'block'}),
+    ])
+  ])
+]);
+
+const routeAnimation2 = trigger('expand', [
+  state('Next', style({
+    width: '100%',
+  })),
+  state('Blank', style({
+    width: '100%',
+  })),
+  transition('B => N', [
+    // style({width: '0%'}),
+    // animate('0.5s', style({width: '100%'})),
+  ]),
+  transition('N => B', [
+    // style({width: '0%'}),
+    // animate('0.5s', style({width: '100%'})),
   ])
 ]);
 
@@ -62,6 +84,7 @@ class LineUpService {
   animations: [
     visibleHiddenAnimation,
     routeAnimation,
+    routeAnimation2,
   ]
 })
 export class LineUpFrame {
@@ -78,6 +101,9 @@ export class LineUpFrame {
   @Output()
   changeNextWidth = new EventEmitter<number>();
 
+  @ViewChild('main', {static: true})
+  main!: ElementRef;
+
   @ViewChild('next', {static: true})
   next!: ElementRef;
 
@@ -91,6 +117,7 @@ export class LineUpFrame {
 
   constructor(
     public service: LineUpService,
+    private el: ElementRef,
     private cd: ChangeDetectorRef,
   ) { }
 
@@ -98,15 +125,25 @@ export class LineUpFrame {
 
   ngOnInit(): void {
     if (this.label === 'root') return; 
-    fromResize(this.next?.nativeElement).pipe(
+    const _fromResize = (el: ElementRef) => fromResize(el.nativeElement).pipe(
       map(({contentRect}) => contentRect?.width ?? 0),
       distinctUntilChanged(),
-    ).subscribe(width => {
+    );
+
+    _fromResize(this.next).subscribe(width => {
       this.width = width;
-      this.isMainHidden = this.width > 361;
+      this.isMainHidden = this.width > 360;
       console.debug(this.label, this.width, this.isMainHidden);
       this.cd.detectChanges();
     });
+
+    console.debug('this.main:', this.main)
+    // _fromResize(this.main).subscribe((width: number) => {
+    //   console.debug('this.main:', this.main)
+    //   console.debug('width:', width);
+    //   this.el.nativeElement.style.width = `${width}px`;
+    //   this.cd.detectChanges();
+    // })
 
     // this.service.pageAnimationDone$.subscribe(() => {
     //   this.isMainHidden = this.width > 361;

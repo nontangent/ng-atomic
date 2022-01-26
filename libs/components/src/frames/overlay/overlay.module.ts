@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverlayFrame } from './overlay.frame';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { OverlayFrame } from './overlay.frame';
 
 @NgModule({
   declarations: [OverlayFrame],

@@ -7,6 +7,8 @@
 }
 
 :host {
+	position: relative;
+
 	display: flex;
 	justify-content: flex-start;
 	gap: var(--gap);
@@ -29,6 +31,7 @@
 		}
 
 		&.next{
+			// position: relative;
 			overflow: visible;
 			justify-content: flex-start;
 		}
