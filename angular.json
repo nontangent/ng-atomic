@@ -216,6 +216,52 @@
           }
         }
       }
+    },
+    "schematics": {
+      "root": "libs/schematics",
+      "sourceRoot": "libs/schematics/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/schematics/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/schematics"],
+          "options": {
+            "jestConfig": "libs/schematics/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/schematics",
+            "tsConfig": "libs/schematics/tsconfig.lib.json",
+            "packageJson": "libs/schematics/package.json",
+            "main": "libs/schematics/src/index.ts",
+            "assets": [
+              "collection.json",
+              "libs/schematics/*.md",
+              {
+                "input": "./libs/schematics/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/schematics",
+                "glob": "collection.json",
+                "output": "."
+              }
+            ],
+            "srcRootForCompilationRoot": "libs/schematics"
+          }
+        }
+      }
     }
   }
 }

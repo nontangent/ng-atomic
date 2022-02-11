@@ -19,6 +19,7 @@
     "demo": { "tags": [] },
     "demo-e2e": { "tags": [], "implicitDependencies": ["demo"] },
     "common": { "tags": [] },
-    "components": { "tags": [] }
+    "components": { "tags": [] },
+    "schematics": { "tags": [] }
   }
 }

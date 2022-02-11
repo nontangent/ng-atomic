@@ -3,5 +3,6 @@ module.exports = {
     '<rootDir>/apps/demo',
     '<rootDir>/libs/common',
     '<rootDir>/libs/components',
+    '<rootDir>/libs/schematics',
   ],
 };

@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';<% if (commonModule) { %>
+import { CommonModule } from '@angular/common';<% } %>
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+];
+
+@NgModule({
+  declarations: [],
+  imports: [<% if (commonModule) { %>
+    CommonModule,<% } %>
+    RouterModule.forChild(routes)
+  ]
+})
+export class <%= classify(name) %>Module { }

@@ -1,0 +1,8 @@
+{
+  "name": "@ng-atomic/schematics",
+  "version": "0.0.1",
+  "schematics": "./collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  }
+}

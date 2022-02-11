@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngx-atomic-schematics-ng-add",
+  "title": "Angular Atomic Schematics ng-add schematic",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "componentsDir": {
+      "description": "Setup components directory",
+      "type": "string",
+      "default": "src/app/_shared/components",
+      "x-prompt": "Where do you setup Angular Atomic Components?" 
+    },
+		"stylesDir": {
+			"description": "Setup styles directory",
+			"type": "string",
+			"default": "src/styles",
+			"x-prompt": "Where do you setup Angular Atomic Styles?"
+
+		}
+  },
+  "required": []
+}
