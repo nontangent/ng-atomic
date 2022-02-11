@@ -15,12 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ng-atomic/common": ["libs/common/src/index.ts"],
-      "@ng-atomic/common/*": ["libs/common/src/*"],
-      "@ng-atomic/components": ["libs/components/src/index.ts"],
-      "@ng-atomic/components/*": ["libs/components/src/*"],
-      "@ng-atomic/schematics": ["libs/schematics/src/index.ts"],
-      "angular-host-css-variable": ["libs/angular-host-css-variable"]
+      "@ng-atomic/common": ["libs/common/index.ts"],
+      "@ng-atomic/common/*": ["libs/common/*"],
+      "@ng-atomic/components": ["libs/components/index.ts"],
+      "@ng-atomic/components/*": ["libs/components/*"],
+      "@ng-atomic/schematics": ["libs/schematics/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

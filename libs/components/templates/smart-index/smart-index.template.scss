@@ -1,0 +1,19 @@
+@use 'scoped-var/strict' as * with ($host: 'smart-index');
+@use 'atomic/template' as *;
+
+:host {
+  @include property(--navigator-height, 56px);
+}
+
+:host {
+  @include template($host);
+
+  frame-scroll {
+    // --height: 100vh;
+  }
+
+  frames-auto-layout {
+    --gap: 0;
+    --vertical-padding: 0;
+  }
+}
