@@ -1,4 +1,4 @@
-import { toObject } from '../../utils/to-object';
+import { toObject } from '../to-object';
 import { flatten } from 'flat';
 
 export const filterByQuery = <T>(items: T[], queryString: string, dlm: Record<string, string> = {}): T[] => {
