@@ -1,9 +1,0 @@
-<ng-container matColumnDef>
-  <th mat-header-cell *matHeaderCellDef></th>
-  <td mat-cell *matCellDef="let item">
-    <mat-checkbox
-      (click)="checkboxClick.emit(item)"
-      [checked]="selectedIdSet.has(item.id)"
-    ></mat-checkbox>
-  </td>
-</ng-container>

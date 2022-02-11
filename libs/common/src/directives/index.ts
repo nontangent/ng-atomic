@@ -1,1 +1,0 @@
-export { IosSafariScrollBuggyfillModule } from './ios-safari-scroll-buggyfill';

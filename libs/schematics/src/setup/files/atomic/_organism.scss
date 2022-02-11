@@ -1,7 +1,0 @@
-@import 'host-variable';
-@import 'atomic/component';
-
-@mixin organism($host) {
-	@include component($host);
-}
-
