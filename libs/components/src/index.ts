@@ -1,1 +1,3 @@
-export * from './lib/components.module';
+export * from './frames';
+export * from './molecules';
+export * from './organisms';

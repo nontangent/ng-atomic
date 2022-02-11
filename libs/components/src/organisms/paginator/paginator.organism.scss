@@ -1,0 +1,15 @@
+:host {
+
+  frames-auto-layout {
+    --vertical-padding: 0;
+    justify-content: space-between;
+
+    molecules-chips-input-field {
+      width: auto;
+    }
+
+    mat-paginator {
+      width: fit-content;
+    }
+  }
+}

@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@ng-atomic/common": ["libs/common/src/index.ts"],
+      "@ng-atomic/common/*": ["libs/common/src/*"],
       "@ng-atomic/components": ["libs/components/src/index.ts"]
     }
   },
