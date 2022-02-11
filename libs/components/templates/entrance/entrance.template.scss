@@ -1,0 +1,28 @@
+@use '~scoped-var/strict' as * with ($host: 'entrance');
+
+:host {
+  @include property(--horizontal-padding, 64px);
+  @include property(--background-color, #eee);
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+
+  width: 100%;
+  height: 100%;
+
+  frames-card {
+    display: flex;
+    flex-direction: column;
+
+    width: 600px;
+    height: fit-content;
+
+    * {
+      --horizontal-padding: #{var(--horizontal-padding)};
+    }
+  }
+}

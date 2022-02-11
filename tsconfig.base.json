@@ -17,7 +17,8 @@
     "paths": {
       "@ng-atomic/common": ["libs/common/index.ts"],
       "@ng-atomic/common/*": ["libs/common/*"],
-      "@ng-atomic/components": ["libs/components/src/index.ts"]
+      "@ng-atomic/components": ["libs/components/index.ts"],
+      "@ng-atomic/components/*": ["libs/components/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

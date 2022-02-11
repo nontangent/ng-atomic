@@ -1,0 +1,16 @@
+@use '~scoped-var' as * with ($host: 'select-input-section');
+
+:host {
+  @include property(--horizontal-padding, 16px);
+}
+
+:host {
+  display: block;
+  width: 100%;
+  padding: 0 var(--horizontal-padding);
+  box-sizing: border-box;
+
+  .molecule.input-field {
+    width: 100%;
+  }
+}
