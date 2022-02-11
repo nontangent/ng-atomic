@@ -1,6 +1,9 @@
 <frames-scroll>
   <organisms-back-navigator 
+    [actionItems]="menuActionItems"
+    [canBack]="canBack"
     [title]="title"
+    (actionItemClick)="actionItemClick.emit($event)"
     (backButtonClick)="backButtonClick.emit()"
     navigator
   ></organisms-back-navigator>

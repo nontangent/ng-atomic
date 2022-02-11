@@ -33,6 +33,9 @@ export class Page {
 export class SmartIndexTemplate<T> {
 
   @Input()
+  canBack = false;
+
+  @Input()
   queryControl = new FormControl<string>();
 
   @Input()
@@ -45,7 +48,7 @@ export class SmartIndexTemplate<T> {
   actionItems: ActionItem[] = [];
 
   @Input()
-  globalActionItems: ActionItem[] = [];
+  menuActionItems: ActionItem[] = [];
 
   @Input()
   properties: (keyof T)[] =  [];
@@ -61,6 +64,9 @@ export class SmartIndexTemplate<T> {
 
   @Output()
   actionItemClick = new EventEmitter();
+
+  @Output()
+  backButtonClick = new EventEmitter();
 
   @Output()
   checkboxClick = new EventEmitter<T>();

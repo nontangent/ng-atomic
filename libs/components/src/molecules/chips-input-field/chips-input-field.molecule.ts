@@ -22,24 +22,27 @@ export class ChipsInputFieldMolecule implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this._control.valueChanges.subscribe(() => {
-      this.control.setValue(this.chips.join(' '));
-    });
+    this.control.value && this._add(this.control.value);
+
+    this._control.valueChanges.subscribe(() => this.control.setValue(this.chips.join(' ')));
   }
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   chips: string[] = [];
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    value && this.chips.push(value);
+    this._add((event.value || '').trim());
     event.input.value = '';
-    this.control.setValue(this.chips.join(' '));
   }
 
   remove(chip: string): void {
     const index = this.chips.indexOf(chip);
     index >= 0 && this.chips.splice(index, 1);
+    this.control.setValue(this.chips.join(' '));
+  }
+
+  private _add(value: string) {
+    value && this.chips.push(value);
     this.control.setValue(this.chips.join(' '));
   }
 

@@ -1,0 +1,18 @@
+:host {
+  width: 100%;
+  height: 100%;
+
+  mat-toolbar {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  div {
+    display: flex;
+    align-items: center;
+  }
+}

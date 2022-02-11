@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem } from '@ng-atomic/common/models';
+import { ActionItem, ActionItemEvent } from '@ng-atomic/common/models';
 import { FormGroup } from '@ngneat/reactive-forms';
 
 @Component({
@@ -12,6 +12,9 @@ import { FormGroup } from '@ngneat/reactive-forms';
 export class SmartCrudTemplate {
 
   @Input()
+  canBack = false;
+
+  @Input()
   name: string = '';
 
   @Input()
@@ -20,14 +23,20 @@ export class SmartCrudTemplate {
   @Input()
   mode: 'create' | 'update' = 'create';
 
+  @Input()
+  menuActionItems: ActionItem[] = [];
+
+  @Output()
+  actionItemClick = new EventEmitter<ActionItemEvent>();
+
+  @Output()
+  backButtonClick = new EventEmitter();
+
   @Output()
   createButtonClick = new EventEmitter<void>();
 
   @Output()
   updateButtonClick = new EventEmitter<void>();
-
-  @Output()
-  backButtonClick = new EventEmitter<void>();
 
   get title(): string {
     switch (this.mode) {

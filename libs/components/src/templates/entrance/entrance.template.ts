@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'templates-entrance',
@@ -7,6 +7,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntranceTemplate {
+  @Input()
+  isEmailSectionShown = true;
+
+  @Input()
+  isPasswordSectionShown = true;
+
   @Output()
   signInWithGoogleButtonClick = new EventEmitter<void>();
 }

@@ -3,3 +3,5 @@ export interface ActionItem {
   name: string;
   icon?: string;
 }
+
+export type ActionItemEvent<T = any> = [ActionItem, T];
