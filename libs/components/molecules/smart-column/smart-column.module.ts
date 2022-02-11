@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 
 import { SmartColumnMolecule } from './smart-column.molecule';
-import { SmartExpModule } from '@ng-atomic/common/pipes/smart-exp';
+import { SmartExpModule } from '@ng-atomic/common/pipes';
 
 @NgModule({
   declarations: [

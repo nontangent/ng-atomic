@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { MatTextColumn } from '@angular/material/table';
 // TODO(nontangent): 依存を引き剥がす
-import { toObject } from '@ng-atomic/common/utils/to-object';
+import { toObject } from '@ng-atomic/common/utils';
 import { flatten } from 'flat';
 
 @Component({

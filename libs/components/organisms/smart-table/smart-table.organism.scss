@@ -1,8 +1,13 @@
-@use '~scoped-var' as * with ($host: 'smart-table');
-// @use 'atomic/organism' as *;
+@use 'scoped-var/strict' as * with ($host: 'smart-table');
+@use 'atomic/organism' as *;
 
 :host {
-  // @include organism($host);
+  @include var(--width, 100%);
+  @include var(--cell, 8px);
+}
+
+:host {
+  @include organism($host);
 
 	position: relative;
   width: 100%;
@@ -30,9 +35,9 @@
     justify-content: flex-start;
     align-items: center;
 
-    width: calc(hvar(--width) - hvar(--cell) * 4);
+    width: calc(var(--width) - var(--cell) * 4);
     height: 3em;
-    padding-left: calc(hvar(--cell) * 2);
-    padding-right: calc(hvar(--cell) * 2);
+    padding-left: calc(var(--cell) * 2);
+    padding-right: calc(var(--cell) * 2);
   }
 }

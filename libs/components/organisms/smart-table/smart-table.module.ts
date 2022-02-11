@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActionsColumnModule } from '@ng-atomic/components/molecules/actions-column';
 import { CheckboxColumnModule } from '@ng-atomic/components/molecules/checkbox-column';
 import { SmartColumnModule } from '@ng-atomic/components/molecules/smart-column';
-// import { DomainModule } from '@ng-atomic/common/pipes';
+import { DomainModule } from '@ng-atomic/common/pipes';
 
 import { SmartTableOrganism } from './smart-table.organism';
 
@@ -19,7 +19,7 @@ import { SmartTableOrganism } from './smart-table.organism';
   imports: [
     CommonModule,
     // Pipes
-    // DomainModule,
+    DomainModule,
     // Material
     MatTableModule,
     MatCheckboxModule,

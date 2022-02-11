@@ -1,4 +1,4 @@
-@use '~scoped-var/strict' as * with ($host: 'scroll');
+@use 'scoped-var/strict' as * with ($host: 'scroll');
 
 :host {
 	@include property(--height, 100%);

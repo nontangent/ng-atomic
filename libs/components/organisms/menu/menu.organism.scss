@@ -1,4 +1,4 @@
-@use '~scoped-var/strict' as * with ($host: 'menu');
+@use 'scoped-var/strict' as * with ($host: 'menu');
 
 :host {
 	@include property(--primary-color, blue);

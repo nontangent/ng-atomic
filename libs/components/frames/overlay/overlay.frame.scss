@@ -1,4 +1,4 @@
-@use '~scoped-var/strict' as * with ($host: 'line-overlay');
+@use 'scoped-var/strict' as * with ($host: 'line-overlay');
 
 :host {
     @include var(--cell, 8px);

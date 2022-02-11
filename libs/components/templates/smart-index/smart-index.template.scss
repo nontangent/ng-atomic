@@ -1,8 +1,8 @@
-@use '~scoped-var/strict' as * with ($host: 'smart-index');
+@use 'scoped-var/strict' as * with ($host: 'smart-index');
 @use 'atomic/template' as *;
 
 :host {
-  @include var(--navigator-height, 56px);
+  @include property(--navigator-height, 56px);
 }
 
 :host {

@@ -1,4 +1,4 @@
-@use '~scoped-var/strict' as * with ($host: 'heading');
+@use 'scoped-var/strict' as * with ($host: 'heading');
 
 :host {
   @include property(--horizontal-padding, 16px);

@@ -1,4 +1,4 @@
-@use '~scoped-var/strict' as * with ($host: 'line-up');
+@use 'scoped-var/strict' as * with ($host: 'line-up');
 
 :host {
 	@include property(--gap, 1px);

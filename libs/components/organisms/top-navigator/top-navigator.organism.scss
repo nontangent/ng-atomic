@@ -1,10 +1,10 @@
-// @import 'host-variable';
-// @import 'atomic/organism';
-// $host: host('top-navigator');
+@use 'scoped-var/strict' as * with($host: 'top-navigator');
+@use 'atomic/organism' as *;
 
-// :host {
-// 	@include organism($host);
-// }
+:host {
+	@include organism($host);
+	@include external-property(--primary-500);
+}
 
 :host {
 	width: 100%;
