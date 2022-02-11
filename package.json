@@ -27,7 +27,6 @@
     "dep-graph": "nx dep-graph",
     "publish:common": "cd dist/libs/common && npm version $PACKAGE_VERSION && npm publish --access=public --ignore-scripts",
     "publish:components": "cd dist/libs/components && npm version $PACKAGE_VERSION && npm publish --access public --ignore-scripts",
-    "prepare": "npx simple-git-hooks",
     "link:common": "cd dist/libs/common && npm link",
     "link:components": "cd dist/libs/components && npm link",
     "help": "nx help"
