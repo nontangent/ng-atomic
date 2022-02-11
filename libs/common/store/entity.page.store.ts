@@ -1,5 +1,5 @@
 import { ComponentStore } from '@ngrx/component-store';
-import { LoadingService, SnackBarService } from '../services';
+import { LoadingService, SnackBarService } from '@ng-atomic/common/services';
 import { Observable } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 

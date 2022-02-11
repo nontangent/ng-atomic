@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { comma } from '../../utils/comma';
+import { comma } from '@ng-atomic/common/utils';
 
 @Pipe({
   name: 'yen'

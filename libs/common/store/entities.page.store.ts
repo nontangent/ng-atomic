@@ -1,8 +1,8 @@
 import { ComponentStore } from '@ngrx/component-store';
-import { LoadingService } from '../services';
+import { LoadingService } from '@ng-atomic/common/services';
 // import { Page } from '../components/templates/smart-index';
-import { filterByQuery } from '../utils/query';
-import { compareById } from '../utils/compare-by-id';
+import { filterByQuery } from '@ng-atomic/common/utils';
+import { compareById } from '@ng-atomic/common/utils';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, tap, map, filter, switchMap } from 'rxjs/operators';
 
