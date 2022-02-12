@@ -1,0 +1,9 @@
+#! /bin/bash
+LAST_COMMIT_MESSAGE="$(git show -s --format=%s)";
+LAST_TAG="$(git describe --tags --abbrev=0 --always)";
+
+if [ "$LAST_COMMIT_MESSAGE" == "chore(release): $LAST_TAG" ]; then 
+  echo true
+else
+  echo false
+fi
