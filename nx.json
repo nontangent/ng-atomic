@@ -29,6 +29,8 @@
     "common": { "tags": [] },
     "components": { "tags": [] },
     "schematics": { "tags": [] },
-    "components-e2e": { "tags": [], "implicitDependencies": ["components"] }
+    "components-e2e": { "tags": [], "implicitDependencies": ["components"] },
+    "elements": { "tags": [] },
+    "elements-e2e": { "tags": [], "implicitDependencies": ["elements"] }
   }
 }
