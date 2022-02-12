@@ -14,7 +14,9 @@ jobs:
           node-version: 16.x
           cache: npm
       - run: npm i
-      - run: npx nx build firestore --with-deps
+      - run: npx nx build common
+      - run: npx nx build components
+      - run: npx nx build schematics
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
