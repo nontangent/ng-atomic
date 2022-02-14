@@ -3,4 +3,4 @@ export * from './compare-by-id';
 export * from './mat-dayjs-date';
 export * from './to-object';
 export * from './query';
-export * from './define-element';
+// export * from './define-element';
