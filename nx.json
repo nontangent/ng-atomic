@@ -30,7 +30,6 @@
     "components": { "tags": [] },
     "schematics": { "tags": [] },
     "components-e2e": { "tags": [], "implicitDependencies": ["components"] },
-    "elements": { "tags": [] },
-    "elements-e2e": { "tags": [], "implicitDependencies": ["elements"] }
+    "elements": { "tags": []}
   }
 }

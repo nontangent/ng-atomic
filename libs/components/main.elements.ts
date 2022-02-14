@@ -9,7 +9,7 @@ let platform: PlatformRef;
   platform ??= platformBrowserDynamic();
 
   const [path, ModuleName] = _path.split('#');
-  const m = await import(`../../../libs/components/${path}.element`);
+  const m = await import(`./${path}.element`);
 
   platform
     .bootstrapModule(m[ModuleName])
