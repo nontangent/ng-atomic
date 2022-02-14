@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { comma } from '@ng-atomic/common/utils';
+import { yenTransform } from '@ng-atomic/common/utils';
 
 @Pipe({
   name: 'yen'
@@ -7,7 +7,7 @@ import { comma } from '@ng-atomic/common/utils';
 export class YenPipe implements PipeTransform {
 
   transform(value: number, _unit?: string): string {
-    return value < 1 ? `${comma(value * 100)}%` : `${comma(value)}円`;
+    return yenTransform(value, _unit);
   }
 
 }

@@ -1,5 +1,5 @@
 import { ComponentStore } from '@ngrx/component-store';
-import { LoadingService } from '@ng-atomic/common/services';
+import { LoadingService, QueryResolverService } from '@ng-atomic/common/services';
 // import { Page } from '../components/templates/smart-index';
 import { filterByQuery } from '@ng-atomic/common/utils';
 import { compareById } from '@ng-atomic/common/utils';
@@ -23,11 +23,14 @@ export abstract class EntitiesPageStore<S extends EntitiesPageState<E>, E extend
   get idSet(): Set<string> { return this.get(state => state.idSet); }
 
   userId$ = this.select(state => state.userId).pipe(filter(userId => !!userId));
-  entities$ = this.select(({query, entities}) => filterByQuery(entities, query, this.LANG_MAP))
+  entities$ = this.select(({query, entities}) => this.queryResolver.resolve(entities, query, this.LANG_MAP))
     .pipe(map((entities: E[]) => entities.sort(compareById)))
     .pipe(distinctUntilChanged((pre, cur) => JSON.stringify(pre) === JSON.stringify(cur)));
 
-  constructor(initialState: S) {
+  constructor(
+    initialState: S,
+    public queryResolver = new QueryResolverService(),
+  ) {
     super(initialState);
     this.getPage(this.entities$);
     this.getEntities(this.userId$);
