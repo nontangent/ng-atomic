@@ -39,4 +39,5 @@ testem.log
 Thumbs.db
 
 # Storybool
+storybook-static
 documentation.json
