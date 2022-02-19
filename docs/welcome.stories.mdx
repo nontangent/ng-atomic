@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Introduction/Welcome" />
+
+# Welcome to NgAtomic!!
+
+NgAtomic is a design system framework for all web platforms like **Angular, Vue and React**. 
+
+We achieved this concept by creating [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) via Angular Elements
+and deploying to GitHub Pages.
+
+## Intsallation
+
+```sh
+$ npx create-ng-atomic-workspace
+// or if you use existed 
+$ ng add @ng-atomic/schematics
+```
+
+## Development
+Run following code, starting to serve storybook for components library.
+
+```sh
+$ ng serve components
+```
+
+## Generate Component
+
+```sh
+$ ng g atom example
+```
+
+## Deploy as WebComponents(GitHub Pages)
+```sh
+$ ng deploy components
+```
+
+## Load Web Components in Your Website
+
+```html
+<html>
+<body>
+  <atoms-example></atoms-example>
+  <script src="https://<:userName>.github.io/<:repositoryName>/main.js"></script>
+  <script>
+    ngAtomicLoader.load({'*': ['atoms-example']})
+  </script>
+</body>
+</html>
+```

@@ -7,5 +7,5 @@
     "../**/*.spec.jsx",
     "../**/*.element.ts"
   ],
-  "include": ["../libs/components/**/*"]
+  "include": ["../docs/**/*", "../libs/components/**/*"]
 }
