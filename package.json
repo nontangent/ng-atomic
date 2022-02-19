@@ -93,6 +93,7 @@
     "@types/webpack": "4.41.21",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "angular-cli-ghpages": "^1.0.0",
     "babel-loader": "^8.2.3",
     "commitlint": "^16.1.0",
     "css-loader": "^5.2.7",

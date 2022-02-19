@@ -290,8 +290,23 @@
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
+          "outputs": ["dist/storybook"],
           "options": {
             "browserTarget": "demo:build"
+          }
+        },
+        "dummy-for-deploy": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "storybook-static"
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "buildTarget": "components:dummy-for-deploy",
+            "baseHref": "ng-atomic",
+            "noBuild": true
           }
         }
       }
