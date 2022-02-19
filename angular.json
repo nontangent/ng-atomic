@@ -48,6 +48,11 @@
             "tsConfig": "apps/demo/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/components/styles"
+              ]
+            },
             "styles": [
               "apps/demo/src/styles.scss",
               "@angular/material/prebuilt-themes/indigo-pink.css"
@@ -268,34 +273,19 @@
           }
         },
         "storybook": {
-          "builder": "@nrwl/storybook:storybook",
+          "builder": "@storybook/angular:start-storybook",
           "options": {
-            "uiFramework": "@storybook/angular",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/components/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "uiFramework": "@storybook/angular",
-            "outputPath": "dist/storybook/components",
-            "config": {
-              "configFolder": "libs/components/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
+            "browserTarget": "demo:build",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "libs/components/styles"
+              ]
+            },
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css"
+            ],
+            "compodoc": false,
+            "port": 4400
           }
         }
       }

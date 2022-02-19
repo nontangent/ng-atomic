@@ -4,7 +4,8 @@
     "../**/*.spec.js",
     "../**/*.spec.ts",
     "../**/*.spec.tsx",
-    "../**/*.spec.jsx"
+    "../**/*.spec.jsx",
+    "../**/*.element.ts"
   ],
-  "include": ["../**/*"]
+  "include": ["../libs/components/**/*"]
 }

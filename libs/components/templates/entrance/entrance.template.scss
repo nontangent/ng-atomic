@@ -1,4 +1,4 @@
-@use 'scoped-var/strict' as * with ($host: 'entrance');
+@use '~scoped-var/strict' as * with ($host: 'entrance');
 
 :host {
   @include property(--horizontal-padding, 64px);
@@ -19,9 +19,11 @@
     flex-direction: column;
 
     width: 600px;
+    max-width: calc(100% - 32px);
     height: fit-content;
 
     * {
+      max-width: calc(100% - 32px);
       --horizontal-padding: #{var(--horizontal-padding)};
     }
   }

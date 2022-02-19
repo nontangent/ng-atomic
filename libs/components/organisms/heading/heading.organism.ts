@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'organisms-heading',
@@ -6,4 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./heading.organism.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeadingOrganism {}
+export class HeadingOrganism {
+  @Input()
+  level: 1 | 2 | 3 | 4 | 5 | 6 = 1;
+}

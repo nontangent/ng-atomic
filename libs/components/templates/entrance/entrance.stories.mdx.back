@@ -1,9 +1,0 @@
-import { Meta, Story } from '@storybook/addon-docs';
-import { EntranceTemplate } from './entrance.template';
-
-<Meta title="Templates/Entrance" component={EntranceTemplate}/>
-
-# あああああ
-なにｋも
-
-<Story name="Default"></Story>

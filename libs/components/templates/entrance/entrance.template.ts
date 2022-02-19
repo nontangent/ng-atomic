@@ -14,5 +14,8 @@ export class EntranceTemplate {
   isPasswordSectionShown = true;
 
   @Output()
+  submitButtonClick = new EventEmitter<void>();
+
+  @Output()
   signInWithGoogleButtonClick = new EventEmitter<void>();
 }

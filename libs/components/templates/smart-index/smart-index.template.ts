@@ -57,7 +57,11 @@ export class SmartIndexTemplate<T> {
   selectedIdSet = new Set<string>();
 
   @Input()
-  page!: PageEvent;
+  page: PageEvent = {
+    pageIndex: 0,
+    pageSize: 20,
+    length: 100,
+  };
 
   @Input()
   queryPlaceholder = '';
