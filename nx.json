@@ -27,7 +27,7 @@
     "demo": { "tags": [] },
     "demo-e2e": { "tags": [], "implicitDependencies": ["demo"] },
     "common": { "tags": [] },
-    "components": { "tags": [] },
+    "components": { "tags": [], "implicitDependencies": ["common"] },
     "schematics": { "tags": [] },
     "components-e2e": { "tags": [], "implicitDependencies": ["components"] },
     "elements": { "tags": []}
