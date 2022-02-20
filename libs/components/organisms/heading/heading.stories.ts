@@ -4,6 +4,11 @@ import { HeadingModule, HeadingOrganism } from '.';
 export default {
   title: 'Organisms/Heading',
   component: HeadingOrganism,
+  argTypes: {
+    level: {
+      control: { type: "select", options: [1, 2, 3, 4, 5, 6] },
+    },
+  },
 } as Meta;
 
 

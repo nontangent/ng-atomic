@@ -1,12 +1,24 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { Meta, Story } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
 import { SmartCrudTemplate, SmartCrudModule } from '.';
 
 export default {
   title: 'Templates/SmartCrud',
   component: SmartCrudTemplate,
+  argTypes: {
+    mode: {
+      control: { type: "select", options: ["create", "update"] },
+    },
+  },
 } as Meta;
+
+const ACTIONS = {
+  backButtonClick: action('backButtonClick'),
+  createButtonClick: action('createButtonClick'),
+  updateButtonClick: action('updateButtonClick'),
+};
 
 const Template: Story = (args) => ({
   props: {
@@ -14,6 +26,7 @@ const Template: Story = (args) => ({
     form: new FormGroup({
       id: new FormControl(1),
     }),
+    ...ACTIONS,
   },
   moduleMetadata: {
     imports: [
