@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/nontangent/ng-atomic/compare/v1.2.0...v1.2.1) (2022-02-20)
+
+
+### Bug Fixes
+
+* **storybook:** modify control type ([6c557e8](https://github.com/nontangent/ng-atomic/commit/6c557e83c3e5ef6a32749a7d7f26ba5217ee4320))
+
 # [1.2.0](https://github.com/nontangent/ng-atomic/compare/v1.1.0...v1.2.0) (2022-02-20)
 
 
