@@ -1,11 +1,9 @@
-import { AfterViewInit, Directive, ElementRef, HostListener } from '@angular/core';
+import { AfterViewInit, Directive, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[iosSafariScrollBuggyfill]'
 })
 export class IosSafariScrollBuggyfillDirective implements AfterViewInit {
-
-  constructor(private el: ElementRef) { }
 
   ngAfterViewInit(): void {
     // this.el.nativeElement.addEventListener('touchmove', (e: Event) => {
