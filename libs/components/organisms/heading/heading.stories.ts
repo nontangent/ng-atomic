@@ -8,7 +8,7 @@ export default {
 
 
 const Template: Story = (args) => ({
-  template: `<organisms-heading [level]="level"><span>TEST2</span></organisms-heading>`,
+  template: `<organisms-heading [level]="level">TEST</organisms-heading>`,
   props: {...args},
   moduleMetadata: {
     imports: [HeadingModule]
@@ -17,5 +17,5 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  level: '1',
+  level: 1,
 };
