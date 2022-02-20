@@ -3,8 +3,10 @@ export const parameters = {
     storySort: {
       order: [
         'Introduction',
-        'Introduction/Welcome', 
-        'Introduction/Schematics',
+        [
+          'Welcome', 
+          'Schematics',
+        ],
         'Atoms', 'Molecules', 'Organisms', 'Templates', 'Pages', 'Frames'],
     },
   },
