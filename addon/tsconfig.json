@@ -7,6 +7,6 @@
     "../**/*.spec.jsx",
     "../**/*.element.ts"
   ],
-  "typeRoots": ["types", "node_modules/@types"],
+  "types": ["wicg-file-system-access"],
   "include": ["../docs/**/*", "../libs/components/**/*"]
 }
