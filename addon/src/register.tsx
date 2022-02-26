@@ -1,6 +1,5 @@
 // /my-addon/src/register.js
-import { addons, types, useStoryContext } from '@storybook/addons';
-import { useStorybookState } from '@storybook/api';
+import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import React from 'react';
 import { EditorPanel } from './components';
@@ -11,9 +10,9 @@ const ADDON_ID = 'myaddon';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 
-const openSelectProjectModal = async (callback: () => Promise<void>) => new Promise((resolve) => {
-  const modal = document.createElement('div')
-  modal.style.cssText = `
+const openSelectProjectDialog = () => new Promise((resolve) => {
+  const dialog = document.createElement('div')
+  dialog.style.cssText = `
     position: fixed;
     z-index: 10000;
     background: rgba(0, 0, 0, .6);
@@ -25,41 +24,38 @@ const openSelectProjectModal = async (callback: () => Promise<void>) => new Prom
   `;
   const button = document.createElement('button');
   button.innerText = 'Select Project';
-  modal.append(button);
-  button.addEventListener('click', async () => {
-    await callback();
-    document.body.removeChild(modal);
+  dialog.append(button);
+  button.addEventListener('click', () => {
+    document.body.removeChild(dialog);
     resolve(null);
   });
-  document.body.appendChild(modal);
+  document.body.appendChild(dialog);
 });
 
+const addPanel = ({title, language, type}: EditorPanelConfig, api) => {
+  addons.add(title, {
+    type: types.PANEL,
+    title,
+    render: ({ active, key }) => (
+      <AddonPanel active={active} key={key}>
+        <EditorPanel
+          title={title}
+          language={language} 
+          type={type}
+          fileService={FileService.instance}
+          api={api}
+
+        />
+      </AddonPanel>
+    ),
+  });
+}
+
 addons.register(ADDON_ID, async (api) => {
-  const fileService = new FileService();  
-  // await fileService.loadFileHandleMapFromIndexedDB();
+  const fileService = FileService.instance;  
+  PANELS.forEach(panel => addPanel(panel, api));
 
-  const addPanel = ({title, language, type}: EditorPanelConfig) => {
-    addons.add(title, {
-      type: types.PANEL,
-      title: title,
-      render: ({ active, key }) => {
-        return <AddonPanel active={active} key={key}>
-          {(() => <EditorPanel
-            title={title}
-            language={language} 
-            type={type as any}
-            fileService={fileService}
-            api={api}
-          />)()}
-        </AddonPanel>
-      },
-    });
-  }
-
-  PANELS.forEach(panel => addPanel(panel));
-
-  await openSelectProjectModal(async () => {
-    await fileService.loadFileHandleMapFromIndexedDB();
-
-  });  
+  openSelectProjectDialog()
+    .then(() => fileService.loadFileHandleMapFromIndexedDB())
+    .then(() => fileService.refresh$.next());  
 });

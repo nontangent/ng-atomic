@@ -1,33 +1,35 @@
+import { FileType } from "./components";
+
 export interface EditorPanelConfig {
   title: string;
   language: string;
-  type: string;
+  type: FileType;
 }
 
 export const PANELS: EditorPanelConfig[] = [
   {
     title: 'Template',
     language: 'html',
-    type: 'template.html',
+    type: 'template',
   },
   {
     title: 'Style',
     language: 'scss',
-    type: 'template.scss',
+    type: 'style',
   },
   {
     title: 'Component',
     language: 'typescript',
-    type: 'template.ts',
+    type: 'component',
   },
   {
     title: 'Module',
     language: 'typescript',
-    type: 'module.ts',
+    type: 'module',
   },
   {
-    title: 'StoryBook',
+    title: 'Stories',
     language: 'typescript',
-    type: 'stories.ts',
+    type: 'stories',
   }
 ];

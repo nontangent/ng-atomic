@@ -6,12 +6,7 @@ interface State {
   initialized: boolean;
 }
 
-interface Props {
-  state: {
-    language: string;
-    contents: string;
-  }
-}
+interface Props { }
 
 
 const DEFAULT_OPTIONS = {
@@ -23,7 +18,7 @@ const DEFAULT_OPTIONS = {
   theme: 'vs-dark',
 };
 
-export const Editor = forwardRef(({state}: Props, ref) => {
+export const Editor = React.memo(forwardRef(({}: Props, ref) => {
   const el: React.RefObject<HTMLDivElement> = React.createRef();
   let _editor!: editor.IStandaloneCodeEditor;
 
@@ -31,22 +26,16 @@ export const Editor = forwardRef(({state}: Props, ref) => {
     _editor = editor.create(el.current, options);
   };
 
-  const getValue = () => _editor.getValue();
-
-  useImperativeHandle(ref, () => ({
-    getValue: () =>{
-      return getValue();
-    }
-  }));
+  useImperativeHandle(ref, () => ({editor: _editor}));
 
   useEffect(() => {
     initEditor({
       ...DEFAULT_OPTIONS,
-      value: state.contents,
-      language: state.language,
+      value: '',
+      language: '',
     });
     return () => _editor.dispose();
-  }, [state]);
+  });
 
   return <div ref={el} style={{height: "100%"}}></div>;
-})
+}))

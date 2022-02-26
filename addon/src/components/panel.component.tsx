@@ -1,39 +1,73 @@
 import { API, Story } from '@storybook/api';
 import React, { useState, useEffect, useRef } from 'react';
 import { FileService } from '../services';
-import { Editor } from './editor.component';
-import { isMetaKey, parseFileName } from '../utils';
+// import { Editor } from './editor.component';
+import { FileMeta, parseFileName } from '../utils';
+import { editor } from 'monaco-editor';
+import Editor, { useMonaco, loader } from "@monaco-editor/react";
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 interface State {
-  contents?: string;
   dir?: string;
   name?: string;
   type?: string;
   ext?: string;
 }
 
+export type FileType = 'component' | 'module' | 'template' | 'style' | 'stories';
+
 interface Props {
   title: string;
   language: string;
-  type: 'stories.ts' | 'module.ts' | 'template.ts' | 'template.html' | 'template.scss';
-  api: API;
-  fileService: FileService;
+  type: FileType;
+  api?: API;
+  fileService?: FileService;
 }
 
-const buildFilePath = ({dir, name, type}: State): string => `${dir}${name}.${type}`;
+const getExt = (type: FileType) => {
+  switch(type) {
+    case 'component': return 'ts';
+    case 'module': return 'ts';
+    case 'template': return 'html';
+    case 'style': return 'scss';
+    case 'stories': return 'ts';
+  }
+};
 
-export function EditorPanel(props: Props) {
-  const [contents, setContents] = useState('');
+export class FilePathResolver {
+  resolve({dir, name, type}: Partial<FileMeta>) {
+    const ext = getExt(type as FileType);
+    if (new Set(['component', 'style', 'template']).has(type)) {
+      return `${dir}/${name}.${getType(dir)}.${ext}`;
+    }
+    return `${dir}/${name}.${type}.${ext}`;
+  }
+}
+
+const getType = (dir: string) => {
+  return dir.match(/components\/(.+)\//)?.[1].slice(0, -1);
+}
+
+export const EditorContainer = ((props: Props) => {
+  const fileService = FileService.instance;
   const [language] = useState(props.language);
   const [type] = useState(props.type);
+  const editorRef = useRef<editor.IStandaloneCodeEditor>(null);
+  const resolver = new FilePathResolver();
 
-  const editorRef = useRef<any>(null);
+  const buildFilePath = ({type}): string => {
+    const {dir, name} = getMeta();
+    return resolver.resolve({dir, name, type});
+  };
 
   const loadContents = async () => {
-    const [dir, name] = getMeta();
-    const path = buildFilePath({type, dir, name});
-    const contents = await props.fileService.loadFileText(path);
-    setContents(contents);
+    if (!fileService.isLoaded) return; 
+    const path = buildFilePath({type});
+    const contents = await fileService.loadFileText(path);
+    if (editorRef?.current?.getValue() !== contents) {
+      editorRef?.current?.setValue(contents);
+    }
   };
 
   const getStoryFilePath = () => {
@@ -41,32 +75,46 @@ export function EditorPanel(props: Props) {
     return story?.parameters?.fileName ?? '';
   }
 
-  const getMeta = (): [string, string, string] => {
+  const getMeta = (): FileMeta => {
     const path = getStoryFilePath();
     return parseFileName(path);
   }
 
+  const onEditorMounted = (editor, monaco) => {
+    editorRef.current = editor; 
+  };
+
   const onSaveKeyDown = () => {
     if (props.api.getSelectedPanel() !== props.title) return;
-    const [dir, name] = getMeta();
-    const path = buildFilePath({type, dir, name});
+    const path = buildFilePath({type});
     const value = editorRef?.current?.getValue();
-    props.fileService.overwrite(path, value);
+    fileService.overwrite(path, value);
   };
 
   useEffect(() => {
-    const listener = async e => {
-      if (isMetaKey(e) && e.key === 's') {
-        e.preventDefault();
-        e.stopPropagation();
-        onSaveKeyDown();
-      }
-    };
-    document.addEventListener('keydown', listener);
-    return () => document.removeEventListener('keydown', listener);
+    const destroy$ = new ReplaySubject<void>(1);
+    fileService.saveKeyDown$.pipe(takeUntil(destroy$)).subscribe((e) => onSaveKeyDown());
+    fileService.refresh$.pipe(takeUntil(destroy$)).subscribe(() => loadContents());
+    return () => destroy$.next();
   });
 
-  props.fileService.isLoaded && loadContents();
+  loadContents();
   
-  return <Editor ref={editorRef} state={{contents, language}} />;
-}
+  return <Editor
+    theme="vs-dark"
+    language={language}
+    onMount={onEditorMounted}
+    options={{automaticLayout: true}}
+  />;
+});
+
+export const _Editor = React.memo(({onMount, value}: any) => <Editor onMount={onMount} value={value} />);
+
+export const EditorPanel = ((props: Props) => {
+  return <EditorContainer 
+    title={props.title}
+    language={props.language} 
+    type={props.type}
+    api={props.api}
+  />
+});
