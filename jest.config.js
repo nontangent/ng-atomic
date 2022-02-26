@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/libs/components',
     '<rootDir>/libs/schematics',
     '<rootDir>/apps/elements',
+    '<rootDir>/libs/web-api',
   ],
 };

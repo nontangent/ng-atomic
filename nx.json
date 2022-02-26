@@ -30,6 +30,7 @@
     "components": { "tags": [], "implicitDependencies": ["common"] },
     "schematics": { "tags": [] },
     "components-e2e": { "tags": [], "implicitDependencies": ["components"] },
-    "elements": { "tags": []}
+    "elements": { "tags": [] },
+    "web-api": { "tags": [] }
   }
 }
