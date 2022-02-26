@@ -414,7 +414,7 @@
             "outputPath": "dist/libs/web-api",
             "main": "libs/web-api/src/main.ts",
             "tsConfig": "libs/web-api/tsconfig.app.json",
-            "assets": ["libs/web-api/src/assets"]
+            "assets": []
           },
           "configurations": {
             "production": {
@@ -428,7 +428,7 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api:build"
+            "buildTarget": "web-api:build"
           }
         }
       }
