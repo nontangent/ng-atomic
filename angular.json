@@ -396,15 +396,39 @@
             "passWithNoTests": true
           }
         },
-        "build": {
+        "pack": {
           "builder": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/web-api",
             "tsConfig": "libs/web-api/tsconfig.lib.json",
             "packageJson": "libs/web-api/package.json",
-            "main": "libs/web-api/src/index.ts",
+            "main": "libs/web-api/src/main.ts",
             "assets": ["libs/web-api/*.md"]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/web-api",
+            "main": "libs/web-api/src/main.ts",
+            "tsConfig": "libs/web-api/tsconfig.app.json",
+            "assets": ["libs/web-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": []
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
           }
         }
       }
