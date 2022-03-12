@@ -57,6 +57,12 @@ export class SmartIndexTemplate<T> {
   selectedIdSet = new Set<string>();
 
   @Input()
+  sortKey?: string;
+
+  @Input()
+  sortOrder?: string;
+
+  @Input()
   page: PageEvent = {
     pageIndex: 0,
     pageSize: 20,
@@ -77,5 +83,8 @@ export class SmartIndexTemplate<T> {
 
   @Output()
   pageChange = new EventEmitter<PageEvent>();
+
+  @Output()
+  tableHeaderClick = new EventEmitter<string>();
 
 }

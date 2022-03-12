@@ -13,8 +13,11 @@
       [actionItems]="actionItems"
       [columns]="properties"
       [selectedIdSet]="selectedIdSet"
+      [sortKey]="sortKey"
+      [sortOrder]="sortOrder"
       (actionItemClick)="actionItemClick.emit($event)"
       (checkboxClick)="checkboxClick.emit($event)"
+      (headerClick)="tableHeaderClick.emit($event)"
     ></organisms-smart-table>
     <organisms-paginator
       [control]="queryControl"
