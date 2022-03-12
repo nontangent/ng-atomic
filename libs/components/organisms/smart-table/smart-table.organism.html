@@ -12,7 +12,13 @@
       [actionItems]="actionItems"
       (actionItemClick)="actionItemClick.emit($event)"
     ></molecules-actions-column>
-    <molecules-smart-column *ngSwitchDefault [name]="name" [headerText]="name | D"></molecules-smart-column>
+    <molecules-smart-column
+      *ngSwitchDefault
+      [name]="name"
+      [headerText]="name | D"
+      [sort]="sortKey === name ? sortOrder : 'none'"
+      (headerClick)="headerClick.emit(name)"
+    ></molecules-smart-column>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

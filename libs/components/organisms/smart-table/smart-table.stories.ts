@@ -6,10 +6,16 @@ import { SmartTableOrganism, SmartTableModule } from '.';
 export default {
   title: 'Organisms/SmartTable',
   component: SmartTableOrganism,
+  argTypes: {
+    sortOrder: {
+      control: { type: 'select', options: ['asc', 'desc', undefined] },
+    }
+  }
 } as Meta;
 
 const ACTIONS = {
   pageChange: action('pageChange'),
+  headerClick: action('headerClick'),
 };
 
 
@@ -40,4 +46,19 @@ Default.args = {
     pageSize: 20,
     length: 100,
   },
+  columns: ['id', 'name', 'description'],
+  items: [
+    { id: 11, name: 'Dr Nice', description: '', realName: 'Alex' },
+    { id: 12, name: 'Narco', description: '', realName: 'Alex' },
+    { id: 13, name: 'Bombasto', description: '', realName: 'Alex' },
+    { id: 14, name: 'Celeritas', description: '', realName: 'Alex' },
+    { id: 15, name: 'Magneta', description: '', realName: 'Alex' },
+    { id: 16, name: 'RubberMan', description: '', realName: 'Alex' },
+    { id: 17, name: 'Dynama', description: '', realName: 'Alex' },
+    { id: 18, name: 'Dr IQ', description: '', realName: 'Alex' },
+    { id: 19, name: 'Magma', description: '', realName: 'Alex' },
+    { id: 20, name: 'Tornado', description: '', realName: 'Alex' }
+  ],
+  sortKey: 'id',
+  sortOrder: 'asc',
 };
