@@ -1,4 +1,6 @@
 th[mat-header-cell], td[mat-cell] {
+  cursor: pointer;
+
   .nowrap {
     max-width: 160px;
     overflow: hidden;
