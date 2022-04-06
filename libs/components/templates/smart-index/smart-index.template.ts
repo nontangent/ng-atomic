@@ -63,11 +63,14 @@ export class SmartIndexTemplate<T> {
   sortOrder?: string;
 
   @Input()
-  page: PageEvent = {
+  page?: PageEvent = {
     pageIndex: 0,
     pageSize: 20,
     length: 100,
   };
+
+  @Input()
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   @Input()
   queryPlaceholder = '';

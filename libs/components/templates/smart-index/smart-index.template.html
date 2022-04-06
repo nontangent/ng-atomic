@@ -20,8 +20,10 @@
       (headerClick)="tableHeaderClick.emit($event)"
     ></organisms-smart-table>
     <organisms-paginator
+      *ngIf="page"
       [control]="queryControl"
       [page]="page"
+      [pageSizeOptions]="pageSizeOptions"
       [placeholder]="queryPlaceholder"
       (pageChange)="pageChange.emit($event)"
     ></organisms-paginator>

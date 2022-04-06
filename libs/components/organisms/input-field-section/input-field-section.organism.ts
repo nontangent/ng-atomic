@@ -16,5 +16,8 @@ export class InputFieldSectionOrganism {
   placeholder = '';
 
   @Input()
+  hint = '';
+
+  @Input()
   control = new FormControl('');
 }

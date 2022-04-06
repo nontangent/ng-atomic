@@ -1,0 +1,43 @@
+@use 'scoped-var/strict' as * with ($host: 'line-up');
+
+:host {
+	@include property(--gap, 1px);
+	@include property(--background, #ccc);
+	@include property(--contents-background, transparent);
+}
+
+:host {
+	position: relative;
+
+	display: flex;
+	justify-content: flex-start;
+	gap: var(--gap);
+
+	width: fit-content;
+	height: 100%;
+
+	background: var(--background);
+
+	div {
+		display: flex;
+
+		max-width: fit-content;
+		height: 100%;
+		background: var(--contents-background);
+
+		&.main{
+			overflow: hidden;
+			justify-content: flex-end;
+		}
+
+		&.next{
+			// position: relative;
+			overflow: visible;
+			justify-content: flex-start;
+		}
+
+		// &.next:empty {
+		// 	display: none;
+		// }
+	}
+}
