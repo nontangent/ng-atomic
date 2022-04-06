@@ -11,7 +11,7 @@ export interface EntityPageState<Entity> {
   entity: Entity;
 }
 
-const tryCatch = (promise: Promise<any>) => new Promise(async (resolve, reject) => {
+export const tryCatch = (promise: Promise<any>) => new Promise(async (resolve, reject) => {
   try { resolve(await promise); } catch (error) { reject(error); }
 });
 
