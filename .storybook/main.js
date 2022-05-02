@@ -14,6 +14,9 @@ module.exports = {
   ],
   framework: "@storybook/angular",
   webpackFinal: async (config, { configType }) => {
+    config.plugins.push(new MonacoWebpackPlugin({
+      languages: ['typescript']
+    }));
     return config;
   },
   babel: async (options) => {

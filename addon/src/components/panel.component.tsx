@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FileService } from '../services';
 // import { Editor } from './editor.component';
 import { FileMeta, parseFileName } from '../utils';
-import { editor } from 'monaco-editor';
+import { editor, Uri } from 'monaco-editor';
+import * as monaco from 'monaco-editor';
 import Editor, { useMonaco, loader } from "@monaco-editor/react";
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { EditorService, ModelsService } from '../services/editor.service';
 
 interface State {
   dir?: string;
@@ -63,11 +65,14 @@ export const EditorContainer = ((props: Props) => {
 
   const loadContents = async () => {
     if (!fileService.isLoaded) return; 
-    const path = buildFilePath({type});
-    const contents = await fileService.loadFileText(path);
-    if (editorRef?.current?.getValue() !== contents) {
-      editorRef?.current?.setValue(contents);
-    }
+    // const path = buildFilePath({type});
+    // const contents = await fileService.loadFileText(path);
+    // if (editorRef?.current?.getValue() !== contents) {
+    //   editorRef?.current?.setValue(contents);
+    // }
+    const model = ModelsService.instance.models[0];
+    (model as any).getLanguageIdentifier = model.getLanguageId;
+    editorRef.current.setModel(model);
   };
 
   const getStoryFilePath = () => {
@@ -104,7 +109,7 @@ export const EditorContainer = ((props: Props) => {
     theme="vs-dark"
     language={language}
     onMount={onEditorMounted}
-    options={{automaticLayout: true}}
+    options={{automaticLayout: true, tabSize: 2}}
   />;
 });
 

@@ -6,8 +6,10 @@ import { get, set } from 'idb-keyval';
 import { fromEvent, ReplaySubject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
+type FileHandleMap = Map<string, FileSystemFileHandle>;
+
 export class FileService {
-  private fileHandleMap = new Map<string, FileSystemFileHandle>();
+  private _fileHandleMap: FileHandleMap = new Map();
 
   static _instance: FileService;
   static get instance(): FileService {
@@ -23,7 +25,11 @@ export class FileService {
   );
 
   get isLoaded(): boolean {
-    return !!this.fileHandleMap.size;
+    return !!this._fileHandleMap.size;
+  }
+
+  get fileHandleMap(): FileHandleMap {
+    return this._fileHandleMap;
   }
 
   async loadFileHandleMapFromIndexedDB() {
@@ -46,21 +52,21 @@ export class FileService {
   }
 
   async loadProject(handle: FileSystemDirectoryHandle): Promise<void> {
-    await walk(handle, (key, handle) => this.fileHandleMap.set(key, handle));
+    await walk(handle, (key, handle) => this._fileHandleMap.set(key, handle));
   }
 
   async loadFileText(path: string | RegExp): Promise<string> {
-    const handle = typeof path === 'string' ? this.fileHandleMap.get(path) : this.matchPath(path);
+    const handle = typeof path === 'string' ? this._fileHandleMap.get(path) : this.matchPath(path);
     const file = await handle.getFile();
     return file.text();
   }
 
   private matchPath(regExp: RegExp): FileSystemFileHandle {
-    return [...this.fileHandleMap.entries()].find(([key]) => !!key.match(regExp))?.[1];
+    return [...this._fileHandleMap.entries()].find(([key]) => !!key.match(regExp))?.[1];
   }
 
   async overwrite(path: string, contents: string): Promise<void> {
-    const handle = this.fileHandleMap.get(path);
+    const handle = this._fileHandleMap.get(path);
     const writable = await (handle as FileSystemFileHandle).createWritable();
 
     await writable.write(contents);

@@ -5,6 +5,9 @@ import React from 'react';
 import { EditorPanel } from './components';
 import { EditorPanelConfig, PANELS } from './config';
 import { FileService } from './services';
+import { ApiService } from './services/api.service';
+import { EditorService } from './services/editor.service';
+import { appendGenerateButtons } from './utils/append-generate-buttons';
 
 const ADDON_ID = 'myaddon';
 const PANEL_ID = `${ADDON_ID}/panel`;
@@ -51,11 +54,33 @@ const addPanel = ({title, language, type}: EditorPanelConfig, api) => {
   });
 }
 
+const onGenerateButtonClick = (type: string): void => {
+  const name = prompt('Please type component name');
+  if (!name) return;
+  const api = ApiService.instance;
+  api.generate({type, name})
+    .then(() => EditorService.instance.loadFiles())
+    .then(() => { alert('component created!!') });
+};
+
 addons.register(ADDON_ID, async (api) => {
-  const fileService = FileService.instance;  
+  const fileService = FileService.instance; 
   PANELS.forEach(panel => addPanel(panel, api));
 
   openSelectProjectDialog()
-    .then(() => fileService.loadFileHandleMapFromIndexedDB())
+    .then(() => EditorService.instance.loadFiles())
     .then(() => fileService.refresh$.next());  
+
+  setTimeout(() => appendGenerateButtons(onGenerateButtonClick), 500);
 });
+
+// addons.setConfig({
+//   sidebar: {
+//     showRoots: true,
+//     collapsedRoots: ['other'],
+//     renderLabel: (item) => {
+//       console.debug('item:', item);
+//       return item.isRoot ? <>{item.name}!!</> : <>{item.name}</>
+//     } 
+//   },
+// });

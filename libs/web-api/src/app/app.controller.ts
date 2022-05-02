@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { AppService } from './app.service';
 
@@ -6,8 +6,17 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @Post('ng/g/:type')
+  generate(
+    @Param('type') type: string,
+    @Body('name') name: string,
+  ) {
+    return this.appService.genAtomicComponent(type, name);
   }
+
+  @Post('ng/deploy')
+  deploy() {
+    return this.appService.deploy();
+  }
+
 }

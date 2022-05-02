@@ -5,13 +5,17 @@ export async function walk(
   callback: WalkCallback,
   cwd: string = '.',
 ) {
-  for await (const [key, entry] of dirHandle.entries()) {
-    if (cwd === '.' && key !== 'libs') continue;
+  const entries = await toArray(dirHandle.entries());
+  await Promise.all(entries.map(([key, entry]) => {
+    if (cwd === '.' && key !== 'libs') return;
+    return (entry.kind === 'directory') 
+      ? walk(entry, callback, `${cwd}/${entry.name}`)
+      : callback(`${cwd}/${key}`, entry);
+  }));
+}
 
-    if (entry.kind === 'directory') {
-      await walk(entry, callback, `${cwd}/${entry.name}`);
-    } else {
-      callback(`${cwd}/${key}`, entry)
-    }
-  }
+async function toArray<T>(asyncIterator: AsyncIterableIterator<T>): Promise<T[]>{ 
+  const arr=[]; 
+  for await(const i of asyncIterator) arr.push(i); 
+  return arr;
 }

@@ -31,6 +31,8 @@
     "schematics": { "tags": [] },
     "components-e2e": { "tags": [], "implicitDependencies": ["components"] },
     "elements": { "tags": [] },
-    "web-api": { "tags": [] }
+    "web-api": { "tags": [] },
+    "editor": { "tags": [] },
+    "editor-e2e": { "tags": [], "implicitDependencies": ["editor"] }
   }
 }
