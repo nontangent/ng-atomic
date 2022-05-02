@@ -1,0 +1,10 @@
+<div class="top">
+  <ng-content select=[header]></ng-content>
+  <organisms-menu
+    [actionItems]="actionItems"
+    (actionItemClick)="actionItemClick.emit($event)"
+  ></organisms-menu>
+</div>
+<div class="bottom">
+  <ng-content select=[footer]></ng-content>
+</div>

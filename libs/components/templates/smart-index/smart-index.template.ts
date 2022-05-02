@@ -42,6 +42,9 @@ export class SmartIndexTemplate<T> {
   title: string = '';
 
   @Input()
+  description?: string;
+
+  @Input()
   items: T[] = [];
 
   @Input()

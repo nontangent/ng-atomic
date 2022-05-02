@@ -12,6 +12,7 @@
 	height: 100%;
 	background: var(--primary-color);
 	color: var(--color);
+	box-sizing: border-box;
 
 	.mat-list-item {
 		height: 3rem !important;

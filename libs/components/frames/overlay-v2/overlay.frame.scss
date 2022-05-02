@@ -1,0 +1,65 @@
+@use 'scoped-var/strict' as * with ($host: 'line-overlay');
+
+:host {
+    @include var(--cell, 8px);
+    @include var(--width, 100%);
+    @include var(--height, 100%);
+}
+
+:host {
+    position: relative;
+    display: block;
+    width: var(--width);
+    height: var(--height);
+
+    .loading {
+        position: absolute;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+
+        display: flex; 
+        width: var(--width); 
+        height: var(--height);
+    
+        justify-content: center; 
+        align-items: center;
+
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+
+        width: var(--width);
+        height: var(--height);
+
+        overflow: hidden;
+
+        * {
+            --cell: #{var(--cell)};
+            --width: #{var(--width)};
+            --height: #{var(--height)};
+        }
+    }
+
+    .next {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+
+        width: var(--width);
+        height: auto;
+
+        * {
+            --cell: #{var(--cell)};
+            --width: #{var(--width)};
+            --height: #{var(--height)};
+        }
+    }
+
+}

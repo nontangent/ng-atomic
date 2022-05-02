@@ -16,6 +16,9 @@ export class InputFieldSectionOrganism {
   placeholder = '';
 
   @Input()
+  type: 'text' | 'number' | 'password' = 'text';
+
+  @Input()
   hint = '';
 
   @Input()

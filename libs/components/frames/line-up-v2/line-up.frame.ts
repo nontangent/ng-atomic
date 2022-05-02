@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LINE_UP_ANIMATIONS } from './line-up.animations';
@@ -8,6 +8,29 @@ enum Mode {
   MAIN = 'Main',
   BOTH = 'Both',
   NEXT = 'Next',
+}
+
+@Injectable({providedIn: 'root'})
+export class LineUpFrameService {
+  frames: LineUpFrame[] = [];
+
+  register(frame: LineUpFrame) {
+    this.frames.push(frame);
+    console.debug('this.frames:', this.frames);
+  }
+
+  unregister(frame: LineUpFrame) {
+    this.frames = this.frames.slice(0, this.findIndex(frame));
+  }
+
+  findIndex(frame: LineUpFrame): number {
+    return this.frames.findIndex((value) => value === frame);
+  }
+
+  propagate(frame: LineUpFrame): void {
+    const target = this.frames?.[this.findIndex(frame) - 1];
+    target?.refresh();
+  }
 }
 
 @Component({
@@ -21,16 +44,13 @@ export class LineUpFrame implements OnInit, OnDestroy {
   Mode = Mode;
   mode = Mode.MAIN;
 
+  private readonly refresh$ = new ReplaySubject(1);
   private readonly destroy$ = new ReplaySubject(1);
-
-  @Input()
-  label = 'root';
-
-  private _hasNext$ = new BehaviorSubject(false);  
+  private readonly hasNext$ = new BehaviorSubject(false);  
 
   @Input()
   set hasNext(value: boolean) {
-    this._hasNext$.next(value);
+    this.hasNext$.next(value);
   };
 
   @Input()
@@ -39,16 +59,29 @@ export class LineUpFrame implements OnInit, OnDestroy {
   @ViewChild('next', {static: true})
   nextElementRef!: ElementRef;
 
+  constructor(private service: LineUpFrameService) { }
+
   ngOnInit(): void {
-    combineLatest([this._hasNext$, fromResize(this.nextElementRef)])
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(([hasNext, width]) => {
-        this.mode = this.resolveMode(hasNext, width);
-      });
+    this.service.register(this);
+    this.refresh();
+    
+    combineLatest([
+      this.hasNext$, 
+      fromResize(this.nextElementRef),
+      this.refresh$,
+    ]).pipe(takeUntil(this.destroy$)).subscribe(([hasNext, width]) => {
+      this.mode = this.resolveMode(hasNext, width);
+      setTimeout(() => this.service.propagate(this), 0);
+    });
   }
 
   ngOnDestroy(): void {
+    this.service.unregister(this);
     this.destroy$.next(); 
+  }
+
+  refresh() {
+    this.refresh$.next();
   }
 
   private resolveMode(hasNext: boolean, width: number): Mode {
