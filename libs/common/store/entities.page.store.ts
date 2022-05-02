@@ -57,7 +57,7 @@ export abstract class EntitiesPageStore<S extends EntitiesPageState<E>, E extend
   getEntities = this.effect((userId$: Observable<string>) => userId$.pipe(
     filter(userId => !!userId),
     tap(() => this.loading.setKey('[/entities] Get Entities')),
-    switchMap(() => this._getEntities()),
+    switchMap((userId) => this._getEntities({userId})),
     tap((entities: E[]) => this.setEntities(entities)),
     tap(() => this.loading.removeKey('[/entities] Get Entities')),
   )); 
@@ -72,6 +72,6 @@ export abstract class EntitiesPageStore<S extends EntitiesPageState<E>, E extend
     }
   }
 
-  abstract _getEntities(): Observable<E[]>;
+  abstract _getEntities(data?: object): Observable<E[]>;
   abstract loading: LoadingService;
 }
