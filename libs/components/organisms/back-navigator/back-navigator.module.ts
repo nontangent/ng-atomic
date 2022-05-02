@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
+import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-button';
 
 import { BackNavigatorOrganism } from './back-navigator.organism';
 
@@ -17,7 +17,8 @@ import { BackNavigatorOrganism } from './back-navigator.organism';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatMenuModule,
+    // Atoms
+    SmartMenuButtonModule,
   ],
   exports: [
     BackNavigatorOrganism

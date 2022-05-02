@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "exclude": [
+    "../**/*.spec.js",
+    "../**/*.spec.ts",
+    "../**/*.spec.tsx",
+    "../**/*.spec.jsx",
+    "../**/*.element.ts"
+  ],
+  "compilerOptions": {
+    "types": ["wicg-file-system-access"],
+  },
+  "include": ["../docs/**/*", "../libs/components/**/*"]
+}

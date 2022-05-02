@@ -7,5 +7,6 @@
     "../**/*.spec.jsx",
     "../**/*.element.ts"
   ],
+  "typeRoots": ["types", "node_modules/@types"],
   "include": ["../docs/**/*", "../libs/components/**/*"]
 }

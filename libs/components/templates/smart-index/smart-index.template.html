@@ -1,7 +1,8 @@
 <frames-scroll>
   <organisms-back-navigator
     [canBack]="canBack"
-    [title]="title"    
+    [title]="title"
+    [description]="description"
     [actionItems]="menuActionItems"
     (actionItemClick)="actionItemClick.emit($event)"
     (backButtonClick)="backButtonClick.emit()"
@@ -13,12 +14,17 @@
       [actionItems]="actionItems"
       [columns]="properties"
       [selectedIdSet]="selectedIdSet"
+      [sortKey]="sortKey"
+      [sortOrder]="sortOrder"
       (actionItemClick)="actionItemClick.emit($event)"
       (checkboxClick)="checkboxClick.emit($event)"
+      (headerClick)="tableHeaderClick.emit($event)"
     ></organisms-smart-table>
     <organisms-paginator
+      *ngIf="page"
       [control]="queryControl"
       [page]="page"
+      [pageSizeOptions]="pageSizeOptions"
       [placeholder]="queryPlaceholder"
       (pageChange)="pageChange.emit($event)"
     ></organisms-paginator>

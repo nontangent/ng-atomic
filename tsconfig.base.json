@@ -19,7 +19,9 @@
       "@ng-atomic/common/*": ["libs/common/*"],
       "@ng-atomic/components": ["libs/components/index.ts"],
       "@ng-atomic/components/*": ["libs/components/*"],
-      "@ng-atomic/schematics": ["libs/schematics/src/index.ts"]
+      "@ng-atomic/schematics": ["libs/schematics/src/index.ts"],
+      "@ng-atomic/schematics/*": ["libs/schematics/src/*"],
+      "@ng-atomic/web-api": ["libs/web-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -21,6 +21,12 @@
         [control]="entry[1]"
       ></organisms-date-input-section>
       <organisms-input-field-section
+        *ngSwitchCase="'number'"
+        [type]="'number'"
+        [label]="entry[0] | D"
+        [control]="entry[1]"
+      ></organisms-input-field-section>
+      <organisms-input-field-section
         *ngSwitchDefault
         [label]="entry[0] | D"
         [control]="entry[1]"

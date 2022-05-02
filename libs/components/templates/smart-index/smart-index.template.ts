@@ -42,6 +42,9 @@ export class SmartIndexTemplate<T> {
   title: string = '';
 
   @Input()
+  description?: string;
+
+  @Input()
   items: T[] = [];
 
   @Input()
@@ -57,11 +60,20 @@ export class SmartIndexTemplate<T> {
   selectedIdSet = new Set<string>();
 
   @Input()
-  page: PageEvent = {
+  sortKey?: string;
+
+  @Input()
+  sortOrder?: string;
+
+  @Input()
+  page?: PageEvent = {
     pageIndex: 0,
     pageSize: 20,
     length: 100,
   };
+
+  @Input()
+  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   @Input()
   queryPlaceholder = '';
@@ -77,5 +89,8 @@ export class SmartIndexTemplate<T> {
 
   @Output()
   pageChange = new EventEmitter<PageEvent>();
+
+  @Output()
+  tableHeaderClick = new EventEmitter<string>();
 
 }

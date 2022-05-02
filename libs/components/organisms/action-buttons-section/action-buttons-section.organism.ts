@@ -14,4 +14,6 @@ export class ActionButtonsSectionOrganism {
 
   @Output()
   actionItemClick = new EventEmitter<[ActionItem]>();
+
+  trackById = (item: ActionItem) => item.id;
 }

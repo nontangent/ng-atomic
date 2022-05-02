@@ -33,8 +33,17 @@ export class SmartTableOrganism<Item extends object> {
   @Input()
   selectedIdSet = new Set<string>();
 
+  @Input()
+  sortKey?: string;
+
+  @Input()
+  sortOrder?: 'asc' | 'desc';
+
   @Output()
   actionItemClick = new EventEmitter<[ActionItem, Item]>();
+
+  @Output()
+  headerClick = new EventEmitter<string>();
   
   @Output()
   checkboxClick = new EventEmitter<[Item, boolean]>();

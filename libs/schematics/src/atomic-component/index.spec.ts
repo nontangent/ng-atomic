@@ -31,6 +31,7 @@ describe('AtomicComponent Schematics', () => {
       expect(files).toContain('/projects/app/src/app/_shared/components/example/example.component.scss');
       expect(files).toContain('/projects/app/src/app/_shared/components/example/example.component.spec.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/example/example.component.ts');
+      expect(files).toContain('/projects/app/src/app/_shared/components/example/example.stories.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/example/index.ts');
     });
   
@@ -44,6 +45,7 @@ describe('AtomicComponent Schematics', () => {
       expect(files).toContain('/projects/app/src/app/_shared/components/first/first.component.scss');
       expect(files).toContain('/projects/app/src/app/_shared/components/first/first.component.spec.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/first/first.component.ts');
+      expect(files).toContain('/projects/app/src/app/_shared/components/first/first.stories.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/first/index.ts');
 
       expect(files).toContain('/projects/app/src/app/_shared/components/second/second.module.ts');
@@ -51,6 +53,7 @@ describe('AtomicComponent Schematics', () => {
       expect(files).toContain('/projects/app/src/app/_shared/components/second/second.component.scss');
       expect(files).toContain('/projects/app/src/app/_shared/components/second/second.component.spec.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/second/second.component.ts');
+      expect(files).toContain('/projects/app/src/app/_shared/components/second/second.stories.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/second/index.ts');
   
       const source = tree.read('/projects/app/src/app/_shared/components/index.ts')!.toString('utf-8');
@@ -72,7 +75,7 @@ describe('AtomicComponent Schematics', () => {
       tree = await createNxWorkspace(runner, tree);
     });
 
-    it('', async () => {
+    xit('', async () => {
       const options = {project: 'app', name: '_shared/components/extras/example'};
       // const options = {project: 'app', path: '_shared/components/extras', name: 'example'};
       const { files } = await runner.runSchematicAsync('atomic-component', options, tree).toPromise();

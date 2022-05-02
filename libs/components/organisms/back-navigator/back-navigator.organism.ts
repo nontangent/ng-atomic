@@ -16,6 +16,9 @@ export class BackNavigatorOrganism {
   title?: string;
 
   @Input()
+  description?: string;
+
+  @Input()
   actionItems: ActionItem[] = [];
 
   @Output()

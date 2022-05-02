@@ -29,6 +29,31 @@
     },
     "@nrwl/angular:component": {
       "style": "scss"
+    },
+    "@ng-atomic/schematics": {
+      "atom": {
+        "path": "../atoms",
+        "project": "components"
+      },
+      "molecule": {
+        "path": "../molecules",
+        "project": "components"
+      },
+      "organism": {
+        "path": "../organisms",
+        "project": "components"
+      },
+      "template": {
+        "path": "../templates",
+        "project": "components"
+      },
+      "frame": {
+        "path": "../frames",
+        "project": "components"
+      },
+      "service": {
+        "flat": false
+      }
     }
   },
   "projects": {
@@ -49,9 +74,7 @@
             "aot": true,
             "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "libs/components/styles"
-              ]
+              "includePaths": ["libs/components/styles"]
             },
             "styles": [
               "apps/demo/src/styles.scss",
@@ -240,7 +263,7 @@
     "components": {
       "projectType": "library",
       "root": "libs/components",
-      "sourceRoot": "libs/components/src",
+      "sourceRoot": "libs/components",
       "prefix": "platform",
       "architect": {
         "build": {
@@ -272,18 +295,14 @@
             "passWithNoTests": true
           }
         },
-        "serve": {
+        "develop": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "browserTarget": "demo:build",
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "libs/components/styles"
-              ]
+              "includePaths": ["libs/components/styles"]
             },
-            "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css"
-            ],
+            "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
             "compodoc": false,
             "port": 4400
           }
@@ -379,6 +398,181 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/components-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "web-api": {
+      "root": "libs/web-api",
+      "sourceRoot": "libs/web-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/web-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-api"],
+          "options": {
+            "jestConfig": "libs/web-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "pack": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/web-api",
+            "tsConfig": "libs/web-api/tsconfig.lib.json",
+            "packageJson": "libs/web-api/package.json",
+            "main": "libs/web-api/src/main.ts",
+            "assets": ["libs/web-api/*.md"]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/web-api",
+            "main": "libs/web-api/src/main.ts",
+            "tsConfig": "libs/web-api/tsconfig.app.json",
+            "assets": []
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": []
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "web-api:build"
+          }
+        }
+      }
+    },
+    "editor": {
+      "projectType": "application",
+      "root": "apps/editor",
+      "sourceRoot": "apps/editor/src",
+      "prefix": "platform",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/apps/editor",
+            "index": "apps/editor/src/index.html",
+            "main": "apps/editor/src/main.ts",
+            "polyfills": "apps/editor/src/polyfills.ts",
+            "tsConfig": "apps/editor/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/editor/src/favicon.ico",
+              "apps/editor/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor"
+              }
+            ],
+            "styles": ["apps/editor/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/editor/src/environments/environment.ts",
+                  "with": "apps/editor/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "browserTarget": "editor:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "editor:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "editor:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/editor/src/**/*.ts",
+              "apps/editor/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "outputs": ["coverage/apps/editor"],
+          "options": {
+            "jestConfig": "apps/editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "editor-e2e": {
+      "root": "apps/editor-e2e",
+      "sourceRoot": "apps/editor-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/editor-e2e/cypress.json",
+            "tsConfig": "apps/editor-e2e/tsconfig.e2e.json",
+            "devServerTarget": "editor:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "editor:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/editor-e2e/**/*.{js,ts}"]
           }
         }
       }

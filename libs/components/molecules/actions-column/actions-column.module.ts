@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ActionsColumnMolecule } from './actions-column.molecule';
+import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-button';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { ActionsColumnMolecule } from './actions-column.molecule';
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
+    // Atoms
+    SmartMenuButtonModule,
   ],
   exports: [
     ActionsColumnMolecule

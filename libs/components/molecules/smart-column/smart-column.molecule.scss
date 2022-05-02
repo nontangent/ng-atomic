@@ -1,4 +1,12 @@
 th[mat-header-cell], td[mat-cell] {
+  cursor: pointer;
+
+  mat-icon.order {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+  }
+
   .nowrap {
     max-width: 160px;
     overflow: hidden;

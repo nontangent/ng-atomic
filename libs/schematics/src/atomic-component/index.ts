@@ -5,7 +5,6 @@ import {
 import * as strings from '@angular-devkit/core/src/utils/strings';
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
-import * as format from 'string-template';
 import { join } from 'path';
 import { Schema } from './schema';
 
@@ -19,8 +18,8 @@ export const atomicComponent = (options: Schema): Rule => async (host: Tree, _: 
 		externalSchematic('@schematics/angular', 'module', {name, path, project: options.project}),
 		externalSchematic('@schematics/angular', 'component', {...options, export: true}),
 		// externalSchematic('angular-host-css-variable', 'component', {...options, styleHeader: format(options.styleHeader, { name, type }), export: true}),
-		mergeWith(apply(url('./files'), [applyTemplates({...strings, name}), move(path)])),
-		addExportIntoIndexTs({ ...options })
+		mergeWith(apply(url('./files'), [applyTemplates({...strings, name, type: type ?? 'component'}), move(path)])),
+		// addExportIntoIndexTs({ ...options })
 	]);
 };
 

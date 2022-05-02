@@ -1,9 +1,19 @@
 <ng-container matColumnDef>
-  <th mat-header-cell *matHeaderCellDef [style.text-align]="justify">
-    <p class="nowrap">{{headerText}}</p>
+  <th
+    mat-header-cell
+    *matHeaderCellDef
+    [style.text-align]="justify"
+    (click)="headerClick.emit()"
+  >
+    <p class="nowrap" style="display: flex; align-items: center;">
+      <span>{{headerText}}</span>
+      <ng-container [ngSwitch]="sort">
+        <mat-icon class="order" *ngSwitchCase="'asc'">south</mat-icon>
+        <mat-icon class="order" *ngSwitchCase="'desc'">north</mat-icon>
+      </ng-container>
+    </p>
   </th>
   <td mat-cell *matCellDef="let data" [style.text-align]="justify">
     <p class="nowrap">{{dataAccessor(data, name) | smartExp:name}}</p>
   </td>
-  
 </ng-container>

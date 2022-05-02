@@ -1,0 +1,26 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Meta, Story } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { <%= classify(name) %><%= classify(type) %>, <%= classify(name) %>Module } from '.';
+
+export default {
+  title: '<%= classify(type) %>s/<%= classify(name) %>',
+  component: <%= classify(name) %><%= classify(type) %>,
+} as Meta;
+
+const ACTIONS = {
+  // eventEmitterName: action('eventEmitterName'),
+};
+
+
+const Template: Story = (args) => ({
+  props: {...args, ...ACTIONS},
+  moduleMetadata: {
+    imports: [
+      <%= classify(name) %>Module,
+    ]
+  }
+});
+
+export const Default = Template.bind({});
+Default.args = {};

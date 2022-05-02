@@ -3,22 +3,15 @@
     <button mat-icon-button *ngIf="canBack" (click)="backButtonClick.emit()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <span class="title-container">
-      {{ title || '' }}
-    </span>
+    <div class="text">
+      <span class="title">{{ title || '' }}</span>
+      <span class="description">{{ description || '' }}</span>
+    </div>
   </div>
-
   <div>
-    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="actionItems.length">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <atoms-smart-menu-button
+      [actionItems]="actionItems"
+      (actionItemClick)="actionItemClick.emit($event)"
+    ></atoms-smart-menu-button>
   </div>
 </mat-toolbar>
-
-<mat-menu #menu="matMenu">
-  <button 
-    *ngFor="let actionItem of actionItems"
-    mat-menu-item 
-    (click)="actionItemClick.emit([actionItem])"
-  >{{ actionItem.name }}</button>
-</mat-menu>

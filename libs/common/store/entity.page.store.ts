@@ -11,7 +11,7 @@ export interface EntityPageState<Entity> {
   entity: Entity;
 }
 
-const tryCatch = (promise: Promise<any>) => new Promise(async (resolve, reject) => {
+export const tryCatch = (promise: Promise<any>) => new Promise(async (resolve, reject) => {
   try { resolve(await promise); } catch (error) { reject(error); }
 });
 
@@ -42,8 +42,6 @@ export abstract class EntityPageStore<S extends EntityPageState<Entity>, Entity>
     tap((entity: Entity) => this.setEntity(entity)),
   ));
 
-
-
   createEntity(value: Partial<Entity>) {
     const entity: Entity = ({...this.entity, ...value});
 
@@ -63,7 +61,7 @@ export abstract class EntityPageStore<S extends EntityPageState<Entity>, Entity>
       .finally(() => this.loading.removeKey('[pages/stores/pages/store] Create Store'));
   }
 
-  abstract _getEntity(id: string): Observable<Entity>;
+  abstract _getEntity(idOrParams: string): Observable<Entity>;
   abstract _createEntity(entity: Entity): Promise<Entity>;
   abstract _updateEntity(entity: Entity): Promise<void>;
 

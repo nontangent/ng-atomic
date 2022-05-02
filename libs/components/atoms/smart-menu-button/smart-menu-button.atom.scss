@@ -1,0 +1,11 @@
+@use 'scoped-var/strict' as * with ($host: 'smart-menu-button');
+
+:host {
+  // @include property(--height, 64px);
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

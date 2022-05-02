@@ -1,0 +1,12 @@
+@use 'scoped-var/strict' as * with ($host: 'drawer');
+
+:host {
+  @include property(--content-width, 360px);
+}
+
+:host {
+  mat-drawer-content {
+    width: 100%;
+    // width: var(--content-width);
+  }
+}

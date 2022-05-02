@@ -12,15 +12,16 @@ const toActions = (names: string[]) => names.reduce((p, name) => ({
   ...p, [name]: action(name),
 }), {});
 
-const Actions = toActions([
+const ACTIONS = toActions([
   'actionItemClick',
   'backButtonClick',
   'checkboxClick',
   'pageChange',
+  'tableHeaderClick',
 ]);
 
 const Template: Story = (args) => ({
-  props: { ...args, ...Actions },
+  props: { ...args, ...ACTIONS },
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
@@ -59,6 +60,8 @@ Default.args = {
     { id: ActionId.CREATE, name: 'Create' },
   ],
   selectedIdSet: new Set<string>([11 as never as string]),
+  sortKey: 'id',
+  sortOrder: 'asc',
   properties: ['__checkbox', 'id', 'name', 'description', '__actions'],
   page: {
     pageIndex: 0,

@@ -1,7 +1,5 @@
 import { ComponentStore } from '@ngrx/component-store';
 import { LoadingService, QueryResolverService } from '@ng-atomic/common/services';
-// import { Page } from '../components/templates/smart-index';
-import { filterByQuery } from '@ng-atomic/common/utils';
 import { compareById } from '@ng-atomic/common/utils';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, tap, map, filter, switchMap } from 'rxjs/operators';
@@ -14,12 +12,16 @@ export interface EntitiesPageState<E> {
   query: string;
   entities: E[]
   page: Page;
+  sortKey?: string;
+  sortOrder?: 'asc' | 'desc';
 }
 
 export abstract class EntitiesPageStore<S extends EntitiesPageState<E>, E extends {id: string}> extends ComponentStore<S> {
   abstract LANG_MAP: Record<string, string>;
 
   get page(): Page { return this.get(state => state.page); }
+  get sortKey(): string { return this.get(state => state.sortKey); }
+  get sortOrder(): string { return this.get(state => state.sortOrder); }
   get idSet(): Set<string> { return this.get(state => state.idSet); }
 
   userId$ = this.select(state => state.userId).pipe(filter(userId => !!userId));
@@ -40,6 +42,8 @@ export abstract class EntitiesPageStore<S extends EntitiesPageState<E>, E extend
   setEntities = this.updater((state, entities: E[]) => ({...state, entities}));
   setPage = this.updater((state, page: Page) => ({...state, page}));
   setIdSet = this.updater((state, idSet: Set<string>) => ({...state, idSet}));
+  setSortKey = this.updater((state, sortKey: string) => ({...state, sortKey}));
+  setSortOrder = this.updater((state, sortOrder: 'asc' | 'desc') => ({...state, sortOrder}));
   addId = this.updater((state, id: string) => ({...state, idSet: new Set([...state.idSet, id])}));
   removeId = this.updater((state, id: string) => {
     return {...state, idSet: new Set([...state.idSet].filter(_id => _id !== id))}
@@ -53,11 +57,21 @@ export abstract class EntitiesPageStore<S extends EntitiesPageState<E>, E extend
   getEntities = this.effect((userId$: Observable<string>) => userId$.pipe(
     filter(userId => !!userId),
     tap(() => this.loading.setKey('[/entities] Get Entities')),
-    switchMap(() => this._getEntities()),
+    switchMap((userId) => this._getEntities({userId})),
     tap((entities: E[]) => this.setEntities(entities)),
     tap(() => this.loading.removeKey('[/entities] Get Entities')),
   )); 
 
-  abstract _getEntities(): Observable<E[]>;
+  changeSortFromEvent(name: string) {
+    if (name === this.sortKey) {
+      const order = this.sortOrder === 'asc' ? 'desc' : 'asc';
+      this.setSortOrder(order);
+    } else {
+      this.setSortKey(name);
+      this.setSortOrder('asc');
+    }
+  }
+
+  abstract _getEntities(data?: object): Observable<E[]>;
   abstract loading: LoadingService;
 }

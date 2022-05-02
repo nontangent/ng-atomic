@@ -64,4 +64,8 @@ export class ActionsColumnMolecule<T> {
       this.columnDef.name = this.name;
     }
   }
+
+  onActionItemClick(test) {
+    console.debug(test);
+  }
 }
