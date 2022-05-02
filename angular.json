@@ -1,7 +1,7 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@ng-atomic/schematics"
   },
   "defaultProject": "demo",
   "schematics": {
