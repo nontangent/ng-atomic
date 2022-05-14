@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { MenuItem } from '@ng-atomic/common/models';
+import { ActionItem } from '@ng-atomic/common/models';
 
 
 @Component({
@@ -14,10 +14,10 @@ export class TopNavigatorOrganism {
   title?: string;
 
   @Input()
-  menuItems: MenuItem[] = [];
+  actionItems: ActionItem[] = [];
 
   @Output()
-  menuItemClick = new EventEmitter<MenuItem>();
+  actionItemClick = new EventEmitter<ActionItem>();
   
   id = (item: {id: string}) => item.id;
 
