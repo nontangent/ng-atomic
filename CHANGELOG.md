@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/nontangent/ng-atomic/compare/v1.3.0...v1.4.0) (2022-05-14)
+
+
+### Features
+
+* **components:** add `CardInputSection` into organisms ([07b7038](https://github.com/nontangent/ng-atomic/commit/07b7038971697bce3842c1dc947cec022dc136cd))
+* **components:** add `CvcAndExpInputSection` into organisms ([4097881](https://github.com/nontangent/ng-atomic/commit/4097881bcf663993c26ab5ec15a357abf1904813))
+* **components:** add `TextareaField` into molecules ([8b7cec1](https://github.com/nontangent/ng-atomic/commit/8b7cec12d6db5874f43d497cbaa3648615675128))
+* **components:** add `TextareaSection` into organisms ([ca1e3e3](https://github.com/nontangent/ng-atomic/commit/ca1e3e388ead6dae73aca37c2a78e0b2327522f3))
+* **components:** add `TextInputSection` into organisms ([d4ee38b](https://github.com/nontangent/ng-atomic/commit/d4ee38baed5b61b9d5c6fd3a6363625fcd9b73fa))
+* **components:** add classes to `SelectInputField` ([e97203d](https://github.com/nontangent/ng-atomic/commit/e97203dabc6ef47df788aee16757ab576e76fed2))
+* **components:** add TextInputField into molecules ([57e9229](https://github.com/nontangent/ng-atomic/commit/57e9229ff5bb548708913ce68876db8cd3e3d832))
+
 # [1.3.0](https://github.com/nontangent/ng-atomic/compare/v1.2.1...v1.3.0) (2022-05-14)
 
 
