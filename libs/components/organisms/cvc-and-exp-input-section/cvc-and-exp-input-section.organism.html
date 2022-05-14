@@ -1,0 +1,20 @@
+<molecules-select-input-field
+  class="year field"
+  label="有効期限(年)"
+  [control]="form.get('expYear')"
+  [options]="yearOptions"
+></molecules-select-input-field>
+<molecules-select-input-field
+  class="month field"
+  label="有効期限(月)"
+  [control]="form.get('expMonth')"
+  [options]="monthOptions"
+></molecules-select-input-field>
+<molecules-text-input-field
+  class="cvc field"
+  type="text"
+  name="cardNumber"
+  label="CVC"
+  placeholder="4桁の番号"
+  [control]="form.get('cvc')"
+></molecules-text-input-field>

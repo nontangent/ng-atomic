@@ -1,0 +1,24 @@
+@use '~scoped-var/strict' as * with ($host: 'text-input-section');
+
+:host {
+  @include property(--horizontal-padding, 16px);
+}
+
+:host {
+  display: flex;
+  width: 100%;
+  padding: 0 var(--horizontal-padding);
+  box-sizing: border-box;
+
+  .field:not(:first-child) {
+    margin-left: 8px;
+  }
+
+  .year.field, .month.field {
+    width: auto;
+  }
+
+  .cvc.field {
+    width: 100px;
+  }
+}
