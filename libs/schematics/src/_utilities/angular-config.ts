@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { get, set } from 'lodash';
 import { overwrite } from './overwrite';
 
-const PACKAGE_NAME = 'angular-atomic-schematics';
+const PACKAGE_NAME = '@ng-atomic/schematics';
 
 export const addSchematicsConfig = ({project, componentsDir}: any, type: string) => (host: Tree): Tree => {
 	const query = `projects.${project}.schematics.${PACKAGE_NAME}:${type}`;

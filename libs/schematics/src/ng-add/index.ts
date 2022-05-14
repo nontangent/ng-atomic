@@ -11,13 +11,13 @@ export default function(options: any): Rule {
       throw new Error('@angular/core version is not supported.');
     }
 
-		addPackageToPackageJson(host, '@ng-atomic/schematics', '1.4.0', 'devDependencies');
-		addPackageToPackageJson(host, 'scoped-var', '1.2.0', 'devDependencies');
+		addPackageToPackageJson(host, '@ng-atomic/schematics', '^1.0.0', 'devDependencies');
+		addPackageToPackageJson(host, 'scoped-var', '^1.0.0', 'devDependencies');
 
 		const installTaskId = context.addTask(new NodePackageInstallTask());
 		
 		// Set Up Angular Atomic Schematics
-		context.addTask(new RunSchematicTask('setup-project', {...options}), [installTaskId])
+		context.addTask(new RunSchematicTask('setup', {...options}), [installTaskId])
 
 		return host
   }

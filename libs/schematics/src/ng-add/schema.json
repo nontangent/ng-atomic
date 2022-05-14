@@ -14,8 +14,8 @@
     "componentsDir": {
       "description": "Setup components directory",
       "type": "string",
-      "default": "src/app/_shared/components",
-      "x-prompt": "Where do you setup Angular Atomic Components?\nIf you use Nx workspace you should input `apps/app/src/app/_shared/components`" 
+      "default": "_shared/components",
+      "x-prompt": "Where do you setup Angular Atomic Components?" 
     },
 		"stylesDir": {
 			"description": "Setup styles directory",
