@@ -1,0 +1,15 @@
+@use 'scoped-var/strict' as * with ($host: 'textarea-section');
+
+:host {
+  @include property(--vertical-padding, 16px);
+}
+
+:host {
+  display: block;
+  padding: 0 var(--vertical-padding);
+  box-sizing: border-box;
+
+  molecules-textarea-field {
+    width: 100%;
+  }
+}
