@@ -1,0 +1,14 @@
+@use '~scoped-var' as * with ($host: 'date-input-field');
+
+:host {
+  @include property(--horizontal-padding, 16px);
+}
+
+:host {
+  display: block;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
