@@ -1,3 +1,18 @@
+# [1.5.0](https://github.com/nontangent/ng-atomic/compare/v1.4.0...v1.5.0) (2022-05-14)
+
+
+### Bug Fixes
+
+* **schematics:** change packages ([5a346a1](https://github.com/nontangent/ng-atomic/commit/5a346a1192715342efc77d452703ca342657703e))
+
+
+### Features
+
+* **schematics:** add style header to atomic component ([44d9c7c](https://github.com/nontangent/ng-atomic/commit/44d9c7c532de42a100908df300ba02c5ca42a986))
+* **schematics:** add StyleHeader Schematic ([a062143](https://github.com/nontangent/ng-atomic/commit/a0621431f1a9fc07e2df0a6be0ec07e944760003))
+* **schematics:** add StyleHeader Schematic ([1c4595f](https://github.com/nontangent/ng-atomic/commit/1c4595f3cd3574d9a60aefa36dc84982f1b764e7))
+* **schematics:** replace to `[@use](https://github.com/use)` from `[@import](https://github.com/import)` ([392421d](https://github.com/nontangent/ng-atomic/commit/392421db98984fde10d155a4ffc3b5d66736ea8a))
+
 # [1.4.0](https://github.com/nontangent/ng-atomic/compare/v1.3.0...v1.4.0) (2022-05-14)
 
 
