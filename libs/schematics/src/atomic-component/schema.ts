@@ -17,4 +17,5 @@ export interface Schema {
   module?: string;
   export?: boolean;
   styleHeader?: string;
+  useTypeAsExtension: boolean;
 }

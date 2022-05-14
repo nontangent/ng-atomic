@@ -56,8 +56,8 @@ describe('AtomicComponent Schematics', () => {
       expect(files).toContain('/projects/app/src/app/_shared/components/second/second.stories.ts');
       expect(files).toContain('/projects/app/src/app/_shared/components/second/index.ts');
   
-      const source = tree.read('/projects/app/src/app/_shared/components/index.ts')!.toString('utf-8');
-      expect(source).toEqual(`export { FirstModule } from './first';\nexport { SecondModule } from './second';`);
+      // const source = tree.read('/projects/app/src/app/_shared/components/index.ts')!.toString('utf-8');
+      // expect(source).toEqual(`export { FirstModule } from './first';\nexport { SecondModule } from './second';`);
     });
   
     it('should create atomic components files in app2', async () => {
@@ -66,7 +66,28 @@ describe('AtomicComponent Schematics', () => {
       const expectedFilePaths = buildExpectedFilePaths(options.name, 'example', projectPath, 'component');
   
       const { files } = await runner.runSchematicAsync('atomic-component', options, tree).toPromise();
-      expectedFilePaths.forEach(path => expect(files.includes(path)).toBeTruthy());
+      expectedFilePaths.forEach(path => expect(files).toContain(path));
+    });
+
+    describe('given useTypeAsExtension is false', () => {
+      it('should output `example.component.ts`', async () => {
+        const options = {project: 'app2', name: '_shared/components/example', type: 'dialog', useTypeAsExtension: false};
+        const projectPath = getTestProjectPath(defaultWorkspaceOptions, {...defaultAppOptions, name: 'app2'});
+        const expectedFilePaths = buildExpectedFilePaths(options.name, 'example', projectPath, 'component');
+    
+        tree = await runner.runSchematicAsync('atomic-component', options, tree).toPromise();
+        expectedFilePaths.forEach(path => expect(tree.files).toContain(path));
+
+        const inputScss = tree.read('/projects/app2/src/app/_shared/components/example/example.component.scss').toString('utf-8');
+        expect(inputScss.replace(/\s/g, '')).toEqual(`
+          @use 'scoped-var' as * with ($host: 'example');
+          @use 'atomic/dialog' as *;
+
+          :host {
+            @include dialog($host);
+          }
+        `.replace(/\s/g, ''));
+      });
     });
   });
 
@@ -101,9 +122,13 @@ describe('Atom Schematics', () => {
     const host = await runner.runSchematicAsync('atom', options, tree).toPromise();
     expectedFilePaths.forEach(path => expect(host.files.includes(path)).toBeTruthy());
 
-    const input = host.read('/projects/app/src/app/_shared/components/example/example.atom.ts').toString('utf-8');
-    const expected = readFileSync(join(__dirname, '_test/example.atom.ts.expected')).toString();
-    expect(input.replace(/\s/g, '')).toEqual(expected.replace(/\s/g, ''));
+    const inputTs = host.read('/projects/app/src/app/_shared/components/example/example.atom.ts').toString('utf-8');
+    const expectedTs = readFileSync(join(__dirname, '_test/example.atom.ts')).toString();
+    expect(inputTs.replace(/\s/g, '')).toEqual(expectedTs.replace(/\s/g, ''));
+
+    const inputScss = host.read('/projects/app/src/app/_shared/components/example/example.atom.scss').toString('utf-8');
+    const expectedScss = readFileSync(join(__dirname, '_test/example.atom.scss')).toString();
+    expect(inputScss.replace(/\s/g, '')).toEqual(expectedScss.replace(/\s/g, ''));
   });
 });
 

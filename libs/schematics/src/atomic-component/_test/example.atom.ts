@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'atoms-example',
   templateUrl: './example.atom.html',
-  styleUrls: ['./example.atom.scss']
+  styleUrls: ['./example.atom.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleAtom implements OnInit {
 

@@ -51,7 +51,7 @@
       "description": "The change detection strategy to use in the new component.",
       "enum": ["Default", "OnPush"],
       "type": "string",
-      "default": "Default",
+      "default": "OnPush",
       "alias": "c"
     },
     "prefix": {
@@ -122,9 +122,14 @@
     },
 		"styleHeader": {
 			"type": "string",
-			"default": "@import 'host-variable';\n@import 'atomic/{type}';\n$host: host('{name}');\n\n:host {\n\t@include {type}($host);\n}\n",
-			"description": ""
-		}
+			"default": "@use 'scoped-var' as * with ($host: '{name}');\n@use 'atomic/{type}' as *;\n:host {\n\t@include {type}($host);\n}\n",
+			"description": "scss header template. you can use template engine like `($host: '{name}.{type}'`. "
+		},
+    "useTypeAsExtension": {
+      "type": "boolean",
+      "default": true,
+      "description": "When false, atomic component extension should be `.component.ts`"
+    }
   },
   "required": [
     "name"
