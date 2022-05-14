@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
 
-interface Option<T> {
+export interface Option<T> {
   name: string;
   value: T;
 }
@@ -11,7 +11,7 @@ interface Option<T> {
   templateUrl: './select-input-field.molecule.html',
   styleUrls: ['./select-input-field.molecule.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {class: 'molecule input-field'},
+  host: {class: 'molecule input-field field'},
 })
 export class SelectInputFieldMolecule<T> {
 
