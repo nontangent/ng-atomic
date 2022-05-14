@@ -1,6 +1,12 @@
 {
   "extends": ["@schematics/angular"],
   "schematics": {
+    "style-header": {
+      "aliases": ["sh"],
+      "description": "Add style header",
+      "factory": "./src/style-header/index",
+      "schema": "./src/style-header/schema.json"
+    },
     "atomic-component": {
       "aliases": ["ac"],
       "description": "Create an atomic component",

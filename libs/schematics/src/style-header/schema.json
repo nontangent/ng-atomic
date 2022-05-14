@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "SchematicsAngularComponent",
+  "title": "Style Header Options Schema",
+  "type": "object",
+  "description": "Creates a new generic component definition in the given or default project.",
+  "properties": {
+		"path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path at which to create the component file, relative to the current workspace. Default is a folder with the same name as the component in the project root.",
+      "visible": false
+    },
+    "styleHeader": {
+			"type": "string",
+			"default": "@use 'scoped-var' as * with ($host: '{name}');\n@use 'atomic/{type}' as *;\n:host {\n\t@include {type}($host);\n}\n",
+			"description": "scss header template. you can use template engine like `($host: '{name}.{type}'`. "
+		}
+  },
+  "required": ["path"]
+}
+
