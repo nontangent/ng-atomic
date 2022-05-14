@@ -15,13 +15,13 @@
       "description": "Setup components directory",
       "type": "string",
       "default": "src/app/_shared/components",
-      "x-prompt": "Where do you setup Angular Atomic Components?" 
+      "x-prompt": "Where do you setup Angular Atomic Components?\nIf you use Nx workspace you should input `apps/app/src/app/_shared/components`" 
     },
 		"stylesDir": {
 			"description": "Setup styles directory",
 			"type": "string",
 			"default": "src/styles",
-			"x-prompt": "Where do you setup Angular Atomic Styles?"
+			"x-prompt": "Where do you setup Angular Atomic Styles?\nIf you use Nx workspace you should input `apps/app/src/styles`"
 
 		}
   },

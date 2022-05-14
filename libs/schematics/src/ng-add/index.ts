@@ -11,39 +11,13 @@ export default function(options: any): Rule {
       throw new Error('@angular/core version is not supported.');
     }
 
-		// 必要なパッケージの追加
-		addPackageToPackageJson(
-			host, 
-			'angular-atomic-schematics', 
-			getCustomWebpackVersion(angularDependencyVersion),
-			'devDependencies'
-		);
-
-		addPackageToPackageJson(
-			host,
-			'angular-host-css-variable',
-			getCustomWebpackVersion(angularDependencyVersion),
-			'devDependencies'
-		);
-
-		addPackageToPackageJson(
-			host,
-			'angular-custom-webpack-chaining',
-      getCustomWebpackVersion(angularDependencyVersion),
-			'devDependencies'
-		);
+		addPackageToPackageJson(host, '@ng-atomic/schematics', '1.4.0', 'devDependencies');
+		addPackageToPackageJson(host, 'scoped-var', '1.2.0', 'devDependencies');
 
 		const installTaskId = context.addTask(new NodePackageInstallTask());
-
-		// angular-host-css-variableのインストール
-		const runSchematicTask = context.addTask(new RunSchematicTask(
-			'angular-host-css-variable',
-			'ng-add',
-			{ project: options.project }
-		), [installTaskId]);
 		
 		// Set Up Angular Atomic Schematics
-		context.addTask(new RunSchematicTask('setup-project', {...options}), [runSchematicTask])
+		context.addTask(new RunSchematicTask('setup-project', {...options}), [installTaskId])
 
 		return host
   }
