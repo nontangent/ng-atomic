@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-
+import { TextInputFieldModule } from '@ng-atomic/components/molecules/text-input-field';
 import { InputFieldSectionOrganism } from './input-field-section.organism';
+
 
 @NgModule({
   declarations: [
@@ -12,10 +10,8 @@ import { InputFieldSectionOrganism } from './input-field-section.organism';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    // Material
-    MatFormFieldModule,
-    MatInputModule,
+    // Molecules
+    TextInputFieldModule,
   ],
   exports: [
     InputFieldSectionOrganism

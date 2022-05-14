@@ -10,16 +10,16 @@ import { FormControl } from '@ngneat/reactive-forms';
 })
 export class InputFieldSectionOrganism {
   @Input()
-  label = '';
+  label = 'label';
 
   @Input()
-  placeholder = '';
+  placeholder = 'placeholder';
 
   @Input()
   type: 'text' | 'number' | 'password' = 'text';
 
   @Input()
-  hint = '';
+  hint?: string;
 
   @Input()
   control = new FormControl('');
