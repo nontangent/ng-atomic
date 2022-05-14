@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDayjsDateModule, MAT_DAYJS_JP_PROVIDERS } from '@ng-atomic/common/utils';
-
+import { DateInputFieldModule } from '@ng-atomic/components/molecules/date-input-field';
 import { DateInputSectionOrganism } from './date-input-section.organism';
 
 @NgModule({
@@ -13,14 +9,10 @@ import { DateInputSectionOrganism } from './date-input-section.organism';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatDayjsDateModule,
+    DateInputFieldModule,
   ],
   exports: [
     DateInputSectionOrganism
   ],
-  providers: [...MAT_DAYJS_JP_PROVIDERS],
 })
 export class DateInputSectionModule { }
