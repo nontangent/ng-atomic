@@ -1,12 +1,5 @@
-@import 'host-variable';
+@use 'scoped-var' as *;
 
 @mixin component($host) {
   display: block;
-
-  @include hvar(--cell, 8px);
-
-	* {
-    --cell: #{hvar(--cell)};
-  }
 }
-
