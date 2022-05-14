@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <div>
+    <button mat-icon-button *ngIf="canBack" (click)="backButtonClick.emit()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="text">
+      <span class="title">{{ title || '' }}</span>
+      <span class="description">{{ description || '' }}</span>
+    </div>
+  </div>
+  <div>
+    <atoms-smart-menu-button
+      [actionItems]="actionItems"
+      (actionItemClick)="actionItemClick.emit($event)"
+    ></atoms-smart-menu-button>
+  </div>
+</mat-toolbar>
