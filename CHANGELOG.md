@@ -1,3 +1,28 @@
+# [1.3.0](https://github.com/nontangent/ng-atomic/compare/v1.2.1...v1.3.0) (2022-05-14)
+
+
+### Bug Fixes
+
+* **comopnents:** use relative path in dynamic import of `BlankPageRoute` ([f759386](https://github.com/nontangent/ng-atomic/commit/f759386ac61872ae25897199063d0dd270cceaa1))
+* **components:** use ActionItem interface in `TopNavigator` ([4f45c34](https://github.com/nontangent/ng-atomic/commit/4f45c34e908c4e3d399f499d114175ad988cde86))
+
+
+### Features
+
+* add dome features ([a69c837](https://github.com/nontangent/ng-atomic/commit/a69c837f8c1165d843b7b806b6f5adc9760456e9))
+* **common:** update ([d91d2ad](https://github.com/nontangent/ng-atomic/commit/d91d2ad0600aee99e5aca1c0937bd25aadc34971))
+* **common:** update ([8c02ccd](https://github.com/nontangent/ng-atomic/commit/8c02ccd93771bea2f9edab678ded707be01b1215))
+* **components:** add `DateInputSection` into organisms ([272efd1](https://github.com/nontangent/ng-atomic/commit/272efd18f6c6fe2c0b1a2b885a3c099acb1bbceb))
+* **components:** add DateInputFieldMolecule ([4320cfb](https://github.com/nontangent/ng-atomic/commit/4320cfbee12adac0c7163192bd59031e90299df7))
+* **components:** add sort icon to the header of `SmartColumn` ([586a865](https://github.com/nontangent/ng-atomic/commit/586a865d7eaa570c836ee74d0666139ac6adf570))
+* **components:** add sort input and output to `SmartIndexTemplate` ([4fba09b](https://github.com/nontangent/ng-atomic/commit/4fba09bc53d3cefa303db5646f28db7729e7bc76))
+* **components:** add sort input and output to `SmartTableOrganism` ([c40f8e5](https://github.com/nontangent/ng-atomic/commit/c40f8e59b7eba9eb179f738f259122bce8f7bcd4))
+* **components:** update ([da7c076](https://github.com/nontangent/ng-atomic/commit/da7c076478e3f9ab945e27cfadc473172187be06))
+* **components:** update ([97d99a2](https://github.com/nontangent/ng-atomic/commit/97d99a2df0e5265cdabbd8d6f9a85974177b6a1f))
+* **schematics:** update ([537aafd](https://github.com/nontangent/ng-atomic/commit/537aafdd6d554eeda494a1c041cb01bd4f424fdf))
+* **storybook:** temp ([52395f4](https://github.com/nontangent/ng-atomic/commit/52395f41086924bf3fc0e992d03e9574ebe77b5c))
+* **storybook:** temp ([7a4a923](https://github.com/nontangent/ng-atomic/commit/7a4a923240c93d62a449a453761c66359359e322))
+
 ## [1.2.1](https://github.com/nontangent/ng-atomic/compare/v1.2.0...v1.2.1) (2022-02-20)
 
 
