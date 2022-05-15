@@ -12,18 +12,26 @@ describe('Page Schematics', () => {
   });
 
   it('should create atomic component files', async () => {
-    const options = {project: 'app', name: 'test'};
+    const options = {project: 'app', name: 'example'};
     const host = await runner.runSchematicAsync('page', options, tree).toPromise();
     expect(host.files.includes('/projects/app/src/app/pages/pages.module.ts')).toBeTruthy();
-    expect(host.files.includes('/projects/app/src/app/pages/test/test.module.ts')).toBeTruthy();
-    expect(host.files.includes('/projects/app/src/app/pages/test/test.page.html')).toBeTruthy();
-    expect(host.files.includes('/projects/app/src/app/pages/test/test.page.scss')).toBeTruthy();
-    expect(host.files.includes('/projects/app/src/app/pages/test/test.page.spec.ts')).toBeTruthy();
-    expect(host.files.includes('/projects/app/src/app/pages/test/test.page.ts')).toBeTruthy();
+    expect(host.files.includes('/projects/app/src/app/pages/example/example.module.ts')).toBeTruthy();
+    expect(host.files.includes('/projects/app/src/app/pages/example/example.page.html')).toBeTruthy();
+    expect(host.files.includes('/projects/app/src/app/pages/example/example.page.scss')).toBeTruthy();
+    expect(host.files.includes('/projects/app/src/app/pages/example/example.page.spec.ts')).toBeTruthy();
+    expect(host.files.includes('/projects/app/src/app/pages/example/example.page.ts')).toBeTruthy();
 
-    const input = host.read('/projects/app/src/app/pages/test/test.module.ts').toString('utf-8');
-    const expected = readFileSync(join(__dirname, '_test/test.module.ts.expected')).toString('utf-8');
-    expect(input.replace(/\s/g, '')).toEqual(expected.replace(/\s/g, ''));
+    const inputModuleTs = host.read('/projects/app/src/app/pages/example/example.module.ts').toString('utf-8');
+    const expectedModuleTs = readFileSync(join(__dirname, '_test/example.module.ts')).toString('utf-8');
+    expect(inputModuleTs.replace(/\s/g, '')).toEqual(expectedModuleTs.replace(/\s/g, ''));
+
+    const inputTs = host.read('/projects/app/src/app/pages/example/example.page.ts').toString('utf-8');
+    const expectedTs = readFileSync(join(__dirname, '_test/example.page.ts')).toString('utf-8');
+    expect(inputTs.replace(/\s/g, '')).toEqual(expectedTs.replace(/\s/g, ''));
+
+    const inputScss = host.read('/projects/app/src/app/pages/example/example.page.scss').toString('utf-8');
+    const expectedScss = readFileSync(join(__dirname, '_test/example.page.scss')).toString('utf-8');
+    expect(inputScss.replace(/\s/g, '')).toEqual(expectedScss.replace(/\s/g, ''));
     
   });
 });

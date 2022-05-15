@@ -1,6 +1,5 @@
 import { Rule, Tree, chain, externalSchematic, schematic } from '@angular-devkit/schematics';
 import { parseName } from '@schematics/angular/utility/parse-name';
-import * as format from 'string-template';
 import { dasherize, classify } from '@angular-devkit/core/src/utils/strings';
 import { Schema } from '../atomic-component/schema';
 
@@ -11,21 +10,23 @@ type TargetType = 'page' | 'pages';
 type Target = {path: string, name: string};
 
 export const page = (options: Schema): Rule => async (host: Tree) => {
-	options.path ??= await createDefaultPath(host, options.project);
-	options.type ??= 'page';
+	options.type = 'page';
 	options.name = resolveName(options.name);
 
-	const { name, path, type, project, styleHeader } = options = {...options, ...parseName(options.path, options.name)};
-	const pages = getPagesOptions(`${path}/${name}`);
+	options.prefix ||= `${options.type}s`;
+	options.path ??= await createDefaultPath(host, options.project);
 
-	delete options['styleHeader'];
+	const { name, path, type, project } = options = {...options, ...parseName(options.path, options.name)};
+	const componentExt = options.useTypeAsExtension ? type : 'component';
+	const scssPath = `${path}/${name}/${name}.${componentExt}.scss`;
+	const pages = getPagesOptions(`${path}/${name}`);
 
 	return chain([
 		schematic('pages', {...pages, project}),
 		addRouteIntoPagesModule(options, pages),
 		schematic('pages', {name, path, project}),
-		externalSchematic('@schematics/angular', 'component', {...options, export: true}),
-		// externalSchematic('@ng-atomic/host-variable', 'component', {...options, styleHeader: format(styleHeader, {name, type}), export: true}),
+		externalSchematic('@schematics/angular', 'component', {...options, changeDetection: 'Default', export: true}),
+		schematic('style-header', {...options, name, type, path: scssPath}),
 		addRouteIntoPageModule(options, {path, name}),
 	]);
 };
