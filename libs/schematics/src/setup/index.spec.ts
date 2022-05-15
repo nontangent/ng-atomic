@@ -14,12 +14,12 @@ describe('Setup Schematics', () => {
     const options = {project: 'app', name: 'pages'};
     const host = await runner.runSchematicAsync('setup', options, tree).toPromise();
     const angularJson = JSON.parse(host.read('/angular.json').toString('utf-8'));
-    expect(get(angularJson, 'cli.defaultCollection')).toEqual('angular-atomic-schematics');
+    expect(get(angularJson, 'cli.defaultCollection')).toEqual('@ng-atomic/schematics');
     const schematicsJson = get(angularJson, 'projects.app.schematics');
 
     for (const type of ['atom', 'molecule', 'organism', 'template']) {
-      expect(get(schematicsJson, `angular-atomic-schematics:${type}`))
-        .toEqual({path: `src/app/_shared/components/${type}s`});
+      expect(get(schematicsJson, `@ng-atomic/schematics:${type}`))
+        .toEqual({path: `_shared/components/${type}s`});
     }
 
     const architectJson = get(angularJson, 'projects.app.architect');
@@ -31,7 +31,7 @@ describe('Setup Schematics', () => {
     }
 
     const tsconfigJson = JSON.parse(host.read('/tsconfig.json').toString('utf-8'));
-    expect(get(tsconfigJson, 'compilerOptions.paths.@components')).toContain('src/app/_shared/components');
-    expect(get(tsconfigJson, 'compilerOptions.paths.@components/*')).toContain('src/app/_shared/components/*');
+    expect(get(tsconfigJson, 'compilerOptions.paths.@components')).toContain('_shared/components');
+    expect(get(tsconfigJson, 'compilerOptions.paths.@components/*')).toContain('_shared/components/*');
   });
 });
