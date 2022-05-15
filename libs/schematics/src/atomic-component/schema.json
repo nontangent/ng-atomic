@@ -122,7 +122,7 @@
     },
 		"styleHeader": {
 			"type": "string",
-			"default": "@use 'scoped-var' as * with ($host: '{name}');\n@use 'atomic/{type}' as *;\n:host {\n\t@include {type}($host);\n}\n",
+			"default": "@use 'scoped-var/strict' as * with ($host: '{name}');\n@use 'atomic/{type}' as *;\n:host {\n\t@include {type}($host);\n}\n",
 			"description": "scss header template. you can use template engine like `($host: '{name}.{type}'`. "
 		},
     "useTypeAsExtension": {

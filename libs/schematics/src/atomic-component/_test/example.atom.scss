@@ -1,4 +1,4 @@
-@use 'scoped-var' as * with ($host: 'example');
+@use 'scoped-var/strict' as * with ($host: 'example');
 @use 'atomic/atom' as *;
 
 :host {

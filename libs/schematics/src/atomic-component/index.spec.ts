@@ -80,7 +80,7 @@ describe('AtomicComponent Schematics', () => {
 
         const inputScss = tree.read('/projects/app2/src/app/_shared/components/example/example.component.scss').toString('utf-8');
         expect(inputScss.replace(/\s/g, '')).toEqual(`
-          @use 'scoped-var' as * with ($host: 'example');
+          @use 'scoped-var/strict' as * with ($host: 'example');
           @use 'atomic/dialog' as *;
 
           :host {
