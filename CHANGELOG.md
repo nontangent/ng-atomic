@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/nontangent/ng-atomic/compare/v1.5.0...v1.6.0) (2022-05-15)
+
+
+### Bug Fixes
+
+* **schematics:** chnage description ([39cac41](https://github.com/nontangent/ng-atomic/commit/39cac419ec0f33b1173f42d2a62f3aaa5fe13612))
+* **schematics:** fix vivid bug ([957a147](https://github.com/nontangent/ng-atomic/commit/957a147702570b5e35e36bb211de1d31132f6e0f))
+* **schematics:** prefix bug ([cd1e27b](https://github.com/nontangent/ng-atomic/commit/cd1e27bc2677bc6a9971581fe583906b56dc226f))
+
+
+### Features
+
+* **components:** add navigator into organisms ([11dd5f9](https://github.com/nontangent/ng-atomic/commit/11dd5f9f9fc0f11cf7bc8ce0d33d6535e041b977))
+
 # [1.5.0](https://github.com/nontangent/ng-atomic/compare/v1.4.0...v1.5.0) (2022-05-14)
 
 
