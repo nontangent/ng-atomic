@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/nontangent/ng-atomic/compare/v2.0.0...v2.0.1) (2022-06-07)
+
+
+### Bug Fixes
+
+* **components:** setting value ngOnInit in ChipsInputAtom ([bdaf6d8](https://github.com/nontangent/ng-atomic/commit/bdaf6d81eb2b1bee24801b4ac308dfaa2f71f17e))
+
 # [2.0.0](https://github.com/nontangent/ng-atomic/compare/v1.7.0...v2.0.0) (2022-06-07)
 
 
