@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChipsInputModule } from '@ng-atomic/components/atoms/chips-input';
 import { ChipsInputFieldMolecule } from './chips-input-field.molecule';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -12,11 +9,8 @@ import { MatInputModule } from '@angular/material/input';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    // Materials
-    MatChipsModule,
-    MatIconModule,
-    MatInputModule,
+    // Atoms
+    ChipsInputModule,
   ],
   exports: [
     ChipsInputFieldMolecule
