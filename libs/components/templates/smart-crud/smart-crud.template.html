@@ -20,17 +20,17 @@
         [label]="entry[0] | D"
         [control]="entry[1]"
       ></organisms-date-input-section>
-      <organisms-input-field-section
+      <organisms-text-input-section
         *ngSwitchCase="'number'"
         [type]="'number'"
         [label]="entry[0] | D"
         [control]="entry[1]"
-      ></organisms-input-field-section>
-      <organisms-input-field-section
+      ></organisms-text-input-section>
+      <organisms-text-input-section
         *ngSwitchDefault
         [label]="entry[0] | D"
         [control]="entry[1]"
-      ></organisms-input-field-section>
+      ></organisms-text-input-section>
     </ng-container>
     <organisms-action-buttons-section
       [actionItems]="actionItems"
