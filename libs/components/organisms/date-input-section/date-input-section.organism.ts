@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'organisms-date-input-section',
