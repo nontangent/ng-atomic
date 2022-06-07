@@ -1,61 +1,5 @@
 {
   "version": 1,
-  "cli": {
-    "defaultCollection": "@ng-atomic/schematics"
-  },
-  "defaultProject": "demo",
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    },
-    "@ng-atomic/schematics": {
-      "atom": {
-        "path": "../atoms",
-        "project": "components"
-      },
-      "molecule": {
-        "path": "../molecules",
-        "project": "components"
-      },
-      "organism": {
-        "path": "../organisms",
-        "project": "components"
-      },
-      "template": {
-        "path": "../templates",
-        "project": "components"
-      },
-      "frame": {
-        "path": "../frames",
-        "project": "components"
-      },
-      "service": {
-        "flat": false
-      }
-    }
-  },
   "projects": {
     "common": {
       "projectType": "library",
@@ -86,7 +30,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/common"],
+          "outputs": [
+            "coverage/libs/common"
+          ],
           "options": {
             "jestConfig": "libs/common/jest.config.js",
             "passWithNoTests": true
@@ -123,7 +69,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/components"],
+          "outputs": [
+            "coverage/libs/components"
+          ],
           "options": {
             "jestConfig": "libs/components/jest.config.js",
             "passWithNoTests": true
@@ -134,16 +82,22 @@
           "options": {
             "browserTarget": "demo:build",
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/components/styles"]
+              "includePaths": [
+                "libs/components/styles"
+              ]
             },
-            "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css"
+            ],
             "compodoc": false,
             "port": 4400
           }
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
-          "outputs": ["dist/storybook"],
+          "outputs": [
+            "dist/storybook"
+          ],
           "options": {
             "browserTarget": "demo:build"
           }
@@ -151,8 +105,16 @@
         "dummy-for-deploy": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "storybook-static"
-          }
+            "outputPath": "storybook-static",
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "defaultConfiguration": ""
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
@@ -185,7 +147,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/components-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/components-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -204,16 +168,26 @@
             "main": "apps/demo/src/main.ts",
             "polyfills": "apps/demo/src/polyfills.ts",
             "tsConfig": "apps/demo/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
+            "assets": [
+              "apps/demo/src/favicon.ico",
+              "apps/demo/src/assets"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/components/styles"]
+              "includePaths": [
+                "libs/components/styles"
+              ]
             },
             "styles": [
               "apps/demo/src/styles.scss",
               "@angular/material/prebuilt-themes/indigo-pink.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -243,7 +217,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -273,7 +248,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/demo"],
+          "outputs": [
+            "coverage/apps/demo"
+          ],
           "options": {
             "jestConfig": "apps/demo/jest.config.js",
             "passWithNoTests": true
@@ -302,7 +279,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/demo-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/demo-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -331,7 +310,9 @@
                 "output": "assets/monaco-editor"
               }
             ],
-            "styles": ["apps/editor/src/styles.scss"],
+            "styles": [
+              "apps/editor/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -392,7 +373,9 @@
         },
         "test": {
           "builder": "ngx-build-plus:karma",
-          "outputs": ["coverage/apps/editor"],
+          "outputs": [
+            "coverage/apps/editor"
+          ],
           "options": {
             "jestConfig": "apps/editor/jest.config.js",
             "passWithNoTests": true
@@ -421,7 +404,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/editor-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/editor-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -440,13 +425,20 @@
             "main": "libs/components/main.elements.ts",
             "polyfills": "libs/components/polyfills.elements.ts",
             "tsConfig": "libs/components/tsconfig.elements.json",
-            "aot": true,
             "assets": [],
             "styles": [],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/components/styles"]
+              "includePaths": [
+                "libs/components/styles"
+              ]
             },
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -471,7 +463,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         }
       }
     },
@@ -483,12 +476,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/schematics/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/schematics/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/schematics"],
+          "outputs": [
+            "coverage/libs/schematics"
+          ],
           "options": {
             "jestConfig": "libs/schematics/jest.config.js",
             "passWithNoTests": true
@@ -496,7 +493,9 @@
         },
         "build": {
           "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/schematics",
             "tsConfig": "libs/schematics/tsconfig.lib.json",
@@ -529,12 +528,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/web-api/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/web-api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/web-api"],
+          "outputs": [
+            "coverage/libs/web-api"
+          ],
           "options": {
             "jestConfig": "libs/web-api/jest.config.js",
             "passWithNoTests": true
@@ -542,18 +545,24 @@
         },
         "pack": {
           "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/web-api",
             "tsConfig": "libs/web-api/tsconfig.lib.json",
             "packageJson": "libs/web-api/package.json",
             "main": "libs/web-api/src/main.ts",
-            "assets": ["libs/web-api/*.md"]
+            "assets": [
+              "libs/web-api/*.md"
+            ]
           }
         },
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/web-api",
             "main": "libs/web-api/src/main.ts",
