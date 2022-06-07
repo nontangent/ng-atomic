@@ -9,7 +9,6 @@ import { PaginatorModule } from '@ng-atomic/components/organisms/paginator';
 import { SmartIndexTemplate } from './smart-index.template';
 
 
-
 @NgModule({
   declarations: [
     SmartIndexTemplate
