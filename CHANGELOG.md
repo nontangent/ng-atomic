@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/nontangent/ng-atomic/compare/v1.7.0...v2.0.0) (2022-06-07)
+
+
+### chore
+
+* add support for angular 12 ([5a92c5c](https://github.com/nontangent/ng-atomic/commit/5a92c5cb94d6df0b05a347506e8c55f8f259ea41))
+* add support for angular 12 ([6c3b5a8](https://github.com/nontangent/ng-atomic/commit/6c3b5a87d56e934d32f6baf990dafc3c90ecfa17))
+
+
+### BREAKING CHANGES
+
+* add support for angular 12
+* add support for angular 12
+
 # [1.7.0](https://github.com/nontangent/ng-atomic/compare/v1.6.0...v1.7.0) (2022-06-07)
 
 
