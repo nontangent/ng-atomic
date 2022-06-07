@@ -29,50 +29,6 @@
       }
     }
   },
-  "projects": {
-    "common": {
-      "tags": []
-    },
-    "components": {
-      "tags": [],
-      "implicitDependencies": [
-        "common"
-      ]
-    },
-    "components-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "components"
-      ]
-    },
-    "demo": {
-      "tags": []
-    },
-    "demo-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "demo"
-      ]
-    },
-    "editor": {
-      "tags": []
-    },
-    "editor-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "editor"
-      ]
-    },
-    "elements": {
-      "tags": []
-    },
-    "schematics": {
-      "tags": []
-    },
-    "web-api": {
-      "tags": []
-    }
-  },
   "targetDependencies": {
     "build": [
       {

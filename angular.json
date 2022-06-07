@@ -37,7 +37,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "components": {
       "projectType": "library",
@@ -116,7 +117,9 @@
             "noBuild": true
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["common"]
     },
     "components-e2e": {
       "root": "apps/components-e2e",
@@ -143,7 +146,9 @@
           },
           "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["components"]
     },
     "demo": {
       "projectType": "application",
@@ -241,7 +246,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "demo-e2e": {
       "root": "apps/demo-e2e",
@@ -268,7 +274,9 @@
           },
           "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["demo"]
     },
     "editor": {
       "projectType": "application",
@@ -362,7 +370,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "editor-e2e": {
       "root": "apps/editor-e2e",
@@ -389,7 +398,9 @@
           },
           "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["editor"]
     },
     "elements": {
       "projectType": "application",
@@ -444,7 +455,8 @@
           },
           "defaultConfiguration": ""
         }
-      }
+      },
+      "tags": []
     },
     "schematics": {
       "root": "libs/schematics",
@@ -491,7 +503,8 @@
             "srcRootForCompilationRoot": "libs/schematics"
           }
         }
-      }
+      },
+      "tags": []
     },
     "web-api": {
       "root": "libs/web-api",
@@ -548,7 +561,8 @@
             "buildTarget": "web-api:build"
           }
         }
-      }
+      },
+      "tags": []
     }
   }
 }
