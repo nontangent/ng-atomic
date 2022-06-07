@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/nontangent/ng-atomic/compare/v1.6.0...v1.7.0) (2022-06-07)
+
+
+### Features
+
+* **common:** use esmodule import for dayjs ([cb71449](https://github.com/nontangent/ng-atomic/commit/cb7144932174ad6b36d84747c3d1f2fcfbc03e68))
+* **components:** add chips input to atoms ([3c7ddb3](https://github.com/nontangent/ng-atomic/commit/3c7ddb33e65f82d638b1a0ec161061726e0c2d9d))
+* **components:** add zone.js to polyfills ([7d2b4cf](https://github.com/nontangent/ng-atomic/commit/7d2b4cf1b27b98cd95a8082e2a25d68173374f8a))
+* **schematics:** add some feature ([bf8eb40](https://github.com/nontangent/ng-atomic/commit/bf8eb402a549a639378b4faec8231d4173265514))
+* **storybook:** temp ([676f611](https://github.com/nontangent/ng-atomic/commit/676f6113868bdc2acfb88972cf39a4eec0fd0ac4))
+* **templates:** use text input section ([6305ace](https://github.com/nontangent/ng-atomic/commit/6305ace3f6f01ddafe6f4c1a7be9db77b57ad8ef))
+* **templates:** use text input section ([2e7852f](https://github.com/nontangent/ng-atomic/commit/2e7852f5f3f5bbd723d13dce209b635e2188e1f4))
+
 # [1.6.0](https://github.com/nontangent/ng-atomic/compare/v1.5.0...v1.6.0) (2022-05-15)
 
 
