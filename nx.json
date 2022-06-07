@@ -1,13 +1,18 @@
 {
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "npmScope": "platform",
   "tasksRunnerOptions": {
     "default": {
@@ -24,15 +29,47 @@
     }
   },
   "projects": {
-    "demo": { "tags": [] },
-    "demo-e2e": { "tags": [], "implicitDependencies": ["demo"] },
-    "common": { "tags": [] },
-    "components": { "tags": [], "implicitDependencies": ["common"] },
-    "schematics": { "tags": [] },
-    "components-e2e": { "tags": [], "implicitDependencies": ["components"] },
-    "elements": { "tags": [] },
-    "web-api": { "tags": [] },
-    "editor": { "tags": [] },
-    "editor-e2e": { "tags": [], "implicitDependencies": ["editor"] }
+    "common": {
+      "tags": []
+    },
+    "components": {
+      "tags": [],
+      "implicitDependencies": ["common"]
+    },
+    "components-e2e": {
+      "tags": [],
+      "implicitDependencies": ["components"]
+    },
+    "demo": {
+      "tags": []
+    },
+    "demo-e2e": {
+      "tags": [],
+      "implicitDependencies": ["demo"]
+    },
+    "editor": {
+      "tags": []
+    },
+    "editor-e2e": {
+      "tags": [],
+      "implicitDependencies": ["editor"]
+    },
+    "elements": {
+      "tags": []
+    },
+    "schematics": {
+      "tags": []
+    },
+    "web-api": {
+      "tags": []
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
