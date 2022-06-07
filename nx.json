@@ -34,33 +34,25 @@
     },
     "components": {
       "tags": [],
-      "implicitDependencies": [
-        "common"
-      ]
+      "implicitDependencies": ["common"]
     },
     "components-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "components"
-      ]
+      "implicitDependencies": ["components"]
     },
     "demo": {
       "tags": []
     },
     "demo-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "demo"
-      ]
+      "implicitDependencies": ["demo"]
     },
     "editor": {
       "tags": []
     },
     "editor-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "editor"
-      ]
+      "implicitDependencies": ["editor"]
     },
     "elements": {
       "tags": []
