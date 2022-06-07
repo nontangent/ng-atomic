@@ -3,7 +3,7 @@ import {
 	externalSchematic, schematic,
 	url, applyTemplates, mergeWith, move
 } from '@angular-devkit/schematics';
-import * as strings from '@angular-devkit/core/src/utils/strings';
+import strings from '@angular-devkit/core/src/utils/strings';
 import { parseName } from '@schematics/angular/utility/parse-name';
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
 import { join } from 'path';

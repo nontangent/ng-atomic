@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { getSourceNodes } from '@nrwl/workspace/src/utils/ast-utils';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 const isVariableDeclaration = (n: ts.Node) => n.kind === ts.SyntaxKind.VariableDeclaration;
 const isIdentifier = (n: ts.Node) => n.kind === ts.SyntaxKind.Identifier;

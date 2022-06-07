@@ -1,6 +1,6 @@
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { readFileSync } from 'fs';
-import * as path from 'path';
+import path from 'path';
 import { join } from 'path';
 import {
   buildExpectedFilePaths,

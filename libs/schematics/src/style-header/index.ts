@@ -1,6 +1,6 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 import { dasherize} from '@angular-devkit/core/src/utils/strings';
-import * as format from 'string-template';
+import format from 'string-template';
 import { basename } from 'path';
 import { Schema } from './schema';
 import { saveFile } from '../_utilities/save-file';
