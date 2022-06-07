@@ -1,6 +1,6 @@
 import { useStorybookApi } from '@storybook/api';
 import { isMetaKey } from '../utils';
-import type { } from 'wicg-file-system-access';
+import type {} from 'wicg-file-system-access';
 import { walk } from '../utils/walk';
 import { get, set } from 'idb-keyval';
 import { fromEvent, ReplaySubject } from 'rxjs';
@@ -19,9 +19,9 @@ export class FileService {
 
   refresh$ = new ReplaySubject(1);
 
-  saveKeyDown$ = fromEvent<Event & {key: string}>(document, 'keydown').pipe(
-    filter(e => isMetaKey(e) && e.key === 's'),
-    tap(e => e.preventDefault()),
+  saveKeyDown$ = fromEvent<Event & { key: string }>(document, 'keydown').pipe(
+    filter((e) => isMetaKey(e) && e.key === 's'),
+    tap((e) => e.preventDefault())
   );
 
   get isLoaded(): boolean {
@@ -36,7 +36,7 @@ export class FileService {
     const handle: FileSystemDirectoryHandle = await get('dirHandle');
     if (!handle) return null;
 
-    const options = {mode: 'readwrite'} as any;
+    const options = { mode: 'readwrite' } as any;
 
     if ((await handle.queryPermission(options)) === 'granted') {
       await this.loadProject(handle);
@@ -56,13 +56,18 @@ export class FileService {
   }
 
   async loadFileText(path: string | RegExp): Promise<string> {
-    const handle = typeof path === 'string' ? this._fileHandleMap.get(path) : this.matchPath(path);
+    const handle =
+      typeof path === 'string'
+        ? this._fileHandleMap.get(path)
+        : this.matchPath(path);
     const file = await handle.getFile();
     return file.text();
   }
 
   private matchPath(regExp: RegExp): FileSystemFileHandle {
-    return [...this._fileHandleMap.entries()].find(([key]) => !!key.match(regExp))?.[1];
+    return [...this._fileHandleMap.entries()].find(
+      ([key]) => !!key.match(regExp)
+    )?.[1];
   }
 
   async overwrite(path: string, contents: string): Promise<void> {

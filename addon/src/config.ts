@@ -1,4 +1,4 @@
-import { FileType } from "./components";
+import { FileType } from './components';
 
 export interface EditorPanelConfig {
   title: string;
@@ -31,5 +31,5 @@ export const PANELS: EditorPanelConfig[] = [
     title: 'Stories',
     language: 'typescript',
     type: 'stories',
-  }
+  },
 ];

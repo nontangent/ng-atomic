@@ -25,7 +25,7 @@ export class HttpClient {
 export class ApiService {
   private static _instance: ApiService;
   static get instance(): ApiService {
-    return this._instance ??= new ApiService();
+    return (this._instance ??= new ApiService());
   }
 
   private http = new HttpClient();
@@ -34,9 +34,10 @@ export class ApiService {
     this.http.setBaseUrl('http://localhost:3333/api');
   }
 
-  generate({type, name}: {type: string, name: string}): Promise<string> {
+  generate({ type, name }: { type: string; name: string }): Promise<string> {
     const endpoint = `/ng/g/${type}`;
-    return this.http.post<string>(endpoint, {name}).toPromise();
+    return this.http
+      .post<string>(endpoint, { name })
+      .toPromise();
   }
-
 }

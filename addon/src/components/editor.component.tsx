@@ -6,8 +6,7 @@ interface State {
   initialized: boolean;
 }
 
-interface Props { }
-
+interface Props {}
 
 const DEFAULT_OPTIONS = {
   automaticLayout: true,
@@ -18,24 +17,26 @@ const DEFAULT_OPTIONS = {
   theme: 'vs-dark',
 };
 
-export const Editor = React.memo(forwardRef(({}: Props, ref) => {
-  const el: React.RefObject<HTMLDivElement> = React.createRef();
-  let _editor!: editor.IStandaloneCodeEditor;
+export const Editor = React.memo(
+  forwardRef(({}: Props, ref) => {
+    const el: React.RefObject<HTMLDivElement> = React.createRef();
+    let _editor!: editor.IStandaloneCodeEditor;
 
-  const initEditor = (options) => {
-    _editor = editor.create(el.current, options);
-  };
+    const initEditor = (options) => {
+      _editor = editor.create(el.current, options);
+    };
 
-  useImperativeHandle(ref, () => ({editor: _editor}));
+    useImperativeHandle(ref, () => ({ editor: _editor }));
 
-  useEffect(() => {
-    initEditor({
-      ...DEFAULT_OPTIONS,
-      value: '',
-      language: '',
+    useEffect(() => {
+      initEditor({
+        ...DEFAULT_OPTIONS,
+        value: '',
+        language: '',
+      });
+      return () => _editor.dispose();
     });
-    return () => _editor.dispose();
-  });
 
-  return <div ref={el} style={{height: "100%"}}></div>;
-}))
+    return <div ref={el} style={{ height: '100%' }}></div>;
+  })
+);

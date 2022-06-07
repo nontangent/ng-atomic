@@ -8,7 +8,7 @@
     "../**/*.element.ts"
   ],
   "compilerOptions": {
-    "types": ["wicg-file-system-access"],
+    "types": ["wicg-file-system-access"]
   },
   "include": ["../docs/**/*", "../libs/components/**/*"]
 }
