@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { comma } from '../comma';
 
 export const SMART_EXP_TRANSFORMER = new InjectionToken<SmartExpTransformer>('[@ng-atomic/common] Smart Transformer');

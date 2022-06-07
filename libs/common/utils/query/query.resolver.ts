@@ -1,6 +1,7 @@
 import { flatten } from 'flat';
 import { smartExpTransformer, SmartExpTransformer } from '../smart-exp-transformer';
 import { toObject } from '../to-object';
+import dayjs from 'dayjs';
 
 export const filterByQuery = <T>(
   items: T[], 
@@ -34,7 +35,7 @@ class QueryResolver<T extends object = any> {
       if (query.includes(':')) return this.inQueryByKey(_items, query);
       if (query.includes('=')) return this.inQueryByKey(_items, query);
       if (query.includes('>')) return this.gtQueryByKey(_items, query);
-      if (query.includes('<')) return this.inQueryByKey(_items, query);
+      if (query.includes('<')) return this.ltQueryByKey(_items, query);
       return this.inQuery(_items, query);
     }, items);
   }
@@ -53,7 +54,21 @@ class QueryResolver<T extends object = any> {
   private gtQueryByKey: QueryResolveFunc<T> = (items, query) => {
     const [_key, value] = query.split('>');
     const key = this.REVERSED_MAP?.[_key] ?? _key;
-    return items.filter(item => this.gt(key, flatten(toObject(item as any))?.[key], value));
+    return items.filter(item => {
+      // TODO(nontangent): flattenしたときにdayjsが壊れる
+      const v = flatten(toObject(item as any))?.[key] ?? toObject(item as any)?.[key];
+      return this.gt(key, v, value)
+    });
+  }
+
+  private ltQueryByKey: QueryResolveFunc<T> = (items, query) => {
+    const [_key, value] = query.split('<');
+    const key = this.REVERSED_MAP?.[_key] ?? _key;
+    return items.filter(item => {
+      // TODO(nontangent): flattenしたときにdayjsが壊れる
+      const v = flatten(toObject(item as any))?.[key] ?? toObject(item as any)?.[key];
+      return this.lt(key, v, value)
+    });
   }
 
   private inQuery: QueryResolveFunc<T> = (items, q) => {
@@ -65,7 +80,13 @@ class QueryResolver<T extends object = any> {
   }
 
   private gt(k: string, v: any, q: string) {
-    return _gt(this.transformer(v, k), q);
+    // const value = dayjs.isDayjs(v) ? v : this.transformer(v, k);
+    return _gt(v, q);
+  }
+
+  private lt(k: string, v: any, q: string) {
+    // const value = dayjs.isDayjs(v) ? v : this.transformer(v, k);
+    return _lt(v, q);
   }
 }
 
@@ -82,5 +103,17 @@ const _gt = (value: any, query: string): boolean => {
     ? parseFloat(value) > parseFloat(query) 
     : typeof value === 'number'
     ? value > parseFloat(query)
+    : dayjs.isDayjs(value)
+    ? dayjs(query).isBefore(value)
+    : false;
+}
+
+const _lt = (value: any, query: string): boolean => {
+  return typeof value === 'string' 
+    ? parseFloat(value) < parseFloat(query) 
+    : typeof value === 'number'
+    ? value < parseFloat(query)
+    : dayjs.isDayjs(value)
+    ? dayjs(query).isAfter(value)
     : false;
 }

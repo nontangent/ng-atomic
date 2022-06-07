@@ -1,14 +1,16 @@
 import { toObject, isIsoString } from '@ng-atomic/common/utils';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { unflatten, flatten } from 'flat';
 import { omit, pick } from 'lodash';
 
 const isNumeric = (v: string): boolean => !isNaN(Number(v)) 
 
-const parseQuery = (v: string, k: string): any => k.match(/id$/i) 
+const parseQueryString = (v: string, key: string): any => key.match(/id$/i) 
   ? v
   : typeof v === 'string' && isIsoString(v) 
   ? dayjs(v) 
+  : v === ''
+  ? v
   : isNumeric(v)
   ? Number(v)
   : v;
@@ -16,7 +18,7 @@ const parseQuery = (v: string, k: string): any => k.match(/id$/i)
 export class BaseFormService {
   static fromQueryParams<T>(obj: T): object {
     return Object.entries((unflatten(obj) as any)?.form ?? {}).reduce((m, [k, v]: [string, string]) => ({
-      ...m, [k]: parseQuery(v, k),
+      ...m, [k]: parseQueryString(v, k),
     }), {});
   }
 

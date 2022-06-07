@@ -1,5 +1,5 @@
 import { Inject, Optional, Pipe } from '@angular/core';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { SMART_EXP_TRANSFORMER, smartExpTransformer, SmartExpTransformer } from '@ng-atomic/common/utils';
 
 @Pipe({

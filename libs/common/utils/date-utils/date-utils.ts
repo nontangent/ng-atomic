@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 export const removeComma = (str: string) => str.replace(/\,/g, '');
 
