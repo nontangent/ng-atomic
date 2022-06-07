@@ -1,16 +1,16 @@
 <frames-card>
   <frames-auto-layout vertical>
     <organisms-heading>ログイン</organisms-heading>
-    <organisms-input-field-section
+    <organisms-text-input-section
       *ngIf="isEmailSectionShown"
       label="メールアドレス"
       [control]="form.get('email')"
-    ></organisms-input-field-section>
-    <organisms-input-field-section
+    ></organisms-text-input-section>
+    <organisms-text-input-section
       *ngIf="isPasswordSectionShown"
       label="パスワード"
       [control]="form.get('password')"
-    ></organisms-input-field-section>
+    ></organisms-text-input-section>
     <organisms-action-buttons-section
       [actionItems]="actionItems"
     ></organisms-action-buttons-section>
