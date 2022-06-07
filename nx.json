@@ -25,7 +25,8 @@
           "e2e",
           "build-storybook"
         ],
-        "accessToken": "NDRjZTYwZWMtZDZhMC00ZGU0LWE1MDYtZWM3OGJmNmYyNjc4fHJlYWQtd3JpdGU="
+        "accessToken": "NDRjZTYwZWMtZDZhMC00ZGU0LWE1MDYtZWM3OGJmNmYyNjc4fHJlYWQtd3JpdGU=",
+        "parallel": 1
       }
     }
   },
