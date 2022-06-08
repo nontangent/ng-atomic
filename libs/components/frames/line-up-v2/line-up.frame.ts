@@ -44,8 +44,8 @@ export class LineUpFrame implements OnInit, OnDestroy {
   Mode = Mode;
   mode = Mode.MAIN;
 
-  private readonly refresh$ = new ReplaySubject(1);
-  private readonly destroy$ = new ReplaySubject(1);
+  private readonly refresh$ = new ReplaySubject<void>(1);
+  private readonly destroy$ = new ReplaySubject<void>(1);
   private readonly hasNext$ = new BehaviorSubject(false);  
 
   @Input()

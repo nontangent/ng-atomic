@@ -13,7 +13,7 @@ import { ChipsManager } from './chips.manager';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipsInputAtom implements OnInit {
-  private readonly destroy$ = new ReplaySubject(1);
+  private readonly destroy$ = new ReplaySubject<void>(1);
 
   @Input()
   separators = [ENTER, COMMA, SPACE] as const;
