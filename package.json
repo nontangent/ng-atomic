@@ -89,6 +89,7 @@
     "@nrwl/nest": "13.10.0",
     "@nrwl/node": "13.10.0",
     "@nrwl/nx-cloud": "14.0.5",
+    "@nrwl/tao": "^13.10.5",
     "@nrwl/workspace": "13.10.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
