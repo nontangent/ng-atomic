@@ -30,6 +30,7 @@ export class ChipsInputAtom implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.chipsManager.setValue(this.control.value);
     this.control.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
       this.chipsManager.setValue(value);
       this.cd.markForCheck();
