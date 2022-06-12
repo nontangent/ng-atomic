@@ -1,3 +1,22 @@
+# [3.0.0](https://github.com/nontangent/ng-atomic/compare/v2.0.1...v3.0.0) (2022-06-12)
+
+
+### Bug Fixes
+
+* **components:** add support for rxjs7 ([2001e9c](https://github.com/nontangent/ng-atomic/commit/2001e9c6521585c8094182c8e7c87788b4bda2ff))
+* enable query resolver service ([3440781](https://github.com/nontangent/ng-atomic/commit/3440781827e7ebc1877fd0e12915107161e6746f))
+* **schematics:** `@angular/component` validation error ([772d733](https://github.com/nontangent/ng-atomic/commit/772d733ad794add3416bb7ca34a7fb2ee6d850c7))
+
+
+### chore
+
+* add support for angular 13 ([c498692](https://github.com/nontangent/ng-atomic/commit/c4986925887c3ad1a1bbdca42d6de19ec005b660))
+
+
+### BREAKING CHANGES
+
+* add support for angular 13
+
 ## [2.0.1](https://github.com/nontangent/ng-atomic/compare/v2.0.0...v2.0.1) (2022-06-07)
 
 
