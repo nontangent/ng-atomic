@@ -1,0 +1,95 @@
+{
+  "projectType": "application",
+  "root": "apps/editor",
+  "sourceRoot": "apps/editor/src",
+  "prefix": "platform",
+  "targets": {
+    "build": {
+      "executor": "ngx-build-plus:browser",
+      "options": {
+        "outputPath": "dist/apps/editor",
+        "index": "apps/editor/src/index.html",
+        "main": "apps/editor/src/main.ts",
+        "polyfills": "apps/editor/src/polyfills.ts",
+        "tsConfig": "apps/editor/tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "apps/editor/src/favicon.ico",
+          "apps/editor/src/assets",
+          {
+            "glob": "**/*",
+            "input": "node_modules/monaco-editor",
+            "output": "assets/monaco-editor"
+          }
+        ],
+        "styles": ["apps/editor/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/editor/src/environments/environment.ts",
+              "with": "apps/editor/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "ngx-build-plus:dev-server",
+      "options": {
+        "browserTarget": "editor:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "editor:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "editor:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/editor/src/**/*.ts",
+          "apps/editor/src/**/*.html"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "ngx-build-plus:karma",
+      "outputs": ["coverage/apps/editor"],
+      "options": {
+        "jestConfig": "apps/editor/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

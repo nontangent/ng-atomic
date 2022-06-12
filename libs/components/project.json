@@ -1,0 +1,81 @@
+{
+  "projectType": "library",
+  "root": "libs/components",
+  "sourceRoot": "libs/components",
+  "prefix": "platform",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/components/tsconfig.lib.json",
+        "project": "libs/components/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/components/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/components/src/**/*.ts",
+          "libs/components/src/**/*.html"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/components"],
+      "options": {
+        "jestConfig": "libs/components/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "develop": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "demo:build",
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/components/styles"]
+        },
+        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
+        "compodoc": false,
+        "port": 4400
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["dist/storybook"],
+      "options": {
+        "browserTarget": "demo:build"
+      }
+    },
+    "dummy-for-deploy": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "storybook-static",
+        "aot": false,
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "defaultConfiguration": ""
+    },
+    "deploy": {
+      "executor": "angular-cli-ghpages:deploy",
+      "options": {
+        "buildTarget": "components:dummy-for-deploy",
+        "baseHref": "ng-atomic",
+        "noBuild": true
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["common"]
+}

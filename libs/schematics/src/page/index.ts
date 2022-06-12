@@ -17,7 +17,8 @@ export const page = (options: Schema): Rule => async (host: Tree) => {
 	options.path ??= await createDefaultPath(host, options.project);
 
 	const { name, path, type, project } = options = {...options, ...parseName(options.path, options.name)};
-	const componentExt = options.useTypeAsExtension ? type : 'component';
+	const { styleHeader, useTypeAsExtension, ...opt } = options;
+	const componentExt = useTypeAsExtension ? type : 'component';
 	const scssPath = `${path}/${name}/${name}.${componentExt}.scss`;
 	const pages = getPagesOptions(`${path}/${name}`);
 
@@ -25,8 +26,8 @@ export const page = (options: Schema): Rule => async (host: Tree) => {
 		schematic('pages', {...pages, project}),
 		addRouteIntoPagesModule(options, pages),
 		schematic('pages', {name, path, project}),
-		externalSchematic('@schematics/angular', 'component', {...options, changeDetection: 'Default', export: true}),
-		schematic('style-header', {...options, name, type, path: scssPath}),
+		externalSchematic('@schematics/angular', 'component', {...opt, changeDetection: 'Default', export: true}),
+		schematic('style-header', {...options, styleHeader, name, type, path: scssPath}),
 		addRouteIntoPageModule(options, {path, name}),
 	]);
 };

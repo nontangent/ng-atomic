@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "projects": {
+    "common": "libs/common",
+    "components": "libs/components",
+    "components-e2e": "apps/components-e2e",
+    "demo": "apps/demo",
+    "demo-e2e": "apps/demo-e2e",
+    "editor": "apps/editor",
+    "editor-e2e": "apps/editor-e2e",
+    "elements": {
+      "projectType": "application",
+      "root": "libs/components",
+      "sourceRoot": "libs/components/src",
+      "prefix": "platform",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/libs/elements",
+            "index": "libs/components/index.elements.html",
+            "main": "libs/components/main.elements.ts",
+            "polyfills": "libs/components/polyfills.elements.ts",
+            "tsConfig": "libs/components/tsconfig.elements.json",
+            "assets": [],
+            "styles": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/components/styles"]
+            },
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        }
+      },
+      "tags": []
+    },
+    "schematics": "libs/schematics",
+    "web-api": "libs/web-api"
+  }
+}
