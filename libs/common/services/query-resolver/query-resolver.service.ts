@@ -14,10 +14,6 @@ export class QueryResolverService {
   }
 
   resolve<T>(items: T[], queryString: string, dlm: Record<string, string> = {}): T[] {
-    // console.debug('queryString:', queryString);
-    // const resolved = filterByQuery(items, queryString, dlm, this.transformer);
-    // console.debug('resolved:', resolved);
-    // return resolved;
-    return items;
+    return filterByQuery(items, queryString, dlm, this.transformer);
   }
 }

@@ -1,0 +1,48 @@
+{
+  "root": "libs/schematics",
+  "sourceRoot": "libs/schematics/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/schematics/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/schematics"],
+      "options": {
+        "jestConfig": "libs/schematics/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/schematics",
+        "tsConfig": "libs/schematics/tsconfig.lib.json",
+        "packageJson": "libs/schematics/package.json",
+        "main": "libs/schematics/src/index.ts",
+        "assets": [
+          "collection.json",
+          "libs/schematics/*.md",
+          {
+            "input": "./libs/schematics/src",
+            "glob": "**/*.!(ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/schematics",
+            "glob": "collection.json",
+            "output": "."
+          }
+        ],
+        "srcRootForCompilationRoot": "libs/schematics"
+      }
+    }
+  },
+  "tags": []
+}
