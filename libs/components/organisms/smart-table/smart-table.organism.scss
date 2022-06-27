@@ -2,8 +2,9 @@
 @use 'atomic/organism' as *;
 
 :host {
-  @include var(--width, 100%);
-  @include var(--cell, 8px);
+  @include property(--width, 100%);
+  @include property(--cell, 8px);
+  @include property(--column-vertical-padding, 4px);
 }
 
 :host {
@@ -27,6 +28,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    ::ng-deep {
+      th, td {
+        padding: 0 var(--column-vertical-padding);
+      }
     }
   }
 
