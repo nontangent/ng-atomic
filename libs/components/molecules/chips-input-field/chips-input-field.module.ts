@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChipsInputModule } from '@ng-atomic/components/atoms/chips-input';
+import { ElementsModule } from '@ng-atomic/elements';
+
 import { ChipsInputFieldMolecule } from './chips-input-field.molecule';
 
 @NgModule({
@@ -16,4 +18,4 @@ import { ChipsInputFieldMolecule } from './chips-input-field.molecule';
     ChipsInputFieldMolecule
   ]
 })
-export class ChipsInputFieldModule { }
+export class ChipsInputFieldModule extends ElementsModule { }

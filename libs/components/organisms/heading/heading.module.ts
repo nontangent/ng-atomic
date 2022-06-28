@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeadingOrganism } from './heading.organism';
+import { ElementsModule } from '@ng-atomic/elements';
 
+import { HeadingOrganism } from './heading.organism';
 
 
 @NgModule({
@@ -15,4 +16,4 @@ import { HeadingOrganism } from './heading.organism';
     HeadingOrganism
   ]
 })
-export class HeadingModule { }
+export class HeadingModule extends ElementsModule { }

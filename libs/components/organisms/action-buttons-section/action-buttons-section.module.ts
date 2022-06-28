@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActionButtonsSectionOrganism } from './action-buttons-section.organism';
-
 import { MatButtonModule } from '@angular/material/button';
+import { ElementsModule } from '@ng-atomic/elements';
+
+import { ActionButtonsSectionOrganism } from './action-buttons-section.organism';
 
 @NgModule({
   declarations: [
@@ -17,4 +18,4 @@ import { MatButtonModule } from '@angular/material/button';
     ActionButtonsSectionOrganism
   ]
 })
-export class ActionButtonsSectionModule { }
+export class ActionButtonsSectionModule extends ElementsModule { }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ElementsModule } from '@ng-atomic/elements';
 
 import { LineUpFrame } from './line-up.frame';
 
@@ -13,4 +14,4 @@ import { LineUpFrame } from './line-up.frame';
   ],
   exports: [LineUpFrame]
 })
-export class LineUpModule { }
+export class LineUpModule extends ElementsModule { }

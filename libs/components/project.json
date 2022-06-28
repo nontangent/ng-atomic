@@ -74,8 +74,55 @@
         "baseHref": "ng-atomic",
         "noBuild": true
       }
+    },
+    "build-elements": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/libs/components",
+        "index": "libs/components/index.elements.html",
+        "main": "libs/components/main.elements.ts",
+        "polyfills": "libs/components/polyfills.elements.ts",
+        "tsConfig": "libs/components/tsconfig.elements.json",
+        "assets": [],
+        "styles": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/components/styles"]
+        },
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": ""
     }
   },
   "tags": [],
-  "implicitDependencies": ["common"]
+  "implicitDependencies": ["common", "elements"]
 }

@@ -1,9 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
-    "types": []
+    "outDir": "../../dist/out-tsc"
   },
   "files": ["main.elements.ts", "polyfills.elements.ts"],
-  "include": ["./**/*.element.ts"]
+  "include": ["./**/*.ts"],
+  "exclude": [
+    "**/test-setup.ts",
+    "**/index.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.stories.ts",
+    "**/*.stories.js"
+  ],
 }

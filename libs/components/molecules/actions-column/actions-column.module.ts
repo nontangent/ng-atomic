@@ -4,9 +4,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-button';
+import { ElementsModule } from '@ng-atomic/elements';
 
 import { ActionsColumnMolecule } from './actions-column.molecule';
-import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-button';
 
 @NgModule({
   declarations: [
@@ -26,4 +27,4 @@ import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-bu
     ActionsColumnMolecule
   ]
 })
-export class ActionsColumnModule { }
+export class ActionsColumnModule extends ElementsModule { }

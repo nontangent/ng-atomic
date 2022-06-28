@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextInputFieldModule } from '@ng-atomic/components/molecules/text-input-field';
 import { TextInputSectionOrganism } from './text-input-section.organism';
+import { BrowserModule } from '@angular/platform-browser';
+import { ElementsModule } from '@ng-atomic/elements';
 
 
 @NgModule({
@@ -9,6 +11,7 @@ import { TextInputSectionOrganism } from './text-input-section.organism';
     TextInputSectionOrganism
   ],
   imports: [
+    BrowserModule,
     CommonModule,
     // Molecules
     TextInputFieldModule,
@@ -17,4 +20,4 @@ import { TextInputSectionOrganism } from './text-input-section.organism';
     TextInputSectionOrganism
   ]
 })
-export class TextInputSectionModule { }
+export class TextInputSectionModule extends ElementsModule { }

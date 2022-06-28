@@ -4,6 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-button';
+import { ElementsModule } from '@ng-atomic/elements';
+
 import { NavigatorOrganism } from './navigator.organism';
 
 
@@ -21,4 +23,4 @@ import { NavigatorOrganism } from './navigator.organism';
   ],
   exports: [NavigatorOrganism]
 })
-export class NavigatorModule { }
+export class NavigatorModule extends ElementsModule { }

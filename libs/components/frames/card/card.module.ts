@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-
+import { ElementsModule } from '@ng-atomic/elements';
 import { CardFrame } from './card.frame';
 
 
@@ -19,4 +19,4 @@ import { CardFrame } from './card.frame';
     CardFrame
   ]
 })
-export class CardModule { }
+export class CardModule extends ElementsModule { }

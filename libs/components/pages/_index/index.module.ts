@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { IndexPage } from './index.page';
+import { ElementsModule } from '@ng-atomic/elements';
+import { BrowserModule } from '@angular/platform-browser';
 
 const routes: Routes = [
 	{
@@ -14,9 +16,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [IndexPage],
   imports: [
+    BrowserModule,
     CommonModule,
     RouterModule.forChild(routes)
   ],
   exports: [IndexPage]
 })
-export class IndexModule { }
+export class IndexModule extends ElementsModule { }

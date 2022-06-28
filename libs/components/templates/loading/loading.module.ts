@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ElementsModule } from '@ng-atomic/elements';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { LoadingTemplate } from './loading.template';
 
@@ -10,6 +12,7 @@ import { LoadingTemplate } from './loading.template';
     LoadingTemplate
   ],
   imports: [
+    BrowserModule,
     CommonModule,
     // Materials
     MatProgressSpinnerModule,
@@ -18,4 +21,4 @@ import { LoadingTemplate } from './loading.template';
     LoadingTemplate
   ]
 })
-export class LoadingModule { }
+export class LoadingModule extends ElementsModule { }
