@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AutoLayoutFrame } from './auto-layout.frame';
+import { ElementsModule } from '@ng-atomic/elements';
 
+import { AutoLayoutFrame } from './auto-layout.frame';
 
 
 @NgModule({
@@ -15,4 +16,4 @@ import { AutoLayoutFrame } from './auto-layout.frame';
     AutoLayoutFrame
   ]
 })
-export class AutoLayoutModule { }
+export class AutoLayoutModule extends ElementsModule { }

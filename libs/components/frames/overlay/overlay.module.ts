@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OverlayFrame } from './overlay.frame';
+import { ElementsModule } from '@ng-atomic/elements';
 
 @NgModule({
   declarations: [OverlayFrame],
@@ -13,5 +14,5 @@ import { OverlayFrame } from './overlay.frame';
     OverlayFrame
   ]
 })
-export class OverlayModule { }
+export class OverlayModule extends ElementsModule { }
 

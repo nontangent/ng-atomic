@@ -5,6 +5,7 @@ import { ScrollModule } from '@ng-atomic/components/frames/scroll';
 import { SmartTableModule } from '@ng-atomic/components/organisms/smart-table';
 import { BackNavigatorModule } from '@ng-atomic/components/organisms/back-navigator';
 import { PaginatorModule } from '@ng-atomic/components/organisms/paginator';
+import { ElementsModule } from '@ng-atomic/elements';
 
 import { SmartIndexTemplate } from './smart-index.template';
 
@@ -27,4 +28,4 @@ import { SmartIndexTemplate } from './smart-index.template';
     SmartIndexTemplate
   ]
 })
-export class SmartIndexModule { }
+export class SmartIndexModule extends ElementsModule { }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AutoLayoutModule } from '@ng-atomic/components/frames/auto-layout';
 import { ChipsInputFieldModule } from '@ng-atomic/components/molecules/chips-input-field';
+import { ElementsModule } from '@ng-atomic/elements';
 
 import { PaginatorOrganism } from './paginator.organism';
 
@@ -23,4 +24,4 @@ import { PaginatorOrganism } from './paginator.organism';
     PaginatorOrganism
   ]
 })
-export class PaginatorModule { }
+export class PaginatorModule extends ElementsModule { }

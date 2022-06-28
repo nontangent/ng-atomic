@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SelectInputFieldModule } from '@ng-atomic/components/molecules/select-input-field';
+import { ElementsModule } from '@ng-atomic/elements';
+
 import { SelectInputSectionOrganism } from './select-input-section.organism';
 
-import { SelectInputFieldModule } from '@ng-atomic/components/molecules/select-input-field';
 
 @NgModule({
   declarations: [
@@ -17,4 +19,4 @@ import { SelectInputFieldModule } from '@ng-atomic/components/molecules/select-i
     SelectInputSectionOrganism
   ]
 })
-export class SelectInputSectionModule { }
+export class SelectInputSectionModule extends ElementsModule { }

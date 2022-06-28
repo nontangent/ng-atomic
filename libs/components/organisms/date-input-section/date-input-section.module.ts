@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateInputFieldModule } from '@ng-atomic/components/molecules/date-input-field';
+import { ElementsModule } from '@ng-atomic/elements';
+
 import { DateInputSectionOrganism } from './date-input-section.organism';
 
 @NgModule({
@@ -15,4 +17,4 @@ import { DateInputSectionOrganism } from './date-input-section.organism';
     DateInputSectionOrganism
   ],
 })
-export class DateInputSectionModule { }
+export class DateInputSectionModule extends ElementsModule { }

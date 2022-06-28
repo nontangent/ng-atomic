@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuOrganism } from './menu.organism';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { ElementsModule } from '@ng-atomic/elements';
+
+import { MenuOrganism } from './menu.organism';
 
 @NgModule({
   declarations: [MenuOrganism],
@@ -13,4 +15,4 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   exports: [MenuOrganism]
 })
-export class MenuModule { }
+export class MenuModule extends ElementsModule { }

@@ -6,6 +6,7 @@ import { TextInputSectionModule } from '@ng-atomic/components/organisms/text-inp
 import { SocialLoginSectionModule } from '@ng-atomic/components/organisms/social-login-section';
 import { AutoLayoutModule } from '@ng-atomic/components/frames/auto-layout';
 import { CardModule } from '@ng-atomic/components/frames/card';
+import { ElementsModule } from '@ng-atomic/elements';
 import { EntranceTemplate } from './entrance.template';
 
 
@@ -28,4 +29,4 @@ import { EntranceTemplate } from './entrance.template';
     EntranceTemplate
   ]
 })
-export class EntranceModule { }
+export class EntranceModule extends ElementsModule { }

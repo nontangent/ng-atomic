@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextareaFieldModule } from '@ng-atomic/components/molecules/textarea-field';
-import { TextareaSectionOrganism } from './textarea-section.organism';
+import { ElementsModule } from '@ng-atomic/elements';
 
+import { TextareaSectionOrganism } from './textarea-section.organism';
 
 
 @NgModule({
@@ -14,4 +15,4 @@ import { TextareaSectionOrganism } from './textarea-section.organism';
   ],
   exports: [TextareaSectionOrganism]
 })
-export class TextareaSectionModule { }
+export class TextareaSectionModule extends ElementsModule { }

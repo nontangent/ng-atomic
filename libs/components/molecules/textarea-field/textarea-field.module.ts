@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { TextareaFieldMolecule } from './textarea-field.molecule';
+import { ElementsModule } from '@ng-atomic/elements';
 
+import { TextareaFieldMolecule } from './textarea-field.molecule';
 
 
 @NgModule({
@@ -14,4 +15,4 @@ import { TextareaFieldMolecule } from './textarea-field.molecule';
   ],
   exports: [TextareaFieldMolecule]
 })
-export class TextareaFieldModule { }
+export class TextareaFieldModule extends ElementsModule { }
