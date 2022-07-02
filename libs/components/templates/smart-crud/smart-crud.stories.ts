@@ -1,5 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { overrideModule } from '@ng-atomic/common/utils/override-module';
 import { Meta, Story } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { SmartCrudTemplate, SmartCrudModule } from '.';
@@ -13,6 +14,8 @@ export default {
     },
   },
 } as Meta;
+
+
 
 const ACTIONS = {
   backButtonClick: action('backButtonClick'),

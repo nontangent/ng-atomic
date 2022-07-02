@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextInputFieldModule } from '@ng-atomic/components/molecules/text-input-field';
-import { ElementsModule } from '@ng-atomic/elements';
 
 import { CardInputSectionOrganism } from './card-input-section.organism';
 
@@ -16,4 +15,4 @@ import { CardInputSectionOrganism } from './card-input-section.organism';
   ],
   exports: [CardInputSectionOrganism]
 })
-export class CardInputSectionModule extends ElementsModule { }
+export class CardInputSectionModule { }

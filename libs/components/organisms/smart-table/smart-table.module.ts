@@ -9,17 +9,14 @@ import { DomainModule } from '@ng-atomic/common/pipes';
 import { ActionsColumnModule } from '@ng-atomic/components/molecules/actions-column';
 import { CheckboxColumnModule } from '@ng-atomic/components/molecules/checkbox-column';
 import { SmartColumnModule } from '@ng-atomic/components/molecules/smart-column';
-import { ElementsModule } from '@ng-atomic/elements';
 
 import { SmartTableOrganism } from './smart-table.organism';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
     SmartTableOrganism,
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     // Pipes
     DomainModule,
@@ -38,4 +35,4 @@ import { BrowserModule } from '@angular/platform-browser';
     SmartTableOrganism
   ]
 })
-export class SmartTableModule extends ElementsModule { }
+export class SmartTableModule { }

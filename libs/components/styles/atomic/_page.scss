@@ -1,5 +1,4 @@
-// @import 'host-variable';
-@import 'atomic/component';
+@use 'atomic/component' as *;
 
 @mixin page($host) {
 	display: block;

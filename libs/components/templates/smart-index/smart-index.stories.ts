@@ -1,6 +1,6 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Meta, Story } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SmartIndexTemplate, SmartIndexModule } from '.';
 
 export default {
@@ -25,7 +25,7 @@ const Template: Story = (args) => ({
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
-      SmartIndexModule
+      SmartIndexModule,
     ]
   }
 });

@@ -1,26 +1,38 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Meta, Story } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import { SmartMenuButtonAtom, SmartMenuButtonModule } from '.';
+import { BrowserModule } from '@angular/platform-browser';
+import { buildActions } from '@ng-atomic/storybook';
 
 export default {
   title: 'AtomS/SmartMenuButton',
   component: SmartMenuButtonAtom,
 } as Meta;
 
-const ACTIONS = {
-  // eventEmitterName: action('eventEmitterName'),
-};
-
-
 const Template: Story = (args) => ({
-  props: {...args, ...ACTIONS},
+  props: {
+    ...args,
+    ...buildActions(['actionItemClick']),
+  },
   moduleMetadata: {
     imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
       SmartMenuButtonModule,
     ]
   }
 });
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  actionItems: [
+    {
+      id: 'test-action-01',
+      name: 'テスト01',
+    },
+    {
+      id: 'test-action-01',
+      name: 'テスト01',
+    },
+  ]
+};

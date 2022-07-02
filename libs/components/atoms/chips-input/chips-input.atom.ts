@@ -19,7 +19,7 @@ export class ChipsInputAtom implements OnInit {
   separators = [ENTER, COMMA, SPACE] as const;
 
   @Input()
-  control = new FormControl<string>();
+  control = new FormControl<string>('');
 
   @Input()
   placeholder = '';

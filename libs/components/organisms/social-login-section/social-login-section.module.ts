@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { SocialLoginSectionOrganism } from './social-login-section.organism';
-import { BrowserModule } from '@angular/platform-browser';
-import { ElementsModule } from '@ng-atomic/elements';
 
 
 
@@ -12,7 +10,6 @@ import { ElementsModule } from '@ng-atomic/elements';
     SocialLoginSectionOrganism
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     // Material
     MatButtonModule,
@@ -21,4 +18,4 @@ import { ElementsModule } from '@ng-atomic/elements';
     SocialLoginSectionOrganism
   ]
 })
-export class SocialLoginSectionModule extends ElementsModule { }
+export class SocialLoginSectionModule { }

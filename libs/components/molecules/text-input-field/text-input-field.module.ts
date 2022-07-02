@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ElementsModule } from '@ng-atomic/elements';
 
 import { TextInputFieldMolecule } from './text-input-field.molecule';
 
@@ -20,4 +19,4 @@ import { TextInputFieldMolecule } from './text-input-field.molecule';
   ],
   exports: [TextInputFieldMolecule]
 })
-export class TextInputFieldModule extends ElementsModule { }
+export class TextInputFieldModule { }

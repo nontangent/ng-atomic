@@ -1,5 +1,5 @@
 @use 'scoped-var/strict' as * with ($host: 'smart-table');
-@use 'atomic/organism' as *;
+// @use 'atomic/organism' as *;
 
 :host {
   @include property(--width, 100%);
@@ -8,7 +8,7 @@
 }
 
 :host {
-  @include organism($host);
+  // @include organism($host);
 
 	position: relative;
   width: 100%;

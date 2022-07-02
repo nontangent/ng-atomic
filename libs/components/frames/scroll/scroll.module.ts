@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IosSafariScrollBuggyfillModule } from '@ng-atomic/common/directives';
 import { ScrollFrame } from './scroll.frame';
-import { ElementsModule } from '@ng-atomic/elements';
 
 
 @NgModule({
@@ -17,4 +16,4 @@ import { ElementsModule } from '@ng-atomic/elements';
     ScrollFrame
   ]
 })
-export class ScrollModule extends ElementsModule { }
+export class ScrollModule { }

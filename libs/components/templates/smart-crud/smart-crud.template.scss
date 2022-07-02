@@ -1,11 +1,11 @@
 @use 'scoped-var/strict' as * with ($host: 'smart-crud');
-@use 'atomic/template' as *;
+// @use 'atomic/template' as *;
 
 :host {
   @include property(--horizontal-padding, 16px);
   @include property(--vertical-padding, 24px);
   @include property(--gap, 16px);
-  @include template($host);
+  // @include template($host);
 }
 
 :host {

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ElementsModule } from '@ng-atomic/elements';
 import { SmartMenuFrame } from './smart-menu.frame';
 
 
@@ -12,4 +11,4 @@ import { SmartMenuFrame } from './smart-menu.frame';
   ],
   exports: [SmartMenuFrame]
 })
-export class SmartMenuModule extends ElementsModule { }
+export class SmartMenuModule { }

@@ -16,8 +16,8 @@ export class OverlayFrame {
   @Input()
   isLoading: boolean = false;
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet?.activatedRouteData?.page;
+  prepareRoute(outlet: RouterOutlet | null | undefined) {
+    return outlet?.activatedRouteData?.['page'];
   }
 
 }

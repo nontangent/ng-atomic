@@ -6,7 +6,7 @@ import { ElementRef } from '@angular/core';
 
 export function fromResize({nativeElement}: ElementRef<Element>): Observable<number> {
   return Observable.create(function(observer: any) {
-    const callback = (entries: any) => entries.forEach(e => observer.next(e));
+    const callback = (entries: any) => entries.forEach((e: any) => observer.next(e));
     const resizeObserver = new ResizeObserver(callback);
     resizeObserver.observe(nativeElement);
     return () => resizeObserver.disconnect();

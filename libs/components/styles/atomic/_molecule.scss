@@ -1,5 +1,4 @@
-// @import 'host-variable';
-@import 'atomic/component';
+@use 'atomic/component' as *;
 
 @mixin molecule($host) {
   @include component($host);

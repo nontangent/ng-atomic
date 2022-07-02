@@ -1,4 +1,4 @@
-@import 'atomic/component';
+@use 'atomic/component' as *;
 
 @mixin template($host) {
 	width: 100%;

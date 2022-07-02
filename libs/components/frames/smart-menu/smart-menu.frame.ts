@@ -24,7 +24,7 @@ export class SmartMenuFrame {
   next!: ElementRef;
 
   get page(): string {
-    const page: string = this.outlet?.activatedRouteData?.page;
+    const page: string = this.outlet?.activatedRouteData?.['page'];
     return page === 'Blank' ? 'Blank' : this.isMainHidden ? `Next` : `NextWithMainPage`;
   }
 

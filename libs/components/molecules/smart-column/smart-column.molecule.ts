@@ -12,8 +12,8 @@ import { flatten } from 'flat';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SmartColumnMolecule<T> extends MatTextColumn<T> {
-  dataAccessor = (data: any, name: string): string => {
-    return name.includes('.') ? flatten(toObject(data))?.[name] : data?.[name];
+  override dataAccessor = (data: any, name: string): string => {
+    return name.includes('.') ? flatten<object, any>(toObject(data))?.[name] : data?.[name];
   }
   
   @Input()

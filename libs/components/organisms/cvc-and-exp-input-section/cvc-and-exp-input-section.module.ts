@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextInputFieldModule } from '@ng-atomic/components/molecules/text-input-field';
 import { SelectInputFieldModule } from '@ng-atomic/components/molecules/select-input-field';
-import { ElementsModule } from '@ng-atomic/elements';
 
 import { CvcAndExpInputSectionOrganism } from './cvc-and-exp-input-section.organism';
 
@@ -17,4 +16,4 @@ import { CvcAndExpInputSectionOrganism } from './cvc-and-exp-input-section.organ
   ],
   exports: [CvcAndExpInputSectionOrganism]
 })
-export class CvcAndExpInputSectionModule extends ElementsModule { }
+export class CvcAndExpInputSectionModule { }

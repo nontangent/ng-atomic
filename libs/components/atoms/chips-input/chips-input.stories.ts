@@ -3,7 +3,7 @@ import { ChipsInputAtom, ChipsInputModule } from '.';
 
 export default {
   title: 'Atoms/ChipsInput',
-  component: ChipsInputAtom,
+  template: ChipsInputAtom,
 } as Meta;
 
 const ACTIONS = {

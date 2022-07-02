@@ -12,7 +12,7 @@ export class DrawerFrame {
   @ViewChild(MatDrawer)
   drawer!: MatDrawer;
 
-  private _isOpen: boolean;
+  private _isOpen = false;
 
   @Input()
   set isOpen(_isOpen: boolean) {

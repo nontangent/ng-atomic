@@ -1,8 +1,8 @@
 @use 'scoped-var/strict' as * with($host: 'top-navigator');
-@use 'atomic/organism' as *;
+// @use 'atomic/organism' as *;
 
 :host {
-	@include organism($host);
+	// @include organism($host);
 	@include external-property(--primary-500);
 }
 
