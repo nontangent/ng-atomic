@@ -8,6 +8,7 @@
     "elements": "libs/elements",
     "executors": "libs/executors",
     "schematics": "libs/schematics",
+    "storybook": "libs/storybook",
     "web-api": "libs/web-api"
   }
 }
