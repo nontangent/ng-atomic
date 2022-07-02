@@ -23,9 +23,9 @@ export async function defineElement(
   });
 }
 
-export function defineElements(ngModule: any) {
-  const declarations = getDeclarations(ngModule.constructor as any);
+export function defineElements(injector: Injector, moduleType: Type<any>) {
+  const declarations = getDeclarations(moduleType);
   return Promise.all(declarations.map((Component: Type<any>) => {
-    return defineElement(ngModule.injector, Component);
+    return defineElement(injector, Component);
   }));
 }

@@ -1,22 +1,19 @@
 import 'zone.js';
-import { ElementsLoader, elementsLoaderFactory } from './elements-loader';
-import { ElementsConfig } from './resolve-config';
-import { MESSAGE } from './testing/example.component';
+import { BaseElementsLoader } from './elements-loader';
+import { MESSAGE, ExampleModule } from './testing';
 
-const ELEMENTS: ElementsConfig[] = [
-  {
-    name: '@ng-atomic/example-component',
-    bootstrap: () => import('./testing/example.module').then(m => m.ExampleModule),
-  },
-];
+class ElementsLoader extends BaseElementsLoader {
+  import() {
+    return Promise.resolve(ExampleModule);
+  }
+}
 
 describe('ElementsLoader', () => {
   let loader: ElementsLoader;
 
   beforeEach(() => {
     document.body.innerHTML = `<example-component></example-component>`
-    loader = elementsLoaderFactory();
-    loader.register(ELEMENTS);
+    loader = new ElementsLoader();
   });
 
   describe('load()', () => {
