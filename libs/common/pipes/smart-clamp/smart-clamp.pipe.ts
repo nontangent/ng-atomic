@@ -9,13 +9,13 @@ import { smartSortByTransformer, SmartSortByTransformer, SMART_SORT_BY_TRANSFORM
 })
 export class SmartClampPipe implements PipeTransform {
   private slicePipe = new SlicePipe();
-  private _input = null;
-  private _output = [];
+  private _input: any = null;
+  private _output: any = [];
 
   constructor(
     @Optional()
     @Inject(SMART_SORT_BY_TRANSFORMER)
-    private transformer?: SmartSortByTransformer,
+    private transformer: SmartSortByTransformer,
   ) {
     this.transformer ??= smartSortByTransformer;
   }
