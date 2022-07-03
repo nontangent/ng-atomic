@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IosSafariScrollBuggyfillModule } from '@ng-atomic/common/directives';
+import { IosSafariScrollBuggyfillModule } from '@ng-atomic/common/directives/ios-safari-scroll-buggyfill';
 import { ScrollFrame } from './scroll.frame';
 
 

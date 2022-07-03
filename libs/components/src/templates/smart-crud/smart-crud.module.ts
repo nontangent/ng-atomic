@@ -8,8 +8,8 @@ import { BackNavigatorModule } from '@ng-atomic/components/organisms/back-naviga
 import { TextInputSectionModule } from '@ng-atomic/components/organisms/text-input-section';
 import { DateInputSectionModule } from '@ng-atomic/components/organisms/date-input-section';
 import { SelectInputSectionModule } from '@ng-atomic/components/organisms/select-input-section';
-import { SmartFieldModule } from '@ng-atomic/common/pipes';
-import { DomainModule } from '@ng-atomic/common/pipes';
+import { SmartFieldModule } from '@ng-atomic/common/pipes/smart-field';
+import { DomainModule } from '@ng-atomic/common/pipes/domain';
 
 import { SmartCrudTemplate } from './smart-crud.template';
 

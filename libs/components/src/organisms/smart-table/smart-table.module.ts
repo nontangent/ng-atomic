@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { DomainModule } from '@ng-atomic/common/pipes';
+import { DomainModule } from '@ng-atomic/common/pipes/domain';
 import { ActionsColumnModule } from '@ng-atomic/components/molecules/actions-column';
 import { CheckboxColumnModule } from '@ng-atomic/components/molecules/checkbox-column';
 import { SmartColumnModule } from '@ng-atomic/components/molecules/smart-column';
