@@ -7,3 +7,4 @@ export class ElementsLoader extends BaseElementsLoader {
     return import(`./${type}/${name}/${name}.module`).then(m => m?.[moduleName]);
   }
 }
+
