@@ -26,5 +26,6 @@ import { ChipsManager } from './chips.manager';
     ChipsInputAtom
   ],
   providers: [ChipsManager],
+  bootstrap: [ChipsInputAtom],
 })
 export class ChipsInputModule { }

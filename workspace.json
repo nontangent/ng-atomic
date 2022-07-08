@@ -7,6 +7,8 @@
     "demo-e2e": "apps/demo-e2e",
     "elements": "libs/elements",
     "executors": "libs/executors",
+    "next-demo": "apps/next-demo",
+    "next-demo-e2e": "apps/next-demo-e2e",
     "schematics": "libs/schematics",
     "storybook": "libs/storybook",
     "web-api": "libs/web-api"

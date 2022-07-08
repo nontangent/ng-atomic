@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "elements": {
+      "implementation": "./src/elements/elements.impl",
+      "schema": "./src/elements/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "package": {
+      "implementation": "./src/package/package.impl",
+      "schema": "./src/package/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "storybook": {
+      "implementation": "./src/storybook/storybook.impl",
+      "schema": "./src/storybook/schema.json",
+      "description": "Build a project using TypeScript."
+    }
+  },
+  "builders": {
+    "elements": {
+      "implementation": "./src/elements/elements.impl",
+      "schema": "./src/elements/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "storybook": {
+      "implementation": "./src/storybook/elements.impl",
+      "schema": "./src/storybook/schema.json",
+      "description": "Build a project using TypeScript."
+    }
+  }
+}

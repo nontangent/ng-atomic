@@ -1,16 +1,12 @@
-import { Injector, Type } from '@angular/core';
+import { createNgModuleRef, Injector, NgModuleRef, Type } from '@angular/core';
 
 function getSelectors(Component: Type<any>): string {
   return (Component as any).ɵcmp.selectors;
 }
 
-function getDeclarations(Module: Type<any>) {
-  return (Module as any).ɵmod.declarations;
-}
-
 export async function defineElement(
-  injector: Injector, 
   Component: Type<any>,
+  injector: Injector, 
   name: string = getSelectors(Component)?.[0],
 ) {
   return import('@angular/elements').then(({ createCustomElement }) => {
@@ -23,9 +19,8 @@ export async function defineElement(
   });
 }
 
-export function defineElements(injector: Injector, moduleType: Type<any>) {
-  const declarations = getDeclarations(moduleType);
-  return Promise.all(declarations.map((Component: Type<any>) => {
-    return defineElement(injector, Component);
+export function defineElements(componentTypes: Type<any>[], injector: Injector) {
+  return Promise.all(componentTypes.map((componentType: Type<any>) => {
+    return defineElement(componentType, injector);
   }));
 }

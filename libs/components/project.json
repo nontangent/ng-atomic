@@ -17,7 +17,7 @@
       }
     },
     "build-elements": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@ng-atomic/executors:elements",
       "options": {
         "outputPath": "dist/static/elements",
         "index": "libs/components/src/index.html",
