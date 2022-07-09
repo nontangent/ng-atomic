@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcomponents=self.webpackChunkcomponents||[]).push([[4986],{1217:(s,t,n)=>{n.r(t),n.d(t,{SocialLoginSectionModule:()=>u});var a=n(9808),c=n(7423),l=n(5e3);let u=(()=>{class o{}return o.\u0275fac=function(e){return new(e||o)},o.\u0275mod=l.oAB({type:o}),o.\u0275inj=l.cJS({imports:[[a.ez,c.ot]]}),o})()}}]);

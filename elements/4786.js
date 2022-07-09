@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcomponents=self.webpackChunkcomponents||[]).push([[4786],{4786:(D,o,a)=>{a.r(o),a.d(o,{DrawerModule:()=>u});var e=a(9808),l=a(2638),r=a(5e3);let u=(()=>{class n{}return n.\u0275fac=function(t){return new(t||n)},n.\u0275mod=r.oAB({type:n}),n.\u0275inj=r.cJS({imports:[[e.ez,l.SJ]]}),n})()}}]);

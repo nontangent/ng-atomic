@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcomponents=self.webpackChunkcomponents||[]).push([[5504],{5504:(E,t,l)=>{l.r(t),l.d(t,{SelectInputFieldModule:()=>c});var o=l(9808),u=l(3075),a=l(4107),e=l(5e3);let c=(()=>{class n{}return n.\u0275fac=function(s){return new(s||n)},n.\u0275mod=e.oAB({type:n}),n.\u0275inj=e.cJS({imports:[[o.ez,u.UX,a.LD]]}),n})()}}]);

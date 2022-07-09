@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcomponents=self.webpackChunkcomponents||[]).push([[6863],{6863:(M,t,o)=>{o.r(t),o.d(t,{ActionButtonsSectionModule:()=>l});var c=o(9808),s=o(7423),u=o(5e3);let l=(()=>{class n{}return n.\u0275fac=function(e){return new(e||n)},n.\u0275mod=u.oAB({type:n}),n.\u0275inj=u.cJS({imports:[[c.ez,s.ot]]}),n})()}}]);
