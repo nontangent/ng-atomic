@@ -8,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { ChipsManager } from '@ng-atomic/components/atoms/chips-input/chips.manager';
 
 @NgModule({
   declarations: [

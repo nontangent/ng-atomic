@@ -2,9 +2,9 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { ChipsManager } from '@ng-atomic/components/atoms/chips-input/chips.manager';
 import { FormControl } from '@ngneat/reactive-forms';
 import { ReplaySubject, takeUntil } from 'rxjs';
+import { ChipsManager } from '@ng-atomic/common/services/chips-manager';
 
 
 @Component({
@@ -21,6 +21,12 @@ export class ChipsInputFieldMolecule {
 
   @Input()
   control = new FormControl<string>('');
+
+  @Input()
+  label = 'label';
+
+  @Input()
+  hint = 'hint';
 
   @Input()
   placeholder = 'placeholder';

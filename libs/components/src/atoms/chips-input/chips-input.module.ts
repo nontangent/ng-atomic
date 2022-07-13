@@ -4,10 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-
 import { ChipsInputAtom } from './chips-input.atom';
-import { ChipsManager } from './chips.manager';
-
 
 
 @NgModule({
@@ -25,7 +22,6 @@ import { ChipsManager } from './chips.manager';
   exports: [
     ChipsInputAtom
   ],
-  providers: [ChipsManager],
   bootstrap: [ChipsInputAtom],
 })
 export class ChipsInputModule { }
