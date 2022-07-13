@@ -4,3 +4,10 @@ declare module '*.svg' {
   export const ReactComponent: any;
   export default content;
 }
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    "atoms-chips-input": any;
+    "templates-entrance": any;
+  }
+}

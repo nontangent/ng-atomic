@@ -1,8 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA, getPlatform, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { ElementsLoader } from '@ng-atomic/components/elements.loader';
+import { ChipsInputModule } from '@ng-atomic/components/atoms/chips-input';
+import { SmartMenuButtonModule } from '@ng-atomic/components/atoms/smart-menu-button';
 
 import { AppComponent } from './app.component';
 
@@ -10,22 +11,13 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
+    ChipsInputModule,
+    SmartMenuButtonModule,
   ],
-  providers: [
-    {
-      provide: ElementsLoader, 
-      useValue: new ElementsLoader({
-        imports: [
-          BrowserModule,
-          BrowserAnimationsModule,
-        ],
-        providers: [],
-        platformFactory: () => getPlatform(),
-      }),
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
 })
 export class AppModule {}
