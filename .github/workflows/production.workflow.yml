@@ -14,9 +14,8 @@ jobs:
           node-version: 16.x
           cache: npm
       - run: npm i
-      - run: npx nx build common --prod
-      - run: npx nx build components --prod
-      - run: npx nx build schematics
+      - run: npx nx build executors
+      - run: npx nx run-many --target=build --all --parallel=2
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -62,13 +61,6 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Set Package Version to Environment
         run: echo PACKAGE_VERSION=${{ needs.release.outputs.version }} >> $GITHUB_ENV
-      - run: npm run publish:common
+      - run: npm run publish:all
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm run publish:components
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm run publish:schematics
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        
