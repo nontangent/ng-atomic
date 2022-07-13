@@ -1,26 +1,18 @@
-import { createNgModuleRef, Injector, NgModuleRef, Type } from '@angular/core';
+import { Injector, Type } from '@angular/core';
 
-function getSelectors(Component: Type<any>): string {
-  return (Component as any).ɵcmp.selectors;
-}
+const getSelectors = (componentType: Type<any>): string  => (componentType as any).ɵcmp.selectors;
+const resolveSelector = (componentType: Type<any>): string => getSelectors(componentType)?.[0];
 
 export async function defineElement(
-  Component: Type<any>,
+  componentType: Type<any>,
   injector: Injector, 
-  name: string = getSelectors(Component)?.[0],
+  name: string = resolveSelector(componentType),
 ) {
-  return import('@angular/elements').then(({ createCustomElement }) => {
-    customElements.define(name, createCustomElement(Component, { injector }));
-  }).then(() => {
-    // TODO(nontangent): execute onSuccess function from injector
-  }).catch((error) => {
-    throw error;
-    // TODO(nontangent): execute onError function from injector
-  });
+  const { createCustomElement } = await import('@angular/elements');
+  return customElements.define(name, createCustomElement(componentType, { injector }));
 }
 
 export function defineElements(componentTypes: Type<any>[], injector: Injector) {
-  return Promise.all(componentTypes.map((componentType: Type<any>) => {
-    return defineElement(componentType, injector);
-  }));
+  const promises = componentTypes.map((t: Type<any>) =>  defineElement(t, injector));
+  return Promise.all(promises);
 }
