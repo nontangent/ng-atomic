@@ -19,7 +19,7 @@ import { from } from 'rxjs';
 import { eachValueFrom } from 'rxjs-for-await';
 import { mapTo, switchMap, tap } from 'rxjs/operators';
 import type { BuildAngularLibraryExecutorOptions } from './schema';
-import { readFileSync } from 'fs';
+
 
 async function initializeNgPackagr(
   options: BuildAngularLibraryExecutorOptions,

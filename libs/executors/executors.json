@@ -1,9 +1,19 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
+    "deploy": {
+      "implementation": "./src/deploy/impl",
+      "schema": "./src/deploy/schema.json",
+      "description": "Deploy a project"
+    },
     "elements": {
-      "implementation": "./src/elements/elements.impl",
-      "schema": "./src/elements/schema.json",
+      "implementation": "./src/elements/browser/impl",
+      "schema": "./src/elements/browser/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "elements-dev-server": {
+      "implementation": "./src/elements/dev-server/impl",
+      "schema": "./src/elements/dev-server/schema.json",
       "description": "Build a project using TypeScript."
     },
     "package": {
@@ -18,9 +28,19 @@
     }
   },
   "builders": {
+    "deploy": {
+      "implementation": "./src/deploy/impl",
+      "schema": "./src/deploy/schema.json",
+      "description": "Deploy a project"
+    },
     "elements": {
-      "implementation": "./src/elements/elements.impl",
-      "schema": "./src/elements/schema.json",
+      "implementation": "./src/elements/browser/impl",
+      "schema": "./src/elements/browser/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "elements-dev-server": {
+      "implementation": "./src/elements/dev-server/impl",
+      "schema": "./src/elements/dev-server/schema.json",
       "description": "Build a project using TypeScript."
     },
     "storybook": {

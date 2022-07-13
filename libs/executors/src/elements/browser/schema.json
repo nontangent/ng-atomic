@@ -4,43 +4,6 @@
   "description": "Browser target options",
   "type": "object",
   "properties": {
-
-    "extraWebpackConfig": {
-      "type": "string",
-      "description": "Additional Webpack Config that gets merged with the default config."
-    },
-    "singleBundle": {
-      "type": "boolean",
-      "description": "Puts everything reachable from main.ts (entries vendor, main, and runtime) into one bundle. All other entry points are removed. To also get polyfills and/or styles, use --keepPolyfills or --keepStyles",
-      "default": false
-    },
-    "keepPolyfills": {
-      "type": "boolean",
-      "description": "Generate polyfills bundle when using single-bundle",
-      "default": true
-    },
-    "configHook": {
-      "type": "string",
-      "description": "es module exporting a configHook function (default export).",
-      "default": ""
-    },
-
-    "plugin": {
-      "type": "string",
-      "description": "es module exporting a Plugin object (default export). Just used for ng build; not for ng serve",
-      "default": ""
-    },
-    "bundleStyles": {
-      "type": "boolean",
-      "description": "DEPRECATED: Use keepStyles instead",
-      "default": true
-    },
-    "keepStyles": {
-      "type": "boolean",
-      "description": "Used conjunction with 'singleBundle' to explizitly bundle styles",
-      "default": true
-    },
-
     "assets": {
       "type": "array",
       "description": "List of static application assets.",
@@ -66,7 +29,35 @@
       "type": "array",
       "default": [],
       "items": {
-        "$ref": "#/definitions/extraEntryPoint"
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "string",
+                "description": "The file to include.",
+                "pattern": "\\.[cm]?jsx?$"
+              },
+              "bundleName": {
+                "type": "string",
+                "pattern": "^[\\w\\-.]*$",
+                "description": "The bundle name for this extra entry point."
+              },
+              "inject": {
+                "type": "boolean",
+                "description": "If the bundle will be referenced in the HTML file.",
+                "default": true
+              }
+            },
+            "additionalProperties": false,
+            "required": ["input"]
+          },
+          {
+            "type": "string",
+            "description": "The file to include.",
+            "pattern": "\\.[cm]?jsx?$"
+          }
+        ]
       }
     },
     "styles": {
@@ -74,7 +65,35 @@
       "type": "array",
       "default": [],
       "items": {
-        "$ref": "#/definitions/extraEntryPoint"
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "string",
+                "description": "The file to include.",
+                "pattern": "\\.(?:css|scss|sass|less|styl)$"
+              },
+              "bundleName": {
+                "type": "string",
+                "pattern": "^[\\w\\-.]*$",
+                "description": "The bundle name for this extra entry point."
+              },
+              "inject": {
+                "type": "boolean",
+                "description": "If the bundle will be referenced in the HTML file.",
+                "default": true
+              }
+            },
+            "additionalProperties": false,
+            "required": ["input"]
+          },
+          {
+            "type": "string",
+            "description": "The file to include.",
+            "pattern": "\\.(?:css|scss|sass|less|styl)$"
+          }
+        ]
       }
     },
     "inlineStyleLanguage": {
@@ -88,7 +107,7 @@
       "type": "object",
       "properties": {
         "includePaths": {
-          "description": "Paths to include. Paths will be resolved to project root.",
+          "description": "Paths to include. Paths will be resolved to workspace root.",
           "type": "array",
           "items": {
             "type": "string"
@@ -145,7 +164,7 @@
                   "properties": {
                     "inline": {
                       "type": "boolean",
-                      "description": "Reduce render blocking requests by inlining external Google fonts and icons CSS definitions in the application's HTML index file. This option requires internet access. `HTTPS_PROXY` environment variable can be used to specify a proxy server.",
+                      "description": "Reduce render blocking requests by inlining external Google Fonts and Adobe Fonts CSS definitions in the application's HTML index file. This option requires internet access. `HTTPS_PROXY` environment variable can be used to specify a proxy server.",
                       "default": true
                     }
                   },
@@ -174,12 +193,11 @@
     },
     "outputPath": {
       "type": "string",
-      "description": "The full path for the new output directory, relative to the current workspace.\n\nBy default, writes output to a folder named dist/ in the current project."
+      "description": "The full path for the new output directory, relative to the current workspace.\nBy default, writes output to a folder named dist/ in the current project."
     },
     "resourcesOutputPath": {
       "type": "string",
-      "description": "The path where style resources will be placed, relative to outputPath.",
-      "default": ""
+      "description": "The path where style resources will be placed, relative to outputPath."
     },
     "aot": {
       "type": "boolean",
@@ -238,7 +256,8 @@
     },
     "deployUrl": {
       "type": "string",
-      "description": "URL where files will be deployed."
+      "description": "URL where files will be deployed.",
+      "x-deprecated": "Use \"baseHref\" option, \"APP_BASE_HREF\" DI token or a combination of both instead. For more information, see https://angular.io/guide/deployment#the-deploy-url."
     },
     "verbose": {
       "type": "boolean",
@@ -253,6 +272,12 @@
     "i18nMissingTranslation": {
       "type": "string",
       "description": "How to handle missing translations for i18n.",
+      "enum": ["warning", "error", "ignore"],
+      "default": "warning"
+    },
+    "i18nDuplicateTranslation": {
+      "type": "string",
+      "description": "How to handle duplicate translations for i18n.",
       "enum": ["warning", "error", "ignore"],
       "default": "warning"
     },
@@ -273,12 +298,6 @@
           }
         }
       ]
-    },
-    "extractCss": {
-      "type": "boolean",
-      "description": "Extract CSS from global styles into '.css' files instead of '.js'.",
-      "default": true,
-      "x-deprecated": "Deprecated since version 11.0. No longer required to disable CSS extraction for HMR."
     },
     "watch": {
       "type": "boolean",
@@ -309,15 +328,9 @@
       "description": "Extract all licenses in a separate file.",
       "default": true
     },
-    "showCircularDependencies": {
-      "type": "boolean",
-      "description": "Show circular dependency warnings on builds.",
-      "default": false,
-      "x-deprecated": "The recommended method to detect circular dependencies in project code is to use a either a lint rule or other external tooling."
-    },
     "buildOptimizer": {
       "type": "boolean",
-      "description": "Enables '@angular-devkit/build-optimizer' optimizations when using the 'aot' option.",
+      "description": "Enables advanced build optimizations when using the 'aot' option.",
       "default": true
     },
     "namedChunks": {
@@ -339,33 +352,6 @@
       "type": "string",
       "description": "Path to ngsw-config.json."
     },
-    "index": {
-      "description": "Configures the generation of the application's HTML index.",
-      "oneOf": [
-        {
-          "type": "string",
-          "description": "The path of a file to use for the application's HTML index. The filename of the specified path will be used for the generated file and will be created in the root of the application's configured output path."
-        },
-        {
-          "type": "object",
-          "description": "",
-          "properties": {
-            "input": {
-              "type": "string",
-              "minLength": 1,
-              "description": "The path of a file to use for the application's generated HTML index."
-            },
-            "output": {
-              "type": "string",
-              "minLength": 1,
-              "default": "index.html",
-              "description": "The output path of the application's generated HTML index file. The full provided path will be used and will be considered relative to the application's configured output path."
-            }
-          },
-          "required": ["input"]
-        }
-      ]
-    },
     "statsJson": {
       "type": "boolean",
       "description": "Generates a 'stats.json' file which can be analyzed using tools such as 'webpack-bundle-analyzer'.",
@@ -383,12 +369,6 @@
       "type": "string",
       "description": "TypeScript configuration for Web Worker modules."
     },
-    "crossOrigin": {
-      "type": "string",
-      "description": "Define the crossorigin attribute setting of elements that provide CORS support.",
-      "default": "none",
-      "enum": ["none", "anonymous", "use-credentials"]
-    },
     "allowedCommonJsDependencies": {
       "description": "A list of CommonJS packages that are allowed to be used without a build time warning.",
       "type": "array",
@@ -399,7 +379,7 @@
     }
   },
   "additionalProperties": false,
-  "required": ["outputPath", "index", "main", "tsConfig"],
+  "required": ["outputPath", "main", "tsConfig"],
   "definitions": {
     "assetPattern": {
       "oneOf": [
@@ -470,35 +450,6 @@
           },
           "additionalProperties": false,
           "required": ["replace", "with"]
-        }
-      ]
-    },
-    "extraEntryPoint": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "input": {
-              "type": "string",
-              "description": "The file to include."
-            },
-            "bundleName": {
-              "type": "string",
-              "pattern": "^[\\w\\-.]*$",
-              "description": "The bundle name for this extra entry point."
-            },
-            "inject": {
-              "type": "boolean",
-              "description": "If the bundle will be referenced in the HTML file.",
-              "default": true
-            }
-          },
-          "additionalProperties": false,
-          "required": ["input"]
-        },
-        {
-          "type": "string",
-          "description": "The file to include."
         }
       ]
     },
