@@ -5,11 +5,11 @@
     justify-content: space-between;
 
     molecules-chips-input-field {
-      width: auto;
+      width: 100%;
     }
 
     mat-paginator {
-      width: fit-content;
+      min-width: 400px;
     }
   }
 }

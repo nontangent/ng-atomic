@@ -2,26 +2,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Meta, Story } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { SmartIndexTemplate, SmartIndexModule } from '.';
+import { buildActions } from '@ng-atomic/storybook';
+import { FormControl } from '@ngneat/reactive-forms';
 
 export default {
   title: 'Templates/SmartIndex',
   component: SmartIndexTemplate,
 } as Meta;
 
-const toActions = (names: string[]) => names.reduce((p, name) => ({
-  ...p, [name]: action(name),
-}), {});
-
-const ACTIONS = toActions([
-  'actionItemClick',
-  'backButtonClick',
-  'checkboxClick',
-  'pageChange',
-  'tableHeaderClick',
-]);
-
 const Template: Story = (args) => ({
-  props: { ...args, ...ACTIONS },
+  props: {
+    ...args,
+    ...buildActions([
+      'actionItemClick',
+      'backButtonClick',
+      'checkboxClick',
+      'pageChange',
+      'tableHeaderClick',
+    ]),
+  },
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
@@ -68,7 +67,7 @@ Default.args = {
     pageSize: 20,
     length: 100,
   },
-  queryControl: null,
+  queryControl: new FormControl(''),
   queryPlaceholder: 'Please input search query',
 };
 

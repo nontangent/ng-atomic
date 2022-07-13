@@ -8,17 +8,14 @@ import { SelectInputFieldMolecule } from './select-input-field.molecule';
 
 
 @NgModule({
-  declarations: [
-    SelectInputFieldMolecule
-  ],
+  declarations: [SelectInputFieldMolecule],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     // Materials
     MatSelectModule,
   ],
-  exports: [
-    SelectInputFieldMolecule
-  ]
+  exports: [SelectInputFieldMolecule],
+  bootstrap: [SelectInputFieldMolecule],
 })
 export class SelectInputFieldModule { }

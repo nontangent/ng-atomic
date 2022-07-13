@@ -17,11 +17,10 @@ import { CheckboxColumnMolecule } from './checkbox-column.molecule';
     MatTableModule,
     MatCheckboxModule,
   ],
-  exports: [
-    CheckboxColumnMolecule
-  ],
+  exports: [CheckboxColumnMolecule],
   providers: [
     {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions}
-  ]
+  ],
+  bootstrap: [CheckboxColumnMolecule],
 })
 export class CheckboxColumnModule { }

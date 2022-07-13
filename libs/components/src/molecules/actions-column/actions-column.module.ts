@@ -22,8 +22,7 @@ import { ActionsColumnMolecule } from './actions-column.molecule';
     // Atoms
     SmartMenuButtonModule,
   ],
-  exports: [
-    ActionsColumnMolecule
-  ]
+  exports: [ActionsColumnMolecule],
+  bootstrap: [ActionsColumnMolecule],
 })
 export class ActionsColumnModule { }

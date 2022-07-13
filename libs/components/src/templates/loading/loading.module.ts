@@ -16,6 +16,9 @@ import { LoadingTemplate } from './loading.template';
   ],
   exports: [
     LoadingTemplate
-  ]
+  ],
+  bootstrap: [
+    LoadingTemplate,
+  ],
 })
 export class LoadingModule { }

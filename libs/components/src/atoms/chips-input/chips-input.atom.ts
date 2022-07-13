@@ -1,5 +1,5 @@
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormControl } from '@ngneat/reactive-forms';
 import { ReplaySubject } from 'rxjs';

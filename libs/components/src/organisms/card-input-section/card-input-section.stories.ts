@@ -17,6 +17,7 @@ const Template: Story = (args) => ({
   props: {...args, ...ACTIONS},
   moduleMetadata: {
     imports: [
+      BrowserAnimationsModule,
       CardInputSectionModule,
     ]
   }

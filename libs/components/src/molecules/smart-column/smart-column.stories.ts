@@ -56,6 +56,6 @@ export const Default = Template.bind({});
 Default.args = {
   columns: ['id'],
   displayedColumns: ['id'],
-  items: [{id: '01'}],
+  items: [{id: '01'}, {id: '02'}, {id: '03'}],
   sort: 'none',
 };

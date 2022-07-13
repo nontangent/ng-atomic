@@ -1,18 +1,15 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { buildActions } from '@ng-atomic/storybook';
 import { Meta, Story } from '@storybook/angular';
 import { ChipsInputAtom, ChipsInputModule } from '.';
 
 export default {
   title: 'Atoms/ChipsInput',
-  template: ChipsInputAtom,
+  component: ChipsInputAtom,
 } as Meta;
 
-const ACTIONS = {
-  // eventEmitterName: action('eventEmitterName'),
-};
-
-
 const Template: Story = (args) => ({
-  props: {...args, ...ACTIONS},
+  props: {...args, ...buildActions([])},
   moduleMetadata: {
     imports: [
       ChipsInputModule,

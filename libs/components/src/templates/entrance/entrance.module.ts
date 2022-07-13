@@ -26,6 +26,9 @@ import { EntranceTemplate } from './entrance.template';
   ],
   exports: [
     EntranceTemplate
+  ],
+  bootstrap: [
+    EntranceTemplate,
   ]
 })
 export class EntranceModule { }

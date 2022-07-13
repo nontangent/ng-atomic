@@ -37,6 +37,7 @@ import { SmartCrudTemplate } from './smart-crud.template';
   exports: [
     SmartCrudTemplate
   ],
-  providers: []
+  providers: [],
+  bootstrap: [SmartCrudTemplate],
 })
 export class SmartCrudModule { }

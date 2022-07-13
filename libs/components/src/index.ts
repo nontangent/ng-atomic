@@ -1,1 +1,1 @@
-export * from './elements-loader';
+export * from './app.module';

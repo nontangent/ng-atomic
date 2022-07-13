@@ -18,6 +18,7 @@ import { DateInputFieldMolecule } from './date-input-field.molecule';
     MatDayjsDateModule,
   ],
   exports: [DateInputFieldMolecule],
+  bootstrap: [DateInputFieldMolecule],
   // providers: [...MAT_DAYJS_JP_PROVIDERS],
 })
 export class DateInputFieldModule { }

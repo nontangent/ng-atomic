@@ -15,6 +15,9 @@ import { ActionButtonsSectionOrganism } from './action-buttons-section.organism'
   ],
   exports: [
     ActionButtonsSectionOrganism
-  ]
+  ],
+  bootstrap: [
+    ActionButtonsSectionOrganism,
+  ],
 })
 export class ActionButtonsSectionModule { }

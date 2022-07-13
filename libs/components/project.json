@@ -17,38 +17,26 @@
       }
     },
     "build-elements": {
-      "executor": "@ng-atomic/executors:elements",
+      "executor": "@ng-atomic/elements:browser",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/static/elements",
-        "index": "libs/components/src/index.html",
         "main": "libs/components/src/main.ts",
-        "polyfills": "libs/components/src/polyfills.ts",
         "tsConfig": "libs/components/tsconfig.elements.json",
+        "inlineStyleLanguage": "scss",
         "assets": [],
         "styles": [
-          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "libs/components/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
           "includePaths": ["libs/components/src/styles"]
         },
-        "scripts": [],
-        "vendorChunk": true,
-        "extractLicenses": false,
-        "buildOptimizer": false,
-        "sourceMap": true,
-        "optimization": false,
-        "namedChunks": true
+        "scripts": []
       },
       "configurations": {
         "production": {
           "fileReplacements": [],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true,
           "budgets": [
             {
               "type": "initial",
@@ -61,9 +49,17 @@
               "maximumError": "10kb"
             }
           ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
-      "defaultConfiguration": ""
+      "defaultConfiguration": "production"
     },
     "build-storybook": {
       "builder": "@storybook/angular:build-storybook",
@@ -83,7 +79,7 @@
     "develop": {
       "builder": "@storybook/angular:start-storybook",
       "options": {
-        "browserTarget": "components:build-package",
+        "browserTarget": "components:build",
         "port": 4400,
         "configDir": "libs/components/.storybook",
         "tsConfig": "libs/components/tsconfig.storybook.json",
@@ -95,6 +91,18 @@
         },
         "compodoc": false
       }
+    },
+    "serve": {
+      "executor": "@ng-atomic/elements:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "components:build-elements:production"
+        },
+        "development": {
+          "browserTarget": "components:build-elements:development"
+        }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -114,16 +122,10 @@
         "passWithNoTests": true
       }
     },
-    "dummy-for-deploy": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "options": {
-        "outputPath": "storybook-static"
-      }
-    },
     "deploy": {
-      "executor": "angular-cli-ghpages:deploy",
+      "executor": "@ng-atomic/executors:deploy",
       "options": {
-        "buildTarget": "components:build-elements",
+        "outputPath": "dist/static",
         "baseHref": "ng-atomic",
         "noBuild": true
       }

@@ -17,6 +17,7 @@ import { TextInputFieldMolecule } from './text-input-field.molecule';
     // MatFormFieldModule,
     MatInputModule,
   ],
-  exports: [TextInputFieldMolecule]
+  exports: [TextInputFieldMolecule],
+  bootstrap: [TextInputFieldMolecule],
 })
 export class TextInputFieldModule { }

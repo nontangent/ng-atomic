@@ -12,7 +12,8 @@ import { MenuTemplate } from './menu.template';
     // Organisms
     MenuOrganismModule,
   ],
-  exports: [MenuTemplate]
+  exports: [MenuTemplate],
+  bootstrap: [MenuTemplate],
 })
 export class MenuModule { }
 

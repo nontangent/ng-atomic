@@ -1,16 +1,16 @@
-import { enableProdMode } from '@angular/core';
-import { ElementsLoader, NgAtomicModule } from './elements-loader';
-
+import { enableProdMode, getPlatform } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ElementsLoader, ElementsLoaderProxy } from '@ng-atomic/elements';
+import { AppModule } from './app.module';
+import packageJson from './package.json';
+import 'zone.js';
 
 enableProdMode();
 
-const NAME = '@ng-atomic/components';
-const REGISTRY_NAME = '__NG_ATOMIC_ELEMENTS__';
+const elementsLoaderFactory = () => (getPlatform() || platformBrowserDynamic())
+  .bootstrapModule(AppModule)
+  .then(({injector}) => injector.get(ElementsLoader));
 
-(window[REGISTRY_NAME] = window[REGISTRY_NAME] ?? []).push([
-  NAME, new ElementsLoader(NgAtomicModule),
-]);
-
-window['ElementsLoaderProxy'] ??= (targetName: string) => {
-  return window[REGISTRY_NAME].find(([name]) => name === targetName)?.[1];
-};
+ElementsLoaderProxy.registerFactory(packageJson.name, elementsLoaderFactory);
+window['ElementsLoaderProxy'] ??= (name: string) => new ElementsLoaderProxy(name);
+window.dispatchEvent(new Event(`ElementsLoaderReady`));

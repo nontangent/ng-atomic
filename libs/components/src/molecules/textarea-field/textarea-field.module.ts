@@ -12,6 +12,7 @@ import { TextareaFieldMolecule } from './textarea-field.molecule';
     // Material
     MatInputModule,
   ],
-  exports: [TextareaFieldMolecule]
+  exports: [TextareaFieldMolecule],
+  bootstrap: [TextareaFieldMolecule],
 })
 export class TextareaFieldModule { }

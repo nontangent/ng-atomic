@@ -1,6 +1,7 @@
+import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { buildActions } from '@ng-atomic/storybook';
 import { Meta, Story } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import { CheckboxColumnMolecule, CheckboxColumnModule } from '.';
 
 export default {
@@ -8,31 +9,32 @@ export default {
   component: CheckboxColumnMolecule,
 } as Meta;
 
-const ACTIONS = {
-  actionItemClick: action('actionItemClick'),
-};
-
-
 const Template: Story = (args) => ({
-  props: {...args, ...ACTIONS},
+  props: {...args, ...buildActions(['onCheckboxClick'])},
+  template: `
+    <table mat-table [dataSource]="items" matSort matSortDisableClear matSortDirection="desc">
+      <molecules-checkbox-column
+        *ngFor="let name of displayedColumns" 
+        [name]="name"
+        [selectedIdSet]="selectedIdSet"
+        (checkboxClick)="onCheckboxClick()"
+      ></molecules-checkbox-column>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let item; columns: displayedColumns;"></tr>
+    </table>`,
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
       CheckboxColumnModule,
+      MatTableModule,
     ]
   }
 });
 
-enum ActionId {
-  TEST1,
-  TEST2,
-}
-
 export const Default = Template.bind({});
 Default.args = {
   title: 'Navigator Title',
-  actionItems: [
-    {id: ActionId.TEST1, name: 'TEST 1'},
-    {id: ActionId.TEST2, name: 'TEST 2'},
-  ]
+  displayedColumns: ['_checkbox'],
+  items: [ {id: '01'}, {id: '02'} ],
+  selectedIdSet: new Set(['01']),
 };
