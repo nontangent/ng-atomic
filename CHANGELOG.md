@@ -1,3 +1,14 @@
+# [3.1.0](https://github.com/nontangent/ng-atomic/compare/v3.0.0...v3.1.0) (2022-06-28)
+
+
+### Features
+
+* **components:** fix layout ([4d3c713](https://github.com/nontangent/ng-atomic/commit/4d3c7138a6f93f29fc6e6f59d6525a66f265ae93))
+* **components:** use `@ng-atomic/elements` ([a3c889c](https://github.com/nontangent/ng-atomic/commit/a3c889c686ea588682bd8ff81ee9d39123b05f5b))
+* **deps:** add `@ng-atomic/elements` and `@ng-atomic/executors` ([8517fc0](https://github.com/nontangent/ng-atomic/commit/8517fc073b46792222d69e28b9e4a8373df9d18e))
+* **elements:** add `@ng-atomic/elements` ([ac824c9](https://github.com/nontangent/ng-atomic/commit/ac824c9ef9ba75a389c89b8942d47c45ae7c403b))
+* **executors:** add `@ng-atomic/executors` ([0bfb752](https://github.com/nontangent/ng-atomic/commit/0bfb75212dc3bb2d68e6b22b23a7caa0101a7211))
+
 # [3.0.0](https://github.com/nontangent/ng-atomic/compare/v2.0.1...v3.0.0) (2022-06-12)
 
 
