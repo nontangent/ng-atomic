@@ -15,7 +15,7 @@ jobs:
           cache: npm
       - run: npm i
       - run: npx nx build executors
-      - run: npx nx run-many --target=build --all --parallel=2
+      - run: npx nx run-many --target=build --projects=common,components,elements,executors,schematics,storybook --parallel=2
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
