@@ -8,13 +8,101 @@
       "executor": "@nrwl/angular:package",
       "options": {
         "tsConfig": "libs/components/tsconfig.lib.json",
-        "project": "libs/components/ng-package.json"
+        "project": "libs/components/src/ng-package.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/components/tsconfig.lib.prod.json"
         }
       }
+    },
+    "build-elements": {
+      "executor": "@ng-atomic/elements:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/static/elements",
+        "main": "libs/components/src/main.ts",
+        "tsConfig": "libs/components/tsconfig.elements.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [],
+        "styles": [
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "libs/components/src/styles.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/components/src/styles"]
+        },
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [],
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "build-storybook": {
+      "builder": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "components:build",
+        "configDir": "libs/components/.storybook",
+        "outputDir": "dist/static/storybook",
+        "tsConfig": "libs/components/tsconfig.storybook.json",
+        "styles": [
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/components/src/styles"]
+        }
+      }
+    },
+    "develop": {
+      "builder": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "components:build",
+        "port": 4400,
+        "configDir": "libs/components/.storybook",
+        "tsConfig": "libs/components/tsconfig.storybook.json",
+        "styles": [
+          "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/components/src/styles"]
+        },
+        "compodoc": false
+      }
+    },
+    "serve": {
+      "executor": "@ng-atomic/elements:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "components:build-elements:production"
+        },
+        "development": {
+          "browserTarget": "components:build-elements:development"
+        }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -34,95 +122,15 @@
         "passWithNoTests": true
       }
     },
-    "develop": {
-      "executor": "@storybook/angular:start-storybook",
-      "options": {
-        "browserTarget": "demo:build",
-        "stylePreprocessorOptions": {
-          "includePaths": ["libs/components/styles"]
-        },
-        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
-        "compodoc": false,
-        "port": 4400
-      }
-    },
-    "build-storybook": {
-      "executor": "@storybook/angular:build-storybook",
-      "outputs": ["dist/storybook"],
-      "options": {
-        "browserTarget": "demo:build"
-      }
-    },
-    "dummy-for-deploy": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "options": {
-        "outputPath": "storybook-static",
-        "aot": false,
-        "vendorChunk": true,
-        "extractLicenses": false,
-        "buildOptimizer": false,
-        "sourceMap": true,
-        "optimization": false,
-        "namedChunks": true
-      },
-      "defaultConfiguration": ""
-    },
     "deploy": {
-      "executor": "angular-cli-ghpages:deploy",
+      "executor": "@ng-atomic/executors:deploy",
       "options": {
-        "buildTarget": "components:dummy-for-deploy",
+        "outputPath": "dist/static",
         "baseHref": "ng-atomic",
         "noBuild": true
       }
-    },
-    "build-elements": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "options": {
-        "outputPath": "dist/libs/components",
-        "index": "libs/components/index.elements.html",
-        "main": "libs/components/main.elements.ts",
-        "polyfills": "libs/components/polyfills.elements.ts",
-        "tsConfig": "libs/components/tsconfig.elements.json",
-        "assets": [],
-        "styles": [],
-        "stylePreprocessorOptions": {
-          "includePaths": ["libs/components/styles"]
-        },
-        "scripts": [],
-        "vendorChunk": true,
-        "extractLicenses": false,
-        "buildOptimizer": false,
-        "sourceMap": true,
-        "optimization": false,
-        "namedChunks": true
-      },
-      "configurations": {
-        "production": {
-          "fileReplacements": [],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "2mb",
-              "maximumError": "5mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "6kb",
-              "maximumError": "10kb"
-            }
-          ]
-        }
-      },
-      "defaultConfiguration": ""
     }
   },
   "tags": [],
-  "implicitDependencies": ["common", "elements"]
+  "implicitDependencies": ["elements"]
 }

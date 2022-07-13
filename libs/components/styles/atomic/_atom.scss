@@ -1,6 +1,0 @@
-// @import 'host-variable';
-@import 'atomic/component';
-
-@mixin atom($host) {
-  @include component($host);
-}

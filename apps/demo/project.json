@@ -6,69 +6,69 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
       "options": {
+        "aot": true,
         "outputPath": "dist/apps/demo",
         "index": "apps/demo/src/index.html",
         "main": "apps/demo/src/main.ts",
         "polyfills": "apps/demo/src/polyfills.ts",
         "tsConfig": "apps/demo/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
         "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
         "stylePreprocessorOptions": {
           "includePaths": ["libs/components/styles"]
         },
         "styles": [
           "apps/demo/src/styles.scss",
-          "@angular/material/prebuilt-themes/indigo-pink.css"
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
         ],
-        "scripts": [],
-        "vendorChunk": true,
-        "extractLicenses": false,
-        "buildOptimizer": false,
-        "sourceMap": true,
-        "optimization": false,
-        "namedChunks": true
+        "scripts": []
       },
       "configurations": {
         "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
           "fileReplacements": [
             {
               "replace": "apps/demo/src/environments/environment.ts",
               "with": "apps/demo/src/environments/environment.prod.ts"
             }
           ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "2mb",
-              "maximumError": "5mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "6kb",
-              "maximumError": "10kb"
-            }
-          ]
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
-      "defaultConfiguration": ""
+      "defaultConfiguration": "production"
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
-      "options": {
-        "browserTarget": "demo:build"
-      },
       "configurations": {
         "production": {
           "browserTarget": "demo:build:production"
+        },
+        "development": {
+          "browserTarget": "demo:build:development"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -80,8 +80,7 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     },
     "test": {
       "executor": "@nrwl/jest:jest",

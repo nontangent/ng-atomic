@@ -1,0 +1,50 @@
+@use 'scoped-var/strict' as * with ($host: 'smart-table');
+// @use 'atomic/organism' as *;
+
+:host {
+  @include property(--width, 100%);
+  @include property(--cell, 8px);
+  @include property(--column-vertical-padding, 4px);
+}
+
+:host {
+  // @include organism($host);
+
+	position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  table {
+    width: 100%;
+    max-height: 100%;
+
+    .nowrap {
+      width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    ::ng-deep {
+      th, td {
+        padding: 0 var(--column-vertical-padding);
+      }
+    }
+  }
+
+  .no-data-message {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: calc(var(--width) - var(--cell) * 4);
+    height: 3em;
+    padding-left: calc(var(--cell) * 2);
+    padding-right: calc(var(--cell) * 2);
+  }
+}

@@ -1,6 +1,8 @@
-# Ng Atomic
+# Ng Atomic(Beta)
 Atomic Design System Framework Based on Angular
 <!-- Angularのためのアトミックデザインシステムフレームワーク -->
+
+<strong><pre>ng add @ng-atomic/schematics</pre></strong>
 
 ## Concept
 <!-- アトミックデザインシステムを一瞬で生成できる -->
@@ -9,6 +11,13 @@ Atomic Design System Framework Based on Angular
 - Replaceable Layered Component Architecture
 <!-- すべてのプラットフォームで利用できる -->
 - Universal Platform like Angular, React or Vue via WebComponents.
+
+## Compatibility
+| Angular | NgAtomic   |
+| --------|----------- |
+| 13      | 3.x.x      |
+| 12      | 2.x.x      |
+| 11      | 1.x.x      |
 
 ## @ng-atomic/schematics
 Generators for atomic components and design system workspace.

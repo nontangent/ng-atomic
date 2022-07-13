@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "browser": {
+      "implementation": "../executors/src/elements/browser/impl",
+      "schema": "../executors/src/elements/browser/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "dev-server": {
+      "implementation": "../executors/src/elements/dev-server/impl",
+      "schema": "../executors/src/elements/dev-server/schema.json",
+      "description": "Build a project using TypeScript."
+    }
+  },
+  "builders": {
+    "browser": {
+      "implementation": "../executors/src/elements/browser/impl",
+      "schema": "../executors/src/elements/browser/schema.json",
+      "description": "Build a project using TypeScript."
+    },
+    "dev-server": {
+      "implementation": "../executors/src/elements/dev-server/impl",
+      "schema": "../executors/src/elements/dev-server/schema.json",
+      "description": "Build a project using TypeScript."
+    }
+  }
+}

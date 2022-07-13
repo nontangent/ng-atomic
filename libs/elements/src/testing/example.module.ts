@@ -8,4 +8,4 @@ import { ElementsModule } from '../elements-module';
   declarations: [ExampleComponent],
   imports: [BrowserModule],
 })
-export class ExampleModule extends ElementsModule { }
+export class ExampleModule { }

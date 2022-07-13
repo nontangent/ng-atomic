@@ -1,31 +1,18 @@
 import { Injector, Type } from '@angular/core';
 
-function getSelectors(Component: Type<any>): string {
-  return (Component as any).ɵcmp.selectors;
-}
-
-function getDeclarations(Module: Type<any>) {
-  return (Module as any).ɵmod.declarations;
-}
+const getSelectors = (componentType: Type<any>): string  => (componentType as any).ɵcmp.selectors;
+const resolveSelector = (componentType: Type<any>): string => getSelectors(componentType)?.[0];
 
 export async function defineElement(
+  componentType: Type<any>,
   injector: Injector, 
-  Component: Type<any>,
-  name: string = getSelectors(Component)?.[0],
+  name: string = resolveSelector(componentType),
 ) {
-  return import('@angular/elements').then(({ createCustomElement }) => {
-    customElements.define(name, createCustomElement(Component, { injector }));
-  }).then(() => {
-    // TODO(nontangent): execute onSuccess function from injector
-  }).catch((error) => {
-    throw error;
-    // TODO(nontangent): execute onError function from injector
-  });
+  const { createCustomElement } = await import('@angular/elements');
+  return customElements.define(name, createCustomElement(componentType, { injector }));
 }
 
-export function defineElements(ngModule: any) {
-  const declarations = getDeclarations(ngModule.constructor as any);
-  return Promise.all(declarations.map((Component: Type<any>) => {
-    return defineElement(ngModule.injector, Component);
-  }));
+export function defineElements(componentTypes: Type<any>[], injector: Injector) {
+  const promises = componentTypes.map((t: Type<any>) =>  defineElement(t, injector));
+  return Promise.all(promises);
 }

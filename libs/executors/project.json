@@ -9,7 +9,11 @@
         "outputPath": "dist/libs/executors",
         "main": "libs/executors/src/index.ts",
         "tsConfig": "libs/executors/tsconfig.lib.json",
-        "assets": ["libs/executors/*.md"]
+        "assets": [
+          "libs/executors/*.md",
+          "libs/executors/executors.json",
+          "libs/executors/src/**/*.json"
+        ]
       }
     },
     "lint": {

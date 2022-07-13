@@ -17,16 +17,17 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ng-atomic/common": ["libs/common/index.ts"],
-      "@ng-atomic/common/*": ["libs/common/*"],
-      "@ng-atomic/components": ["libs/components/index.ts"],
-      "@ng-atomic/components/*": ["libs/components/*"],
+      "@ng-atomic/common": ["libs/common/src/index.ts"],
+      "@ng-atomic/common/*": ["libs/common/src/*"],
+      "@ng-atomic/components": ["libs/components/src/index.ts"],
+      "@ng-atomic/components/*": ["libs/components/src/*"],
       "@ng-atomic/elements": ["libs/elements/src/index.ts"],
       "@ng-atomic/elements/*": ["libs/elements/src/*"],
       "@ng-atomic/executors": ["libs/executors/src/index.ts"],
       "@ng-atomic/schematics": ["libs/schematics/src/index.ts"],
       "@ng-atomic/schematics/*": ["libs/schematics/src/*"],
       "@ng-atomic/schematics2": ["libs/schematics2/src/index.ts"],
+      "@ng-atomic/storybook": ["libs/storybook/src/index.ts"],
       "@ng-atomic/web-api": ["libs/web-api/src/index.ts"]
     }
   },

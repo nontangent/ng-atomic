@@ -1,0 +1,5 @@
+@use 'scoped-var/strict' as * with ($host: 'chips-input');
+// @use 'atomic/atom' as *;
+// :host {
+// 	@include atom($host);
+// }

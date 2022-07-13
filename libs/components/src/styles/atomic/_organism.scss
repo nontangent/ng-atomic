@@ -1,0 +1,6 @@
+@use 'atomic/component' as *;
+
+@mixin organism($host) {
+	@include component($host);
+}
+

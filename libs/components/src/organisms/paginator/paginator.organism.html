@@ -1,0 +1,15 @@
+<frames-auto-layout horizontal>
+  <molecules-chips-input-field
+    [control]="control"
+    [appearance]="'legacy'"
+    [placeholder]="placeholder"
+  ></molecules-chips-input-field>
+  <mat-paginator 
+    [length]="page.length"
+    [pageSize]="page.pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="pageChange.emit($event)"
+    aria-label="Select page">
+  </mat-paginator>
+</frames-auto-layout>
+

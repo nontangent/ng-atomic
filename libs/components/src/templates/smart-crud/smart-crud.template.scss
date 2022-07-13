@@ -1,0 +1,26 @@
+@use 'scoped-var/strict' as * with ($host: 'smart-crud');
+// @use 'atomic/template' as *;
+
+:host {
+  @include property(--horizontal-padding, 16px);
+  @include property(--vertical-padding, 24px);
+  @include property(--gap, 16px);
+  // @include template($host);
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: white;
+
+  frames-auto-layout {
+    height: fit-content;
+    --gap: #{var(--gap)};
+    --vertical-padding: #{var(--vertical-padding)};
+
+    * {
+      --horizontal-padding: #{var(--horizontal-padding)};
+    }
+  }
+}
