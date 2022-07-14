@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/nontangent/ng-atomic/compare/v3.2.1...v3.2.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* **deps:** add ts-node to devDependencies ([29f9efe](https://github.com/nontangent/ng-atomic/commit/29f9efe1a45cd121dd565fd5f0916bfa849e3859))
+
 ## [3.2.1](https://github.com/nontangent/ng-atomic/compare/v3.2.0...v3.2.1) (2022-07-14)
 
 
