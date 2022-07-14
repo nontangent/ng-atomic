@@ -12,8 +12,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          cache: npm
-      - run: npm ci
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
       - run: npx nx build executors
       - run: npx nx run-many --target=build --projects=common,components,elements,executors,schematics,storybook --parallel=2
       - name: Archive production artifacts
@@ -33,8 +40,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          cache: npm
-      - name: Install node packages
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Download production artifacts
         uses: actions/download-artifact@v2
@@ -56,7 +69,15 @@ jobs:
         with:
           node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
-          cache: npm
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Download production artifacts
         uses: actions/download-artifact@v2
       - name: Set Package Version to Environment
