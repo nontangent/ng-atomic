@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/nontangent/ng-atomic/compare/v3.2.0...v3.2.1) (2022-07-14)
+
+
+### Bug Fixes
+
+* **deps:** change dependencies version ([9bebf4f](https://github.com/nontangent/ng-atomic/commit/9bebf4f4980fa9ff71030ca12f8930b0b67fd1bd))
+
 # [3.2.0](https://github.com/nontangent/ng-atomic/compare/v3.1.0...v3.2.0) (2022-07-13)
 
 
