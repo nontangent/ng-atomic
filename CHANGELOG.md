@@ -1,3 +1,10 @@
+## [3.2.3](https://github.com/nontangent/ng-atomic/compare/v3.2.2...v3.2.3) (2022-07-14)
+
+
+### Bug Fixes
+
+* **ci:** fix ([60e5c6d](https://github.com/nontangent/ng-atomic/commit/60e5c6df34b17e7458754ac1b852f53488ee55dd))
+
 ## [3.2.2](https://github.com/nontangent/ng-atomic/compare/v3.2.1...v3.2.2) (2022-07-14)
 
 
