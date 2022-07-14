@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 16.x
           cache: npm
-      - run: npm i
+      - run: npm ci
       - run: npx nx build executors
       - run: npx nx run-many --target=build --projects=common,components,elements,executors,schematics,storybook --parallel=2
       - name: Archive production artifacts
@@ -35,7 +35,7 @@ jobs:
           node-version: 16.x
           cache: npm
       - name: Install node packages
-        run: npm i
+        run: npm ci
       - name: Download production artifacts
         uses: actions/download-artifact@v2
       - env:
