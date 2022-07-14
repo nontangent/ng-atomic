@@ -1,6 +1,6 @@
 {
   "name": "@ng-atomic/schematics",
-  "version": "0.0.1",
+  "version": "0.0.0-PLACEHOLDER",
   "license": "MIT",
   "schematics": "./collection.json",
   "ng-add": {

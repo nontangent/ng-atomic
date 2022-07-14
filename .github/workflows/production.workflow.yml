@@ -61,6 +61,7 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Set Package Version to Environment
         run: echo PACKAGE_VERSION=${{ needs.release.outputs.version }} >> $GITHUB_ENV
+      - run: npm run scripts:set-package-versions ${{ needs.release.outputs.version }}
       - run: npm run publish:all
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
