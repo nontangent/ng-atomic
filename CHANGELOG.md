@@ -1,3 +1,10 @@
+## [3.2.4](https://github.com/nontangent/ng-atomic/compare/v3.2.3...v3.2.4) (2022-07-14)
+
+
+### Bug Fixes
+
+* remove `npm version` command ([51e7cf6](https://github.com/nontangent/ng-atomic/commit/51e7cf6079bda2711087600a4183e46cab7f1654))
+
 ## [3.2.3](https://github.com/nontangent/ng-atomic/compare/v3.2.2...v3.2.3) (2022-07-14)
 
 
