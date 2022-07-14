@@ -1,3 +1,26 @@
+# [3.2.0](https://github.com/nontangent/ng-atomic/compare/v3.1.0...v3.2.0) (2022-07-13)
+
+
+### Bug Fixes
+
+* **common:** add package.json ([d60dc27](https://github.com/nontangent/ng-atomic/commit/d60dc27b3ceb84a731e81a78e7ecc02c01959ab8))
+* **components:** fix bugs ([3e10136](https://github.com/nontangent/ng-atomic/commit/3e101369bea607d9e2650e4a8b0d0c778a334467))
+* **demo:** clean code ([91600b1](https://github.com/nontangent/ng-atomic/commit/91600b10d7ad665a8dcd892f86bbcd70f529a129))
+* **executors:** remove dead code ([80e1517](https://github.com/nontangent/ng-atomic/commit/80e15172e65ec65a9f333d8141006d421d42e32b))
+
+
+### Features
+
+* **common:** add chips-manager ([cab79f8](https://github.com/nontangent/ng-atomic/commit/cab79f81d4a842e9dd2ff5612da73c7f0e8bec8a))
+* **common:** add tsconfig for production ([77db5b1](https://github.com/nontangent/ng-atomic/commit/77db5b1281518e960697c1826399a6b90ab038f6))
+* **components:** add storybook ([96a734d](https://github.com/nontangent/ng-atomic/commit/96a734db799ba35c8787519dbfc4bde9e8248a87))
+* **components:** export elements loader ([21c8a97](https://github.com/nontangent/ng-atomic/commit/21c8a97aaf252a57f9975d7e9a86a952357d8058))
+* **elements:** add `@ng-atomic/elements` ([3e0e3a5](https://github.com/nontangent/ng-atomic/commit/3e0e3a5c2d27d78b4ae5b0d276e8a6eb81a0171f))
+* **elements:** add `@ng-atomic/elements` ([a7d4427](https://github.com/nontangent/ng-atomic/commit/a7d442757b5efde4deb8477bf4d150ab6be58aff))
+* **executors:** add `@ng-atomic/executors` ([dfd07dd](https://github.com/nontangent/ng-atomic/commit/dfd07dd21f2a825435325b1a840bb5a5de182989))
+* **storybook:** add `@ng-atomic/storybook` ([95f53a3](https://github.com/nontangent/ng-atomic/commit/95f53a3ba2869846851fbefe9b8799afaeb1704f))
+* **storybook:** clean code ([076505b](https://github.com/nontangent/ng-atomic/commit/076505b0bc81a29c77f9791ad89961715119aa9c))
+
 # [3.1.0](https://github.com/nontangent/ng-atomic/compare/v3.0.0...v3.1.0) (2022-06-28)
 
 
