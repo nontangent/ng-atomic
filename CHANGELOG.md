@@ -1,3 +1,10 @@
+## [3.2.6](https://github.com/nontangent/ng-atomic/compare/v3.2.5...v3.2.6) (2022-07-15)
+
+
+### Bug Fixes
+
+* add publish scripts for `@ng-atomic/storybook` ([21cff2f](https://github.com/nontangent/ng-atomic/commit/21cff2fc0fb96ada4b2223e4c1c07dd6a349df55))
+
 ## [3.2.5](https://github.com/nontangent/ng-atomic/compare/v3.2.4...v3.2.5) (2022-07-15)
 
 
