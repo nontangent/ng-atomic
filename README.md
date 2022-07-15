@@ -1,16 +1,46 @@
 # Ng Atomic(Beta)
-Atomic Design System Framework Based on Angular
-<!-- Angularのためのアトミックデザインシステムフレームワーク -->
+This is an atomic design system framework based on Angular for all web platforms such as React, Vue or of cource Angular.
 
 <strong><pre>ng add @ng-atomic/schematics</pre></strong>
 
 ## Concept
-<!-- アトミックデザインシステムを一瞬で生成できる -->
-- Generate Atomic Design System Quickly
-<!-- 置き換え可能な階層化アーキテクチャ -->
-- Replaceable Layered Component Architecture
-<!-- すべてのプラットフォームで利用できる -->
-- Universal Platform like Angular, React or Vue via WebComponents.
+- Quickly Generate an Atomic Design System
+- Interchangeable Layered Component Architecture
+- Available on All Web Platforms via Web Components
+
+## Quick Start
+```sh
+# Setup workspace (If you use, run `ng add @ng-atomic/schematics`)
+$ npx create-ng-atomic-workspace
+# Generate 
+$ nx g template example
+# Deploy webcomponents and storybook to GitHub Pages
+$ nx deploy components
+```
+
+```tsx
+import React, { useEffect } from 'react';
+import Script from 'next/script'
+
+export function Index() {
+  useEffect(() => {
+    window.addEventListener('ElementsLoaderReady', async () => {
+      const loader = window['ElementsLoaderProxy']('@ng-atomic/components');
+      await loader.load('templates-example');
+    });
+  });
+
+  return (<>
+    <h1>Ng Atomic Demo for Next</h1>
+    <Script src='http://localhost:4202/main.js' defer></Script>
+    <templates-example></templates-example>
+  </>
+  );
+}
+
+export default Index;
+```
+
 
 ## Compatibility
 | Angular | NgAtomic   |
