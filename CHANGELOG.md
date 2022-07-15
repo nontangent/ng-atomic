@@ -1,3 +1,10 @@
+## [3.2.5](https://github.com/nontangent/ng-atomic/compare/v3.2.4...v3.2.5) (2022-07-15)
+
+
+### Bug Fixes
+
+* **deps:** add support `@ngneat/reactive-forms@4.1` ([a40d8e6](https://github.com/nontangent/ng-atomic/commit/a40d8e6d031dd8029cddbd89409def7eeac01700))
+
 ## [3.2.4](https://github.com/nontangent/ng-atomic/compare/v3.2.3...v3.2.4) (2022-07-14)
 
 
