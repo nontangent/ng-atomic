@@ -35,12 +35,14 @@
     "publish:elements": "cd dist/libs/elements && npm publish --access public --ignore-scripts",
     "publish:executors": "cd dist/libs/executors && npm publish --access public --ignore-scripts",
     "publish:schematics": "cd dist/libs/schematics && npm publish --access public --ignore-scripts",
+    "publish:storybook": "cd dist/libs/storybook && npm publish --access public --ignore-scripts",
     "link:all": "npm run link:common && npm run link:components && npm run link:elements && npm run link:executors && npm run link:schematics",
     "link:common": "cd dist/libs/common && npm link",
     "link:components": "cd dist/libs/components && npm link",
     "link:elements": "cd dist/libs/elements && npm link",
     "link:executors": "cd dist/libs/executors && npm link",
     "link:schematics": "cd dist/libs/schematics && npm link",
+    "link:storybook": "cd dist/libs/storybook && npm link",
     "help": "nx help"
   },
   "dependencies": {
