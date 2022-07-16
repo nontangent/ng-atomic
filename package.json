@@ -29,7 +29,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "prepare": "npx simple-git-hooks",
-    "publish:all": "npm run publish:common && npm run publish:components && npm run publish:elements && npm run publish:executors && npm run publish:schematics && publish:storybook",
+    "publish:all": "npm run publish:common && npm run publish:components && npm run publish:elements && npm run publish:executors && npm run publish:schematics && npm run publish:storybook",
     "publish:common": "cd dist/libs/common && npm publish --access=public --ignore-scripts",
     "publish:components": "cd dist/libs/components && npm publish --access public --ignore-scripts",
     "publish:elements": "cd dist/libs/elements && npm publish --access public --ignore-scripts",
