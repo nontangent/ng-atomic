@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "root": "libs/components",
-  "sourceRoot": "libs/components",
+  "sourceRoot": "libs/components/src",
   "prefix": "platform",
   "targets": {
     "build": {

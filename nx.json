@@ -41,7 +41,7 @@
   "cli": {
     "defaultCollection": "@ng-atomic/schematics"
   },
-  "defaultProject": "demo",
+  "defaultProject": "components",
   "generators": {
     "@nrwl/angular": {
       "application": {
@@ -69,7 +69,7 @@
     },
     "@ng-atomic/schematics": {
       "atom": {
-        "path": "../atoms",
+        "path": "./atoms",
         "project": "components"
       },
       "molecule": {
