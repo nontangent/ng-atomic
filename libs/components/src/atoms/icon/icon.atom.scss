@@ -1,0 +1,13 @@
+@use 'scoped-var/strict' as * with ($host: 'icon');
+@use 'atomic/atom' as *;
+
+:host {
+	@include atom($host);
+	@include property(--color);
+}
+
+:host {
+	mat-icon {
+		color: var(--color);
+	}
+}
