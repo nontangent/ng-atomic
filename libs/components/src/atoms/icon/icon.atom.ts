@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, ɵgetHostElement,  HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input,  HostBinding } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { catchError, map, Observable, of, ReplaySubject, switchMap } from 'rxjs';
 
