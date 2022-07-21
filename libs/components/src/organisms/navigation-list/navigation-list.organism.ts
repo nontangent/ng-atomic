@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { ActionItem } from '@ng-atomic/common/models';
 
 @Component({
@@ -8,11 +8,9 @@ import { ActionItem } from '@ng-atomic/common/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationListOrganism {
-  
   @Input()
-  actionItems: ActionItem[] = [];
+  items: ActionItem[] = [];
 
   @Output()
-  actionItemClick = new EventEmitter<[ActionItem]>();
-
+  action = new EventEmitter<string>();
 }

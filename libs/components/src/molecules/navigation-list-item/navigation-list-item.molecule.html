@@ -1,8 +1,4 @@
-<mat-list-option 
-  [value]="item.id"
-  [selected]="false"
-  (click)="actionItemClick.emit([item])"
->
+<mat-list-option [value]="item.id" [selected]="selected">
   <atoms-icon mat-list-icon [name]="item?.icon" [color]="item?.color"></atoms-icon>
   <div mat-line>{{item.name}}</div>
 </mat-list-option>

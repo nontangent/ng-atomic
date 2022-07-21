@@ -1,20 +1,15 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Meta, Story } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import { NavigationListOrganism, NavigationListModule } from '.';
+import { buildActions } from '@ng-atomic/storybook';
 
 export default {
   title: 'Organisms/NavigationList',
   component: NavigationListOrganism,
 } as Meta;
 
-const ACTIONS = {
-  actionItemClick: action('actionItemClick'),
-};
-
-
 const Template: Story = (args) => ({
-  props: {...args, ...ACTIONS},
+  props: {...args, ...buildActions(['action'])},
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
@@ -24,13 +19,13 @@ const Template: Story = (args) => ({
 });
 
 enum ActionId {
-  MENU_1,
-  MENU_2,
+  MENU_1 = '1',
+  MENU_2 = '2',
 }
 
 export const Default = Template.bind({});
 Default.args = {
-  actionItems: [
+  items: [
     {id: ActionId.MENU_1, name: 'Menu 1', icon: 'add'},
     {id: ActionId.MENU_2, name: 'Menu 2', icon: 'remove'},
   ]

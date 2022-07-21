@@ -24,7 +24,7 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  actionItems: [
+  items: [
     { id: '1', name: 'Item A', icon: 'add' },
     { id: '2', name: 'Item B', icon: 'add' },
   ]
