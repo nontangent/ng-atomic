@@ -1,0 +1,5 @@
+@use 'scoped-var/strict' as * with ($host: 'navigation-list-item');
+@use 'atomic/molecule' as *;
+:host {
+	@include molecule($host);
+}
