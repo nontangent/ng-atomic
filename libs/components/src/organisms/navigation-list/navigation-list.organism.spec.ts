@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuOrganism } from './menu.organism';
+import { NavigationListOrganism } from './navigation-list.organism';
 
-describe('MenuOrganism', () => {
-  let component: MenuOrganism;
-  let fixture: ComponentFixture<MenuOrganism>;
+describe('NavigationListOrganism', () => {
+  let component: NavigationListOrganism;
+  let fixture: ComponentFixture<NavigationListOrganism>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuOrganism ]
+      declarations: [ NavigationListOrganism ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuOrganism);
+    fixture = TestBed.createComponent(NavigationListOrganism);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

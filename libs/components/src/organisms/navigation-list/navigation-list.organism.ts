@@ -2,12 +2,12 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
 import { ActionItem } from '@ng-atomic/common/models';
 
 @Component({
-  selector: 'organisms-menu',
-  templateUrl: './menu.organism.html',
-  styleUrls: ['./menu.organism.scss'],
+  selector: 'organisms-navigation-list',
+  templateUrl: './navigation-list.organism.html',
+  styleUrls: ['./navigation-list.organism.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuOrganism {
+export class NavigationListOrganism {
   
   @Input()
   actionItems: ActionItem[] = [];

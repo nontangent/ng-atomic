@@ -1,11 +1,11 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Meta, Story } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { MenuOrganism, MenuModule } from '.';
+import { NavigationListOrganism, NavigationListModule } from '.';
 
 export default {
-  title: 'Organisms/Menu',
-  component: MenuOrganism,
+  title: 'Organisms/NavigationList',
+  component: NavigationListOrganism,
 } as Meta;
 
 const ACTIONS = {
@@ -18,7 +18,7 @@ const Template: Story = (args) => ({
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
-      MenuModule,
+      NavigationListModule,
     ]
   }
 });
@@ -31,7 +31,7 @@ enum ActionId {
 export const Default = Template.bind({});
 Default.args = {
   actionItems: [
-    {id: ActionId.MENU_1, name: 'Menu 1'},
-    {id: ActionId.MENU_2, name: 'Menu 2'},
+    {id: ActionId.MENU_1, name: 'Menu 1', icon: 'add'},
+    {id: ActionId.MENU_2, name: 'Menu 2', icon: 'remove'},
   ]
 };
