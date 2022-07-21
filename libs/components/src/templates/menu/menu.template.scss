@@ -1,7 +1,8 @@
 @use 'scoped-var/strict' as * with ($host: 'menu');
 
 :host {
-  @include property(--primary-color, blue);
+  @include property(--primary-color, #3f51b5);
+	@include property(--secondary-color, #3f51b5);
   @include property(--width, 100%);
   @include property(--height, 100%);
 }
@@ -15,8 +16,9 @@
   color: white;
   background-color: var(--primary-color);
 
-  organisms-menu {
+  organisms-navigation-list {
     transition: width 0.5s;
     --primary-color: #{var(--primary-color)};
+    --secondary-color: #{var(--secondary-color)};
   }
 }

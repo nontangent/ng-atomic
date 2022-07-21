@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuModule as MenuOrganismModule } from '@ng-atomic/components/organisms/menu';
+import { NavigationListModule } from '@ng-atomic/components/organisms/navigation-list';
 
 import { MenuTemplate } from './menu.template';
 
@@ -10,7 +10,7 @@ import { MenuTemplate } from './menu.template';
   imports: [
     CommonModule,
     // Organisms
-    MenuOrganismModule,
+    NavigationListModule,
   ],
   exports: [MenuTemplate],
   bootstrap: [MenuTemplate],

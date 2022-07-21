@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { MenuTemplate, MenuModule } from '.';
 
 export default {
-  title: 'TemplateS/Menu',
+  title: 'Templates/Menu',
   component: MenuTemplate,
 } as Meta;
 
@@ -23,4 +23,9 @@ const Template: Story = (args) => ({
 });
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  actionItems: [
+    { id: '1', name: 'Item A', icon: 'add' },
+    { id: '2', name: 'Item B', icon: 'add' },
+  ]
+};
