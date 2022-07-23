@@ -1,17 +1,36 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Injectable, Input, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Injectable, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, combineLatest, ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { LINE_UP_ANIMATIONS } from './line-up.animations';
 import { fromResize } from './resize-observer';
 
-const _fromResize = (el: ElementRef) => fromResize(el.nativeElement)
-  .pipe(map(({contentRect}: {contentRect: {width: number}}) => contentRect?.width ?? 0))
-  .pipe(distinctUntilChanged());
+enum Mode {
+  MAIN = 'Main',
+  BOTH = 'Both',
+  NEXT = 'Next',
+}
 
 @Injectable({providedIn: 'root'})
-class LineUpService {
-  pageAnimationDone$ = new ReplaySubject(1);
+export class LineUpFrameService {
+  frames: LineUpFrame[] = [];
+
+  register(frame: LineUpFrame) {
+    this.frames.push(frame);
+    console.debug('this.frames:', this.frames);
+  }
+
+  unregister(frame: LineUpFrame) {
+    this.frames = this.frames.slice(0, this.findIndex(frame));
+  }
+
+  findIndex(frame: LineUpFrame): number {
+    return this.frames.findIndex((value) => value === frame);
+  }
+
+  propagate(frame: LineUpFrame): void {
+    const target = this.frames?.[this.findIndex(frame) - 1];
+    target?.refresh();
+  }
 }
 
 @Component({
@@ -21,38 +40,59 @@ class LineUpService {
   changeDetection: ChangeDetectionStrategy.Default,
   animations: LINE_UP_ANIMATIONS,
 })
-export class LineUpFrame {
-  @HostBinding('attr.is-main-hidden')
-  isMainHidden = false;
+export class LineUpFrame implements OnInit, OnDestroy {
+  Mode = Mode;
+  mode = Mode.MAIN;
 
-  @Input()
-  label = 'root';
+  private readonly refresh$ = new ReplaySubject<void>(1);
+  private readonly destroy$ = new ReplaySubject<void>(1);
+  private readonly hasNext$ = new BehaviorSubject(false);  
 
+
+  private _hasNext = false;
+  @HostBinding('attr.has-next')
   @Input()
-  outlet?: RouterOutlet;
+  set hasNext(_hasNext: boolean) {
+    this.hasNext$.next(_hasNext);
+    this._hasNext = _hasNext;
+  };
+  get hasNext(): boolean {
+    return this._hasNext;
+  }
 
   @Input()
   minNextWidth: number = 360;
 
   @ViewChild('next', {static: true})
-  next!: ElementRef;
+  nextElementRef!: ElementRef;
 
-  get page(): string {
-    const page: string = this.outlet?.activatedRouteData?.['page'];
-    return page === 'Blank' ? 'Blank' : this.isMainHidden ? `Next` : `NextWithMainPage`;
-  }
-
-  constructor(
-    public service: LineUpService,
-    private cd: ChangeDetectorRef,
-  ) { }
+  constructor(private service: LineUpFrameService) { }
 
   ngOnInit(): void {
-    if (this.label === 'root') return; 
-
-    _fromResize(this.next).subscribe((width: number) => {
-      this.isMainHidden = width > this.minNextWidth;
-      this.cd.detectChanges();
+    this.service.register(this);
+    this.refresh();
+    
+    combineLatest([
+      this.hasNext$, 
+      fromResize(this.nextElementRef),
+      this.refresh$,
+    ]).pipe(takeUntil(this.destroy$)).subscribe(([hasNext, width]) => {
+      this.mode = this.resolveMode(hasNext, width);
+      setTimeout(() => this.service.propagate(this), 0);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.service.unregister(this);
+    this.destroy$.next(); 
+  }
+
+  refresh() {
+    this.refresh$.next();
+  }
+
+  private resolveMode(hasNext: boolean, width: number): Mode {
+    if (hasNext && width <= this.minNextWidth) return Mode.BOTH;
+    return hasNext ? Mode.NEXT : Mode.MAIN;
   }
 }
