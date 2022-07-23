@@ -132,5 +132,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["elements"]
+  "implicitDependencies": ["!storybook"]
 }
