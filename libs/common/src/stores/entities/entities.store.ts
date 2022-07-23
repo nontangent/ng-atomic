@@ -1,5 +1,4 @@
 import { ComponentStore } from '@ngrx/component-store';
-import { LoadingService } from '@ng-atomic/common/services/loading';
 import { QueryResolverService } from '@ng-atomic/common/services/query-resolver';
 import { compareById } from '@ng-atomic/common/utils';
 import { Observable } from 'rxjs';
@@ -7,7 +6,7 @@ import { distinctUntilChanged, tap, map, filter, switchMap } from 'rxjs/operator
 
 export type Page = any
 
-export interface State<E> {
+export interface EntitiesState<E> {
   userId: string; 
   idSet: Set<string>;
   query: string;
@@ -17,7 +16,7 @@ export interface State<E> {
   sortOrder?: 'asc' | 'desc';
 }
 
-export abstract class EntitiesStore<S extends State<E>, E extends {id: string}> extends ComponentStore<S> {
+export abstract class EntitiesStore<S extends EntitiesState<E>, E extends {id: string}> extends ComponentStore<S> {
   abstract LANG_MAP: Record<string, string>;
 
   get page(): Page { return this.get(state => state.page); }
@@ -57,10 +56,8 @@ export abstract class EntitiesStore<S extends State<E>, E extends {id: string}> 
 
   getEntities = this.effect((userId$: Observable<string>) => userId$.pipe(
     filter(userId => !!userId),
-    tap(() => this.loading.setKey('[/entities] Get Entities')),
     switchMap((userId) => this._getEntities({userId})),
     tap((entities: E[]) => this.setEntities(entities)),
-    tap(() => this.loading.removeKey('[/entities] Get Entities')),
   )); 
 
   changeSortFromEvent(name: string) {
@@ -74,5 +71,4 @@ export abstract class EntitiesStore<S extends State<E>, E extends {id: string}> 
   }
 
   abstract _getEntities(data?: object): Observable<E[]>;
-  abstract loading: LoadingService;
 }
