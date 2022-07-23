@@ -1,3 +1,13 @@
+# [3.4.0](https://github.com/nontangent/ng-atomic/compare/v3.3.0...v3.4.0) (2022-07-23)
+
+
+### Features
+
+* **common:** remove defineElements function ([0a49acf](https://github.com/nontangent/ng-atomic/commit/0a49acfb58dcb042e2201c2773957fbaffcd09b5))
+* **components:** remove loadingService from EntitiesStore ([41bb3ca](https://github.com/nontangent/ng-atomic/commit/41bb3ca25047fa07de86ec8751d09b5b4e83da26))
+* **components:** remove old LineUpFrame ([29052b6](https://github.com/nontangent/ng-atomic/commit/29052b6ab8936b0156acef887f8ca03730c9b7f0))
+* **components:** remove OverlayFrame ([6fdbf03](https://github.com/nontangent/ng-atomic/commit/6fdbf0374ea6ea83b5703ae712d2a1dc78b03530))
+
 # [3.3.0](https://github.com/nontangent/ng-atomic/compare/v3.2.10...v3.3.0) (2022-07-21)
 
 
