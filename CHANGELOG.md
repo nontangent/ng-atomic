@@ -1,3 +1,19 @@
+# [3.3.0](https://github.com/nontangent/ng-atomic/compare/v3.2.10...v3.3.0) (2022-07-21)
+
+
+### Bug Fixes
+
+* **components:** for build ([1a4a281](https://github.com/nontangent/ng-atomic/commit/1a4a281a2d5fa168d9aad3de9e32cc333cbcac16))
+
+
+### Features
+
+* **common:** add color to properties of ActionItem ([de0f8f8](https://github.com/nontangent/ng-atomic/commit/de0f8f884dae46fbdc118ddcc1b5191b13806332))
+* **components:** add icon atom ([049d8d1](https://github.com/nontangent/ng-atomic/commit/049d8d17c582f929027c6d7c4adc4835d5d4822a))
+* **components:** add NavigationListItem to molecules ([ad8640d](https://github.com/nontangent/ng-atomic/commit/ad8640df0398c053adda6d4b6e7dd7020958f479))
+* **components:** rename Menu to NavigationList ([97e4c5e](https://github.com/nontangent/ng-atomic/commit/97e4c5ebf50e8410d00334e97e36a526deb3eada))
+* **components:** use NavigationListOrganism ([c84e353](https://github.com/nontangent/ng-atomic/commit/c84e35319da7ebbd9a44fff083495a2b2a53ce59))
+
 ## [3.2.10](https://github.com/nontangent/ng-atomic/compare/v3.2.9...v3.2.10) (2022-07-16)
 
 
