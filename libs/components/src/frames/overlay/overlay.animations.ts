@@ -1,7 +1,7 @@
-import { trigger, transition, style, query, group, animateChild, animate } from '@angular/animations';
+import { trigger, transition, style, query, animateChild, animate } from '@angular/animations';
 
-export const slideInAnimation = trigger('routeAnimations', [
-  transition('IndexPage => NextPage', [
+export const OVERLAY_ANIMATION = trigger('hasNext', [
+  transition('false => true', [
     query(':enter', [
       style({
         position: 'absolute',
@@ -13,8 +13,7 @@ export const slideInAnimation = trigger('routeAnimations', [
     query(':enter', [animate('300ms ease-out', style({ left: '0%' }))]),
     query(':enter', animateChild()),
   ]),
-
-  transition('NextPage => IndexPage', [
+  transition('true => false', [
       query(':leave', [
         style({
           position: 'absolute',
@@ -26,5 +25,4 @@ export const slideInAnimation = trigger('routeAnimations', [
       query(':leave', [animate('300ms ease-in', style({ left: '100%' }))]),
       query(':leave', animateChild()),
   ])
-
 ]);
