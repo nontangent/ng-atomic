@@ -10,7 +10,7 @@ import { ActionItem } from '@ng-atomic/common/models';
 export class MenuTemplate {
 
   @Input()
-  items: ActionItem[] = [];
+  items: ActionItem<string>[] = [];
 
   @Output()
   action = new EventEmitter<string>();
