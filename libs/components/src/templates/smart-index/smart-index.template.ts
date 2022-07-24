@@ -48,10 +48,10 @@ export class SmartIndexTemplate<T> {
   items: T[] = [];
 
   @Input()
-  actionItems: ActionItem[] = [];
+  menuItems: ActionItem[] = [];
 
   @Input()
-  menuActionItems: ActionItem[] = [];
+  globalMenuItems: ActionItem[] = [];
 
   @Input()
   properties: (keyof T)[] =  [];
@@ -79,7 +79,7 @@ export class SmartIndexTemplate<T> {
   queryPlaceholder = '';
 
   @Output()
-  actionItemClick = new EventEmitter();
+  action = new EventEmitter<string>();
 
   @Output()
   backButtonClick = new EventEmitter();
