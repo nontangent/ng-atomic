@@ -1,14 +1,23 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { OVERLAY_ANIMATION } from './overlay.animations';
+import { Component, Input } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './overlay.animations';
 
 @Component({
   selector: 'frames-overlay',
   templateUrl: './overlay.frame.html',
   styleUrls: ['./overlay.frame.scss'],
-  animations: [OVERLAY_ANIMATION],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [slideInAnimation],
 })
 export class OverlayFrame {
+  
   @Input()
-  hasNext = false;
+  outlet?: RouterOutlet | null = null;
+
+  @Input()
+  isLoading: boolean = false;
+
+  prepareRoute(outlet: RouterOutlet | null | undefined) {
+    return outlet?.activatedRouteData?.['page'];
+  }
+
 }
