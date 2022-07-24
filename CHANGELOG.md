@@ -1,3 +1,18 @@
+# [3.5.0](https://github.com/nontangent/ng-atomic/compare/v3.4.0...v3.5.0) (2022-07-24)
+
+
+### Bug Fixes
+
+* **components:** change inputs and outputs name of SmartIndexTemplate ([c5dfa64](https://github.com/nontangent/ng-atomic/commit/c5dfa6418157305bfcf6f16830eb64936e8e6df3))
+* **components:** restrict action id string only in MenuTemplate ([5a8bb0f](https://github.com/nontangent/ng-atomic/commit/5a8bb0fa8427bd6f12ba27b7b9f17077224ff2cc))
+* **components:** restrict action id string only in NavigationListOrganism ([77e94c5](https://github.com/nontangent/ng-atomic/commit/77e94c5af953de0339bbc917b2cb3005f5082849))
+
+
+### Features
+
+* **common:** add Generics for id ([621a8e7](https://github.com/nontangent/ng-atomic/commit/621a8e7e77cd92211c958af7773474bc383dd841))
+* **components:** add svg path color in scss of IconAtom ([ec4e8de](https://github.com/nontangent/ng-atomic/commit/ec4e8de8e5ebdb61d9e0b27667ab782bd52a3bc1))
+
 # [3.4.0](https://github.com/nontangent/ng-atomic/compare/v3.3.0...v3.4.0) (2022-07-23)
 
 
