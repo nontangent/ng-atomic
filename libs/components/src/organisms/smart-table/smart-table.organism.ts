@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem } from '@ng-atomic/common/models';
+import { Action, ActionItem } from '@ng-atomic/common/models';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class SmartTableOrganism<Item extends object> {
   pageSize: number = 0;
 
   @Input()
-  actionItems: ActionItem[] = [];
+  menuItems: ActionItem[] = [];
 
   @Input()
   selectedIdSet = new Set<string>();
@@ -40,7 +40,7 @@ export class SmartTableOrganism<Item extends object> {
   sortOrder?: 'asc' | 'desc';
 
   @Output()
-  actionItemClick = new EventEmitter<[ActionItem, Item]>();
+  action = new EventEmitter<Action>();
 
   @Output()
   headerClick = new EventEmitter<string>();

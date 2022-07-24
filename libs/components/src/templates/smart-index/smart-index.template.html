@@ -1,22 +1,21 @@
 <frames-scroll>
-  <organisms-back-navigator
-    [canBack]="canBack"
+  <organisms-navigator
     [title]="title"
     [description]="description"
-    [actionItems]="globalMenuItems"
-    (actionItemClick)="action.emit($event)"
-    (backButtonClick)="backButtonClick.emit()"
+    [leftItems]="canBack ? navigatorLeftItems : []"
+    [rightItems]="globalMenuItems"
+    (action)="onAction($event)"
     navigator
-  ></organisms-back-navigator>
+  ></organisms-navigator>
   <frames-auto-layout vertical contents>
     <organisms-smart-table
       [items]="items"
-      [actionItems]="menuItems"
+      [menuItems]="menuItems"
       [columns]="properties"
       [selectedIdSet]="selectedIdSet"
       [sortKey]="sortKey"
       [sortOrder]="sortOrder"
-      (actionItemClick)="action.emit($event)"
+      (action)="action.emit($event)"
       (checkboxClick)="checkboxClick.emit($event)"
       (headerClick)="tableHeaderClick.emit($event)"
     ></organisms-smart-table>

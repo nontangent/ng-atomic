@@ -10,8 +10,8 @@
   </div>
   <div>
     <atoms-smart-menu-button
-      [actionItems]="actionItems"
-      (actionItemClick)="actionItemClick.emit($event)"
+      [items]="items"
+      (action)="action.emit($event)"
     ></atoms-smart-menu-button>
   </div>
 </mat-toolbar>

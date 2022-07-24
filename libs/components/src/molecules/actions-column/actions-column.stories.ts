@@ -11,13 +11,14 @@ export default {
 
 
 const Template: Story = (args) => ({
-  props: {...args, ...buildActions(['actionItemClick'])},
+  props: {...args, ...buildActions(['action'])},
   template: `
   <table mat-table [dataSource]="items" matSort matSortDisableClear matSortDirection="desc">
     <molecules-actions-column
       *ngFor="let name of displayedColumns" 
       [name]="name"
-      [actionItems]="actionItems"
+      [items]="items"
+      (action)="action($event)"
     ></molecules-actions-column>
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let item; columns: displayedColumns;"></tr>
@@ -32,15 +33,14 @@ const Template: Story = (args) => ({
 });
 
 enum ActionId {
-  TEST1,
-  TEST2,
+  TEST1 = 'test 1',
+  TEST2 = 'test 2',
 }
 
 export const Default = Template.bind({});
 Default.args = {
-  items: [{id: '01'}, {id: '02'}, {id: '03'}],
   displayedColumns: ['__actions'],
-  actionItems: [
+  items: [
     {id: ActionId.TEST1, name: 'TEST 1'},
     {id: ActionId.TEST2, name: 'TEST 2'},
   ]

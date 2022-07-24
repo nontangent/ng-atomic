@@ -1,12 +1,11 @@
 <frames-scroll>
-  <organisms-back-navigator 
-    [actionItems]="menuActionItems"
-    [canBack]="canBack"
+  <organisms-navigator 
+    [leftItems]="canBack ? navigatorLeftItems : []"
+    [rightItems]="menuActionItems"
     [title]="title"
-    (actionItemClick)="actionItemClick.emit($event)"
-    (backButtonClick)="backButtonClick.emit()"
+    (action)="onAction($event)"
     navigator
-  ></organisms-back-navigator>
+  ></organisms-navigator>
   <frames-auto-layout vertical contents>
     <ng-container *ngFor="let entry of controls; trackBy:trackByIndex" [ngSwitch]="(entry[0] | smartField)?.type">
       <organisms-select-input-section
@@ -33,8 +32,8 @@
       ></organisms-text-input-section>
     </ng-container>
     <organisms-action-buttons-section
-      [actionItems]="actionItems"
-      (actionItemClick)="onActionButtonClick($event)"
+      [items]="actionItems"
+      (action)="onAction($event)"
     ></organisms-action-buttons-section>
   </frames-auto-layout>
 </frames-scroll>

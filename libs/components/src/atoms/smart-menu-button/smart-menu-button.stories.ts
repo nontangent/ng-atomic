@@ -10,10 +10,7 @@ export default {
 } as Meta;
 
 const Template: Story = (args) => ({
-  props: {
-    ...args,
-    ...buildActions(['actionItemClick']),
-  },
+  props: {...args, ...buildActions(['action']) },
   moduleMetadata: {
     imports: [
       BrowserModule,
@@ -25,7 +22,7 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  actionItems: [
+  items: [
     {
       id: 'test-action-01',
       name: 'テスト01',

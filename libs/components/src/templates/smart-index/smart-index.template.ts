@@ -1,9 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { ActionItem } from '@ng-atomic/common/models';
+import { Action, ActionItem } from '@ng-atomic/common/models';
 import { FormControl } from '@ngneat/reactive-forms';
 
 export interface Page extends PageEvent { }
+
+export enum ActionId {
+  BACK = '[@ng-atomic/components/templates/smart-crud] Back',
+}
 
 export class Page {
   static fromObj(event: PageEvent = {pageSize: 50, pageIndex: 0, length: 100}): Page {
@@ -36,7 +40,7 @@ export class SmartIndexTemplate<T> {
   canBack = false;
 
   @Input()
-  queryControl = new FormControl<string>();
+  queryControl = new FormControl<string>('');
 
   @Input()
   title: string = '';
@@ -79,7 +83,7 @@ export class SmartIndexTemplate<T> {
   queryPlaceholder = '';
 
   @Output()
-  action = new EventEmitter<string>();
+  action = new EventEmitter<Action>();
 
   @Output()
   backButtonClick = new EventEmitter();
@@ -93,4 +97,12 @@ export class SmartIndexTemplate<T> {
   @Output()
   tableHeaderClick = new EventEmitter<string>();
 
+  navigatorLeftItems = [{ id: ActionId.BACK, icon: 'arrow_back' }];
+
+  onAction(action: Action): void {
+    switch(action.id) {
+      case ActionId.BACK: return this.backButtonClick.emit();
+      default: return this.action.emit(action);
+    }
+  }
 }

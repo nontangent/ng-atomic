@@ -1,12 +1,12 @@
-<ng-container [ngSwitch]="actionItems.length">
+<ng-container [ngSwitch]="items?.length ?? 0">
   <ng-container *ngSwitchCase="0"></ng-container>
   <ng-container *ngSwitchCase="1">
-    <button mat-icon-button (click)="actionItemClick.emit([actionItems[0]])">
-      <mat-icon>{{ actionItems[0]?.icon }}</mat-icon>
+    <button mat-icon-button (click)="action.emit(items[0])">
+      <mat-icon>{{ items[0]?.icon }}</mat-icon>
     </button>
   </ng-container>
   <ng-container *ngSwitchDefault>
-    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="actionItems.length">
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="items.length">
       <mat-icon>menu</mat-icon>
     </button>
   </ng-container>
@@ -14,8 +14,8 @@
 
 <mat-menu #menu="matMenu">
   <button 
-    *ngFor="let actionItem of actionItems"
+    *ngFor="let item of items"
     mat-menu-item 
-    (click)="actionItemClick.emit([actionItem])"
-  >{{ actionItem.name }}</button>
+    (click)="action.emit(item)"
+  >{{ item.name }}</button>
 </mat-menu>

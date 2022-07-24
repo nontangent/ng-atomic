@@ -2,8 +2,8 @@
   <th mat-header-cell *matHeaderCellDef>操作</th>
   <td mat-cell *matCellDef="let item">
     <atoms-smart-menu-button
-      [actionItems]="actionItems"
-      (actionItemClick)="actionItemClick.emit([$event[0], item])"
+      [items]="items"
+      (action)="action.emit({id: $event.id, payload: item})"
     ></atoms-smart-menu-button>
   </td>
 </ng-container>
