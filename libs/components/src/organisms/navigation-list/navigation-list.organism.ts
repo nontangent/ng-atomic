@@ -9,7 +9,7 @@ import { ActionItem } from '@ng-atomic/common/models';
 })
 export class NavigationListOrganism {
   @Input()
-  items: ActionItem[] = [];
+  items: ActionItem<string>[] = [];
 
   @Output()
   action = new EventEmitter<string>();
