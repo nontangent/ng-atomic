@@ -9,5 +9,12 @@
 :host {
 	mat-icon {
 		color: var(--color);
+
+		::ng-deep {
+			svg .filled {
+				transition: fill 0.5s;
+				fill: var(--color);
+			}
+		}
 	}
 }
