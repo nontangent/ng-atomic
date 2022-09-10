@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem, ActionItemEvent } from '@ng-atomic/common/models';
+import { Action, ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'organisms-navigator',
@@ -8,23 +8,12 @@ import { ActionItem, ActionItemEvent } from '@ng-atomic/common/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorOrganism {
+  @Input()
+  rightItems: ActionItem[] = [];
 
   @Input()
-  canBack = true;
-
-  @Input()
-  title?: string;
-
-  @Input()
-  description?: string;
-
-  @Input()
-  actionItems: ActionItem[] = [];
+  leftItems: ActionItem[] = [];
 
   @Output()
-  backButtonClick = new EventEmitter<void>();
-
-  @Output()
-  actionItemClick = new EventEmitter<ActionItemEvent>();
-
+  action = new EventEmitter<Action>();
 }

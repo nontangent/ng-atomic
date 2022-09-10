@@ -9,8 +9,8 @@
     <molecules-actions-column 
       *ngSwitchCase="'__actions'" 
       name="__actions" 
-      [actionItems]="actionItems"
-      (actionItemClick)="actionItemClick.emit($event)"
+      [items]="menuItems"
+      (action)="action.emit($event)"
     ></molecules-actions-column>
     <molecules-smart-column
       *ngSwitchDefault

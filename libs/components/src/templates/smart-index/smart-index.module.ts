@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AutoLayoutModule } from '@ng-atomic/components/frames/auto-layout';
 import { ScrollModule } from '@ng-atomic/components/frames/scroll';
+import { HeaderModule } from '@ng-atomic/components/molecules/header';
 import { SmartTableModule } from '@ng-atomic/components/organisms/smart-table';
-import { BackNavigatorModule } from '@ng-atomic/components/organisms/back-navigator';
+import { NavigatorModule } from '@ng-atomic/components/organisms/navigator';
 import { PaginatorModule } from '@ng-atomic/components/organisms/paginator';
 
 import { SmartIndexTemplate } from './smart-index.template';
@@ -21,7 +22,9 @@ import { SmartIndexTemplate } from './smart-index.template';
     // Organisms
     PaginatorModule,
     SmartTableModule,
-    BackNavigatorModule,
+    NavigatorModule,
+    // Molecules
+    HeaderModule,
   ],
   exports: [
     SmartIndexTemplate

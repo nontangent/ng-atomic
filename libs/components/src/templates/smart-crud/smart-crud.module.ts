@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollModule } from '@ng-atomic/components/frames/scroll';
 import { AutoLayoutModule } from '@ng-atomic/components/frames/auto-layout';
+import { HeaderModule } from '@ng-atomic/components/molecules/header';
 import { ActionButtonsSectionModule } from '@ng-atomic/components/organisms/action-buttons-section';
-import { BackNavigatorModule } from '@ng-atomic/components/organisms/back-navigator';
+import { NavigatorModule } from '@ng-atomic/components/organisms/navigator';
 import { TextInputSectionModule } from '@ng-atomic/components/organisms/text-input-section';
 import { DateInputSectionModule } from '@ng-atomic/components/organisms/date-input-section';
 import { SelectInputSectionModule } from '@ng-atomic/components/organisms/select-input-section';
@@ -29,10 +30,12 @@ import { SmartCrudTemplate } from './smart-crud.template';
     ScrollModule,
     // Organisms
     ActionButtonsSectionModule,
-    BackNavigatorModule,
+    NavigatorModule,
     DateInputSectionModule,
     TextInputSectionModule,
     SelectInputSectionModule,
+    // Molecules
+    HeaderModule,
   ],
   exports: [
     SmartCrudTemplate

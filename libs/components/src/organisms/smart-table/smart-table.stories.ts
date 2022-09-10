@@ -2,6 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Meta, Story } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { SmartTableOrganism, SmartTableModule } from '.';
+import { buildActions } from '@ng-atomic/storybook';
 
 export default {
   title: 'Organisms/SmartTable',
@@ -13,14 +14,8 @@ export default {
   }
 } as Meta;
 
-const ACTIONS = {
-  pageChange: action('pageChange'),
-  headerClick: action('headerClick'),
-};
-
-
 const Template: Story = (args) => ({
-  props: {...args, ...ACTIONS},
+  props: {...args, ...buildActions(['action', 'pagesChange', 'headerClick'])},
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
@@ -30,23 +25,19 @@ const Template: Story = (args) => ({
 });
 
 enum ActionId {
-  MENU_1,
-  MENU_2,
+  MENU_1 = 'MENU 1',
+  MENU_2 = 'MENU 2',
 }
 
 export const Default = Template.bind({});
 Default.args = {
-  actionItems: [
-    {id: ActionId.MENU_1, name: 'Menu 1'},
-    {id: ActionId.MENU_2, name: 'Menu 2'},
-  ],
   page: {
     pageIndex: 1,
     previousPageIndex: 0,
     pageSize: 20,
     length: 100,
   },
-  columns: ['id', 'name', 'description'],
+  columns: ['id', 'name', 'description', '__actions'],
   items: [
     { id: 11, name: 'Dr Nice', description: '', realName: 'Alex' },
     { id: 12, name: 'Narco', description: '', realName: 'Alex' },
@@ -58,6 +49,10 @@ Default.args = {
     { id: 18, name: 'Dr IQ', description: '', realName: 'Alex' },
     { id: 19, name: 'Magma', description: '', realName: 'Alex' },
     { id: 20, name: 'Tornado', description: '', realName: 'Alex' }
+  ],
+  menuItems: [
+    {id: ActionId.MENU_1, name: 'Menu 1'},
+    {id: ActionId.MENU_2, name: 'Menu 2'},
   ],
   sortKey: 'id',
   sortOrder: 'asc',

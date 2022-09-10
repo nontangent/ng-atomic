@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem, ActionItemEvent } from '@ng-atomic/common/models';
+import { Action, ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'organisms-back-navigator',
@@ -19,12 +19,12 @@ export class BackNavigatorOrganism {
   description?: string;
 
   @Input()
-  actionItems: ActionItem[] = [];
+  items: ActionItem[] = [];
 
   @Output()
   backButtonClick = new EventEmitter<void>();
 
   @Output()
-  actionItemClick = new EventEmitter<ActionItemEvent>();
+  action = new EventEmitter<Action>();
 
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem } from '@ng-atomic/common/models';
+import { Action, ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'organisms-action-buttons-section',
@@ -10,10 +10,10 @@ import { ActionItem } from '@ng-atomic/common/models';
 })
 export class ActionButtonsSectionOrganism {
   @Input()
-  actionItems: ActionItem[] = [];
+  items: ActionItem[] = [];
 
   @Output()
-  actionItemClick = new EventEmitter<[ActionItem]>();
+  action = new EventEmitter<Action>();
 
   trackById = (item: ActionItem) => item.id;
 }

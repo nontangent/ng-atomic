@@ -1,8 +1,7 @@
-export interface ActionItem<ID = number | string> {
-  id: ID;
+import { Action } from "./action";
+
+export interface ActionItem<T = any> extends Action<T> {
   name: string;
   icon?: string;
   color?: string;
 }
-
-export type ActionItemEvent<T = any> = [ActionItem, T];

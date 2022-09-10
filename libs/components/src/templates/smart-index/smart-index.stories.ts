@@ -14,7 +14,7 @@ const Template: Story = (args) => ({
   props: {
     ...args,
     ...buildActions([
-      'actionItemClick',
+      'action',
       'backButtonClick',
       'checkboxClick',
       'pageChange',
@@ -30,9 +30,9 @@ const Template: Story = (args) => ({
 });
 
 enum ActionId {
-  CREATE,
-  EDIT,
-  CALL,
+  CREATE = 'create',
+  EDIT = 'Edit',
+  CALL = 'Call',
 }
 
 export const Default = Template.bind({});
@@ -51,11 +51,11 @@ Default.args = {
     { id: 19, name: 'Magma', description: '', realName: 'Alex' },
     { id: 20, name: 'Tornado', description: '', realName: 'Alex' }
   ],
-  actionItems: [
+  menuItems: [
     { id: ActionId.CALL, name: 'Call' },
     { id: ActionId.EDIT, name: 'Edit' },
   ],
-  menuActionItems: [
+  globalMenuItems: [
     { id: ActionId.CREATE, name: 'Create' },
   ],
   selectedIdSet: new Set<string>([11 as never as string]),
