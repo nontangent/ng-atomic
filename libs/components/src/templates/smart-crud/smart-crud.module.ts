@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollModule } from '@ng-atomic/components/frames/scroll';
 import { AutoLayoutModule } from '@ng-atomic/components/frames/auto-layout';
+import { HeaderModule } from '@ng-atomic/components/molecules/header';
 import { ActionButtonsSectionModule } from '@ng-atomic/components/organisms/action-buttons-section';
 import { NavigatorModule } from '@ng-atomic/components/organisms/navigator';
 import { TextInputSectionModule } from '@ng-atomic/components/organisms/text-input-section';
@@ -33,6 +34,8 @@ import { SmartCrudTemplate } from './smart-crud.template';
     DateInputSectionModule,
     TextInputSectionModule,
     SelectInputSectionModule,
+    // Molecules
+    HeaderModule,
   ],
   exports: [
     SmartCrudTemplate

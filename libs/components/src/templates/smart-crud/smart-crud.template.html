@@ -1,11 +1,12 @@
 <frames-scroll>
   <organisms-navigator 
     [leftItems]="canBack ? navigatorLeftItems : []"
-    [rightItems]="menuActionItems"
-    [title]="title"
+    [rightItems]="navigatorMenuItems"
     (action)="onAction($event)"
     navigator
-  ></organisms-navigator>
+  >
+    <molecules-header [title]="title"></molecules-header>
+  </organisms-navigator>
   <frames-auto-layout vertical contents>
     <ng-container *ngFor="let entry of controls; trackBy:trackByIndex" [ngSwitch]="(entry[0] | smartField)?.type">
       <organisms-select-input-section

@@ -1,6 +1,4 @@
 import { ComponentStore } from '@ngrx/component-store';
-import { LoadingService } from '@ng-atomic/common/services/loading';
-import { SnackBarService } from '@ng-atomic/common/services/snack-bar';
 import { Observable } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 
@@ -45,28 +43,16 @@ export abstract class EntityStore<S extends EntityState<Entity>, Entity> extends
 
   createEntity(value: Partial<Entity>) {
     const entity: Entity = ({...this.entity, ...value});
-
-    this.loading.setKey('[pages/stores/pages/store] Create Store');
-
-    return tryCatch(this._createEntity(entity))
-      .catch(error => (console.error(error), this.snackBar.openSnackBar('作成に失敗しました。')))
-      .finally(() => this.loading.removeKey('[pages/stores/pages/store] Create Store'));
+    return tryCatch(this._createEntity(entity));
   }
 
   updateEntity(value: Partial<Entity>) {
     const entity: Entity = ({...this.entity, ...value});
-
-    this.loading.setKey('[pages/stores/pages/store] Create Store');
     return this._updateEntity(entity)
-      .catch(error => (console.error(error), this.snackBar.openSnackBar('更新に失敗しました。')))
-      .finally(() => this.loading.removeKey('[pages/stores/pages/store] Create Store'));
   }
 
   abstract _getEntity(idOrParams: string): Observable<Entity>;
   abstract _createEntity(entity: Entity): Promise<Entity>;
   abstract _updateEntity(entity: Entity): Promise<void>;
-
-  abstract get loading(): LoadingService;
-  abstract get snackBar(): SnackBarService;
 
 }

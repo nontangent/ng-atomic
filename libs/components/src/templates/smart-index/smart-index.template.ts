@@ -52,10 +52,10 @@ export class SmartIndexTemplate<T> {
   items: T[] = [];
 
   @Input()
-  menuItems: ActionItem[] = [];
+  rowMenuItems: ActionItem[] = [];
 
   @Input()
-  globalMenuItems: ActionItem[] = [];
+  navigatorMenuItems: ActionItem[] = [];
 
   @Input()
   properties: (keyof T)[] =  [];

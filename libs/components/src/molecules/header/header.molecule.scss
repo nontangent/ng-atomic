@@ -1,0 +1,20 @@
+@use 'scoped-var/strict' as * with ($host: 'header');
+@use 'atomic/molecule' as *;
+
+:host {
+	@include molecule($host);
+}
+
+:host {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+
+	.description {
+		line-height: 1em;
+		font-size: 12px;
+		margin-bottom: 8px;
+		margin-left: 4px;
+	}
+}

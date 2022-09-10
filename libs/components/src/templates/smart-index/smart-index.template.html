@@ -1,16 +1,16 @@
 <frames-scroll>
   <organisms-navigator
-    [title]="title"
-    [description]="description"
     [leftItems]="canBack ? navigatorLeftItems : []"
-    [rightItems]="globalMenuItems"
+    [rightItems]="navigatorMenuItems"
     (action)="onAction($event)"
     navigator
-  ></organisms-navigator>
+  >
+    <molecules-header [title]="title" [description]="description"></molecules-header>
+  </organisms-navigator>
   <frames-auto-layout vertical contents>
     <organisms-smart-table
       [items]="items"
-      [menuItems]="menuItems"
+      [menuItems]="rowMenuItems"
       [columns]="properties"
       [selectedIdSet]="selectedIdSet"
       [sortKey]="sortKey"

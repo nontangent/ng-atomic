@@ -1,4 +1,4 @@
-<mat-form-field [appearance]="appearance">
+<mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
   <mat-label>{{ label }}</mat-label>
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let chip of chipsManager.chips" (removed)="remove(chip)">

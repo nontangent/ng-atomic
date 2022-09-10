@@ -8,13 +8,6 @@ import { Action, ActionItem } from '@ng-atomic/common/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorOrganism {
-
-  @Input()
-  title?: string;
-
-  @Input()
-  description?: string;
-
   @Input()
   rightItems: ActionItem[] = [];
 
@@ -23,5 +16,4 @@ export class NavigatorOrganism {
 
   @Output()
   action = new EventEmitter<Action>();
-
 }

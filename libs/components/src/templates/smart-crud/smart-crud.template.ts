@@ -31,7 +31,10 @@ export class SmartCrudTemplate {
   mode: 'create' | 'update' = 'create';
 
   @Input()
-  menuActionItems: ActionItem[] = [{id: ActionId.DELETE, name: '削除'}];
+  navigatorMenuItems: ActionItem[] = [{id: ActionId.DELETE, name: '削除'}];
+
+  @Input()
+  title: string = 'title';
 
   @Output()
   action = new EventEmitter<Action>();
@@ -46,13 +49,6 @@ export class SmartCrudTemplate {
   updateButtonClick = new EventEmitter<void>();
 
   navigatorLeftItems = [{ id: ActionId.BACK, icon: 'arrow_back' }];
-
-  get title(): string {
-    switch (this.mode) {
-      case 'create': return `${this.name}の作成`;
-      case 'update': return `${this.name}の更新`;
-    }
-  }
 
   get actionItems(): ActionItem[] {
     switch (this.mode) {

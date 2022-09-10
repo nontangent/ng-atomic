@@ -23,6 +23,9 @@ export class ChipsInputFieldMolecule {
   control = new FormControl<string>('');
 
   @Input()
+  floatLabel = 'auto';
+
+  @Input()
   label = 'label';
 
   @Input()

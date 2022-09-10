@@ -54,4 +54,5 @@ export class SmartTableOrganism<Item extends object> {
   @Output()
   itemCheck = new EventEmitter<[Item, boolean]>();
   
+  trackByColumnName = (columnName: string) => columnName;
 }

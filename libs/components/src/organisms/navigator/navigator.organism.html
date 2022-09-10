@@ -5,10 +5,7 @@
       [items]="leftItems"
       (action)="action.emit($event)"
     ></atoms-smart-menu-button>
-    <div class="text">
-      <span class="title">{{ title || '' }}</span>
-      <span class="description">{{ description || '' }}</span>
-    </div>
+    <ng-content></ng-content>
   </div>
   <div>
     <atoms-smart-menu-button
