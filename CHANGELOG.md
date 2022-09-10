@@ -1,3 +1,16 @@
+# [3.6.0](https://github.com/nontangent/ng-atomic/compare/v3.5.0...v3.6.0) (2022-09-10)
+
+
+### Bug Fixes
+
+* **components:** input prop of top navigator ([1f70d70](https://github.com/nontangent/ng-atomic/commit/1f70d701745acd525797100915afd283aa24207c))
+
+
+### Features
+
+* rename components props name ([0d9439a](https://github.com/nontangent/ng-atomic/commit/0d9439a26482959a59cc2c1bb3f72da3ea5671cc))
+* use Action interface on component event ([bfa8016](https://github.com/nontangent/ng-atomic/commit/bfa8016f5e405caa0e9af6373af226c437a9637f))
+
 # [3.5.0](https://github.com/nontangent/ng-atomic/compare/v3.4.0...v3.5.0) (2022-07-24)
 
 
