@@ -14,10 +14,10 @@ export class TopNavigatorOrganism {
   title?: string;
 
   @Input()
-  actionItems: ActionItem[] = [];
+  items: ActionItem[] = [];
 
   @Output()
-  actionItemClick = new EventEmitter<ActionItem>();
+  action = new EventEmitter<ActionItem>();
   
   id = (item: {id: string}) => item.id;
 
