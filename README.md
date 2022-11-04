@@ -45,6 +45,7 @@ export default Index;
 ## Compatibility
 | Angular | NgAtomic   |
 | --------|----------- |
+| 14      | 4.x.x      |
 | 13      | 3.x.x      |
 | 12      | 2.x.x      |
 | 11      | 1.x.x      |
