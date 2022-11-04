@@ -1,11 +1,6 @@
-# [4.0.0](https://github.com/nontangent/ng-atomic/compare/v3.6.1...v4.0.0) (2022-11-04)
+## [4.0.1](https://github.com/nontangent/ng-atomic/compare/v4.0.0...v4.0.1) (2022-11-04)
 
 
-### Continuous Integration
+### Bug Fixes
 
-* update to nx@14 ([7eadad1](https://github.com/nontangent/ng-atomic/commit/7eadad11a3810a93a339987d3fd2050a9b13e8a4))
-
-
-### BREAKING CHANGES
-
-* update to nx@14
+* update README,md ([a091322](https://github.com/nontangent/ng-atomic/commit/a0913227ce1c5a08fc9103513f081c5193b488b1))
