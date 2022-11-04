@@ -72,7 +72,8 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "resize-observer-polyfill": "^1.5.1",
-    "rxjs": "~7.5.0",
+    "rxjs": "7.5.0",
+    "rxjs-for-await": "^1.0.0",
     "scoped-var": "^1.2.0",
     "string-template": "^1.0.0",
     "tslib": "^2.0.0",
@@ -81,6 +82,7 @@
   "devDependencies": {
     "@angular-devkit/architect": "0.1402.8",
     "@angular-devkit/build-angular": "14.2.8",
+    "@angular-devkit/schematics": "^14.2.8",
     "@angular-eslint/eslint-plugin": "14.0.4",
     "@angular-eslint/eslint-plugin-template": "14.0.4",
     "@angular-eslint/template-parser": "14.0.4",
@@ -133,7 +135,7 @@
     "@types/wicg-file-system-access": "^2020.9.5",
     "@typescript-eslint/eslint-plugin": "5.42.0",
     "@typescript-eslint/parser": "5.42.0",
-    "angular-cli-ghpages": "^1.0.0",
+    "angular-cli-ghpages": "^1.0.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "28.1.3",
     "babel-loader": "^8.2.3",
@@ -175,6 +177,12 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rxjs": "7.5.0",
+    "webpack": "5.67.0"
   },
   "release": {
     "plugins": [
