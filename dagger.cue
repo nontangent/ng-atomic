@@ -87,22 +87,32 @@ dagger.#Plan & {
 		}
     publish: {
       updatePackageJson: core.#Exec & {
-        input: release.output
+        input: build.others.output
         workdir: "/app"
         args: ["npm", "run", "scripts:set-package-versions", "$(git describe --tags --abbrev=0 --always)"]
       }
+			loginNpm: core.#WriteFile & {
+				input: publish.updatePackageJson.output
+				path: "/root/.npmrc"
+				contents: """
+				//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+				registry=https://registry.npmjs.org/
+				always-auth=true
+				"""
+			}
       publishNPM: core.#Exec & {
-        input: updatePackageJson.output
+        input: publish.loginNpm.output
         workdir: "/app"
         args: ["npm", "run", "publish:all"]
         env: NODE_AUTH_TOKEN: client.env.NODE_AUTH_TOKEN
+				always: true
       }
     }
 	}
 	client: {
 		env: {
 			GITHUB_TOKEN: dagger.#Secret
-			GITHUB_ACTIONS: string | *"true"
+			GITHUB_ACTIONS: string | *"false"
 			GITHUB_EVENT_PATH: string | *""
 			GITHUB_EVENT_NAME: string | *""
 			GITHUB_REF: string | *"refs/heads/main"
