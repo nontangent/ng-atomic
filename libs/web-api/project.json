@@ -14,7 +14,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/web-api"],
       "options": {
-        "jestConfig": "libs/web-api/jest.config.js",
+        "jestConfig": "libs/web-api/jest.config.ts",
         "passWithNoTests": true
       }
     },

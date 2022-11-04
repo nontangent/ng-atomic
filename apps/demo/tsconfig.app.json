@@ -7,5 +7,10 @@
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.d.ts"],
-  "exclude": ["**/*.test.ts", "**/*.spec.ts", "../../libs/components/**/*.spec.ts"]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "../../libs/components/**/*.spec.ts",
+    "jest.config.ts"
+  ]
 }

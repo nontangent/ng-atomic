@@ -62,7 +62,7 @@
       "defaultConfiguration": "production"
     },
     "build-storybook": {
-      "builder": "@storybook/angular:build-storybook",
+      "executor": "@storybook/angular:build-storybook",
       "options": {
         "browserTarget": "components:build",
         "configDir": "libs/components/.storybook",
@@ -77,7 +77,7 @@
       }
     },
     "develop": {
-      "builder": "@storybook/angular:start-storybook",
+      "executor": "@storybook/angular:start-storybook",
       "options": {
         "browserTarget": "components:build",
         "port": 4400,
@@ -118,7 +118,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/components"],
       "options": {
-        "jestConfig": "libs/components/jest.config.js",
+        "jestConfig": "libs/components/jest.config.ts",
         "passWithNoTests": true
       }
     },
