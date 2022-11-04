@@ -70,10 +70,20 @@ dagger.#Plan & {
       }
     }
 		release: core.#Exec & {
-			input: setup.result.output
+			input: build.others.output
 			workdir: "/app"
 			args: ["npx", "semantic-release"]
-			env: GITHUB_TOKEN: client.env.GITHUB_TOKEN
+			env: {
+				GITHUB_TOKEN: client.env.GITHUB_TOKEN
+				GITHUB_ACTIONS: client.env.GITHUB_ACTIONS
+				GITHUB_EVENT_PATH: client.env.GITHUB_EVENT_PATH
+				GITHUB_EVENT_NAME: client.env.GITHUB_EVENT_NAME
+				GITHUB_REF: client.env.GITHUB_REF
+				GITHUB_REPOSITORY: client.env.GITHUB_REPOSITORY
+				GITHUB_RUN_ID: client.env.GITHUB_RUN_ID
+				GITHUB_SHA: client.env.GITHUB_SHA
+				GITHUB_WORKSPACE: client.env.GITHUB_WORKSPACE
+			}
 		}
     publish: {
       updatePackageJson: core.#Exec & {
@@ -92,6 +102,14 @@ dagger.#Plan & {
 	client: {
 		env: {
 			GITHUB_TOKEN: dagger.#Secret
+			GITHUB_ACTIONS: string | *"true"
+			GITHUB_EVENT_PATH: string | *""
+			GITHUB_EVENT_NAME: string | *""
+			GITHUB_REF: string | *"refs/heads/main"
+			GITHUB_REPOSITORY: string | *""
+			GITHUB_RUN_ID: string | *""
+			GITHUB_SHA: string | *""
+			GITHUB_WORKSPACE: string | *""
       NODE_AUTH_TOKEN: dagger.#Secret
 			NX_CONFIGURATION: string | *"production"
       NX_DAEMON: string | *"false"
@@ -118,7 +136,7 @@ dagger.#Plan & {
 					"workspace.json"
 				]
 			}
-			// "./dist": write: contents: actions.build.result.output
+			"./dist": write: contents: actions.build.result.output
 		}
 	}
 }
