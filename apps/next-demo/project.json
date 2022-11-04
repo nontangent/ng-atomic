@@ -14,7 +14,7 @@
       "configurations": {
         "production": {},
         "development": {
-          "outputPath": "tmp/apps/next-demo"
+          "outputPath": "apps/next-demo"
         }
       }
     },
