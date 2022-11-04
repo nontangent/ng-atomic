@@ -15,5 +15,8 @@
     {
       "path": "./tsconfig.storybook.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "target": "es2020"
+  }
 }
