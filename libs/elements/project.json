@@ -1,5 +1,4 @@
 {
-  "root": "libs/elements",
   "sourceRoot": "libs/elements/src",
   "targets": {
     "build": {

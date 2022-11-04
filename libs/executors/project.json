@@ -1,5 +1,4 @@
 {
-  "root": "libs/executors",
   "sourceRoot": "libs/executors/src",
   "targets": {
     "build": {

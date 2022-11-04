@@ -1,5 +1,4 @@
 {
-  "root": "apps/next-demo",
   "sourceRoot": "apps/next-demo",
   "projectType": "application",
   "targets": {

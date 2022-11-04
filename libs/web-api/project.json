@@ -1,5 +1,4 @@
 {
-  "root": "libs/web-api",
   "sourceRoot": "libs/web-api/src",
   "projectType": "library",
   "targets": {
