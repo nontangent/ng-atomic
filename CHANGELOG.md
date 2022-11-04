@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/nontangent/ng-atomic/compare/v3.6.0...v3.6.1) (2022-11-04)
+
+
+### Bug Fixes
+
+* some problem for update to 14 ([6befaec](https://github.com/nontangent/ng-atomic/commit/6befaec0888e895f7df3bf57a8e73f32791405ad))
+
 # [3.6.0](https://github.com/nontangent/ng-atomic/compare/v3.5.0...v3.6.0) (2022-09-10)
 
 
