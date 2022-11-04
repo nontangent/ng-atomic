@@ -1,6 +1,6 @@
 const esmPackages = ['angular/platform-browser-dynamic', 'esm-package2'];
 
-module.exports = {
+export default {
   displayName: 'elements',
 
   globals: {
@@ -17,5 +17,5 @@ module.exports = {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
 };
