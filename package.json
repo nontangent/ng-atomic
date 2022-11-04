@@ -72,7 +72,7 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "resize-observer-polyfill": "^1.5.1",
-    "rxjs": "^7.0.0",
+    "rxjs": "~7.5.0",
     "scoped-var": "^1.2.0",
     "string-template": "^1.0.0",
     "tslib": "^2.0.0",
