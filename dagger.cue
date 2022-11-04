@@ -66,7 +66,7 @@ dagger.#Plan & {
       }
       result: core.#Subdir & {
         input: others.output
-        path: "/app/dist"
+        path: "/app/dist/libs"
       }
     }
 		release: core.#Exec & {
@@ -108,6 +108,67 @@ dagger.#Plan & {
 				always: true
       }
     }
+		buildStatic: {
+			npmLinkAll: core.#Exec & {
+				input: build.others.output
+				workdir: "/app"
+				args: ["npm", "run", "link:all"]
+			}
+			npmLinkExecutors: core.#Exec & {
+				input: buildStatic.npmLinkAll.output
+				workdir: "/app"
+				args: ["npm", "link", "@ng-atomic/executors"]
+			}
+			npmLinkElements: core.#Exec & {
+				input: buildStatic.npmLinkExecutors.output
+				workdir: "/app"
+				args: ["npm", "link", "@ng-atomic/elements"]
+			}
+			elements: core.#Exec & {
+				input: buildStatic.npmLinkElements.output
+				workdir: "/app"
+				args: ["nx", "build-elements", "components"]
+        env: NX_DAEMON: client.env.NX_DAEMON
+			}
+			storybook: core.#Exec & {
+				input: buildStatic.elements.output
+				workdir: "/app"
+				args: ["nx", "build-storybook", "components"]
+        env: {
+					NX_DAEMON: client.env.NX_DAEMON
+					NODE_OPTIONS: "--max-old-space-size=4096"
+				}
+				always: true
+			}
+			createIndexHtml: core.#WriteFile & {
+				input: storybook.output
+				path: "/app/dist/static/index.html"
+				contents: """
+				<html></html>
+				"""
+			}
+			result: core.#Subdir & {
+        input: createIndexHtml.output
+        path: "/app/dist/static"
+      }
+		}
+		deploy: {
+			npmLinkExecutors: core.#Exec & {
+				input: buildStatic.createIndexHtml.output
+				workdir: "/app"
+				args: ["npm", "link", "@ng-atomic/executors"]
+			}
+			run: core.#Exec & {
+				input: deploy.npmLinkExecutors.output
+				workdir: "/app"
+				args: ["nx", "deploy", "components", "--noSilent"]
+				env: {
+					GITHUB_TOKEN: client.env.GITHUB_TOKEN
+					NX_DAEMON: client.env.NX_DAEMON
+					GIT_SSH_COMMAND: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+				}
+			}
+		}
 	}
 	client: {
 		env: {
@@ -146,7 +207,8 @@ dagger.#Plan & {
 					"workspace.json"
 				]
 			}
-			"./dist": write: contents: actions.build.result.output
+			"./dist/libs": write: contents: actions.build.result.output
+			"./dist/static": write: contents: actions.buildStatic.result.output
 		}
 	}
 }
