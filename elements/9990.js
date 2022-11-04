@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkcomponents=self.webpackChunkcomponents||[]).push([[9990],{9990:(e,u,n)=>{n.r(u),n.d(u,{MenuModule:()=>_});var l=n(9808),M=n(4449),t=n(8099),a=n(5e3);let _=(()=>{class o{}return o.\u0275fac=function(E){return new(E||o)},o.\u0275mod=a.oAB({type:o}),o.\u0275inj=a.cJS({imports:[[l.ez,M.ie,t.Ps]]}),o})()}}]);
