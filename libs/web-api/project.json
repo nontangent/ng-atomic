@@ -30,13 +30,15 @@
       }
     },
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/web-api",
         "main": "libs/web-api/src/main.ts",
         "tsConfig": "libs/web-api/tsconfig.app.json",
-        "assets": []
+        "assets": [],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
