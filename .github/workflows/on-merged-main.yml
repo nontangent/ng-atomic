@@ -1,0 +1,31 @@
+name: On Merged Main
+on:
+  push:
+    branches:
+      - main
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  DAGGER_CACHE_TO: type=local,mode=max,dest=.dagger-cache
+  DAGGER_CACHE_FROM: type=local,src=.dagger-cache
+  # DAGGER_LOG_LEVEL: debug
+  DAGGER_LOG_FORMAT: plain
+  DAGGER_CACHE_BASE: dagger-ci-build
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v3
+        with:
+          path: .dagger-cache
+          key: ${{ runner.os }}-dagger-cache
+      - uses: dagger/dagger-for-github@v3
+        with:
+          cmds: |
+            project update
+            do setup
+            do build
+            do release
+            do publish
