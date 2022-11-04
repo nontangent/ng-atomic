@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "../../../",
     "outDir": "../../dist/out-tsc",
-    "target": "es2015",
+    "target": "es2020",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
@@ -15,6 +15,11 @@
     "strictMetadataEmit": true,
     "enableResourceInlining": true
   },
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
+  "exclude": [
+    "src/test-setup.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "jest.config.ts"
+  ],
   "include": ["src/**/*.ts"]
 }

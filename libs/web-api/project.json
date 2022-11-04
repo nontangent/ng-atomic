@@ -1,5 +1,5 @@
 {
-  "root": "libs/web-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web-api/src",
   "projectType": "library",
   "targets": {
@@ -14,7 +14,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/web-api"],
       "options": {
-        "jestConfig": "libs/web-api/jest.config.js",
+        "jestConfig": "libs/web-api/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -30,13 +30,15 @@
       }
     },
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/web-api",
         "main": "libs/web-api/src/main.ts",
         "tsConfig": "libs/web-api/tsconfig.app.json",
-        "assets": []
+        "assets": [],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {

@@ -1,5 +1,5 @@
 {
-  "root": "libs/elements",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/elements/src",
   "targets": {
     "build": {
@@ -9,10 +9,7 @@
         "outputPath": "dist/libs/elements",
         "main": "libs/elements/src/index.ts",
         "tsConfig": "libs/elements/tsconfig.lib.json",
-        "assets": [
-          "libs/elements/*.md",
-          "libs/elements/executors.json"
-        ]
+        "assets": ["libs/elements/*.md", "libs/elements/executors.json"]
       }
     },
     "lint": {
@@ -26,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/elements"],
       "options": {
-        "jestConfig": "libs/elements/jest.config.js",
+        "jestConfig": "libs/elements/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -30,17 +30,6 @@
       }
     }
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "cli": {
-    "defaultCollection": "@ng-atomic/schematics"
-  },
   "defaultProject": "components",
   "generators": {
     "@nrwl/angular": {
@@ -102,6 +91,12 @@
         "style": "scss",
         "linter": "eslint"
       }
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
   }
 }

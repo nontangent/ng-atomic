@@ -6,6 +6,11 @@
     "declaration": true,
     "types": ["node"]
   },
-  "exclude": ["src/addons/**/*", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "exclude": [
+    "src/addons/**/*",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "jest.config.ts"
+  ],
   "include": ["src/**/*.ts"]
 }
