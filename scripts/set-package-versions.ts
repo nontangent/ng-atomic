@@ -12,13 +12,17 @@ function parseVersion(version: string) {
   return /^v[0-9]\.[0-9]\.[0-9]/ ? version.slice(1) : version;
 }
 
-const argv = yargs(process.argv.slice(2)).options({
-  placeholder: { type: 'string', default: '0.0.0-PLACEHOLDER' },
-}).argv;
-const version = parseVersion(`${argv._[0]}`);
-const placeholder = argv.placeholder;
-const files = glob.sync('dist/libs/**/package.json');
-
-for (const file of files) {
-  setPackageVersion(file, version, placeholder);
+async function main (){
+  const argv = await yargs(process.argv.slice(2)).options({
+    placeholder: { type: 'string', default: '0.0.0-PLACEHOLDER' },
+  }).argv;
+  const version = parseVersion(`${argv._[0]}`);
+  const placeholder = argv.placeholder;
+  const files = glob.sync('dist/libs/**/package.json');
+  
+  for (const file of files) {
+    setPackageVersion(file, version, placeholder);
+  }
 }
+
+main();
