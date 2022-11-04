@@ -13,12 +13,7 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  // "compilerOptions": {
-  //   "forceConsistentCasingInFileNames": true,
-  //   "strict": true,
-  //   "noImplicitOverride": true,
-  //   "noPropertyAccessFromIndexSignature": true,
-  //   "noImplicitReturns": true,
-  //   "noFallthroughCasesInSwitch": true
-  // }
+  "compilerOptions": {
+    "target": "es2020"
+  }
 }

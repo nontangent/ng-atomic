@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormControl } from '@ngneat/reactive-forms';
 import { Option } from '@ng-atomic/components/molecules/select-input-field';
 
@@ -19,7 +19,7 @@ export class CvcAndExpInputSectionOrganism {
   monthOptions: Option<number>[] = generateOptions(12, 1);
 
   @Input()
-  form = new FormGroup({
+  form = new UntypedFormGroup({
     expMonth: new FormControl(12),
     expYear: new FormControl(2022),
     cvc: new FormControl(''),

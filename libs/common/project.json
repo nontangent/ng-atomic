@@ -1,6 +1,6 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/common",
   "sourceRoot": "libs/common/src",
   "prefix": "platform",
   "targets": {
@@ -30,7 +30,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/common"],
       "options": {
-        "jestConfig": "libs/common/jest.config.js",
+        "jestConfig": "libs/common/jest.config.ts",
         "passWithNoTests": true
       }
     }

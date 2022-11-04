@@ -12,5 +12,6 @@
     "schematics": "libs/schematics",
     "storybook": "libs/storybook",
     "web-api": "libs/web-api"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

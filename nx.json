@@ -28,18 +28,13 @@
         "accessToken": "NDRjZTYwZWMtZDZhMC00ZGU0LWE1MDYtZWM3OGJmNmYyNjc4fHJlYWQtd3JpdGU=",
         "parallel": 1
       }
-    }
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
+    },
+    "ci": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
-    ]
-  },
-  "cli": {
-    "defaultCollection": "@ng-atomic/schematics"
+    }
   },
   "defaultProject": "components",
   "generators": {
@@ -102,6 +97,12 @@
         "style": "scss",
         "linter": "eslint"
       }
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
   }
 }

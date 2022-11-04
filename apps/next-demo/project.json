@@ -1,5 +1,5 @@
 {
-  "root": "apps/next-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/next-demo",
   "projectType": "application",
   "targets": {
@@ -12,7 +12,10 @@
         "outputPath": "dist/apps/next-demo"
       },
       "configurations": {
-        "production": {}
+        "production": {},
+        "development": {
+          "outputPath": "apps/next-demo"
+        }
       }
     },
     "serve": {
@@ -25,8 +28,13 @@
         "production": {
           "buildTarget": "next-demo:build:production",
           "dev": false
+        },
+        "development": {
+          "buildTarget": "next-demo:build:development",
+          "dev": true
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "export": {
       "executor": "@nrwl/next:export",
@@ -38,7 +46,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/next-demo"],
       "options": {
-        "jestConfig": "apps/next-demo/jest.config.js",
+        "jestConfig": "apps/next-demo/jest.config.ts",
         "passWithNoTests": true
       }
     },
