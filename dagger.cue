@@ -87,7 +87,7 @@ dagger.#Plan & {
 		}
     publish: {
       updatePackageJson: core.#Exec & {
-        input: build.others.output
+        input: release.output
         workdir: "/app"
         args: ["npm", "run", "scripts:set-package-versions", "$(git describe --tags --abbrev=0 --always)"]
       }
