@@ -1,3 +1,4 @@
+/* eslint-disable */
 const esmPackages = ['angular/platform-browser-dynamic', 'esm-package2'];
 
 export default {
