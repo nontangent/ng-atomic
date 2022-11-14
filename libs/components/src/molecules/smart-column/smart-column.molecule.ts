@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, Input, Output, EventEmitter, Component, ViewEncapsulation } from '@angular/core';
 import { MatTextColumn } from '@angular/material/table';
-// TODO(nontangent): 依存を引き剥がす
-import { toObject } from '@ng-atomic/common/utils';
-import { flatten } from 'flat';
 
 @Component({
   selector: 'molecules-smart-column',
@@ -12,9 +9,9 @@ import { flatten } from 'flat';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SmartColumnMolecule<T> extends MatTextColumn<T> {
-  override dataAccessor = (data: any, name: string): string => {
-    return name.includes('.') ? flatten<object, any>(toObject(data))?.[name] : data?.[name];
-  }
+  override dataAccessor = (): string => {
+    throw new Error('dataAccessor is not allowed');
+  };
   
   @Input()
   sort: 'asc' | 'desc' | 'none' = 'none';

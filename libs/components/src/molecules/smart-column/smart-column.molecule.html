@@ -14,6 +14,6 @@
     </p>
   </th>
   <td mat-cell *matCellDef="let data" [style.text-align]="justify">
-    <p class="nowrap">{{dataAccessor(data, name) | smartExp:name}}</p>
+    <p class="nowrap">{{data | dataAccessor:name | smartExp:name}}</p>
   </td>
 </ng-container>
