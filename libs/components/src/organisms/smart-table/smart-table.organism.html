@@ -1,5 +1,5 @@
 <table mat-table [dataSource]="items" matSort matSortDisableClear matSortDirection="desc">
-  <ng-container *ngFor="let name of displayedColumns" [ngSwitch]="name">
+  <ng-container *ngFor="let name of displayedColumns; trackBy: trackByColumnName" [ngSwitch]="name">
     <molecules-checkbox-column
       *ngSwitchCase="'__checkbox'"
       name="__checkbox"
