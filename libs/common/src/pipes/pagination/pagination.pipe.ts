@@ -18,7 +18,6 @@ export class PaginationPipe implements PipeTransform {
   }
 
   transform<T>(items: T[], {sortKey, sortOrder, start, end}: {sortKey: string, sortOrder: 'asc' | 'desc', start: number, end: number}) {
-  // transform<T>(items: T[], key: string, order: 'asc' | 'desc', start: number, end: number): T[] {    
     return this.slicePipe.transform(this.transformer(items, sortKey, sortOrder), start, end);
   }
 }
