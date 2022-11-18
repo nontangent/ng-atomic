@@ -1,3 +1,5 @@
+import { Inject, Injectable, Optional } from "@angular/core";
+import { DOMAIN_LANG_MAP } from "@ng-atomic/common/pipes/domain";
 import { QueryResolverService } from "@ng-atomic/common/services/query-resolver";
 import { ComponentStore } from "@ngrx/component-store";
 
@@ -5,12 +7,22 @@ export interface QueryState {
   query: string;
 }
 
-export abstract class QueryStore extends ComponentStore<QueryState> {
-  abstract LANG_MAP: Record<string, string>;
+@Injectable()
+export class QueryStore<E> extends ComponentStore<QueryState> {
+  constructor(
+    protected queryResolver: QueryResolverService,
+    @Optional() @Inject(DOMAIN_LANG_MAP) protected langMap: Record<string, string>,
+  ) {
+    super({query: ''});
+  }
 
-  protected queryResolver = new QueryResolverService();
+  get query(): string { return this.get().query; }
+  query$ = this.select((state) => state.query);
 
   setQuery = this.updater((state, query: string) => ({...state, query}));
-  // this.queryResolver.resolve(entities, query, this.LANG_MAP))
+
+  resolve(entities: E[]): E[] {
+    return this.queryResolver.resolve(entities, this.query, this.langMap);
+  }
 
 }

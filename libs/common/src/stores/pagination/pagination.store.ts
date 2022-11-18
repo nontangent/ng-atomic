@@ -17,6 +17,8 @@ export class PaginationStore extends ComponentStore<any> {
   get start() { return this.page.start; }
   get end() { return this.page.end; }
 
+  page$ = this.select(state => state.page);
+
   setPage = this.updater((state, page: Page) => ({...state, page}));
   setSortKey = this.updater((state, sortKey: string) => ({...state, page: this.page.patch({sortKey})}));
   setSortOrder = this.updater((state, sortOrder: 'asc' | 'desc') => ({...state, page: this.page.patch({sortOrder})}));
