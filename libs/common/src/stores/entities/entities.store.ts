@@ -16,6 +16,10 @@ export interface EntitiesState<E> {
   sortOrder?: 'asc' | 'desc';
 }
 
+export const distinctUntilChangedArray = <T>() => {
+  return distinctUntilChanged<T>((pre, cur) => JSON.stringify(pre) === JSON.stringify(cur));
+};
+
 export abstract class EntitiesStore<S extends EntitiesState<E>, E extends {id: string}> extends ComponentStore<S> {
   abstract LANG_MAP: Record<string, string>;
 

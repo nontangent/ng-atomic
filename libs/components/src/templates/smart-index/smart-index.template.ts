@@ -3,35 +3,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { Action, ActionItem } from '@ng-atomic/common/models';
 import { FormControl } from '@ngneat/reactive-forms';
 
-
-export interface Page extends PageEvent { }
-
 export enum ActionId {
   BACK = '[@ng-atomic/components/templates/smart-crud] Back',
 }
 
-export class Page {
-  static from(event: Partial<PageEvent> = {}): Page {
-    return Object.assign(new Page(), {
-      pageSize: 50,
-      pageIndex: 0,
-      length: 100,
-      ...event
-    });
-  }
-
-  get start(): number {
-    return this.pageIndex * this.pageSize;
-  }
-
-  get end(): number {
-    return Math.min((this.pageIndex + 1) * this.pageSize, this.length);
-  }
-
-  patch(obj: Partial<PageEvent>): Page {
-    return Page.from({...this, ...obj});
-  }
-}
 
 @Component({
   selector: 'templates-smart-index',
