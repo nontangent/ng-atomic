@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Action, ActionItem } from '@ng-atomic/common/models';
 import { FormControl } from '@ngneat/reactive-forms';
 
+
 export interface Page extends PageEvent { }
 
 export enum ActionId {
@@ -10,8 +11,13 @@ export enum ActionId {
 }
 
 export class Page {
-  static fromObj(event: PageEvent = {pageSize: 50, pageIndex: 0, length: 100}): Page {
-    return Object.assign(new Page(), event);
+  static from(event: Partial<PageEvent> = {}): Page {
+    return Object.assign(new Page(), {
+      pageSize: 50,
+      pageIndex: 0,
+      length: 100,
+      ...event
+    });
   }
 
   get start(): number {
@@ -23,7 +29,7 @@ export class Page {
   }
 
   patch(obj: Partial<PageEvent>): Page {
-    return Page.fromObj({...this, ...obj});
+    return Page.from({...this, ...obj});
   }
 }
 
@@ -53,6 +59,9 @@ export class SmartIndexTemplate<T> {
 
   @Input()
   rowMenuItems: ActionItem[] = [];
+
+  @Input()
+  itemActions: (item: T) => ActionItem[] = () => [];
 
   @Input()
   navigatorMenuItems: ActionItem[] = [];

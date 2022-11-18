@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Input, Output, EventEmitter, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Input, Output, EventEmitter, Component, ViewEncapsulation, Optional, Inject, inject } from '@angular/core';
 import { MatTextColumn } from '@angular/material/table';
 
 @Component({
@@ -18,5 +18,12 @@ export class SmartColumnMolecule<T> extends MatTextColumn<T> {
 
   @Output()
   headerClick = new EventEmitter<void>();
+
+  text = 'copy';
+
+  copied() {
+    this.text = 'copied!';
+    setTimeout(() => this.text = 'copy', 1000);
+  }
 
 }

@@ -14,6 +14,12 @@
     </p>
   </th>
   <td mat-cell *matCellDef="let data" [style.text-align]="justify">
-    <p class="nowrap">{{data | dataAccessor:name | smartExp:name}}</p>
+    <p class="nowrap"
+      [cdkCopyToClipboard]="data | dataAccessor:name | smartExp:name"
+      (click)="copied(); tooltip.show()"
+      #tooltip="matTooltip" [matTooltip]="text" matTooltipPosition="below"
+    >
+      {{data | dataAccessor:name | smartExp:name}}
+    </p>
   </td>
 </ng-container>

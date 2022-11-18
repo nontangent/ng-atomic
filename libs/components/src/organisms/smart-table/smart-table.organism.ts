@@ -22,6 +22,9 @@ export class SmartTableOrganism<Item extends object> {
   items: Item[] = [];
 
   @Input()
+  itemActions: (item: Item) => ActionItem[] = () => [];
+
+  @Input()
   patientsSize: number = 0;
 
   @Input()

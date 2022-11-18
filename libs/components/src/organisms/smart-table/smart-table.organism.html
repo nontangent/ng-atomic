@@ -10,6 +10,7 @@
       *ngSwitchCase="'__actions'" 
       name="__actions" 
       [items]="menuItems"
+      [itemActions]="itemActions"
       (action)="action.emit($event)"
     ></molecules-actions-column>
     <molecules-smart-column

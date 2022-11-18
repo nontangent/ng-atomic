@@ -5,7 +5,7 @@ import { Action, ActionItem } from '@ng-atomic/common/models';
   selector: 'atoms-smart-menu-button',
   templateUrl: './smart-menu-button.atom.html',
   styleUrls: ['./smart-menu-button.atom.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SmartMenuButtonAtom {
   @Input()
@@ -13,4 +13,6 @@ export class SmartMenuButtonAtom {
 
   @Output()
   action = new EventEmitter<Action>();
+
+  trackByItemId = (index: number, item: ActionItem): string => item.id;
 }

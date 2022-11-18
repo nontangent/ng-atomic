@@ -21,7 +21,7 @@ export class ActionsColumnMolecule<T> {
   _name!: string;
 
   @Input()
-  items: ActionItem[] = [];
+  itemActions: (item: T) => ActionItem[] = () => [];
 
   @Output()
   action = new EventEmitter<Action>();
