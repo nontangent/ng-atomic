@@ -25,6 +25,7 @@ jobs:
           key: ${{ runner.os }}-dagger-cache
       - uses: dagger/dagger-for-github@v3.0.0
         with:
+          version: v0.2.23
           cmds: |
             project update
             do setup
