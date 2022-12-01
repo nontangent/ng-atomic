@@ -4,18 +4,27 @@
   "title": "Angular Atomic Schematics GPT3",
   "type": "object",
   "properties": {
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path at which to create the component file, relative to the current workspace. Default is a folder with the same name as the component in the project root.",
+      "visible": false
+    },
     "project": {
       "type": "string",
-      "description": "Name of the project.",
+      "description": "The name of the project.",
       "$default": {
         "$source": "projectName"
       }
     },
-    "path": {
-      "description": "Setup components directory",
+    "name": {
       "type": "string",
-      "default": "_shared/components",
-      "x-prompt": "Where do you setup Angular Atomic Components?" 
+      "description": "The name of the anything.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to generate?"
     }
   },
   "required": []
