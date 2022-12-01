@@ -23,9 +23,10 @@ jobs:
         with:
           path: .dagger-cache
           key: ${{ runner.os }}-dagger-cache
-      - uses: dagger/dagger-for-github@v3
+      - uses: dagger/dagger-for-github@v3.0.0
         with:
           cmds: |
+            project update
             do setup
             do build
             do release
