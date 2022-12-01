@@ -5,7 +5,7 @@ This is an atomic design system framework based on Angular for all web platforms
 
 ## Concept
 - Quickly Generate an Atomic Design System
-- Interchangeable Layered Component Architecture
+- Injectable Layered Component Architecture
 - Available on All Web Platforms via Web Components
 
 ## Quick Start

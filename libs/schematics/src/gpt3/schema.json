@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ng-atomic-schematics-gpt3",
+  "title": "Angular Atomic Schematics GPT3",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "path": {
+      "description": "Setup components directory",
+      "type": "string",
+      "default": "_shared/components",
+      "x-prompt": "Where do you setup Angular Atomic Components?" 
+    }
+  },
+  "required": []
+}

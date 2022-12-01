@@ -56,7 +56,12 @@
     "setup": {
       "description": "Setup angular-atomic-schematics",
       "factory": "./src/setup/index#setup",
-      "schema": "./src/ng-add//schema.json"
+      "schema": "./src/ng-add/schema.json"
+    },
+    "gpt3": {
+      "description": "Generate files by GPT-3",
+      "factory": "./src/gpt3/index#gpt3",
+      "schema": "./src/ng-add/schema.json"
     }
   }
 }
