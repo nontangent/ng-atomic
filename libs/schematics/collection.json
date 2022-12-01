@@ -61,7 +61,7 @@
     "gpt3": {
       "description": "Generate files by GPT-3",
       "factory": "./src/gpt3/index#gpt3",
-      "schema": "./src/ng-add/schema.json"
+      "schema": "./src/gpt3/schema.json"
     }
   }
 }
