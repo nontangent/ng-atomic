@@ -1,4 +1,4 @@
-import { getEstimateSimilarFilePaths, convertByWords, parseFilePath } from './helpers';
+import { getEstimateSimilarFilePaths } from './helpers';
 
 describe('getEstimateSimilarFilePaths', () => {
   const FILES = [
@@ -18,7 +18,17 @@ describe('getEstimateSimilarFilePaths', () => {
     '/projects/app/src/app/_shared/components/test/test.component.ts',
     '/projects/app/src/app/_shared/components/test/test.stories.ts',
     '/projects/app/src/app/_shared/components/test/index.ts',
+    '/libs/nm-common/src/lib/domain/models/invoice.ts',
+    '/libs/nm-common/src/lib/domain/models/contract.ts',
   ];
+
+  it('', () => {
+    const result = getEstimateSimilarFilePaths('/libs/nm-common/src/lib/domain/models/customer.ts', FILES);
+    expect(result).toEqual([
+      '/libs/nm-common/src/lib/domain/models/invoice.ts',
+      '/libs/nm-common/src/lib/domain/models/contract.ts',
+    ]);
+  });
 
   it('', () => {
     const file = '/projects/app/src/app/_shared/components/expected/expected.component.ts';
@@ -38,19 +48,3 @@ describe('getEstimateSimilarFilePaths', () => {
     ]);
   });
 });
-
-describe('parseFilePath', () => {
-  it('should parse file path', () => {
-    expect(parseFilePath('/projects/app/src/app/_shared/components/example/example.component.ts')).toEqual([
-      '/', 'projects', '/', 'app', '/',  'src', '/',  'app', '/',  '_shared', '/',  
-      'components', '/', 'example', '/', 'example', '.', 'component', '.', 'ts'
-    ]);
-  });
-});
-
-describe('convertByWords', () => {
-  xit('should convert from a string to a number', () => {
-    expect(convertByWords('this/is/test/path', ['this', 'is', 'test', 'path'])).toBe('0/1/2/3');
-  });
-});
-

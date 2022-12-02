@@ -1,7 +1,6 @@
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import path from 'path';
 import { createWorkspace } from '../_testing';
-import { parseJsonCodeBlock, parseCodeBlocks } from './index';
 
 jest.setTimeout(300 * 1000);
 
@@ -11,7 +10,7 @@ describe('Gpt Schematics', () => {
   const runner = new SchematicTestRunner('@ng-atomic/schematics', COLLECTION_PATH);
   let tree: UnitTestTree;
 
-  describe('Angular Workspace', () => {
+  xdescribe('Angular Workspace', () => {
     beforeEach(async () => {
       tree = await createWorkspace(runner, tree);
       tree = await runner.runSchematicAsync('atomic-component', {
@@ -80,11 +79,11 @@ const TEST = `
 //   });
 // });
 
-describe('parseJsonCodeBlock', () => {
-  it('should parse json code block', () => {
-    expect(parseJsonCodeBlock(TEST)).toBeTruthy();
-  });
-});
+// describe('parseJsonCodeBlock', () => {
+//   it('should parse json code block', () => {
+//     expect(parseJsonCodeBlock(TEST)).toBeTruthy();
+//   });
+// });
 
 
 const CODE_BLOCKS = `
@@ -149,8 +148,8 @@ export class ExpectedComponent implements OnInit {
 \`\`\`
 `;
 
-describe('parseCodeBlocks', () => {
-  it('should parse code blocks', () => {
-    expect(parseCodeBlocks(CODE_BLOCKS)).toBeTruthy();
-  });
-});
+// describe('parseCodeBlocks', () => {
+//   it('should parse code blocks', () => {
+//     expect(parseCodeBlocks(CODE_BLOCKS)).toBeTruthy();
+//   });
+// });
