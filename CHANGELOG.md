@@ -1,6 +1,6 @@
-## [4.3.1](https://github.com/nontangent/ng-atomic/compare/v4.3.0...v4.3.1) (2022-12-01)
+## [4.3.2](https://github.com/nontangent/ng-atomic/compare/v4.3.1...v4.3.2) (2022-12-02)
 
 
 ### Bug Fixes
 
-* **schematics:** change `schema.json` ([465e01a](https://github.com/nontangent/ng-atomic/commit/465e01a83c2335bb2e66087213bde1a2ccec6323))
+* **schematics:** change log message ([e7887cb](https://github.com/nontangent/ng-atomic/commit/e7887cbbd7c356bc069d61cce002d7c23aff6813))
