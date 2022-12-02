@@ -8,7 +8,7 @@ export class SchematicsX {
   
   async generate(files: FileEntry[], path: string): Promise<FileEntry[]> {
     const generateFilePaths = await this.getGenerateFilePaths(files.map(file => file.path), path);
-    console.log('Estimated => ', generateFilePaths);
+    console.log('Estimated! => ', generateFilePaths, '\n');
 
     return Promise.all(generateFilePaths.map(filePath => {
       return this.generateFileEntry(filePath, files);
@@ -18,7 +18,7 @@ export class SchematicsX {
   async generateFileEntry(path: string, files: FileEntry[] = []): Promise<FileEntry> {
     const similarFilePaths = getEstimateSimilarFilePaths(path, files.map(file => file.path));
     const fileEntries = files.filter(file => similarFilePaths.includes(file.path));
-    console.log(`Estimating generate content of '${path}' by`, similarFilePaths, '...');
+    console.log(`Estimating content of '${path}' by`, similarFilePaths, '...\n');
     return this._generateFileEntry(path, fileEntries);
   }
 
@@ -32,7 +32,7 @@ export class SchematicsX {
     if (parse(generatePath).ext.length) {
       return [generatePath];
     } else {
-      console.log('Estimating generate files...');
+      console.log('Estimating the paths of files to be generated...\n');
       return this.predicateGenerateFilePaths(filePaths, generatePath);
     };
   }
