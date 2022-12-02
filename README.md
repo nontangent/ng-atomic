@@ -1,4 +1,6 @@
-# Ng Atomic(Beta)
+Not recommended because the interface is unstable. Don't believe what it says!
+
+# Ng Atomic(Alpha)
 This is an atomic design system framework based on Angular for all web platforms such as React, Vue or of cource Angular.
 
 <strong><pre>ng add @ng-atomic/schematics</pre></strong>
@@ -61,7 +63,7 @@ $ ng g @ng-atomic/schematics:components
 ## @ng-atomic/components
 Base components for Atomic Design System
 
-Look at [the storybook]().
+Look at [the storybook](https://nontangent.github.io/ng-atomic/storybook/).
 
 
 ## @ng-atomic/elements
