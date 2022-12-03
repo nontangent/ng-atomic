@@ -1,0 +1,6 @@
+@use 'scoped-var/strict' as * with ($host: 'community');
+@use 'atomic/page' as *;
+
+:host {
+	@include page($host);
+}

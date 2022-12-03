@@ -3,7 +3,6 @@ import { Configuration, OpenAIApi } from "openai";
 
 export interface Options {
   model?: 'text-curie-001' | 'code-davinci-002' | 'code-cushman-001',
-
 }
 
 export class OpenAiPrompter {
@@ -23,7 +22,7 @@ export class OpenAiPrompter {
         model: options?.model ?? 'code-cushman-001',
         prompt: this._prompt,
         temperature: 0,
-        max_tokens: 512,
+        max_tokens: 256,
         stop: this.stop,
       });
   

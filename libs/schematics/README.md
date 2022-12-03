@@ -1,6 +1,13 @@
 # @NgAtomic/Schematics
+Angular Atomic Schematics
 
-## How to use
+## Installation
 ```sh
-$ ng g gpt3 
+$ ng add @ng-atomic/schematics
+```
+
+## Usage
+```sh
+$ export OPEN_AI_TOKEN=<--YOUR OPEN API TOKEN-->
+$ ng g @ng-atomic/schematics:gpt3 components/user
 ```
