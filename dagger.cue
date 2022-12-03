@@ -59,7 +59,7 @@ dagger.#Plan & {
         workdir: "/app"
         args: [
           "nx", "run-many", "--target=build", 
-          "--projects=common,components,elements,executors,schematics,storybook", 
+          "--projects=common,components,elements,executors,schematics,schematics-x,storybook", 
           "--parallel=2"
         ]
         env: NX_DAEMON: client.env.NX_DAEMON

@@ -22,21 +22,8 @@ describe('SchematicsX', () => {
   describe('generateFileEntry', () => {
     it('should create', async () => {
       const PATH = '/projects/app/src/app/_shared/components/expected/expected.module.ts';
-      const entry = await schematicsX.generateFileEntry(PATH, FILE_ENTRIES);
+      const [entry] = await schematicsX.generateAuto(PATH, FILE_ENTRIES);
       expect(entry.content.toString()).toEqual(`expected`);
     });
   });
-
-  describe('predicateGenerateFilePaths', () => {
-    it('should be succeeded', async () => {
-      const PATH = '/projects/app/src/app/_shared/components/expected';
-      const context = FILE_ENTRIES.map(entry => entry.path);
-      const paths = await schematicsX.predicateGenerateFilePaths(context, PATH);
-      expect(paths).toEqual([
-        '/projects/app/src/app/_shared/components/expected/expected.module.ts',
-      ]);
-    });
-  })
-
-
 });

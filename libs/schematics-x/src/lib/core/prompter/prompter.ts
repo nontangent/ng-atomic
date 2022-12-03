@@ -3,15 +3,14 @@ import { Configuration, OpenAIApi } from "openai";
 
 export interface Options {
   model?: 'text-curie-001' | 'code-davinci-002' | 'code-cushman-001',
-
 }
 
 export class OpenAiPrompter {
-  private config = new Configuration({apiKey: process.env['OPEN_AI_TOKEN']});
+  protected config = new Configuration({apiKey: process.env['OPEN_AI_TOKEN']});
 
-  constructor(private _prompt: string) { }
-  private openai = new OpenAIApi(this.config);
-  private stop = '\n\`\`\`';
+  constructor(protected _prompt: string) { }
+  protected openai = new OpenAIApi(this.config);
+  protected stop = '\n\`\`\`';
 
   get prompt(): string {
     return this._prompt;
@@ -23,7 +22,7 @@ export class OpenAiPrompter {
         model: options?.model ?? 'code-cushman-001',
         prompt: this._prompt,
         temperature: 0,
-        max_tokens: 512,
+        max_tokens: 256,
         stop: this.stop,
       });
   
@@ -84,10 +83,3 @@ export class JsonPrompter extends OpenAiPrompter {
   }
   
 }
-
-//   const results = completeToJson(`${prompt}${res.data.choices?.[0].text}`);
-//   return [...new Set(results)].filter(result => result.startsWith(dirPath));
-// }
-
-
-

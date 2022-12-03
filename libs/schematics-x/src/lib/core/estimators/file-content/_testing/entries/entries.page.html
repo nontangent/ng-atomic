@@ -1,0 +1,14 @@
+<templates-smart-index
+  title="応募一覧"
+  queryPlaceholder="id:100"
+  [canBack]="false"
+  [items]="(store.entities$ | async) | pagination:page"
+  [itemActions]="ITEM_ACTIONS"
+  [rowMenuItems]="[]"
+  [navigatorMenuItems]="navigatorMenuItems"
+  [pageSizeOptions]="[50, 100, 1000]"
+  [properties]="columns"
+  [sortKey]="''"
+  [sortOrder]="''"
+  (action)="onAction($event)"
+></templates-smart-index>

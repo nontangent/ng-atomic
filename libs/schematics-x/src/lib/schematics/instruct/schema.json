@@ -17,15 +17,23 @@
         "$source": "projectName"
       }
     },
-    "name": {
+    "instructions": {
       "type": "string",
-      "description": "The name of the anything.",
+      "description": "The instruction of the.",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to generate?"
+      "x-prompt": "What do you want to instruct GPT-3?"
+    },
+    "inputs": {
+      "type": "string",
+      "description": "The path of input files or directory for estimating file content. ex) --inputs \"pages/users,pages/groups\""
+    },
+    "outputSize": {
+      "type": "number",
+      "description": "The size of output file. ex) --outputSize 2"
     }
   },
-  "required": []
+  "required": ["instructions"]
 }

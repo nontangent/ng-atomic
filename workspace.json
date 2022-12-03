@@ -10,6 +10,7 @@
     "next-demo": "apps/next-demo",
     "next-demo-e2e": "apps/next-demo-e2e",
     "schematics": "libs/schematics",
+    "schematics-x": "libs/schematics-x",
     "storybook": "libs/storybook",
     "web-api": "libs/web-api"
   },
