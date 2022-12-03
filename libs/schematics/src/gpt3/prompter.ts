@@ -7,11 +7,11 @@ export interface Options {
 }
 
 export class OpenAiPrompter {
-  private config = new Configuration({apiKey: process.env['OPEN_AI_TOKEN']});
+  protected config = new Configuration({apiKey: process.env['OPEN_AI_TOKEN']});
 
-  constructor(private _prompt: string) { }
-  private openai = new OpenAIApi(this.config);
-  private stop = '\n\`\`\`';
+  constructor(protected _prompt: string) { }
+  protected openai = new OpenAIApi(this.config);
+  protected stop = '\n\`\`\`';
 
   get prompt(): string {
     return this._prompt;
@@ -84,10 +84,3 @@ export class JsonPrompter extends OpenAiPrompter {
   }
   
 }
-
-//   const results = completeToJson(`${prompt}${res.data.choices?.[0].text}`);
-//   return [...new Set(results)].filter(result => result.startsWith(dirPath));
-// }
-
-
-
