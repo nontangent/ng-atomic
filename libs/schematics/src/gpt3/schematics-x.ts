@@ -3,6 +3,8 @@ import { join, parse, resolve } from "path";
 import { getEstimateSimilarFilePaths } from "./helpers";
 import { JsonPrompter, OpenAiPrompter } from "./prompter";
 
+const hasExt = (path: string): boolean => !!parse(path).ext.length;
+const getDepth = (path: string): number => path.split('/').length;
 
 export class SchematicsX {
   
@@ -13,6 +15,13 @@ export class SchematicsX {
     return Promise.all(generateFilePaths.map(filePath => {
       return this.generateFileEntry(filePath, files);
     }));
+
+    // const results = [];
+    // for (const filePath of generateFilePaths) {
+    //   const fileEntry = await this.generateFileEntry(filePath, files);
+    //   results.push(fileEntry);
+    // }
+    // return results;
   }
 
   async generateFileEntry(path: string, files: FileEntry[] = []): Promise<FileEntry> {
@@ -23,13 +32,26 @@ export class SchematicsX {
   }
 
   async _generateFileEntry(path: string, fileEntries: FileEntry[]): Promise<FileEntry> {
-    const prompter = new OpenAiPrompter(makeFilePrompt(fileEntries, path));
+    const clampedFileEntries = this.clampFileEntries(fileEntries, 2049);
+
+    const prompter = new OpenAiPrompter(makeFilePrompt(clampedFileEntries, path));
     await prompter.autoWriteUntilEnd();
     return prompter.getFileEntry(path);
   }
 
+  private clampFileEntries(fileEntries: FileEntry[], maxLength: number): FileEntry[] {
+    const fileEntriesByLength = fileEntries.sort((a, b) => a.content.length - b.content.length);
+    const results: FileEntry[] = [];
+    fileEntriesByLength.reduce((length, fileEntry) => {
+      const newLength = length + fileEntry.content.toString().length;
+      if (newLength < maxLength) results.push(fileEntry);
+      return newLength;
+    }, 0);
+    return results;
+  }
+
   async getGenerateFilePaths(filePaths: string[], generatePath: string): Promise<string[]> {
-    if (parse(generatePath).ext.length) {
+    if (hasExt(generatePath)) {
       return [generatePath];
     } else {
       console.log('Estimating the paths of files to be generated...\n');
@@ -51,7 +73,9 @@ export class SchematicsX {
     const prompter = new JsonPrompter(prompt);
     await prompter.autoWrite();
     const paths = prompter.getJsonFuzzy();
-    return [...new Set(paths)].filter(path => path.startsWith(generatePath));
+    return [...new Set(paths)]
+      .filter(path => path.startsWith(generatePath) && hasExt(path))
+      .filter(path => getDepth(path) === getDepth(generatePath) + 1);
   }
 }
 
