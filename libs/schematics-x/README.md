@@ -3,14 +3,14 @@
 A schematics based on GPT-3.
 
 ## Setup
-```s
+```sh
 # Setting OpenAI Access Token
 $ export OPEN_AI_TOKEN=<--OPEN_AI_ACCESS_TOKEN-->
 $ npm i -D schematics-x
 ```
 
 ## Usage
-```s
+```sh
 # Generate file estimated by similar files(`pages/user/user.component.ts`)
 $ ng g schematics-x:file pages/profile/profile.component.ts
 
