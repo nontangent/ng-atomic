@@ -15,45 +15,45 @@ export class SchematicsX {
     return instructor.instruct(inputs, instructions, outputSize);
   }
   
-  async generate(path: string, files: FileEntry[]): Promise<FileEntry[]> {
-    const generateFilePaths = await this.buildFilePaths(files.map(file => file.path), path);
-    console.log('Estimated! => ', generateFilePaths, '\n');
-
-    return Promise.all(generateFilePaths.map(filePath => {
-      const similarFiles = this.getSimilarFilePaths(filePath, files);
-      return this.generateFileEntry(filePath, similarFiles);
-    }));
-
-    // const results = [];
-    // for (const filePath of generateFilePaths) {
-    //   const fileEntry = await this.generateFileEntry(filePath, files);
-    //   results.push(fileEntry);
-    // }
-    // return results;
+  async generateAuto(targetPath: string, files: FileEntry[]): Promise<FileEntry[]> {
+    if (hasExt(targetPath)) {
+      return Promise.all([this.generateFile(targetPath, files)]);
+    } else {
+      return this.generateDirectory(targetPath, files);
+    };
   }
 
-  protected async generateFileEntry(path: string, files: FileEntry[] = []): Promise<FileEntry> {
-    const clampedFileEntries = clampFileEntries(files, 2049);
+  async generateDirectory(targetPath: string, files: FileEntry[]): Promise<FileEntry[]> {
+    console.log('Estimating the paths of files to be generated...\n');
+    const generateFilePaths =  await this.fileTreeEstimator.estimate(files.map(file => file.path), targetPath);
+    console.log('Estimated! => ', generateFilePaths, '\n');
+
+    // return Promise.all(generateFilePaths.map(filePath => {
+    //   return this.generateFile(filePath, files);
+    // }));
+
+    const results = [];
+    for (const filePath of generateFilePaths) {
+      const fileEntry = await this.generateFile(filePath, files);
+      results.push(fileEntry);
+    }
+    return results;
+  }
+
+  async generateFile(path: string, files: FileEntry[] = []): Promise<FileEntry> {
+    const similarFileEntries = this.getSimilarFilePaths(path, files);
+    const clampedFileEntries = clampFileEntries(similarFileEntries, 2049);
     console.log(`Estimating content of '${path}' by`, clampedFileEntries, '...\n');
     return this.fileContentEstimator.estimate(path, clampedFileEntries);
   }
 
-  getSimilarFilePaths(path: string, files: FileEntry[]): FileEntry[] {
+  protected getSimilarFilePaths(path: string, files: FileEntry[]): FileEntry[] {
     const similarFilePaths = getEstimateSimilarFilePaths(path, files.map(file => file.path));
     return files.filter(file => similarFilePaths.includes(file.path));
   }
 
-  buildFileContentEstimateInstructions(path: string): string {
+  protected buildFileContentEstimateInstructions(path: string): string {
     return this.fileContentEstimator.buildInstructions(path);
-  }
-
-  async buildFilePaths(filePaths: string[], generatePath: string): Promise<string[]> {
-    if (hasExt(generatePath)) {
-      return [generatePath];
-    } else {
-      console.log('Estimating the paths of files to be generated...\n');
-      return this.fileTreeEstimator.estimate(filePaths, generatePath);
-    };
   }
 }
 

@@ -6,7 +6,7 @@ jest.setTimeout(300 * 1000);
 
 const COLLECTION_PATH = path.join(__dirname, '../../../../collection.json');
 
-describe('Directory Schematic', () => {
+describe('DirectorySchematic', () => {
   const runner = new SchematicTestRunner('schematics-x', COLLECTION_PATH);
   let tree: UnitTestTree;
 

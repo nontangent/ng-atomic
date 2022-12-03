@@ -14,8 +14,8 @@ export class FileTreeEstimator {
   @WithStandardizePath
   private async addDirectory(filePaths: string[], addedPath: string): Promise<string[]> {
     const instructor = new Instructor();
-    const input = instructor.buildInputJson(filePaths);
-    const instruct = `Add "${addedPath}" directory with estimated files and keep current array.`;
+    const input = instructor.buildInputJson(filePaths, 'tree.json');
+    const instruct = `Added "${addedPath}" directory with estimated files to input json array:`;
     const [output] = await instructor.instruct([input], instruct)
     return JSON.parse(output.content.toString());
   }

@@ -10,6 +10,6 @@ export class FileContentEstimator {
   }
 
   buildInstructions(path: string): string {
-    return `Write a content of \`${path}\` with above examples:`;
+    return `Write a content of \`${path}\` like inputs:`;
   }
 }

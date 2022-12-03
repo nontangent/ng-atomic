@@ -1,4 +1,10 @@
 {
   "name": "schematics-x",
-  "version": "0.0.1"
+  "version": "0.0.0-PLACEHOLDER",
+  "author": "Nozomu Miyamoto",
+  "license": "MIT",
+  "schematics": "./collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  }
 }

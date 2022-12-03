@@ -1,7 +1,7 @@
-import { Rule, Tree, chain, schematic } from '@angular-devkit/schematics';
+import { Rule, Tree, chain } from '@angular-devkit/schematics';
 import { join } from 'path';
 import { SchematicsX } from '../../core/schematics-x';
-import { getFilePaths, resolvePath } from '../utils';
+import { getFilePaths, resolvePath, updateTree } from '../utils';
 
 interface Schema {
   path: string;
@@ -11,19 +11,12 @@ interface Schema {
 }
 
 export const directory = (options: Schema): Rule => async (tree: Tree) => {
-	options.path = await resolvePath(tree, options);
-  
-  const filePaths = getFilePaths(tree, options.path, options.inputs);
-  const path = join(tree.root.path, options.path, options.name);
-  const schematicsX = new SchematicsX();
-  const generateFilePaths = await schematicsX.buildFilePaths(filePaths, path);
+	const path = await resolvePath(tree, options);
+  const filePaths = getFilePaths(tree, path, options.inputs);
+  const targetPath = join(tree.root.path, path, options.name);
 
-  console.debug('generateFilePaths', generateFilePaths);
+  const schematicsX = new SchematicsX();
+  const entries = await schematicsX.generateDirectory(targetPath, filePaths.map(file => tree.get(file)));
   
-	return chain(generateFilePaths.map(path => schematic('schematics-x:file', {
-    name: path,
-    path: options.path,
-    project: options.project,
-    inputs: options.inputs,
-  })));
+	return updateTree(entries);
 };

@@ -1,5 +1,5 @@
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
-import { DirEntry, Tree } from "@angular-devkit/schematics";
+import { DirEntry, FileEntry, Tree } from "@angular-devkit/schematics";
 import { join } from "path";
 
 const isAncestor = (dir: string, path: string) => dir.split('/').every((p, i) => p === path.split('/')[i]);
@@ -31,5 +31,15 @@ function walkDir(dir: DirEntry, callback: (path: string, entry: DirEntry) => voi
     const entry = dir.dir(path);
     callback(join(parent, path), entry);
     walkDir(entry, callback, join(parent, path));
+  });
+}
+
+export function updateTree(entries: FileEntry[]) {
+  return (tree) => entries.forEach(entry => {
+    if (!tree.exists(entry.path)) {
+      tree.create(entry.path, entry.content);
+    } else {
+      tree.overwrite(entry.path, entry.content);
+    }
   });
 }

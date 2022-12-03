@@ -1,6 +1,6 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 import { SchematicsX } from '../../core/schematics-x';
-import { getFilePaths, resolvePath } from '../utils';
+import { getFilePaths, resolvePath, updateTree } from '../utils';
 
 interface Schema {
   path: string;
@@ -16,12 +16,5 @@ export const instruct = (options: Schema): Rule => async (tree: Tree) => {
   const filePaths = getFilePaths(tree, path, options.inputs);
   const schematicsX = new SchematicsX();
   const entries = await schematicsX.instruct(options.instructions, filePaths.map(file => tree.get(file)), options.outputSize);
-
-	return tree => entries.forEach(entry => {
-    if (!tree.exists(entry.path)) {
-      tree.create(entry.path, entry.content);
-    } else {
-      // tree.overwrite(entry.path, entry.content);
-    }
-  })
+	return updateTree(entries);
 };

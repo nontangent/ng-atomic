@@ -16,5 +16,6 @@
     "**/*.test.jsx",
     "**/*.spec.jsx",
     "**/*.d.ts"
-  ]
+  ],
+  "exclude": ["**/_testing/**"]
 }
