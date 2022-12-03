@@ -2,12 +2,18 @@ import { FileEntry } from "@angular-devkit/schematics";
 import { FileTreeEstimator } from "../estimators";
 import { FileContentEstimator } from "../estimators";
 import { getEstimateSimilarFilePaths } from "../helpers";
+import { Instructor } from "../instructor";
 import { hasExt } from "../utils";
 
 export class SchematicsX {
 
   protected fileTreeEstimator = new FileTreeEstimator();
   protected fileContentEstimator = new FileContentEstimator();
+
+  async instruct(instructions: string, inputs: FileEntry[], outputSize?: number ): Promise<FileEntry[]> {
+    const instructor = new Instructor();
+    return instructor.instruct(inputs, instructions, outputSize);
+  }
   
   async generate(path: string, files: FileEntry[]): Promise<FileEntry[]> {
     const generateFilePaths = await this.buildFilePaths(files.map(file => file.path), path);

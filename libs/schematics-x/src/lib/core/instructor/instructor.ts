@@ -2,7 +2,7 @@ import { FileEntry } from "@angular-devkit/schematics";
 import { OpenAiPrompter } from "../prompter";
 
 export class Instructor {
-  async instruct(inputs: FileEntry[], instructions: string, outputSize = 1): Promise<FileEntry[]> {
+  async instruct(inputs: FileEntry[], instructions: string, outputSize = inputs.length): Promise<FileEntry[]> {
     const prompter = new OpenAiPrompter('');
     for (let i = 0; i < inputs.length; i++) {
       prompter.write(`Input_${i}: \`\`\`${inputs[i].path}\n`);
@@ -12,7 +12,7 @@ export class Instructor {
 
     prompter.write(`Instructions: ${instructions}\n\n`);
 
-    for (let i = 0; i < Math.min(inputs.length, outputSize); i++) {
+    for (let i = 0; i < outputSize; i++) {
       prompter.write(`Output_${i}: \`\`\``);
       await prompter.autoWriteUntilEnd();
     }

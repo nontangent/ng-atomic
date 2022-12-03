@@ -27,11 +27,10 @@ describe('Instructor', () => {
     it('should convert', async () => {
       const input = loadFile('./_testing/tree.input.json');
       const expected = loadFile('./_testing/tree.expected.json');
-      const instructions = 'Create "/root/components/profile" directory with estimated files and keep current array.';
+      const instructions = 'Add "/root/components/profile" directory with estimated files and keep current file array.';
       const [output] = await instructor.instruct([input], instructions);
       expect(output).toBeTruthy();
       const body = output.content.toString();
-      console.debug('body:', body);
       expect(JSON.parse(body)).toEqual(JSON.parse(expected.content.toString()));
     });
   });

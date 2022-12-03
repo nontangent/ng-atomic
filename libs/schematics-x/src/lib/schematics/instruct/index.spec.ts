@@ -6,7 +6,7 @@ jest.setTimeout(300 * 1000);
 
 const COLLECTION_PATH = path.join(__dirname, '../../../../collection.json');
 
-describe('Auto', () => {
+describe('Instruct', () => {
   const runner = new SchematicTestRunner('schematics-x', COLLECTION_PATH);
   let tree: UnitTestTree;
 
@@ -37,30 +37,11 @@ describe('Auto', () => {
       expect(tree.files).toContain('/projects/app/src/app/_shared/components/test/index.ts');
     });
 
-    xit('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('auto', {
-        project: 'app', path: '_shared/components', name: 'expected'
-      }, tree).toPromise();
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.html');
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.scss');
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.spec.ts');
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.ts');
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.stories.ts');
-      // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/index.ts');
-    });
-
-    xit('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('auto', {
-        project: 'app', path: '_shared/components/', name: 'expected/expected.module.ts'
-      }, tree).toPromise();
-      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
-    });
-
     it('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('auto', {
-        project: 'app', path: '', name: '_shared/components/expected/expected.module.ts',
-        inputs: '_shared/components/example',
+      tree = await runner.runSchematicAsync('instruct', {
+        instructions: 'Create `_shared/components/expected/expected.module.ts` similar to input files:',
+        project: 'app', path: '', 
+        inputs: '_shared/components/example/example.module.ts',
       }, tree).toPromise();
       expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
     });

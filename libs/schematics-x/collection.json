@@ -16,10 +16,10 @@
       "factory": "./src/lib/schematics/auto/index#auto",
       "schema": "./src/lib/schematics/auto/schema.json"
     },
-    "instructions": {
+    "instruct": {
       "description": "Generate by custom instructions and input files or directory",
-      "factory": "./src/lib/schematics/instructor/index#instructor",
-      "schema": "./src/lib/schematics/instructor/schema.json"
+      "factory": "./src/lib/schematics/instruct/index#instruct",
+      "schema": "./src/lib/schematics/instruct/schema.json"
     }
   }
 }
