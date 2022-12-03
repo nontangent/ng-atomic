@@ -13,6 +13,7 @@
         "packageJson": "libs/schematics-x/package.json",
         "main": "libs/schematics-x/src/index.ts",
         "assets": [
+          "libs/schematics-x/*.md",
           {
             "input": "./libs/schematics-x/src",
             "glob": "**/*.!(ts)",
