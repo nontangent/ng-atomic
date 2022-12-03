@@ -33,6 +33,16 @@
     "outputSize": {
       "type": "number",
       "description": "The size of output file. ex) --outputSize 2"
+    },
+    "parallel": {
+      "type": "boolean",
+      "description": "Request Open AI API parallel mode.",
+      "default": true
+    },
+    "overwrite": {
+      "type": "boolean",
+      "description": "Overwrite file option. (default: false)",
+      "default": false
     }
   },
   "required": ["instructions"]

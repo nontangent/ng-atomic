@@ -1,5 +1,5 @@
 {
-  "extends": ["schematics-x"],
+  "extends": ["@schematics/angular"],
   "schematics": {
     "auto": {
       "description": "Generate files by GPT-3",

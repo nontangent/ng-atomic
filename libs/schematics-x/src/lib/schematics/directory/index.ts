@@ -8,6 +8,8 @@ interface Schema {
   inputs?: string;
   name: string;
   project: string;
+  parallel: boolean;
+  overwrite: boolean;
 }
 
 export const directory = (options: Schema): Rule => async (tree: Tree) => {
@@ -15,8 +17,8 @@ export const directory = (options: Schema): Rule => async (tree: Tree) => {
   const filePaths = getFilePaths(tree, path, options.inputs);
   const targetPath = join(tree.root.path, path, options.name);
 
-  const schematicsX = new SchematicsX();
+  const schematicsX = new SchematicsX({parallel: options.parallel});
   const entries = await schematicsX.generateDirectory(targetPath, filePaths.map(file => tree.get(file)));
   
-	return updateTree(entries);
+	return updateTree(entries, options.overwrite);
 };
