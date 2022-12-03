@@ -1,6 +1,6 @@
-## [4.3.2](https://github.com/nontangent/ng-atomic/compare/v4.3.1...v4.3.2) (2022-12-02)
+# [4.4.0](https://github.com/nontangent/ng-atomic/compare/v4.3.2...v4.4.0) (2022-12-03)
 
 
-### Bug Fixes
+### Features
 
-* **schematics:** change log message ([e7887cb](https://github.com/nontangent/ng-atomic/commit/e7887cbbd7c356bc069d61cce002d7c23aff6813))
+* **schematics-x:** add new project `schematics-x` ([#23](https://github.com/nontangent/ng-atomic/issues/23)) ([0dfc8ad](https://github.com/nontangent/ng-atomic/commit/0dfc8adb416a4744082fff76f8cca523ad7b98e7))
