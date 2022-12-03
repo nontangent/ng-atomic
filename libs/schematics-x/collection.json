@@ -8,13 +8,13 @@
     },
     "file": {
       "description": "Generate files by GPT-3",
-      "factory": "./src/lib/schematics/auto/index#auto",
-      "schema": "./src/lib/schematics/auto/schema.json"
+      "factory": "./src/lib/schematics/file/index#file",
+      "schema": "./src/lib/schematics/file/schema.json"
     },
     "directory": {
-      "description": "Generate files by GPT-3",
-      "factory": "./src/lib/schematics/auto/index#auto",
-      "schema": "./src/lib/schematics/auto/schema.json"
+      "description": "Generate directory by GPT-3",
+      "factory": "./src/lib/schematics/directory/index#directory",
+      "schema": "./src/lib/schematics/directory/schema.json"
     },
     "instruct": {
       "description": "Generate by custom instructions and input files or directory",

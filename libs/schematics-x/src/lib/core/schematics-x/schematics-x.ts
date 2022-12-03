@@ -47,7 +47,7 @@ export class SchematicsX {
     return this.fileContentEstimator.buildInstructions(path);
   }
 
-  protected async buildFilePaths(filePaths: string[], generatePath: string): Promise<string[]> {
+  async buildFilePaths(filePaths: string[], generatePath: string): Promise<string[]> {
     if (hasExt(generatePath)) {
       return [generatePath];
     } else {

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "$id": "ng-atomic-schematics-gpt3",
-  "title": "Angular Atomic Schematics GPT3",
+  "$id": "schematics-x-file",
+  "title": "Schematics X File",
   "type": "object",
   "properties": {
     "path": {

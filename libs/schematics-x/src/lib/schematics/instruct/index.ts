@@ -12,11 +12,10 @@ interface Schema {
 }
 
 export const instruct = (options: Schema): Rule => async (tree: Tree) => {
-	options.path = await resolvePath(tree, options);
-  
-  const filePaths = getFilePaths(tree, options.path, options.inputs);
+	const path = await resolvePath(tree, options);
+  const filePaths = getFilePaths(tree, path, options.inputs);
   const schematicsX = new SchematicsX();
-  const entries = await schematicsX.instruct(options.instructions, filePaths.map(file => tree.get(file), options.outputSize));
+  const entries = await schematicsX.instruct(options.instructions, filePaths.map(file => tree.get(file)), options.outputSize);
 
 	return tree => entries.forEach(entry => {
     if (!tree.exists(entry.path)) {

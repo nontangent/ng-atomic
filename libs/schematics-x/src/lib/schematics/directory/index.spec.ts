@@ -6,7 +6,7 @@ jest.setTimeout(300 * 1000);
 
 const COLLECTION_PATH = path.join(__dirname, '../../../../collection.json');
 
-describe('FileSchematic', () => {
+describe('Directory Schematic', () => {
   const runner = new SchematicTestRunner('schematics-x', COLLECTION_PATH);
   let tree: UnitTestTree;
 
@@ -38,12 +38,17 @@ describe('FileSchematic', () => {
     });
 
     it('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('file', {
-        project: 'app', path: '', name: '_shared/components/expected/expected.module.ts',
-        inputs: '_shared/components/example/example.module.ts',
+      tree = await runner.runSchematicAsync('directory', {
+        project: 'app', path: '', name: '_shared/components/expected'
       }, tree).toPromise();
       expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
-      // console.debug(tree.readContent('/projects/app/src/app/_shared/components/expected/expected.module.ts'));
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.html');
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.scss');
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.spec.ts');
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.component.ts');
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.stories.ts');
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/index.ts');
     });
+
   });
 });
