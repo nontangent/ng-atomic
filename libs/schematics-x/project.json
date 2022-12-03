@@ -12,7 +12,20 @@
         "tsConfig": "libs/schematics-x/tsconfig.lib.json",
         "packageJson": "libs/schematics-x/package.json",
         "main": "libs/schematics-x/src/index.ts",
-        "assets": ["libs/schematics-x/*.md"]
+        "assets": [
+          "collection.json",
+          "libs/schematics/*.md",
+          {
+            "input": "./libs/schematics/src",
+            "glob": "**/*.!(ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/schematics",
+            "glob": "collection.json",
+            "output": "."
+          }
+        ]
       }
     },
     "lint": {
