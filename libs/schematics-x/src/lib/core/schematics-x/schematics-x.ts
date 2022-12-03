@@ -1,8 +1,8 @@
 import { FileEntry } from "@angular-devkit/schematics";
-import { FileTreeEstimator } from "./estimators";
-import { FileContentEstimator } from "./estimators/file-content";
-import { getEstimateSimilarFilePaths } from "./helpers";
-import { hasExt } from "./utils";
+import { FileTreeEstimator } from "../estimators";
+import { FileContentEstimator } from "../estimators";
+import { getEstimateSimilarFilePaths } from "../helpers";
+import { hasExt } from "../utils";
 
 export class SchematicsX {
 

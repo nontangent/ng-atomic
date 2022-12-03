@@ -1,7 +1,7 @@
 import { Rule, Tree, chain, DirEntry } from '@angular-devkit/schematics';
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
 import { join } from 'path';
-import { SchematicsX } from './schematics-x';
+import { SchematicsX } from '../../core/schematics-x';
 
 interface Schema {
   path: string;
@@ -10,7 +10,7 @@ interface Schema {
   project: string;
 }
 
-export const gpt3 = (options: Schema): Rule => async (tree: Tree) => {
+export const auto = (options: Schema): Rule => async (tree: Tree) => {
 	options.path = await resolvePath(tree, options);
   
   const filePaths = getFilePaths(tree, options.path, options.inputs);

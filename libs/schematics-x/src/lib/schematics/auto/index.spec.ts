@@ -1,23 +1,23 @@
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import path from 'path';
-import { createWorkspace } from '../_testing';
+import { createWorkspace } from '../../_testing';
 
 jest.setTimeout(300 * 1000);
 
-const COLLECTION_PATH = path.join(__dirname, '../../collection.json');
+const COLLECTION_PATH = path.join(__dirname, '../../../../collection.json');
 
 describe('Gpt3Schematics', () => {
-  const runner = new SchematicTestRunner('@ng-atomic/schematics', COLLECTION_PATH);
+  const runner = new SchematicTestRunner('schematics-x', COLLECTION_PATH);
   let tree: UnitTestTree;
 
   describe('Angular Workspace', () => {
     beforeEach(async () => {
       tree = await createWorkspace(runner, tree);
-      tree = await runner.runSchematicAsync('atomic-component', {
+      tree = await runner.runExternalSchematicAsync('@ng-atomic/schematics/../collection.json', 'atomic-component', {
         project: 'app', path: '_shared/components', name: 'example'
       }, tree).toPromise();
 
-      tree = await runner.runSchematicAsync('atomic-component', {
+      tree = await runner.runExternalSchematicAsync('@ng-atomic/schematics/../collection.json', 'atomic-component', {
         project: 'app', path: '_shared/components', name: 'test'
       }, tree).toPromise();
 
@@ -38,7 +38,7 @@ describe('Gpt3Schematics', () => {
     });
 
     xit('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('gpt3', {
+      tree = await runner.runSchematicAsync('auto', {
         project: 'app', path: '_shared/components', name: 'expected'
       }, tree).toPromise();
       // expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
@@ -51,14 +51,14 @@ describe('Gpt3Schematics', () => {
     });
 
     xit('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('gpt3', {
+      tree = await runner.runSchematicAsync('auto', {
         project: 'app', path: '_shared/components/', name: 'expected/expected.module.ts'
       }, tree).toPromise();
       expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
     });
 
     it('should create atomic component files', async () => {
-      tree = await runner.runSchematicAsync('gpt3', {
+      tree = await runner.runSchematicAsync('auto', {
         project: 'app', path: '', name: '_shared/components/expected/expected.module.ts',
         inputs: '_shared/components/example',
       }, tree).toPromise();
