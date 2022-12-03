@@ -13,19 +13,18 @@
         "packageJson": "libs/schematics-x/package.json",
         "main": "libs/schematics-x/src/index.ts",
         "assets": [
-          "collection.json",
-          "libs/schematics/*.md",
           {
-            "input": "./libs/schematics/src",
+            "input": "./libs/schematics-x/src",
             "glob": "**/*.!(ts)",
             "output": "./src"
           },
           {
-            "input": "./libs/schematics",
+            "input": "./libs/schematics-x",
             "glob": "collection.json",
             "output": "."
           }
-        ]
+        ],
+        "srcRootForCompilationRoot": "libs/schematics-x"
       }
     },
     "lint": {

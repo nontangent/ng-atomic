@@ -21,7 +21,7 @@ $ ng g schematics-x:directory pages/profile
 $ ng g schematics-x:auto pages
 
 # Generate by custom instructions and input files or directory
-$ ng g schematics-x:instructions 'Create `pages/profile/index.ts` similar to inputs:' --inputs pages/user/index.ts,pages/community/index.ts
+$ ng g schematics-x:instruct --project=forward 'Rename `pages/group/group.module` to `pages/my-group/my-group.module`' --inputs=pages/group/group.module.ts
 ```
 
 ## LICENSE

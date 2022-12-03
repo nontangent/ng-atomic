@@ -1,5 +1,5 @@
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
-import { DirEntry, FileEntry, Tree } from "@angular-devkit/schematics";
+import { DirEntry, FileEntry, Rule, Tree } from "@angular-devkit/schematics";
 import { join } from "path";
 
 const isAncestor = (dir: string, path: string) => dir.split('/').every((p, i) => p === path.split('/')[i]);
@@ -34,12 +34,16 @@ function walkDir(dir: DirEntry, callback: (path: string, entry: DirEntry) => voi
   });
 }
 
-export function updateTree(entries: FileEntry[]) {
+export function updateTree(entries: FileEntry[], overwrite = false): Rule {
   return (tree) => entries.forEach(entry => {
     if (!tree.exists(entry.path)) {
       tree.create(entry.path, entry.content);
     } else {
-      tree.overwrite(entry.path, entry.content);
+      if (overwrite) {
+        tree.overwrite(entry.path, entry.content);
+      } else {
+        console.warn(`Cancelled to overwrite \`${entry.path}\`. If you want to overwrite, set \`--overwrite\` option.`);
+      }
     }
   });
 }

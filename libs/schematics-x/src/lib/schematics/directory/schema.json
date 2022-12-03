@@ -29,6 +29,16 @@
     "inputs": {
       "type": "string",
       "description": "The path of input files or directory for estimating file content. ex) --inputs=\"pages/users,pages/groups\""
+    },
+    "parallel": {
+      "type": "boolean",
+      "description": "Request Open AI API parallel mode.",
+      "default": true
+    },
+    "overwrite": {
+      "type": "boolean",
+      "description": "Overwrite file option. (default: false)",
+      "default": false
     }
   },
   "required": ["name"]

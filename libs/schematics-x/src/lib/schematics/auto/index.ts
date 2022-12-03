@@ -8,6 +8,8 @@ interface Schema {
   inputs?: string;
   name: string;
   project: string;
+  parallel: boolean;
+  overwrite: boolean;
 }
 
 export const auto = (options: Schema): Rule => async (tree: Tree) => {
@@ -15,8 +17,8 @@ export const auto = (options: Schema): Rule => async (tree: Tree) => {
   
   const filePaths = getFilePaths(tree, options.path, options.inputs);
   const path = join(tree.root.path, options.path, options.name);
-  const schematicsX = new SchematicsX();
+  const schematicsX = new SchematicsX({parallel: options.parallel});
   const entries = await schematicsX.generateAuto(path, filePaths.map(file => tree.get(file)));
 
-	return updateTree(entries);
+	return updateTree(entries, options.overwrite);
 };

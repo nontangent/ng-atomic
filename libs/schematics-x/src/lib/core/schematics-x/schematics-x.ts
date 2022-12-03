@@ -5,7 +5,20 @@ import { getEstimateSimilarFilePaths } from "../helpers";
 import { Instructor } from "../instructor";
 import { hasExt } from "../utils";
 
+async function promiseAllOrForLoop<T>(promises: (() => Promise<T>)[], parallel = false): Promise<T[]> {
+  if (parallel) return Promise.all(promises.map(promise => promise()));
+  const results: T[] = [];
+  for (const promise of promises) results.push(await promise());
+  return results;
+}
+
+interface SchematicsXConfig {
+  parallel?: boolean;
+}
+
 export class SchematicsX {
+
+  constructor(private config: SchematicsXConfig) {}
 
   protected fileTreeEstimator = new FileTreeEstimator();
   protected fileContentEstimator = new FileContentEstimator();
@@ -28,22 +41,15 @@ export class SchematicsX {
     const generateFilePaths =  await this.fileTreeEstimator.estimate(files.map(file => file.path), targetPath);
     console.log('Estimated! => ', generateFilePaths, '\n');
 
-    // return Promise.all(generateFilePaths.map(filePath => {
-    //   return this.generateFile(filePath, files);
-    // }));
-
-    const results = [];
-    for (const filePath of generateFilePaths) {
-      const fileEntry = await this.generateFile(filePath, files);
-      results.push(fileEntry);
-    }
-    return results;
+    return promiseAllOrForLoop(generateFilePaths.map(filePath => {
+      return () => this.generateFile(filePath, files);
+    }), this.config.parallel);
   }
 
   async generateFile(path: string, files: FileEntry[] = []): Promise<FileEntry> {
     const similarFileEntries = this.getSimilarFilePaths(path, files);
     const clampedFileEntries = clampFileEntries(similarFileEntries, 2049);
-    console.log(`Estimating content of '${path}' by`, clampedFileEntries, '...\n');
+    console.log(`Estimating content of`, path, `by`, clampedFileEntries.map((f) => f.path), '...\n');
     return this.fileContentEstimator.estimate(path, clampedFileEntries);
   }
 
