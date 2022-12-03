@@ -25,7 +25,11 @@
         "index": 0
       },
       "x-prompt": "What name would you like to generate?"
+    },
+    "inputs": {
+      "type": "string",
+      "description": "The path of input files or directory for estimating file content. ex) --inputs=\"pages/users,pages/groups\""
     }
   },
-  "required": []
+  "required": ["name"]
 }

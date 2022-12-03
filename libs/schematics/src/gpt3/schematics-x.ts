@@ -9,7 +9,7 @@ export class SchematicsX {
   protected fileTreeEstimator = new FileTreeEstimator();
   protected fileContentEstimator = new FileContentEstimator();
   
-  async generate(files: FileEntry[], path: string): Promise<FileEntry[]> {
+  async generate(path: string, files: FileEntry[]): Promise<FileEntry[]> {
     const generateFilePaths = await this.buildFilePaths(files.map(file => file.path), path);
     console.log('Estimated! => ', generateFilePaths, '\n');
 

@@ -1,26 +1,22 @@
-import { Rule, Tree, chain, DirEntry, FileEntry } from '@angular-devkit/schematics';
-import { Schema } from '../atomic-component/schema';
+import { Rule, Tree, chain, DirEntry } from '@angular-devkit/schematics';
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
 import { join } from 'path';
 import { SchematicsX } from './schematics-x';
 
-
-export function getFilePaths(tree: Tree, path: string = '/'): string[] {
-  return getFiles(tree.getDir(path)).map(p => join(path, p));
-}
-
-export async function resolvePath(tree, options: {project?: string, path?: string}): Promise<string> {
-  const defaultPath = await createDefaultPath(tree, options.project);
-  return join(defaultPath, options?.path ?? '');
+interface Schema {
+  path: string;
+  inputs?: string;
+  name: string;
+  project: string;
 }
 
 export const gpt3 = (options: Schema): Rule => async (tree: Tree) => {
 	options.path = await resolvePath(tree, options);
   
-  const files = getFilePaths(tree, options.path);
+  const filePaths = getFilePaths(tree, options.path, options.inputs);
   const path = join(tree.root.path, options.path, options.name);
   const schematicsX = new SchematicsX();
-  const entries = await schematicsX.generate(files.map(file => tree.get(file)), path);
+  const entries = await schematicsX.generate(path, filePaths.map(file => tree.get(file)));
 
   for (const entry of entries) {
     if (!tree.exists(entry.path)) {
@@ -30,6 +26,24 @@ export const gpt3 = (options: Schema): Rule => async (tree: Tree) => {
 
 	return chain([]);
 };
+
+const isAncestor = (dir: string, path: string) => dir.split('/').every((p, i) => p === path.split('/')[i]);
+
+function getFilePaths(tree: Tree, path: string = '/', inputs?: string): string[] {
+  const dir = tree.getDir(path);
+  let filePaths = getFiles(dir).map(p => join(path, p));
+
+  if (inputs) {
+    const dirArr = inputs.split(',').map(input => join(path, input));
+    filePaths = filePaths.filter(path => dirArr.some(dir => isAncestor(dir, path)));
+  }
+  return filePaths;
+}
+
+async function resolvePath(tree, options: {project?: string, path?: string}): Promise<string> {
+  const defaultPath = await createDefaultPath(tree, options.project);
+  return join(defaultPath, options?.path ?? '');
+}
 
 function getFiles(dir: DirEntry): string[] {
   const files: string[] = [];

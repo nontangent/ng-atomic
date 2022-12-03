@@ -22,7 +22,7 @@ describe('SchematicsX', () => {
   describe('generateFileEntry', () => {
     it('should create', async () => {
       const PATH = '/projects/app/src/app/_shared/components/expected/expected.module.ts';
-      const entry = await schematicsX.generateFileEntry(PATH, FILE_ENTRIES);
+      const [entry] = await schematicsX.generate(PATH, FILE_ENTRIES);
       expect(entry.content.toString()).toEqual(`expected`);
     });
   });
