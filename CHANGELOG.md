@@ -1,6 +1,6 @@
-## [4.7.3](https://github.com/nontangent/ng-atomic/compare/v4.7.2...v4.7.3) (2022-12-04)
+## [4.7.4](https://github.com/nontangent/ng-atomic/compare/v4.7.3...v4.7.4) (2022-12-04)
 
 
 ### Bug Fixes
 
-* **schematics:** change import statement as esmodule ([d3fd022](https://github.com/nontangent/ng-atomic/commit/d3fd022225333fbbdce58d1f66833ceb47e63506))
+* **schematics-x:** fix deps ([9a030be](https://github.com/nontangent/ng-atomic/commit/9a030bea37f69758c9da4da62e15db40144bda4f))
