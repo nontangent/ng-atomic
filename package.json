@@ -48,6 +48,7 @@
     "help": "nx help"
   },
   "dependencies": {
+    "@angular-devkit/schematics-cli": "^14.0.0",
     "@angular/animations": "^14.0.0",
     "@angular/cdk": "^14.0.0",
     "@angular/common": "^14.0.0",

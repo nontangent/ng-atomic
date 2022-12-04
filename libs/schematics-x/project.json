@@ -25,7 +25,8 @@
             "output": "."
           }
         ],
-        "srcRootForCompilationRoot": "libs/schematics-x"
+        "srcRootForCompilationRoot": "libs/schematics-x",
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

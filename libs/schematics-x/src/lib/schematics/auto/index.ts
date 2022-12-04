@@ -13,12 +13,19 @@ interface Schema {
 }
 
 export const auto = (options: Schema): Rule => async (tree: Tree) => {
-	options.path = await resolvePath(tree, options);
-  
-  const filePaths = getFilePaths(tree, options.path, options.inputs);
-  const path = join(tree.root.path, options.path, options.name);
+	let path: string = '/';
+  try {
+    path = await resolvePath(tree, options);
+  } catch { }
+  options.parallel = false;
+
+  const filePaths = getFilePaths(tree, path, options.inputs)
+    .filter(path => path.split('/').length - 1 < 4);
+  console.debug('filePaths:', filePaths);
+
+  const targetPath = join(tree.root.path, path, options.name);
   const schematicsX = new SchematicsX({parallel: options.parallel});
-  const entries = await schematicsX.generateAuto(path, filePaths.map(file => tree.get(file)));
+  const entries = await schematicsX.generateAuto(targetPath, filePaths.map(file => tree.get(file)));
 
 	return updateTree(entries, options.overwrite);
 };
