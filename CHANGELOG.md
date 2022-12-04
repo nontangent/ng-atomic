@@ -1,6 +1,6 @@
-## [4.5.3](https://github.com/nontangent/ng-atomic/compare/v4.5.2...v4.5.3) (2022-12-04)
+# [4.6.0](https://github.com/nontangent/ng-atomic/compare/v4.5.3...v4.6.0) (2022-12-04)
 
 
-### Bug Fixes
+### Features
 
-* **schematics-x:** change testing file name for dependencies resolving ([389df11](https://github.com/nontangent/ng-atomic/commit/389df11b104431cdfc9f8ccdc6292ff076a770fd))
+* **schematics-x:** add schematics-x cli tool ([27e2a21](https://github.com/nontangent/ng-atomic/commit/27e2a21263732b513af9dbe3de799d2d01a6a426))
