@@ -1,25 +1,43 @@
 import { main as schematics } from '@angular-devkit/schematics-cli/bin/schematics';
-import { ProcessOutput } from '@angular-devkit/core/node';
+import { Command } from 'commander';
 import { resolve } from 'path';
+import collectionJson from '../../../collection.json';
+import packageJson from '../../../package.json';
 
-export interface MainOptions {
-  args: string[];
-  stdout?: ProcessOutput;
-  stderr?: ProcessOutput;
+const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
+
+const program = new Command();
+program.version(packageJson.version, '-v, --version', 'output the current version');
+
+for (const [name, schematic] of Object.entries(collectionJson.schematics)) {
+  const command = program.command(name).description(schematic.description);
+  const { properties, required } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));
+
+  Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue }]) => {
+    const flags = type === 'boolean' ? `--${key}` : `--${key} <${type}>`;
+    if ((required ?? []).includes(key)) {
+      command.requiredOption(flags, description, defaultValue);
+    } else {
+      command.option(flags, description, defaultValue);
+    }
+  });
+
+  command
+    .arguments('[args...]')
+    .allowUnknownOption()
+    .action((_args, options) => {
+      const args = [`schematics-x:${name}`, ..._args, ...makeCommandArgsFromOptions(options)];
+      console.debug('args:', args);
+      schematics({ args })
+        .then((exitCode) => (process.exitCode = exitCode))
+        .catch((e) => { throw e; });
+    });
 }
 
-export async function main({
-  args,
-  stdout = process.stdout,
-  stderr = process.stderr,
-}: MainOptions): Promise<0 | 1> {
-  return schematics({args, stdout, stderr});
+function makeCommandArgsFromOptions(options: any) {
+  return Object.entries(options)
+    .filter(([_, value]) => value !== undefined)
+    .map(([key, value]) => value === true ? `--${key}` : `--${key}=${value}`);
 }
 
-if (require.main === module) {
-  const [schematic, ...args] = process.argv.slice(2);
-
-  main({ args: [`${resolve(__dirname, '../../../collection.json')}:${schematic}`, ...args] })
-    .then((exitCode) => (process.exitCode = exitCode))
-    .catch((e) => { throw e; });
-}
+program.parse();
