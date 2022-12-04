@@ -1,6 +1,6 @@
-## [4.6.2](https://github.com/nontangent/ng-atomic/compare/v4.6.1...v4.6.2) (2022-12-04)
+# [4.7.0](https://github.com/nontangent/ng-atomic/compare/v4.6.2...v4.7.0) (2022-12-04)
 
 
-### Bug Fixes
+### Features
 
-* for update patch version ([55c2d84](https://github.com/nontangent/ng-atomic/commit/55c2d8491bc779262efcf1263b4eb670447d0613))
+* **schematics-x:** add npx script ([35942e4](https://github.com/nontangent/ng-atomic/commit/35942e4231fefccd043d4b4273b51886f93f5fd0))
