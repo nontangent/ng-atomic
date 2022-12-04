@@ -138,6 +138,7 @@
     "@storybook/theming": "^6.4.10",
     "@testing-library/react": "13.4.0",
     "@types/flat": "^5.0.2",
+    "@types/inquirer": "^8.2.5",
     "@types/jest": "28.1.8",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",

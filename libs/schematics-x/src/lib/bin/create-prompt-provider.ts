@@ -8,12 +8,12 @@
 
 import 'symbol-observable';
 import { schema } from '@angular-devkit/core';
-import * as inquirer from 'inquirer';
+import { Question, QuestionCollection, prompt } from 'inquirer';
 
 export function _createPromptProvider(): schema.PromptProvider {
   return (definitions) => {
-    const questions: inquirer.QuestionCollection = definitions.map((definition) => {
-      const question: inquirer.Question = {
+    const questions: QuestionCollection = definitions.map((definition) => {
+      const question: Question = {
         name: definition.id,
         message: definition.message,
         default: definition.default,
@@ -49,6 +49,6 @@ export function _createPromptProvider(): schema.PromptProvider {
       }
     });
 
-    return inquirer.prompt(questions);
+    return prompt(questions);
   };
 }

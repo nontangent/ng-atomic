@@ -12,7 +12,7 @@ import 'symbol-observable';
 import { ProcessOutput, createConsoleLogger } from '@angular-devkit/core/node';
 import { UnsuccessfulWorkflowExecution } from '@angular-devkit/schematics';
 import { NodeWorkflow } from '@angular-devkit/schematics/tools';
-import * as ansiColors from 'ansi-colors';
+import ansiColors from 'ansi-colors';
 import { isTTY } from './is-tty';
 import { _createPromptProvider } from './create-prompt-provider';
 import { CliOptions, parseCliOptions } from './parse-cli-options';
