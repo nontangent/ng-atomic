@@ -5,10 +5,17 @@ import { getEstimateSimilarFilePaths } from "../helpers";
 import { Instructor } from "../instructor";
 import { hasExt } from "../utils";
 
-async function promiseAllOrForLoop<T>(promises: (() => Promise<T>)[], parallel = false): Promise<T[]> {
+function sleep(seconds: number) {
+  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
+
+async function promiseAllOrForLoop<T>(promises: (() => Promise<T>)[], parallel = false, interval = 7): Promise<T[]> {
   if (parallel) return Promise.all(promises.map(promise => promise()));
   const results: T[] = [];
-  for (const promise of promises) results.push(await promise());
+  for (const promise of promises) {
+    await sleep(interval);
+    results.push(await promise());
+  }
   return results;
 }
 

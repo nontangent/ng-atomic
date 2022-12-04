@@ -4,6 +4,9 @@
   "version": "0.0.0-PLACEHOLDER",
   "author": "Nozomu Miyamoto",
   "license": "MIT",
+  "bin": {
+    "schematics": "./lib/bin/schematics-x.js"
+  },
   "schematics": "./collection.json",
   "repository": {
     "type": "git",
