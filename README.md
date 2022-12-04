@@ -1,7 +1,5 @@
 Not recommended because the interface is unstable. Don't believe what it says!
 
-https://user-images.githubusercontent.com/19902731/205521822-d531afba-9021-46ff-b00f-fac6b59dbfbe.mp4
-
 # Ng Atomic(Alpha)
 This is an atomic design system framework based on Angular for all web platforms such as React, Vue or of cource Angular.
 
