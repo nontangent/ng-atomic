@@ -5,7 +5,7 @@
   "author": "Nozomu Miyamoto",
   "license": "MIT",
   "bin": {
-    "schematics": "./lib/bin/schematics-x.js"
+    "schematics": "./src/lib/bin/schematics-x.js"
   },
   "schematics": "./collection.json",
   "repository": {
