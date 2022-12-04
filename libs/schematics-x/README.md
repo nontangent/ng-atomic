@@ -2,6 +2,9 @@
 
 A schematics based on GPT-3.
 
+![x4](https://user-images.githubusercontent.com/19902731/205523090-5373c897-90a6-4f38-881a-46208bc855ce.gif)
+
+
 ## Setup
 
 ```sh
