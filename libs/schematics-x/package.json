@@ -5,7 +5,7 @@
   "author": "Nozomu Miyamoto",
   "license": "MIT",
   "bin": {
-    "schematics": "./src/lib/bin/schematics-x.js"
+    "schematics-x": "./src/lib/bin/schematics-x.js"
   },
   "schematics": "./collection.json",
   "repository": {
@@ -15,5 +15,7 @@
   "homepage": "https://github.com/nontangent/ng-atomic/tree/main/libs/schematics-x",
   "ng-add": {
     "save": "devDependencies"
-  }
+  },
+  "main": "./src/lib/bin/schematics-x.js",
+  "types": "./src/lib/bin/schematics-x.d.ts"
 }
