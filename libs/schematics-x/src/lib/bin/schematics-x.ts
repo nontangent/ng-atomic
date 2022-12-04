@@ -1,43 +1,61 @@
-import { main as schematics } from '@angular-devkit/schematics-cli/bin/schematics';
+import { runWorkflow } from './run-workflow';
 import { Command } from 'commander';
 import { resolve } from 'path';
 import collectionJson from '../../../collection.json';
 import packageJson from '../../../package.json';
+import { CliOptions, CLI_OPTIONS_KEY } from './parse-cli-options';
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
+const COLLECTION = process.env['DEBUG'] ? COLLECTION_JSON_PATH : 'schematics-x';
 
 const program = new Command();
 program.version(packageJson.version, '-v, --version', 'output the current version');
 
 for (const [name, schematic] of Object.entries(collectionJson.schematics)) {
   const command = program.command(name).description(schematic.description);
-  const { properties, required } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));
+  const { properties } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));
 
   Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue }]) => {
-    const flags = type === 'boolean' ? `--${key}` : `--${key} <${type}>`;
-    if ((required ?? []).includes(key)) {
-      command.requiredOption(flags, description, defaultValue);
-    } else {
-      command.option(flags, description, defaultValue);
-    }
+    const flags = type === 'boolean' ? `--${key} <${type}>` : `--${key} <${type}>`;
+    command.option(flags, description, defaultValue);
   });
+
+  command.option(`--interactive`, ``, true);
+  command.option(`--force`, ``, false);
+  command.option(`--verbose`, ``, false);
+  command.option(`--allow-private`, ``, false);
+  command.option(`--debug`, ``,  null);
+  command.option(`--dry-run`, ``, null);
 
   command
     .arguments('[args...]')
     .allowUnknownOption()
-    .action((_args, options) => {
-      const args = [`schematics-x:${name}`, ..._args, ...makeCommandArgsFromOptions(options)];
-      console.debug('args:', args);
-      schematics({ args })
+    .action((schematicArgs, options) => {
+      const cliOptions: CliOptions = {};
+      const schematicOptions: Record<string, unknown> = {};
+
+      Object.entries(options).forEach(([key, value]) => {
+        if (CLI_OPTIONS_KEY.includes(key as any)) {
+          cliOptions[key] = value;
+        } else {
+          schematicOptions[key] = value === 'true' ? true : value === 'false' ? false : value;
+        }
+      });
+
+      console.debug('cliOptions:', cliOptions);
+      console.debug('schematicOptions:', schematicOptions);
+      console.debug('schematicArgs:', schematicArgs);
+      
+      runWorkflow({
+        cliOptions,
+        collectionName: COLLECTION,
+        schematicName: name,
+        schematicOptions,
+        schematicArgs,
+      })
         .then((exitCode) => (process.exitCode = exitCode))
         .catch((e) => { throw e; });
     });
-}
-
-function makeCommandArgsFromOptions(options: any) {
-  return Object.entries(options)
-    .filter(([_, value]) => value !== undefined)
-    .map(([key, value]) => value === true ? `--${key}` : `--${key}=${value}`);
 }
 
 program.parse();
