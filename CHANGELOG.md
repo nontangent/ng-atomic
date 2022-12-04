@@ -1,6 +1,6 @@
-## [4.7.1](https://github.com/nontangent/ng-atomic/compare/v4.7.0...v4.7.1) (2022-12-04)
+## [4.7.2](https://github.com/nontangent/ng-atomic/compare/v4.7.1...v4.7.2) (2022-12-04)
 
 
 ### Bug Fixes
 
-* **schematics-x:** renew cli logic ([17a37c9](https://github.com/nontangent/ng-atomic/commit/17a37c9302f17da8932f1552410bf0828cc48d41))
+* **schematics:** add some packaged for schematics deps ([bb3a87a](https://github.com/nontangent/ng-atomic/commit/bb3a87a498f982c4fba5ec9ab11d7e0d3ee97371))
