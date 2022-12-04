@@ -17,11 +17,11 @@ describe('FileContentEstimator', () => {
 
   it('should estimate', async () => {
     const inputs = [
-      loadFile('./_testing/entries/entries.page.html'),
-      loadFile('./_testing/community/community.page.html'),
+      loadFile('./_testing/entries/entries.page._html'),
+      loadFile('./_testing/community/community.page._html'),
     ];
-    const expected = loadFile('./_testing/entries/entries.page.html');
-    const output = await estimator.estimate('./_testing/users/users.page.html', inputs);
+    const expected = loadFile('./_testing/entries/entries.page._html');
+    const output = await estimator.estimate('./_testing/users/users.page._html', inputs);
     console.debug('output:', output.content.toString());
     expect(output).toBeTruthy();
   });
