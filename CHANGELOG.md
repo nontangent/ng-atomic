@@ -1,6 +1,6 @@
-# [4.8.0](https://github.com/nontangent/ng-atomic/compare/v4.7.4...v4.8.0) (2022-12-06)
+## [4.8.1](https://github.com/nontangent/ng-atomic/compare/v4.8.0...v4.8.1) (2022-12-06)
 
 
-### Features
+### Bug Fixes
 
-* **schematics-x:** rewrite core program ([c837061](https://github.com/nontangent/ng-atomic/commit/c837061f45422c69576f6aaf835f20e7d1682f05))
+* **schematics-x:** add await `tryResolveBasePath` ([623dad6](https://github.com/nontangent/ng-atomic/commit/623dad63bbfd2223e7cc0406001181eb95bae7bc))
