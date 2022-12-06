@@ -18,7 +18,7 @@ export function getFilePaths(tree: Tree, path: string = '/', inputs?: string): s
 
 export async function tryResolveBasePath(tree: Tree, project: string, path: string, fallback = '/'): Promise<string> {
   try {
-    return resolvePath(tree, { project, path });
+    return await resolvePath(tree, { project, path });
   } catch {
     return fallback;
   }
