@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { runWorkflow } from './run-workflow';
 import { Command } from 'commander';
 import { resolve } from 'path';

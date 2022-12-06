@@ -21,7 +21,6 @@ export const auto = (options: Schema): Rule => async (tree: Tree) => {
 
   const filePaths = getFilePaths(tree, path, options.inputs)
     .filter(path => path.split('/').length - 1 < 4);
-  console.debug('filePaths:', filePaths);
 
   const targetPath = join(tree.root.path, path, options.name);
   const schematicsX = new SchematicsX({parallel: options.parallel});
