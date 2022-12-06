@@ -1,31 +1,28 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 import { join } from 'path';
-import { SchematicsX } from '../../core/schematics-x';
-import { getFilePaths, resolvePath, updateTree } from '../utils';
+import { AutoAdaptor } from '../../core-v2/adaptors';
+import { SchematicsX } from '../../core-v2/schematics-x';
+import { BaseSchema } from '../base-schema';
+import { tryResolveBasePath, updateTree } from '../utils';
 
-interface Schema {
+
+interface Schema extends BaseSchema {
   path: string;
-  inputs?: string;
   name: string;
-  project: string;
-  parallel: boolean;
-  overwrite: boolean;
+  inputScope: string;
+  outputScope: string;
+
+  inputs?: string;
+  outputs?: string;
 }
 
 export const auto = (options: Schema): Rule => async (tree: Tree) => {
-	let path: string = '/';
-  try {
-    path = await resolvePath(tree, options);
-  } catch { }
-  options.parallel = false;
-
-  const filePaths = getFilePaths(tree, path, options.inputs)
-    .filter(path => path.split('/').length - 1 < 4);
-  console.debug('filePaths:', filePaths);
-
-  const targetPath = join(tree.root.path, path, options.name);
-  const schematicsX = new SchematicsX({parallel: options.parallel});
-  const entries = await schematicsX.generateAuto(targetPath, filePaths.map(file => tree.get(file)));
-
+	const projectBasePath = await tryResolveBasePath(tree, options.project, options.path);
+  const schematicsX = new SchematicsX();
+  const entries = await schematicsX.execute(tree, AutoAdaptor.options({
+    path: options.path,
+    inputScope: join(projectBasePath, options.inputScope),
+    outputScope: join(projectBasePath, options.outputScope),
+  }));
 	return updateTree(entries, options.overwrite);
 };

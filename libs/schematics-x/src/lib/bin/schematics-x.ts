@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { runWorkflow } from './run-workflow';
 import { Command } from 'commander';
 import { resolve } from 'path';
@@ -41,10 +42,6 @@ for (const [name, schematic] of Object.entries(collectionJson.schematics)) {
           schematicOptions[key] = value === 'true' ? true : value === 'false' ? false : value;
         }
       });
-
-      console.debug('cliOptions:', cliOptions);
-      console.debug('schematicOptions:', schematicOptions);
-      console.debug('schematicArgs:', schematicArgs);
       
       runWorkflow({
         cliOptions,

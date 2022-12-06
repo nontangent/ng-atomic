@@ -39,6 +39,16 @@
       "type": "boolean",
       "description": "Overwrite file option. (default: false)",
       "default": false
+    },
+    "inputScope": {
+      "type": "string",
+      "description": "",
+      "default": "./"
+    },
+    "outputScope": {
+      "type": "string",
+      "description": "",
+      "default": "./"
     }
   },
   "required": ["name"]
