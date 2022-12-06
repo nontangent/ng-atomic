@@ -16,7 +16,7 @@ describe('SchematicsX', () => {
   let schematicsX: SchematicsX;
 
   beforeEach(() => {
-    schematicsX = new SchematicsX();
+    schematicsX = new SchematicsX({} as any);
   });
 
   describe('generateFileEntry', () => {

@@ -1,12 +1,13 @@
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import path from 'path';
+import { getFiles } from '../../core/utils';
 import { createWorkspace } from '../../_testing';
 
 jest.setTimeout(300 * 1000);
 
 const COLLECTION_PATH = path.join(__dirname, '../../../../collection.json');
 
-describe('Instruct', () => {
+describe('InstructSchematic', () => {
   const runner = new SchematicTestRunner('schematics-x', COLLECTION_PATH);
   let tree: UnitTestTree;
 
@@ -37,11 +38,20 @@ describe('Instruct', () => {
       expect(tree.files).toContain('/projects/app/src/app/_shared/components/test/index.ts');
     });
 
-    it('should create atomic component files', async () => {
+    xit('should create atomic component files', async () => {
       tree = await runner.runSchematicAsync('instruct', {
         instructions: 'Create `_shared/components/expected/expected.module.ts` similar to input files:',
         project: 'app', path: '', 
         inputs: '_shared/components/example/example.module.ts',
+      }, tree).toPromise();
+      expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
+    });
+
+    it('should create atomic component files', async () => {
+      tree = await runner.runSchematicAsync('instruct', {
+        instructions: 'Generate a directory `_shared/components/expected`.',
+        project: 'app', path: '', 
+        inputScope: '_shared/components/example',
       }, tree).toPromise();
       expect(tree.files).toContain('/projects/app/src/app/_shared/components/expected/expected.module.ts');
     });

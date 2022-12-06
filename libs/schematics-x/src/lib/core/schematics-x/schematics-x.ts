@@ -3,21 +3,7 @@ import { FileTreeEstimator } from "../estimators";
 import { FileContentEstimator } from "../estimators";
 import { getEstimateSimilarFilePaths } from "../helpers";
 import { Instructor } from "../instructor";
-import { hasExt } from "../utils";
-
-function sleep(seconds: number) {
-  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
-}
-
-async function promiseAllOrForLoop<T>(promises: (() => Promise<T>)[], parallel = false, interval = 10): Promise<T[]> {
-  if (parallel) return Promise.all(promises.map(promise => promise()));
-  const results: T[] = [];
-  for (const promise of promises) {
-    await sleep(interval);
-    results.push(await promise());
-  }
-  return results;
-}
+import { hasExt, promiseAllOrForLoop } from "../utils";
 
 interface SchematicsXConfig {
   parallel?: boolean;
