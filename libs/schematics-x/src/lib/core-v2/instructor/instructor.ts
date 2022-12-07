@@ -7,7 +7,8 @@ export class Instructor {
     if (!inputs.length) throw new Error('At least one input file is required!')
 
     const prompter = new OpenAiPrompter('');
-    prompter.write(context);
+    prompter.write(context.length ? '# EXAMPLES\n' + context : '');
+    prompter.write(`# PRACTICE\n`);
 
     for (let i = 0; i < inputs.length; i++) {
       prompter.write(`Input_${i}: \`\`\`${inputs[i].path}\n`);
@@ -24,9 +25,7 @@ export class Instructor {
       await prompter.autoWriteUntilEnd();
     }
 
-    console.debug('prompt:', prompter.prompt);
-
-    return prompter.getFileEntries();
+    return prompter.getFileEntries().slice(-outputPaths.length);
   }
 
   buildInputJson(obj: object, path = 'input.json'): FileEntry {

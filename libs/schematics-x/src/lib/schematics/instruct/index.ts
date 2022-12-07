@@ -14,8 +14,6 @@ interface Schema extends BaseSchema {
 }
 
 export const instruct = (options: Schema): Rule => async (tree: Tree) => {
-  console.debug('options:',  options);
-  
 	const projectBasePath = await tryResolveBasePath(tree, options.project, options.path);
   const schematicsX = new SchematicsX();
   const entries = await schematicsX.execute(tree, {

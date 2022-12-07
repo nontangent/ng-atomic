@@ -63,16 +63,13 @@ export class SchematicsX {
 
   }
 
-  private async estimateFileEntry(tree, {scopedInputFilePaths, instructions, scopedOutputFilePath}) {
-    // TODO: implements
+  private async estimateFileEntry(tree: Tree, {scopedInputFilePaths, instructions, scopedOutputFilePath}) {
     const relatedInputFilePaths = await this.relatedFilePathsEstimator.estimate(
       scopedInputFilePaths, scopedOutputFilePath
     );
 
-    // TODO: implements
-    const relatedInputFileEntries = relatedInputFilePaths.map((filePath) => tree.get(filePath));
+    const relatedInputFileEntries = relatedInputFilePaths.map((path) => tree.get(path));
 
-    // TODO: implements
     return this.outputFileEntryEstimator.estimate(
       relatedInputFileEntries, instructions, scopedOutputFilePath
     );

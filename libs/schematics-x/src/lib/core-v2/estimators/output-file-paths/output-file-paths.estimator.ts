@@ -17,7 +17,7 @@ export function BUILD_INSTRUCTIONS(INSTRUCTIONS: string) {
   ` is received for the file of the \`input.json\` array.`;
 }
 
-const CONTEXT = `# EXAMPLE
+const CONTEXT = `
 Input_0:
 \`\`\`example-01.input.json
 [
@@ -36,6 +36,4 @@ Output:
   "/projects/app/src/app/_shared/components/expected/expected.module.ts"
 ]
 \`\`\`
-
-# PRACTICE
 `;
