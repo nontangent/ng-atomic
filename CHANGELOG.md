@@ -1,11 +1,7 @@
-# [4.10.0](https://github.com/nontangent/ng-atomic/compare/v4.9.0...v4.10.0) (2022-12-07)
-
-
-### Bug Fixes
-
-* **schematics-x:** support for StackBlitz input `undefined` project bug ([9b8a412](https://github.com/nontangent/ng-atomic/commit/9b8a412f56299e73a17c890a89287392ce339782))
+# [4.11.0](https://github.com/nontangent/ng-atomic/compare/v4.10.0...v4.11.0) (2022-12-07)
 
 
 ### Features
 
-* **scheamatics-x:** add errorhandler on not provided open ai token ([b6914e0](https://github.com/nontangent/ng-atomic/commit/b6914e0bad3610fbd85aaa8ecd79516764c84838))
+* **schematics-x:** add `--targets` option and some option alias ([80c8c1b](https://github.com/nontangent/ng-atomic/commit/80c8c1bcf15ad815e3e0f6e8cb56d4781c9ac23e))
+* **schematics-x:** add `scope` options for setting `inputScope` and `outputScope` at the same time ([3372b08](https://github.com/nontangent/ng-atomic/commit/3372b080f61e36fa7237c5a2d23c0410991eceff))
