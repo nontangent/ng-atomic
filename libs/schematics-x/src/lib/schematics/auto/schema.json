@@ -28,7 +28,13 @@
     },
     "inputs": {
       "type": "string",
-      "description": "The path of input files or directory for estimating file content."
+      "description": "The path of input files or directory for estimating file content.",
+      "alias": "i"
+    },
+    "outputs": {
+      "type": "string",
+      "description": "The path of output files or directory.",
+      "alias": "o"
     },
     "parallel": {
       "type": "boolean",

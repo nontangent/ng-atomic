@@ -6,10 +6,12 @@ import { tryResolveBasePath, updateTree } from '../utils';
 
 export interface InstructSchema extends BaseSchema {
   instructions: string;
-  scope: string;
 
+  scope: string;
   inputScope?: string;
   outputScope?: string;
+
+  targets?: string;
   inputs?: string;
   outputs?: string;
 }
@@ -21,9 +23,9 @@ export const instruct = (options: InstructSchema): Rule => async (tree: Tree) =>
     inputScope: join(projectBasePath, options.inputScope ?? options.scope),
     outputScope: join(projectBasePath, options.outputScope ?? options.scope),
     instructions: options.instructions,
-    inputFilePaths: options.inputs?.split(',').map(filePath => join(projectBasePath, filePath)),
-    outputFilePaths: options.outputs?.split(',').map(filePath => join(projectBasePath, filePath)),
+    inputFilePaths: (options.inputs ?? options.targets)?.split(',').map(filePath => join(projectBasePath, filePath)),
+    outputFilePaths: (options.outputs ?? options.targets)?.split(',').map(filePath => join(projectBasePath, filePath)),
     parallel: options.parallel,
   });
-	return updateTree(entries, options.overwrite);
+	return updateTree(entries, !!options.targets || options.overwrite);
 };
