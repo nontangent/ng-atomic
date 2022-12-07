@@ -1,11 +1,8 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
-import { join } from 'path';
-import { DirectoryAdaptor } from '../../core-v2/adaptors';
-import { SchematicsX } from '../../core-v2/schematics-x';
+import { Rule, schematic } from '@angular-devkit/schematics';
 import { BaseSchema } from '../base-schema';
-import { tryResolveBasePath, updateTree } from '../utils';
+import { InstructSchema } from '../instruct';
 
-interface Schema extends BaseSchema {
+export interface DirectorySchema extends BaseSchema {
   path: string;
   name: string;
   inputScope: string;
@@ -14,13 +11,22 @@ interface Schema extends BaseSchema {
   inputs?: string;
 }
 
-export const directory = (options: Schema): Rule => async (tree: Tree) => {
-	const projectBasePath = await tryResolveBasePath(tree, options.project, options.path);
-  const schematicsX = new SchematicsX();
-  const entries = await schematicsX.execute(tree, DirectoryAdaptor.options({
-    dirPath: options.path,
-    inputScope: join(projectBasePath, options.inputScope),
-    outputScope: join(projectBasePath, options.outputScope),
-  }));
-	return updateTree(entries, options.overwrite);
+export class DirectorySchematicAdaptor {
+  static options(options: DirectorySchema): InstructSchema {
+    return {
+      project: options.project,
+      path: options.path,
+      parallel: options.parallel,
+      overwrite: options.overwrite,
+      instructions: `Generate a directory \`${options.name}\`.`,
+      inputScope: options.inputScope,
+      outputScope: options.outputScope,
+      inputs: options.inputs,
+      outputs: undefined,
+    };
+  }
+}
+
+export const directory = (options: DirectorySchema): Rule => () => {
+  return schematic('instruct', DirectorySchematicAdaptor.options(options));
 };

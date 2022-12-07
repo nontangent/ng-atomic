@@ -25,6 +25,8 @@ export class Instructor {
       await prompter.autoWriteUntilEnd();
     }
 
+    process.env['DEBUG'] && console.debug(prompter.prompt);
+
     return prompter.getFileEntries().slice(-outputPaths.length);
   }
 

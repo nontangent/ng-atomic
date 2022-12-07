@@ -14,10 +14,11 @@
     "directory": {
       "description": "Generate directory by GPT-3",
       "factory": "./src/lib/schematics/directory/index#directory",
-      "schema": "./src/lib/schematics/directory/schema.json"
+      "schema": "./src/lib/schematics/directory/schema.json",
+      "aliases": ["dir"]
     },
     "instruct": {
-      "description": "Generate by custom instructions and input files or directory",
+      "description": "Generate code by custom instructions to GPT-3",
       "factory": "./src/lib/schematics/instruct/index#instruct",
       "schema": "./src/lib/schematics/instruct/schema.json"
     }
