@@ -17,8 +17,6 @@ export function getFilePaths(tree: Tree, path: string = '/', inputs?: string): s
 }
 
 export async function tryResolveBasePath(tree: Tree, project: string, path: string, fallback = '/'): Promise<string> {
-  // MEMO(nontangent): Something is happened in StackBlitz. Support for "undefined" project input.
-  if (project === "undefined") return fallback;
   try {
     return await resolvePath(tree, { project, path });
   } catch {
