@@ -34,6 +34,7 @@ export class OpenAiPrompter {
       this._prompt += res.data.choices?.[0].text;
       this._prompt += res.data.choices?.[0].finish_reason === 'stop' ? this.stop : '';
     } catch (error) {
+      process.env['DEBUG'] && console.error(this._prompt);
       if (isAxiosError(error)) {
         if (error.response.status = 429) {
           throw new Error(error.response.data.error?.message);
