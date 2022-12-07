@@ -11,11 +11,11 @@ const countFilesToken = (entries: FileEntry[]) => {
 };
 
 export class InputFileEntriesReducer {
-  reduce(_inputFileEntries: FileEntry[], instructions: string,  size: number) {
+  reduce(_inputFileEntries: FileEntry[], instructions: string,  size: number): FileEntry[] {
     if (countFilesToken(_inputFileEntries) <= size) {
       return _inputFileEntries;
     }
-    const inputs = _inputFileEntries.sort((a, b) => countFileToken(a) - countFileToken(b))
+    const inputFileEntries = _inputFileEntries.sort((a, b) => countFileToken(a) - countFileToken(b))
     .reduce((entries, entry) => {
       if (countFilesToken([...entries, entry]) < size - instructions.length) {
         return [...entries, entry];
@@ -24,7 +24,7 @@ export class InputFileEntriesReducer {
     }, [] as FileEntry[]);
     
     console.warn(`Minimized input file entries to under ${size} token`);
-    console.warn(`from ${_inputFileEntries.length} files to ${inputs.length} files.`);
-
+    console.warn(`from ${_inputFileEntries.length} files to ${inputFileEntries.length} files.`);
+    return inputFileEntries;
   }
 }
