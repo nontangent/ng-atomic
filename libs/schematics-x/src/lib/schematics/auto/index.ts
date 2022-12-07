@@ -1,5 +1,5 @@
 import { Rule, schematic } from '@angular-devkit/schematics';
-import { hasExt } from '../../core-v2/helpers/utils';
+import { hasExt } from '../../core/helpers/utils';
 import { BaseSchema } from '../base-schema';
 import { DirectorySchematicAdaptor } from '../directory';
 import { FileSchematicAdaptor } from '../file';

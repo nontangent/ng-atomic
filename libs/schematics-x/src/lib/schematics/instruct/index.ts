@@ -1,6 +1,6 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 import { join } from 'path';
-import { SchematicsX } from '../../core-v2/schematics-x';
+import { SchematicsX } from '../../core/schematics-x';
 import { BaseSchema } from '../base-schema';
 import { tryResolveBasePath, updateTree } from '../utils';
 

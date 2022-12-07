@@ -1,7 +1,7 @@
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
 import { FileEntry, Rule, Tree } from "@angular-devkit/schematics";
 import { join } from "path";
-import { getFiles } from '../core-v2/helpers/utils';
+import { getFiles } from '../core/helpers/utils';
 
 const isAncestor = (dir: string, path: string) => dir.split('/').every((p, i) => p === path.split('/')[i]);
 
