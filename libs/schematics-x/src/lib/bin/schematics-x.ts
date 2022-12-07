@@ -29,6 +29,7 @@ export const parseSchematic = (schematic: string) => {
 }
 
 export const runSchematic = (schematic: string) => (schematicArgs, options) => {
+  process.env['DEBUG'] && console.debug('options:', options);
   runWorkflow({
     ...parseOptions(options),
     ...parseSchematic(schematic),
