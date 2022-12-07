@@ -1,6 +1,27 @@
 import { Instructor } from '../../instructor';
+import { FilePathsReducer } from '../../reducers';
+
+const ReduceInputsFilePaths = (size: number) => {
+  return function (_0, _1, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
+
+    descriptor.value = function (
+      _inputFilePaths: string[], 
+      instructions: string, 
+      context: string = '',
+    ) {
+      const reducer = new FilePathsReducer();
+      const inputFilePaths = reducer.reduce(_inputFilePaths, size);
+      return originalMethod.apply(this, [inputFilePaths, instructions, context]);
+    }
+    
+    return descriptor;
+  }
+};
 
 export class OutputFilePathsEstimator {
+
+  @ReduceInputsFilePaths(50)
   async estimate(inputFilePaths: string[], instructions: string): Promise<string[]> {
     const instructor = new Instructor();
     const inputJson = instructor.buildInputJson(inputFilePaths);
