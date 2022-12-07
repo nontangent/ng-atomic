@@ -40,12 +40,7 @@
       "description": "Enable overwrite files.",
       "default": false
     },
-    "inputScope": {
-      "type": "string",
-      "description": "",
-      "default": "./"
-    },
-    "outputScope": {
+    "scope": {
       "type": "string",
       "description": "",
       "default": "./"

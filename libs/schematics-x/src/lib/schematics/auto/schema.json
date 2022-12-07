@@ -39,6 +39,19 @@
       "type": "boolean",
       "description": "Enable overwrite files.",
       "default": false
+    },
+    "scope": {
+      "type": "string",
+      "description": "",
+      "default": "./"
+    },
+    "inputScope": {
+      "type": "string",
+      "description": ""
+    },
+    "outputScope": {
+      "type": "string",
+      "description": ""
     }
   },
   "required": ["name"]
