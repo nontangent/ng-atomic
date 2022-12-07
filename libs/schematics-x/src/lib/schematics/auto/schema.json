@@ -28,7 +28,7 @@
     },
     "inputs": {
       "type": "string",
-      "description": "The path of input files or directory for estimating file content. ex) --inputs=\"pages/users,pages/groups\""
+      "description": "The path of input files or directory for estimating file content."
     },
     "parallel": {
       "type": "boolean",
@@ -37,7 +37,7 @@
     },
     "overwrite": {
       "type": "boolean",
-      "description": "Overwrite file option. (default: false)",
+      "description": "Enable overwrite files.",
       "default": false
     }
   },
