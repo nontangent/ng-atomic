@@ -1,8 +1,13 @@
 import { FileEntry } from "@angular-devkit/schematics";
 import { Configuration, OpenAIApi } from "openai";
+import { AxiosError } from 'axios';
 
 export interface Options {
   model?: 'text-curie-001' | 'code-davinci-002' | 'code-cushman-001',
+}
+
+function isAxiosError(err: Error): err is AxiosError {
+  return !!(err as any)?.isAxiosError;
 }
 
 export class OpenAiPrompter {
@@ -25,12 +30,16 @@ export class OpenAiPrompter {
         max_tokens: 256,
         stop: this.stop,
       });
-  
+
       this._prompt += res.data.choices?.[0].text;
       this._prompt += res.data.choices?.[0].finish_reason === 'stop' ? this.stop : '';
-    } catch (res) {
-      console.error(res.response.data.error);
-      throw new Error('OpenAI API Error');
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response.status = 429) {
+          throw new Error(error.response.data.error?.message);
+        }
+      }
+      throw error;
     }
   }
 

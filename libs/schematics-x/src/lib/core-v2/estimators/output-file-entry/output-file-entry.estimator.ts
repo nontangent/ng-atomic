@@ -9,7 +9,7 @@ export class OutputFileEntryEstimator {
   ): Promise<FileEntry> {
     const instructor = new Instructor();
     const output = await instructor.instruct(inputFileEntries, instructions, [outputFilePath]);
-    return output.slice(inputFileEntries.length).find(fileEntry => fileEntry.path === outputFilePath);
+    return output.find(fileEntry => fileEntry.path === outputFilePath);
   }
 
   buildInstructions(path: string): string {

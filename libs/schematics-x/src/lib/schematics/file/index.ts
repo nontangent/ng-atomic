@@ -1,4 +1,4 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
+import { Rule, schematic, Tree } from '@angular-devkit/schematics';
 import { join } from 'path';
 import { FileAdaptor } from '../../core-v2/adaptors';
 import { SchematicsX } from '../../core-v2/schematics-x';
