@@ -4,7 +4,7 @@ import { SchematicsX } from '../../core-v2/schematics-x';
 import { BaseSchema } from '../base-schema';
 import { tryResolveBasePath, updateTree } from '../utils';
 
-interface Schema extends BaseSchema {
+export interface InstructSchema extends BaseSchema {
   instructions: string;
   inputScope: string;
   outputScope: string;
@@ -13,7 +13,7 @@ interface Schema extends BaseSchema {
   outputs?: string;
 }
 
-export const instruct = (options: Schema): Rule => async (tree: Tree) => {
+export const instruct = (options: InstructSchema): Rule => async (tree: Tree) => {
 	const projectBasePath = await tryResolveBasePath(tree, options.project, options.path);
   const schematicsX = new SchematicsX();
   const entries = await schematicsX.execute(tree, {

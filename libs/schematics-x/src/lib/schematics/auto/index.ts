@@ -1,12 +1,12 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
-import { join } from 'path';
-import { AutoAdaptor } from '../../core-v2/adaptors';
-import { SchematicsX } from '../../core-v2/schematics-x';
+import { Rule, schematic } from '@angular-devkit/schematics';
+import { hasExt } from '../../core/utils';
 import { BaseSchema } from '../base-schema';
-import { tryResolveBasePath, updateTree } from '../utils';
+import { DirectorySchematicAdaptor } from '../directory';
+import { FileSchematicAdaptor } from '../file';
+import { InstructSchema } from '../instruct';
 
 
-interface Schema extends BaseSchema {
+export interface AutoSchema extends BaseSchema {
   path: string;
   name: string;
   inputScope: string;
@@ -16,13 +16,16 @@ interface Schema extends BaseSchema {
   outputs?: string;
 }
 
-export const auto = (options: Schema): Rule => async (tree: Tree) => {
-	const projectBasePath = await tryResolveBasePath(tree, options.project, options.path);
-  const schematicsX = new SchematicsX();
-  const entries = await schematicsX.execute(tree, AutoAdaptor.options({
-    path: options.path,
-    inputScope: join(projectBasePath, options.inputScope),
-    outputScope: join(projectBasePath, options.outputScope),
-  }));
-	return updateTree(entries, options.overwrite);
+export class AutoSchematicAdaptor {
+  static options(options: AutoSchema): InstructSchema {
+    if (hasExt(options.name)) {
+      return FileSchematicAdaptor.options({...options});
+    } else {
+      return DirectorySchematicAdaptor.options({...options});
+    }
+  }
+}
+
+export const auto = (options: AutoSchema): Rule => () => {
+  return schematic('instruct', AutoSchematicAdaptor.options(options));
 };
