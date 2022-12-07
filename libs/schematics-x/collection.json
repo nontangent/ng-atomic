@@ -2,19 +2,19 @@
   "extends": ["@schematics/angular"],
   "schematics": {
     "auto": {
-      "description": "Generate files by GPT-3",
+      "description": "Generate auto-detected files by GPT-3",
       "factory": "./src/lib/schematics/auto/index#auto",
       "schema": "./src/lib/schematics/auto/schema.json",
       "aliases": ["a"]
     },
     "file": {
-      "description": "Generate files by GPT-3",
+      "description": "Generate a file by GPT-3",
       "factory": "./src/lib/schematics/file/index#file",
       "schema": "./src/lib/schematics/file/schema.json",
       "aliases": ["f"]
     },
     "directory": {
-      "description": "Generate directory by GPT-3",
+      "description": "Generate a directory by GPT-3",
       "factory": "./src/lib/schematics/directory/index#directory",
       "schema": "./src/lib/schematics/directory/schema.json",
       "aliases": ["dir", "d"]
