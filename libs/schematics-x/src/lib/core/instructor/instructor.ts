@@ -6,7 +6,7 @@ export class Instructor {
   async instruct(inputs: FileEntry[], instructions: string, outputPaths: string[], context: string = ''): Promise<FileEntry[]> {
     if (!inputs.length) throw new Error('At least one input file is required!')
 
-    const prompter = new OpenAiPrompter('');
+    const prompter = new OpenAiPrompter();
     prompter.write(context.length ? '# EXAMPLES\n' + context : '');
     prompter.write(`# PRACTICE\n`);
 

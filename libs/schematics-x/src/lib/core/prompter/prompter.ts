@@ -11,9 +11,13 @@ function isAxiosError(err: Error): err is AxiosError {
 }
 
 export class OpenAiPrompter {
-  protected config = new Configuration({apiKey: process.env['OPEN_AI_TOKEN']});
+  protected _prompt: string = '';
+  protected config = new Configuration({apiKey: this.token});
 
-  constructor(protected _prompt: string) { }
+  constructor(private token: string = process.env['OPEN_AI_TOKEN']) {
+    if (!this.token.length)
+      throw new Error('OPEN_AI_TOKEN is not provided! Please `export OPEN_AI_TOKEN=<-OPEN_AI_TOKEN->`');
+  }
   protected openai = new OpenAIApi(this.config);
   protected stop = '\n\`\`\`';
 
@@ -36,8 +40,17 @@ export class OpenAiPrompter {
     } catch (error) {
       process.env['DEBUG'] && console.error(this._prompt);
       if (isAxiosError(error)) {
-        if (error.response.status = 429) {
-          throw new Error(error.response.data.error?.message);
+        console.debug(error.response);
+        switch(error.response.status) {
+          case 429: {
+            throw new Error(error.response.data.error?.message);
+          }
+          case 401: { // Error: Incorrect API key provided: undefined. You can find your API key at https://beta.openai.com.
+            throw new Error(error.response.data.error?.message);
+          }
+          default: {
+            throw new Error(error.response.data.error?.message);
+          }
         }
       }
       throw error;
