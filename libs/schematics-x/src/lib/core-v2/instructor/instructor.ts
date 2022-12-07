@@ -1,5 +1,5 @@
 import { FileEntry } from "@angular-devkit/schematics";
-import { OpenAiPrompter } from "../../core/prompter";
+import { OpenAiPrompter } from "../prompter";
 
 
 export class Instructor {

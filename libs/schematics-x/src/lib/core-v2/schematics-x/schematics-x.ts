@@ -1,6 +1,6 @@
 import { FileEntry, Tree } from "@angular-devkit/schematics";
 import { OutputFileEntryEstimator, OutputFilePathsEstimator, RelatedFilePathsEstimator } from "../estimators";
-import { getFiles, promiseAllOrForLoop } from "../../core/utils";
+import { getFiles, promiseAllOrForLoop } from "../helpers/utils";
 import { join } from "path";
 
 export interface ExecuteOptions {

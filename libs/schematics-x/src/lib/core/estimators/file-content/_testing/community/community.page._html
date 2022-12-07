@@ -1,6 +1,0 @@
-<templates-smart-crud
-  [title]="'コミュニティの設定'"
-  [canBack]="true"
-  [mode]="'update'"
-  [form]="form"
-></templates-smart-crud>

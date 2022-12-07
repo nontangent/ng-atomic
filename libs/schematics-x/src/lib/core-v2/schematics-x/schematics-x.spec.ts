@@ -1,4 +1,3 @@
-import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { join } from 'path';
 import { createWorkspace } from '../../_testing';
