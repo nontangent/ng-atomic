@@ -48,8 +48,9 @@ export async function main() {
     ((schematic as any)?.aliases ?? []).forEach((alias) => command.alias(alias));
     const { properties } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));
   
-    Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue }]) => {
-      const flags = type === 'boolean' ? `--${key} <${type}>` : `--${key} <${type}>`;
+    Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue, alias }]) => {
+      key = alias ? `-${alias}, --${key}` : `--${key}`;
+      const flags = type === 'boolean' ? `${key} <${type}>` : `${key} <${type}>`;
       command.option(flags, description, defaultValue);
     });
   

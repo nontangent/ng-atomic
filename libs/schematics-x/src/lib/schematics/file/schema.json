@@ -28,7 +28,8 @@
     },
     "inputs": {
       "type": "string",
-      "description": "The path of input files or directory for estimating file content."
+      "description": "The path of input files or directory for estimating file content.",
+      "alias": "i"
     },
     "parallel": {
       "type": "boolean",
@@ -40,12 +41,7 @@
       "description": "Enable overwrite files.",
       "default": false
     },
-    "inputScope": {
-      "type": "string",
-      "description": "",
-      "default": "./"
-    },
-    "outputScope": {
+    "scope": {
       "type": "string",
       "description": "",
       "default": "./"

@@ -5,8 +5,9 @@ import { InstructSchema } from '../instruct';
 export interface DirectorySchema extends BaseSchema {
   path: string;
   name: string;
-  inputScope: string;
-  outputScope: string;
+  scope: string;
+  inputScope?: string;
+  outputScope?: string;
   
   inputs?: string;
 }
@@ -19,6 +20,7 @@ export class DirectorySchematicAdaptor {
       parallel: options.parallel,
       overwrite: options.overwrite,
       instructions: `Generate a directory \`${options.name}\`.`,
+      scope: options.scope,
       inputScope: options.inputScope,
       outputScope: options.outputScope,
       inputs: options.inputs,

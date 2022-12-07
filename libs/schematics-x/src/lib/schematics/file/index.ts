@@ -4,7 +4,7 @@ import { InstructSchema } from '../instruct';
 
 export interface FileSchema extends BaseSchema {
   name: string;
-  inputScope: string;
+  scope: string;
   inputs?: string;
 }
 
@@ -16,7 +16,8 @@ export class FileSchematicAdaptor {
       parallel: options.parallel,
       overwrite: options.overwrite,
       instructions: `Generate a file \`${options.name}\`.`,
-      inputScope: options.inputScope,
+      scope: options.scope,
+      inputScope: options.scope,
       outputScope: options.name,
       inputs: options.inputs,
       outputs: options.name,

@@ -26,13 +26,20 @@
       },
       "x-prompt": "What do you instruct GPT-3?"
     },
+    "targets": {
+      "type": "string",
+      "description": "The path of input and output files to instruct to edit and enable overwrite.",
+      "alias": "t"
+    },
     "inputs": {
       "type": "string",
-      "description": "The path of input files or directory for estimating file content. ex) --inputs \"pages/users,pages/groups\""
+      "description": "The path of input files or directory for estimating file content.",
+      "alias": "i"
     },
     "outputs": {
       "type": "string",
-      "description": "The path of input files or directory for estimating file content. ex) --inputs \"pages/users,pages/groups\""
+      "description": "The path of output files or directory.",
+      "alias": "o"
     },
     "parallel": {
       "type": "boolean",
@@ -44,15 +51,17 @@
       "description": "Enable overwrite files.",
       "default": false
     },
-    "inputScope": {
+    "scope": {
       "type": "string",
       "description": "",
       "default": "./"
     },
+    "inputScope": {
+      "type": "string"
+    },
     "outputScope": {
       "type": "string",
-      "description": "",
-      "default": "./"
+      "description": ""
     }
   },
   "required": ["instructions"]

@@ -9,9 +9,10 @@ import { InstructSchema } from '../instruct';
 export interface AutoSchema extends BaseSchema {
   path: string;
   name: string;
-  inputScope: string;
-  outputScope: string;
 
+  scope: string;
+  inputScope?: string;
+  outputScope?: string;
   inputs?: string;
   outputs?: string;
 }

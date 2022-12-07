@@ -20,7 +20,7 @@ export class Glob {
   }
 }
 
-export class ScopePathFilter {
+export class ScopeResolver {
   filter(paths: string[], scope: string): string[] {
     // TODO(nontangent): Implements
     return paths.filter(path => path.startsWith(scope));
@@ -30,7 +30,7 @@ export class ScopePathFilter {
 export class SchematicsX {
   constructor(
     private glob = new Glob(),
-    private scopePathFilterPipe = new ScopePathFilter(),
+    private scopePathFilterPipe = new ScopeResolver(),
     private outputFilePathsEstimator = new OutputFilePathsEstimator(),
     private outputFileEntryEstimator = new OutputFileEntryEstimator(),
     private relatedFilePathsEstimator = new RelatedFilePathsEstimator(),
