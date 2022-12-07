@@ -4,23 +4,26 @@
     "auto": {
       "description": "Generate files by GPT-3",
       "factory": "./src/lib/schematics/auto/index#auto",
-      "schema": "./src/lib/schematics/auto/schema.json"
+      "schema": "./src/lib/schematics/auto/schema.json",
+      "aliases": ["a"]
     },
     "file": {
       "description": "Generate files by GPT-3",
       "factory": "./src/lib/schematics/file/index#file",
-      "schema": "./src/lib/schematics/file/schema.json"
+      "schema": "./src/lib/schematics/file/schema.json",
+      "aliases": ["f"]
     },
     "directory": {
       "description": "Generate directory by GPT-3",
       "factory": "./src/lib/schematics/directory/index#directory",
       "schema": "./src/lib/schematics/directory/schema.json",
-      "aliases": ["dir"]
+      "aliases": ["dir", "d"]
     },
     "instruct": {
       "description": "Generate code by custom instructions to GPT-3",
       "factory": "./src/lib/schematics/instruct/index#instruct",
-      "schema": "./src/lib/schematics/instruct/schema.json"
+      "schema": "./src/lib/schematics/instruct/schema.json",
+      "aliases": ["i"]
     }
   }
 }
