@@ -41,7 +41,7 @@
     },
     "overwrite": {
       "type": "boolean",
-      "description": "Overwrite file option.",
+      "description": "Enable overwrite files.",
       "default": false
     },
     "inputScope": {

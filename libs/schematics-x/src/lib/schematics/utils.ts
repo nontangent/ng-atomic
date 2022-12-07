@@ -1,7 +1,7 @@
 import { createDefaultPath } from '@schematics/angular/utility/workspace';
-import { DirEntry, FileEntry, Rule, Tree } from "@angular-devkit/schematics";
+import { FileEntry, Rule, Tree } from "@angular-devkit/schematics";
 import { join } from "path";
-import { getFiles } from '../core/utils';
+import { getFiles } from '../core/helpers/utils';
 
 const isAncestor = (dir: string, path: string) => dir.split('/').every((p, i) => p === path.split('/')[i]);
 
@@ -17,6 +17,8 @@ export function getFilePaths(tree: Tree, path: string = '/', inputs?: string): s
 }
 
 export async function tryResolveBasePath(tree: Tree, project: string, path: string, fallback = '/'): Promise<string> {
+  // MEMO(nontangent): Something is happened in StackBlitz. Support for "undefined" project input.
+  if (project === "undefined") return fallback;
   try {
     return await resolvePath(tree, { project, path });
   } catch {

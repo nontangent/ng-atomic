@@ -14,7 +14,7 @@ describe('OpenAiPrompter', () => {
   let prompter: OpenAiPrompter;
   
   beforeEach(() => {
-    prompter = new OpenAiPrompter('');
+    prompter = new OpenAiPrompter();
   });
 
   xit('', async () => {

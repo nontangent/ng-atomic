@@ -1,70 +1,81 @@
-import { FileEntry } from "@angular-devkit/schematics";
-import { FileTreeEstimator } from "../estimators";
-import { FileContentEstimator } from "../estimators";
-import { getEstimateSimilarFilePaths } from "../helpers";
-import { Instructor } from "../instructor";
-import { hasExt, promiseAllOrForLoop } from "../utils";
+import { FileEntry, Tree } from "@angular-devkit/schematics";
+import { OutputFileEntryEstimator, OutputFilePathsEstimator, RelatedFilePathsEstimator } from "../estimators";
+import { getFiles, promiseAllOrForLoop } from "../helpers/utils";
+import { join } from "path";
 
-interface SchematicsXConfig {
+export interface ExecuteOptions {
+  instructions: string;
+  inputScope: string;
+  outputScope: string;
+  inputFilePaths?: string[];
+  outputFilePaths?: string[];
+
   parallel?: boolean;
 }
 
+export class Glob {
+  async glob(param: string, tree: Tree): Promise<string[]> {
+    // TODO(nontangent): Implements
+    return getFiles(tree.getDir(param)).map(p => join(param, p));
+  }
+}
+
+export class ScopePathFilter {
+  filter(paths: string[], scope: string): string[] {
+    // TODO(nontangent): Implements
+    return paths.filter(path => path.startsWith(scope));
+  }
+}
+
 export class SchematicsX {
+  constructor(
+    private glob = new Glob(),
+    private scopePathFilterPipe = new ScopePathFilter(),
+    private outputFilePathsEstimator = new OutputFilePathsEstimator(),
+    private outputFileEntryEstimator = new OutputFileEntryEstimator(),
+    private relatedFilePathsEstimator = new RelatedFilePathsEstimator(),
+  ) { }
 
-  constructor(private config: SchematicsXConfig) {}
+  async execute(tree: Tree, options: ExecuteOptions): Promise<FileEntry[]> {
+    options.inputFilePaths ??= await this.glob.glob(options.inputScope, tree);
 
-  protected fileTreeEstimator = new FileTreeEstimator();
-  protected fileContentEstimator = new FileContentEstimator();
+    const scopedInputFilePaths = this.scopePathFilterPipe.filter(
+      options.inputFilePaths, options.inputScope
+    );
 
-  async instruct(instructions: string, inputs: FileEntry[], outputSize?: number ): Promise<FileEntry[]> {
-    const instructor = new Instructor();
-    return instructor.instruct(inputs, instructions, outputSize);
-  }
-  
-  async generateAuto(targetPath: string, files: FileEntry[]): Promise<FileEntry[]> {
-    if (hasExt(targetPath)) {
-      return Promise.all([this.generateFile(targetPath, files)]);
-    } else {
-      return this.generateDirectory(targetPath, files);
-    };
-  }
+    process.env['DEBUG'] && console.debug('scopedInputFilePaths:', scopedInputFilePaths);
 
-  async generateDirectory(targetPath: string, files: FileEntry[]): Promise<FileEntry[]> {
-    console.log('Estimating the paths of files to be generated...\n');
-    const generateFilePaths =  await this.fileTreeEstimator.estimate(files.map(file => file.path), targetPath);
-    console.log('Estimated! => ', generateFilePaths, '\n');
+    options.outputFilePaths ??= await this.outputFilePathsEstimator.estimate(
+      scopedInputFilePaths, options.instructions,
+    );
 
-    return promiseAllOrForLoop(generateFilePaths.map(filePath => {
-      return () => this.generateFile(filePath, files);
-    }), this.config.parallel);
-  }
+    const scopedOutputFilePaths = this.scopePathFilterPipe.filter(
+      options.outputFilePaths, options.outputScope
+    );
+    process.env['DEBUG'] && console.debug('scopedOutputFilePaths:', scopedOutputFilePaths);
 
-  async generateFile(path: string, files: FileEntry[] = []): Promise<FileEntry> {
-    const similarFileEntries = this.getSimilarFilePaths(path, files);
-    const clampedFileEntries = clampFileEntries(similarFileEntries, 2049);
-    console.log(`Estimating content of`, path, `by`, clampedFileEntries.map((f) => f.path), '...\n');
-    return this.fileContentEstimator.estimate(path, clampedFileEntries);
-  }
+    const promises = scopedOutputFilePaths.map((scopedOutputFilePath) => {
+      return () => this.estimateFileEntry(tree, {
+        scopedInputFilePaths,
+        instructions: options.instructions,
+        scopedOutputFilePath
+      });
+    });
 
-  protected getSimilarFilePaths(path: string, files: FileEntry[]): FileEntry[] {
-    const similarFilePaths = getEstimateSimilarFilePaths(path, files.map(file => file.path));
-    return files.filter(file => similarFilePaths.includes(file.path));
+    return promiseAllOrForLoop(promises, options.parallel);
   }
 
-  protected buildFileContentEstimateInstructions(path: string): string {
-    return this.fileContentEstimator.buildInstructions(path);
+  private async estimateFileEntry(tree: Tree, {scopedInputFilePaths, instructions, scopedOutputFilePath}) {
+    const relatedInputFilePaths = await this.relatedFilePathsEstimator.estimate(
+      scopedInputFilePaths, scopedOutputFilePath
+    );
+    process.env['DEBUG'] && console.debug('scopedOutputFilePath:', scopedOutputFilePath);
+    process.env['DEBUG'] && console.debug('relatedInputFilePaths:', relatedInputFilePaths);
+
+    const relatedInputFileEntries = relatedInputFilePaths.map((path) => tree.get(path));
+
+    return this.outputFileEntryEstimator.estimate(
+      relatedInputFileEntries, instructions, scopedOutputFilePath
+    );
   }
 }
-
-function clampFileEntries(fileEntries: FileEntry[], maxLength: number): FileEntry[] {
-  const fileEntriesByLength = fileEntries.sort((a, b) => a.content.length - b.content.length);
-  const results: FileEntry[] = [];
-  fileEntriesByLength.reduce((length, fileEntry) => {
-    const newLength = length + fileEntry.content.toString().length;
-    if (newLength < maxLength) results.push(fileEntry);
-    return newLength;
-  }, 0);
-  return results;
-}
-
- 

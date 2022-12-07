@@ -3,10 +3,12 @@ import { OpenAiPrompter } from "../prompter";
 
 
 export class Instructor {
-  async instruct(inputs: FileEntry[], instructions: string, outputSize = inputs.length): Promise<FileEntry[]> {
+  async instruct(inputs: FileEntry[], instructions: string, outputPaths: string[], context: string = ''): Promise<FileEntry[]> {
     if (!inputs.length) throw new Error('At least one input file is required!')
 
-    const prompter = new OpenAiPrompter('');
+    const prompter = new OpenAiPrompter();
+    prompter.write(context.length ? '# EXAMPLES\n' + context : '');
+    prompter.write(`# PRACTICE\n`);
 
     for (let i = 0; i < inputs.length; i++) {
       prompter.write(`Input_${i}: \`\`\`${inputs[i].path}\n`);
@@ -14,16 +16,18 @@ export class Instructor {
       prompter.write(`\`\`\`\n\n`);
     }
 
-    prompter.write(`Instructions: ${instructions}\n\n`);
+    prompter.write(`Inputs: [${inputs.map(input => `"${input.path}"`).join(', ')}]\n`);
+    prompter.write(`Instructions: ${instructions}\n`);
+    prompter.write(`Outputs: [${outputPaths.map(path => `"${path}"`).join(', ')}]\n\n`);
 
-    for (let i = 0; i < outputSize; i++) {
-      prompter.write(`Output_${i}: \`\`\``);
+    for (let i = 0; i < outputPaths.length; i++) {
+      prompter.write(`Output_${i}: \`\`\`${outputPaths?.[i] ?? ''}`);
       await prompter.autoWriteUntilEnd();
     }
 
-    // console.debug('prompter:', prompter.prompt);
+    process.env['DEBUG'] && console.debug(prompter.prompt);
 
-    return prompter.getFileEntries().slice(inputs.length);
+    return prompter.getFileEntries().slice(-outputPaths.length);
   }
 
   buildInputJson(obj: object, path = 'input.json'): FileEntry {
@@ -31,9 +35,5 @@ export class Instructor {
       path: path as any,
       content: Buffer.from(JSON.stringify(obj, null, 2)),
     }
-  }
-
-  async rename(input: FileEntry, path: string): Promise<FileEntry> {
-    return this.instruct([input], `Rename to "${path}" from "${input.path}" and fix import paths.`)[0];
   }
 }
