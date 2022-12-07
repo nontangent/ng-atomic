@@ -1,6 +1,6 @@
 {
   "name": "@ng-atomic/platform",
-  "version": "4.8.2",
+  "version": "4.9.0",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
