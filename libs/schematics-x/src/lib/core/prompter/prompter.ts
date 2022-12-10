@@ -15,7 +15,7 @@ export class OpenAiPrompter {
   protected config = new Configuration({apiKey: this.token});
 
   constructor(private token: string = process.env['OPEN_AI_TOKEN']) {
-    if (!this.token.length)
+    if (!this.token?.length)
       throw new Error('OPEN_AI_TOKEN is not provided! Please `export OPEN_AI_TOKEN=<-OPEN_AI_TOKEN->`');
   }
   protected openai = new OpenAIApi(this.config);
