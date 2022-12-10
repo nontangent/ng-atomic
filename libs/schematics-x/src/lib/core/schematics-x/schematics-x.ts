@@ -72,7 +72,9 @@ export class SchematicsX {
     process.env['DEBUG'] && console.debug('scopedOutputFilePath:', scopedOutputFilePath);
     process.env['DEBUG'] && console.debug('relatedInputFilePaths:', relatedInputFilePaths);
 
-    const relatedInputFileEntries = relatedInputFilePaths.map((path) => tree.get(path));
+    const relatedInputFileEntries = relatedInputFilePaths
+      .map((path) => tree.get(path))
+      .filter((entry) => !!entry);
 
     return this.outputFileEntryEstimator.estimate(
       relatedInputFileEntries, instructions, scopedOutputFilePath
