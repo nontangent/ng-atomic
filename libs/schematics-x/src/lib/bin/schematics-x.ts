@@ -29,7 +29,6 @@ export const parseSchematic = (schematic: string) => {
 }
 
 export const runSchematic = (schematic: string) => (schematicArgs, options) => {
-  process.env['DEBUG'] && console.debug('options:', options);
   runWorkflow({
     ...parseOptions(options),
     ...parseSchematic(schematic),
@@ -47,11 +46,16 @@ export async function main() {
     const command = program.command(name).description(schematic.description);
     ((schematic as any)?.aliases ?? []).forEach((alias) => command.alias(alias));
     const { properties } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));
+    const booleanOptions = [];
+
+    const resolveOptionFlags = (key: string, type: string, alias?: string) => {
+      key = alias ? `-${alias}, --${key}` : `--${key}`;
+      return type === 'boolean' ? `${key} [${type}]` : `${key} <${type}>`;
+    };
   
     Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue, alias }]) => {
-      key = alias ? `-${alias}, --${key}` : `--${key}`;
-      const flags = type === 'boolean' ? `${key} <${type}>` : `${key} <${type}>`;
-      command.option(flags, description, defaultValue);
+      booleanOptions.push(key);
+      command.option(resolveOptionFlags(key, type, alias), description, defaultValue);
     });
   
     command.option(`--interactive`, `Enable interactive input prompts.`, true);
@@ -64,8 +68,14 @@ export async function main() {
 
     command
       .arguments('[args...]')
-      .allowUnknownOption()
-      .action(runSchematic(`${COLLECTION}:${name}`));
+      .action((args, _options) => {
+        const parseBoolean = (value) => value === 'true' ? true : value === 'false' ? false : value;
+        const options = Object.entries(_options).reduce((acc, [key, value]) => {
+          return {...acc, [key]: booleanOptions.includes(key) ? parseBoolean(value) : value};
+        }, {});
+        process.env['DEBUG'] && console.debug('options:', options);
+        runSchematic(`${COLLECTION}:${name}`)(args, options);
+      });
   }
   program.parse();
 }
