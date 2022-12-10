@@ -84,25 +84,3 @@ export class OpenAiPrompter {
     return entries.find(file => file.path === path) ?? null;
   }
 }
-
-
-export class JsonPrompter extends OpenAiPrompter {
-
-  parseJson(prompt: string): string[] {
-    return JSON.parse(prompt.match(/\`\`\`tree\.json\n([\s\S]*)\`\`\`/)?.[1]);
-  }
-
-  getJsonFuzzy(): string[] {
-    let text = this.prompt;
-    while(text.length) {
-      let suffixes = ['"]\n```', ']\n```', '\n```', '```', '``', '`', ''];
-  
-      for (const suffix of suffixes) {
-        try { return this.parseJson(text + suffix); } catch { }
-      }
-
-      text = text.slice(0, -1);
-    }
-  }
-  
-}
