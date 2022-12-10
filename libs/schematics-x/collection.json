@@ -24,6 +24,17 @@
       "factory": "./src/lib/schematics/instruct/index#instruct",
       "schema": "./src/lib/schematics/instruct/schema.json",
       "aliases": ["i"]
+    },
+    "ng-add": {
+      "description": "Add GPT-3 to your project",
+      "factory": "./src/lib/schematics/ng-add/index#ngAdd",
+      "schema": "./src/lib/schematics/ng-add/schema.json"
+    },
+    "set-default-collection": {
+      "description": "Set the default collection for the workspace",
+      "factory": "./src/lib/schematics/set-default-collection/index#setDefaultCollection",
+      "schema": "./src/lib/schematics/set-default-collection/schema.json",
+      "private": true
     }
   }
 }

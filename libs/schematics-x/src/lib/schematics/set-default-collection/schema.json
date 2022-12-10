@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "schematics-x-set-default-collection",
+  "title": "Set Default Collection",
+  "type": "object",
+  "properties": {
+    "collectionName": {
+      "type": "string",
+      "description": "the name of the collection to set as the default"
+    }
+  },
+  "required": ["collectionName"]
+}
