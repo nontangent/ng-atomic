@@ -38,7 +38,7 @@ export class OpenAiPrompter {
       this._prompt += res.data.choices?.[0].text;
       this._prompt += res.data.choices?.[0].finish_reason === 'stop' ? this.stop : '';
     } catch (error) {
-      process.env['DEBUG'] && console.error(this._prompt);
+      process.env['SX_VERBOSE_LOGGING'] && console.error(this._prompt);
       if (isAxiosError(error)) {
         console.debug(error.response);
         switch(error.response.status) {

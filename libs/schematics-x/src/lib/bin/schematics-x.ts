@@ -8,7 +8,7 @@ import { CliOptions, CLI_OPTIONS_KEY } from './parse-cli-options';
 import { getProjectByCwd, getWorkspace } from '@angular/cli/src/utilities/config';
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
-const COLLECTION = process.env['DEBUG'] ? COLLECTION_JSON_PATH : 'schematics-x';
+const COLLECTION = process.env['SX_VERBOSE_LOGGING'] ? COLLECTION_JSON_PATH : 'schematics-x';
 
 export const parseOptions = (options) => {
   const cliOptions: CliOptions = {};
@@ -81,10 +81,12 @@ export async function main() {
       .arguments('[args...]')
       .action(async (args, _options) => {
         const options = parseBooleanOptions(_options, booleanOptions);
+        if (options['verbose']) process.env['SX_VERBOSE_LOGGING'] = 'true';
+
         const workspace = (options as any).inWorkspace ? await getWorkspace('local') : null;
         const project = workspace ? getProjectByCwd(workspace) : '';
         
-        process.env['DEBUG'] && console.debug('options:', {...options, project});
+        process.env['SX_VERBOSE_LOGGING'] && console.debug('options:', {...options, project});
         runSchematic(`${COLLECTION}:${name}`)(args, {...options, project});
       });
   }

@@ -43,7 +43,7 @@ export class SchematicsX {
       options.inputFilePaths, options.inputScope
     );
 
-    process.env['DEBUG'] && console.debug('scopedInputFilePaths:', scopedInputFilePaths);
+    process.env['SX_VERBOSE_LOGGING'] && console.debug('scopedInputFilePaths:', scopedInputFilePaths);
 
     options.outputFilePaths ??= await this.outputFilePathsEstimator.estimate(
       scopedInputFilePaths, options.instructions,
@@ -52,7 +52,7 @@ export class SchematicsX {
     const scopedOutputFilePaths = this.scopePathFilterPipe.filter(
       options.outputFilePaths, options.outputScope
     );
-    process.env['DEBUG'] && console.debug('scopedOutputFilePaths:', scopedOutputFilePaths);
+    process.env['SX_VERBOSE_LOGGING'] && console.debug('scopedOutputFilePaths:', scopedOutputFilePaths);
 
     const promises = scopedOutputFilePaths.map((scopedOutputFilePath) => {
       return () => this.estimateFileEntry(tree, {
@@ -69,8 +69,8 @@ export class SchematicsX {
     const relatedInputFilePaths = await this.relatedFilePathsEstimator.estimate(
       scopedInputFilePaths, scopedOutputFilePath
     );
-    process.env['DEBUG'] && console.debug('scopedOutputFilePath:', scopedOutputFilePath);
-    process.env['DEBUG'] && console.debug('relatedInputFilePaths:', relatedInputFilePaths);
+    process.env['SX_VERBOSE_LOGGING'] && console.debug('scopedOutputFilePath:', scopedOutputFilePath);
+    process.env['SX_VERBOSE_LOGGING'] && console.debug('relatedInputFilePaths:', relatedInputFilePaths);
 
     const relatedInputFileEntries = relatedInputFilePaths
       .map((path) => tree.get(path))
