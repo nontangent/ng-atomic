@@ -48,11 +48,11 @@
     },
     "inputScope": {
       "type": "string",
-      "description": ""
+      "description": "input file system scope"
     },
     "outputScope": {
       "type": "string",
-      "description": ""
+      "description": "output file system scope"
     }
   },
   "required": ["name"]

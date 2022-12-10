@@ -57,11 +57,12 @@
       "default": "./"
     },
     "inputScope": {
-      "type": "string"
+      "type": "string",
+      "description": "input file system scope"
     },
     "outputScope": {
       "type": "string",
-      "description": ""
+      "description": "output file system scope"
     }
   },
   "required": ["instructions"]
