@@ -23,7 +23,7 @@ const ReduceInputFileEntries = (size: number) => {
 
 
 export class OutputFileEntryEstimator {
-  @ReduceInputFileEntries(1200)
+  @ReduceInputFileEntries(1600)
   async estimate(
     inputFileEntries: FileEntry[], 
     instructions: string,
