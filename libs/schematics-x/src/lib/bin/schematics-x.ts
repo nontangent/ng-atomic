@@ -51,6 +51,8 @@ export async function main() {
   program.version(packageJson.version, '-v, --version', 'output the current version');
   
   for (const [name, schematic] of Object.entries(collectionJson.schematics)) {
+    if (name === 'ng-add' || (schematic as any)?.private) continue;
+    
     const command = program.command(name).description(schematic.description);
     ((schematic as any)?.aliases ?? []).forEach((alias) => command.alias(alias));
     const { properties } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));

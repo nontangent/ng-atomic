@@ -31,7 +31,7 @@
       "schema": "./src/lib/schematics/ng-add/schema.json"
     },
     "set-default-collection": {
-      "description": "Set the default collection for the workspace",
+      "description": "Set a default collection for the workspace",
       "factory": "./src/lib/schematics/set-default-collection/index#setDefaultCollection",
       "schema": "./src/lib/schematics/set-default-collection/schema.json",
       "private": true
