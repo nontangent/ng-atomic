@@ -15,7 +15,7 @@ export class OpenAiPrompter {
   protected config = new Configuration({apiKey: this.token});
 
   constructor(private token: string = process.env['OPEN_AI_TOKEN']) {
-    if (!this.token.length)
+    if (!this.token?.length)
       throw new Error('OPEN_AI_TOKEN is not provided! Please `export OPEN_AI_TOKEN=<-OPEN_AI_TOKEN->`');
   }
   protected openai = new OpenAIApi(this.config);
@@ -38,7 +38,7 @@ export class OpenAiPrompter {
       this._prompt += res.data.choices?.[0].text;
       this._prompt += res.data.choices?.[0].finish_reason === 'stop' ? this.stop : '';
     } catch (error) {
-      process.env['DEBUG'] && console.error(this._prompt);
+      process.env['SX_VERBOSE_LOGGING'] && console.error(this._prompt);
       if (isAxiosError(error)) {
         console.debug(error.response);
         switch(error.response.status) {
@@ -83,26 +83,4 @@ export class OpenAiPrompter {
     const entries = this.getFileEntries();
     return entries.find(file => file.path === path) ?? null;
   }
-}
-
-
-export class JsonPrompter extends OpenAiPrompter {
-
-  parseJson(prompt: string): string[] {
-    return JSON.parse(prompt.match(/\`\`\`tree\.json\n([\s\S]*)\`\`\`/)?.[1]);
-  }
-
-  getJsonFuzzy(): string[] {
-    let text = this.prompt;
-    while(text.length) {
-      let suffixes = ['"]\n```', ']\n```', '\n```', '```', '``', '`', ''];
-  
-      for (const suffix of suffixes) {
-        try { return this.parseJson(text + suffix); } catch { }
-      }
-
-      text = text.slice(0, -1);
-    }
-  }
-  
 }

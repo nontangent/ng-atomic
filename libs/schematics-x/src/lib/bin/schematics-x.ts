@@ -5,9 +5,10 @@ import { resolve } from 'path';
 import collectionJson from '../../../collection.json';
 import packageJson from '../../../package.json';
 import { CliOptions, CLI_OPTIONS_KEY } from './parse-cli-options';
+import { getProjectByCwd, getWorkspace } from '@angular/cli/src/utilities/config';
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
-const COLLECTION = process.env['DEBUG'] ? COLLECTION_JSON_PATH : 'schematics-x';
+const COLLECTION = process.env['SX_VERBOSE_LOGGING'] ? COLLECTION_JSON_PATH : 'schematics-x';
 
 export const parseOptions = (options) => {
   const cliOptions: CliOptions = {};
@@ -29,7 +30,6 @@ export const parseSchematic = (schematic: string) => {
 }
 
 export const runSchematic = (schematic: string) => (schematicArgs, options) => {
-  process.env['DEBUG'] && console.debug('options:', options);
   runWorkflow({
     ...parseOptions(options),
     ...parseSchematic(schematic),
@@ -37,6 +37,13 @@ export const runSchematic = (schematic: string) => (schematicArgs, options) => {
   })
     .then((exitCode) => (process.exitCode = exitCode))
     .catch((e) => { throw e; });
+};
+
+export const parseBooleanOptions = (_options: object, booleanOptions: string[] = []) => {
+  const parseBoolean = (value) => value === 'true' ? true : value === 'false' ? false : value;
+  return Object.entries(_options).reduce((acc, [key, value]) => {
+    return {...acc, [key]: booleanOptions.includes(key) ? parseBoolean(value) : value};
+  }, {});
 };
 
 export async function main() {
@@ -47,25 +54,41 @@ export async function main() {
     const command = program.command(name).description(schematic.description);
     ((schematic as any)?.aliases ?? []).forEach((alias) => command.alias(alias));
     const { properties } = require(resolve(COLLECTION_JSON_PATH, '../', schematic.schema));
-  
-    Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue, alias }]) => {
+    const booleanOptions = [];
+
+    const resolveOptionFlags = (key: string, type: string, alias?: string) => {
       key = alias ? `-${alias}, --${key}` : `--${key}`;
-      const flags = type === 'boolean' ? `${key} <${type}>` : `${key} <${type}>`;
-      command.option(flags, description, defaultValue);
+      return type === 'boolean' ? `${key} [${type}]` : `${key} <${type}>`;
+    };
+  
+    Object.entries<any>(properties).forEach(([key, { type, description, default: defaultValue, alias, visible }]) => {
+      if (typeof visible === 'boolean' && !visible) return;
+      booleanOptions.push(key);
+      command.option(resolveOptionFlags(key, type, alias), description, defaultValue);
     });
   
-    command.option(`--interactive`, `Enable interactive input prompts.`, true);
-    command.option(`--force`, `Force overwriting files that would otherwise be an error.`, false);
-    command.option(`--verbose`, `Show more information.`, false);
-    command.option(`--allow-private`, `Allow private schematics to be run from the command line.`, false);
-    command.option(`--debug`, `Debug mode.`,  null);
-    command.option(`--dry-run`, `Do not output anything, but instead just show what actions would be
+    command.option(`--interactive [boolean]`, `Enable interactive input prompts.`, true);
+    command.option(`--force [boolean]`, `Force overwriting files that would otherwise be an error.`, false);
+    command.option(`--verbose [boolean]`, `Show more information.`, false);
+    command.option(`--allow-private [boolean]`, `Allow private schematics to be run from the command line.`, false);
+    command.option(`--debug [boolean]`, `Debug mode.`,  null);
+    command.option(`--dry-run [boolean]`, `Do not output anything, but instead just show what actions would be
     performed.`, null);
+    command.option(`--in-workspace [boolean]`, 
+      'Run in Angular workspace.(if not exists `angular.json`, automatically disabled.)', true);
 
     command
       .arguments('[args...]')
-      .allowUnknownOption()
-      .action(runSchematic(`${COLLECTION}:${name}`));
+      .action(async (args, _options) => {
+        const options = parseBooleanOptions(_options, booleanOptions);
+        if (options['verbose']) process.env['SX_VERBOSE_LOGGING'] = 'true';
+
+        const workspace = (options as any).inWorkspace ? await getWorkspace('local') : null;
+        const project = workspace ? getProjectByCwd(workspace) : '';
+        
+        process.env['SX_VERBOSE_LOGGING'] && console.debug('options:', {...options, project});
+        runSchematic(`${COLLECTION}:${name}`)(args, {...options, project});
+      });
   }
   program.parse();
 }

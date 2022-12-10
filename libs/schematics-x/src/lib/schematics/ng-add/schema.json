@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "schematics-x-ng Add",
+  "title": "Schematics X Ng Add",
+  "type": "object",
+  "properties": {},
+  "required": []
+}

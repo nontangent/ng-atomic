@@ -16,17 +16,12 @@ export function getFilePaths(tree: Tree, path: string = '/', inputs?: string): s
   return filePaths;
 }
 
-export async function tryResolveBasePath(tree: Tree, project: string, path: string, fallback = '/'): Promise<string> {
+export async function tryToCreateDefaultPath(tree: Tree, project: string, fallback = '/'): Promise<string> {
   try {
-    return await resolvePath(tree, { project, path });
+    return await createDefaultPath(tree, project);
   } catch {
     return fallback;
   }
-}
-
-export async function resolvePath(tree: Tree, options: {project?: string, path?: string}): Promise<string> {
-  const defaultPath = await createDefaultPath(tree, options.project);
-  return join(defaultPath, options?.path ?? '');
 }
 
 export function updateTree(entries: FileEntry[], overwrite = false): Rule {

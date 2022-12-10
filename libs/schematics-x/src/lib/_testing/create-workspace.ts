@@ -34,10 +34,12 @@ export async function createWorkspace(
 }
 
 export async function createNxWorkspace(
-  runner: SchematicTestRunner, host: UnitTestTree,
-  workspaceOptions = defaultWorkspaceOptions, options = defaultAppOptions
+  runner: SchematicTestRunner,
+  host: UnitTestTree,
+  workspaceOptions = defaultWorkspaceOptions,
+  options = defaultAppOptions,
 ) {
-  host = await runner.runExternalSchematicAsync('@nrwl/angular', 'workspace', {...workspaceOptions, cli: 'angular'}).toPromise();
-  host = await runner.runExternalSchematicAsync('@nrwl/angular', 'application', options, host).toPromise();
+  host = await runner.runExternalSchematicAsync('@nrwl/angular', 'workspace', {...workspaceOptions, cli: 'angular'}, host).toPromise();
+  // host = await runner.runExternalSchematicAsync('@nrwl/angular', 'application', options, host).toPromise();
   return host;
 }
