@@ -19,7 +19,7 @@ export interface InstructSchema extends BaseSchema {
 export const instruct = (options: InstructSchema): Rule => async (tree: Tree) => {
 	const projectDefaultPath = await tryToCreateDefaultPath(tree, options.project);
   const path = options.path ?? '.';
- 
+
   const schematicsX = new SchematicsX();
   const entries = await schematicsX.execute(tree, {
     inputScope: join(projectDefaultPath, path, options.inputScope ?? options.scope),

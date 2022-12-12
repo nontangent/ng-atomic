@@ -1,14 +1,17 @@
 #!/usr/bin/env node
-import { runWorkflow } from './run-workflow';
+import { getProjectByCwd } from '@angular/cli/src/utilities/config';
+import { buildDefaultPath } from '@schematics/angular/utility/workspace';
 import { Command } from 'commander';
 import { resolve } from 'path';
 import collectionJson from '../../../collection.json';
 import packageJson from '../../../package.json';
+import { runWorkflow } from './run-workflow';
 import { CliOptions, CLI_OPTIONS_KEY } from './parse-cli-options';
-import { getProjectByCwd, getWorkspace } from '@angular/cli/src/utilities/config';
+
+import { getWorkspace } from './get-workspace';
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
-const COLLECTION = process.env['SX_VERBOSE_LOGGING'] ? COLLECTION_JSON_PATH : 'schematics-x';
+const COLLECTION = process.env['SX_DEVELOPMENT'] ? COLLECTION_JSON_PATH : 'schematics-x';
 
 export const parseOptions = (options) => {
   const cliOptions: CliOptions = {};
@@ -77,19 +80,21 @@ export async function main() {
     command.option(`--dry-run [boolean]`, `Do not output anything, but instead just show what actions would be
     performed.`, null);
     command.option(`--in-workspace [boolean]`, 
-      'Run in Angular workspace.(if not exists `angular.json`, automatically disabled.)', true);
+      'Run in Angular or Nx workspace.(if not exists `angular.json` or `nx.json`, automatically disabled.)', true);
 
     command
       .arguments('[args...]')
       .action(async (args, _options) => {
-        const options = parseBooleanOptions(_options, booleanOptions);
+        const options = parseBooleanOptions(_options, booleanOptions) as any;
         if (options['verbose']) process.env['SX_VERBOSE_LOGGING'] = 'true';
+        const workspace = options.inWorkspace ? await getWorkspace() : null;
+        options.project = workspace ? getProjectByCwd(workspace) : undefined;
+        const getPath = (project: string) => buildDefaultPath(workspace.projects.get(project));
+        options.path = options?.path || (options.project ? getPath(options.project) : undefined);
 
-        const workspace = (options as any).inWorkspace ? await getWorkspace('local') : null;
-        const project = workspace ? getProjectByCwd(workspace) : '';
-        
-        process.env['SX_VERBOSE_LOGGING'] && console.debug('options:', {...options, project});
-        runSchematic(`${COLLECTION}:${name}`)(args, {...options, project});
+        process.env['SX_VERBOSE_LOGGING'] && console.debug('cliOptions:', {...options});
+        workspace && process.chdir(workspace.basePath);
+        runSchematic(`${COLLECTION}:${name}`)(args, {...options});
       });
   }
   program.parse();
