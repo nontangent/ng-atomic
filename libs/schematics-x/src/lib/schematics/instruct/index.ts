@@ -18,6 +18,7 @@ export interface InstructSchema extends BaseSchema {
 
 export const instruct = (options: InstructSchema): Rule => async (tree: Tree) => {
 	const projectDefaultPath = await tryToCreateDefaultPath(tree, options.project);
+  process.env['SX_VERBOSE_LOGGING'] && console.debug('projectDefaultPath', projectDefaultPath)
   const path = options.path ?? '.';
 
   const schematicsX = new SchematicsX();
