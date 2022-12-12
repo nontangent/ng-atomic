@@ -80,7 +80,7 @@ export async function main() {
     command.option(`--dry-run [boolean]`, `Do not output anything, but instead just show what actions would be
     performed.`, null);
     command.option(`--in-workspace [boolean]`, 
-      'Run in Angular workspace.(if not exists `angular.json`, automatically disabled.)', true);
+      'Run in Angular or Nx workspace.(if not exists `angular.json` or `nx.json`, automatically disabled.)', true);
 
     command
       .arguments('[args...]')
