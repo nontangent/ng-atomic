@@ -1,6 +1,6 @@
-## [4.12.1](https://github.com/nontangent/ng-atomic/compare/v4.12.0...v4.12.1) (2022-12-10)
+# [4.13.0](https://github.com/nontangent/ng-atomic/compare/v4.12.1...v4.13.0) (2022-12-12)
 
 
-### Bug Fixes
+### Features
 
-* **schematics-x:** remove `ng-add` and private schematics from command line ([b071d02](https://github.com/nontangent/ng-atomic/commit/b071d02abf8c1a21d3f1e33fc793e996ce5227df))
+* **schematics-x:** add support for Nx Workspace on cli ([a90b6c2](https://github.com/nontangent/ng-atomic/commit/a90b6c2d540fe89f6b62f8d4adfebfb72f824cc4))
