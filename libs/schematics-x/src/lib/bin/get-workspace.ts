@@ -10,13 +10,20 @@ export function projectFilePath(
 ): string | null {
   return (
     (projectPath && findUp(configNames, projectPath)) ||
-    findUp(configNames, process.cwd()) ||
-    findUp(configNames, __dirname)
+    findUp(configNames, process.cwd())
   );
 }
 
 export class NxWorkspace extends AngularWorkspace {
-  static async load(workspaceFilePath: string): Promise<AngularWorkspace> {
+  constructor(
+    workspace: workspaces.WorkspaceDefinition,
+    workspaceFilePath: string,
+    public host: NxScopedHost,
+  ) {
+    super(workspace, workspaceFilePath);
+  }
+
+  static async load(workspaceFilePath: string): Promise<NxWorkspace> {
     const basePath = path.dirname(workspaceFilePath);
     const filePath = path.relative(basePath, workspaceFilePath);
     const host = new NxScopedHost(basePath);
@@ -25,11 +32,11 @@ export class NxWorkspace extends AngularWorkspace {
       workspaces.createWorkspaceHost(host),
       workspaces.WorkspaceFormat.JSON,
     );
-    return new NxWorkspace(result.workspace, workspaceFilePath);
+    return new NxWorkspace(result.workspace, workspaceFilePath, host);
   }
 }
 
-export async function getWorkspace(): Promise<AngularWorkspace | undefined> {
+export async function getWorkspace(): Promise<NxWorkspace | undefined> {
   const configPath = projectFilePath();
   return configPath ? NxWorkspace.load(configPath.replace('nx.json', 'angular.json')) : undefined;
 }

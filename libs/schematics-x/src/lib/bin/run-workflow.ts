@@ -9,6 +9,7 @@
 // symbol polyfill must go first
 import 'symbol-observable';
 import { ProcessOutput, createConsoleLogger } from '@angular-devkit/core/node';
+import { virtualFs } from '@angular-devkit/core';
 import { UnsuccessfulWorkflowExecution } from '@angular-devkit/schematics';
 import { NodeWorkflow } from '@angular-devkit/schematics/tools';
 import ansiColors from 'ansi-colors';
@@ -22,6 +23,7 @@ export interface Options {
   schematicName: string;
   schematicOptions: Record<string, unknown>;
   schematicArgs: string[];
+  fsHost?: virtualFs.Host<{}>;
   stdout?: ProcessOutput;
   stderr?: ProcessOutput;
 }
@@ -32,6 +34,7 @@ export async function runWorkflow({
   schematicName,
   schematicOptions,
   schematicArgs,
+  fsHost,
   stdout = process.stdout,
   stderr = process.stderr,
 }: Options): Promise<0 | 1> {
@@ -50,7 +53,7 @@ export async function runWorkflow({
   });
 
     /** Create the workflow scoped to the working directory that will be executed with this run. */
-    const workflow = new NodeWorkflow(process.cwd(), {
+    const workflow = new NodeWorkflow((fsHost || process.cwd()) as any, {
       force: _cliOptions.force,
       dryRun: _cliOptions.dryRun,
       resolvePaths: [process.cwd(), __dirname],

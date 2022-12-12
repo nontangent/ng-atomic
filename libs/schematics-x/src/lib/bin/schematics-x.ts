@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { getProjectByCwd } from '@angular/cli/src/utilities/config';
-import { buildDefaultPath } from '@schematics/angular/utility/workspace';
 import { Command } from 'commander';
 import { resolve } from 'path';
 import collectionJson from '../../../collection.json';
@@ -32,10 +31,11 @@ export const parseSchematic = (schematic: string) => {
   return {collectionName, schematicName};
 }
 
-export const runSchematic = (schematic: string) => (schematicArgs, options) => {
+export const runSchematic = (schematic: string) => (schematicArgs, options, fsHost) => {
   runWorkflow({
     ...parseOptions(options),
     ...parseSchematic(schematic),
+    fsHost,
     schematicArgs,
   })
     .then((exitCode) => (process.exitCode = exitCode))
@@ -89,12 +89,10 @@ export async function main() {
         if (options['verbose']) process.env['SX_VERBOSE_LOGGING'] = 'true';
         const workspace = options.inWorkspace ? await getWorkspace() : null;
         options.project = workspace ? getProjectByCwd(workspace) : undefined;
-        const getPath = (project: string) => buildDefaultPath(workspace.projects.get(project));
-        options.path = options?.path || (options.project ? getPath(options.project) : undefined);
 
         process.env['SX_VERBOSE_LOGGING'] && console.debug('cliOptions:', {...options});
         workspace && process.chdir(workspace.basePath);
-        runSchematic(`${COLLECTION}:${name}`)(args, {...options});
+        runSchematic(`${COLLECTION}:${name}`)(args, {...options}, workspace?.host);
       });
   }
   program.parse();
