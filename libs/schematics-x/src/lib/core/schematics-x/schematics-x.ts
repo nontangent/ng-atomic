@@ -37,7 +37,10 @@ export class SchematicsX {
   ) { }
 
   async execute(tree: Tree, options: ExecuteOptions): Promise<FileEntry[]> {
+    process.env['SX_VERBOSE_LOGGING'] && console.debug('options:', options);
+
     options.inputFilePaths ??= await this.glob.glob(options.inputScope, tree);
+    process.env['SX_VERBOSE_LOGGING'] && console.debug('inputFilePaths:', options.inputFilePaths);
 
     const scopedInputFilePaths = this.scopePathFilterPipe.filter(
       options.inputFilePaths, options.inputScope
