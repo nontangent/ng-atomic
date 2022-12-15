@@ -4,8 +4,10 @@ import { join } from 'path';
 import { createWorkspace } from '../../_testing';
 import { SchematicsX, Glob } from './schematics-x';
 import { SchematicsXModule } from './schematics-x.module';
-import { mockOutputFileEntryEstimator, mockRelatedFilePathsEstimator, OutputFileEntryEstimator, OutputFilePathsEstimator, RelatedFilePathsEstimator } from '../estimators';
-import { mockOutputFilePathsEstimator } from '../estimators/output-file-paths/output-file-paths.estimator.mock';
+import { mockOutputFileEntryEstimator } from '../estimators/output-file-entry/testing';
+import { mockOutputFilePathsEstimator } from '../estimators/output-file-paths/testing';
+import { mockRelatedFilePathsEstimator } from '../estimators/related-file-paths/testing';
+import { OutputFileEntryEstimator, OutputFilePathsEstimator, RelatedFilePathsEstimator } from '../estimators';
 
 jest.setTimeout(300 * 1000);
 
