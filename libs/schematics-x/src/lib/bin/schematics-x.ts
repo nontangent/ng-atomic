@@ -18,7 +18,7 @@ export const parseOptions = (options) => {
 
   Object.entries(options).forEach(([key, value]) => {
     if (CLI_OPTIONS_KEY.includes(key as any)) {
-      cliOptions[key] = value;
+      cliOptions[key] = value === 'true' ? true : value === 'false' ? false : value;
     } else {
       schematicOptions[key] = value === 'true' ? true : value === 'false' ? false : value;
     }
@@ -79,15 +79,15 @@ export async function main() {
     command.option(`--debug [boolean]`, `Debug mode.`,  null);
     command.option(`--dry-run [boolean]`, `Do not output anything, but instead just show what actions would be
     performed.`, null);
-    command.option(`--in-workspace [boolean]`, 
+    command.option(`--workspace [boolean]`, 
       'Run in Angular or Nx workspace.(if not exists `angular.json` or `nx.json`, automatically disabled.)', true);
 
     command
       .arguments('[args...]')
       .action(async (args, _options) => {
-        const options = parseBooleanOptions(_options, booleanOptions) as any;
+        const options = parseBooleanOptions(_options, [...CLI_OPTIONS_KEY, ...booleanOptions]) as any;
         if (options['verbose']) process.env['SX_VERBOSE_LOGGING'] = 'true';
-        const workspace = options.inWorkspace ? await getWorkspace() : null;
+        const workspace = options.workspace ? await getWorkspace() : null;
         options.project = workspace ? getProjectByCwd(workspace) : undefined;
 
         process.env['SX_VERBOSE_LOGGING'] && console.debug('cliOptions:', {...options});
