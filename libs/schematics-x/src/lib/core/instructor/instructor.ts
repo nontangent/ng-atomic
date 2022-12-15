@@ -1,9 +1,17 @@
 import { FileEntry } from "@angular-devkit/schematics";
-import { OpenAiPrompter } from "../prompter";
+import { Injectable } from "@nx-ddd/core";
+import { OpenAiPrompter, WriteOptions } from "../prompter";
 
 
+@Injectable()
 export class Instructor {
-  async instruct(inputs: FileEntry[], instructions: string, outputPaths: string[], context: string = ''): Promise<FileEntry[]> {
+  async instruct(
+    inputs: FileEntry[],
+    instructions: string,
+    outputPaths: string[],
+    context: string = '',
+    options?: WriteOptions
+  ): Promise<FileEntry[]> {
     if (!inputs.length) throw new Error('At least one input file is required!')
 
     const prompter = new OpenAiPrompter();
@@ -22,7 +30,7 @@ export class Instructor {
 
     for (let i = 0; i < outputPaths.length; i++) {
       prompter.write(`Output_${i}: \`\`\`${outputPaths?.[i] ?? ''}`);
-      await prompter.autoWriteUntilEnd();
+      await prompter.autoWriteUntilEnd(options);
     }
 
     process.env['SX_VERBOSE_LOGGING'] && console.debug(prompter.prompt);
