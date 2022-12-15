@@ -1,4 +1,5 @@
 import { FileEntry } from "@angular-devkit/schematics";
+import { Injectable } from '@nx-ddd/core';
 import { DUMMY_FILE_ENTRY } from "../../dummy";
 import { Instructor } from "../../instructor";
 import { InputFileEntriesReducer } from "../../reducers";
@@ -22,6 +23,7 @@ const ReduceInputFileEntries = (size: number) => {
 }
 
 
+@Injectable()
 export class OutputFileEntryEstimator {
   @ReduceInputFileEntries(1600)
   async estimate(
@@ -29,6 +31,7 @@ export class OutputFileEntryEstimator {
     instructions: string,
     outputFilePath: string
   ): Promise<FileEntry> {
+    throw new Error('Not implemented');
     if (inputFileEntries.length === 0) {
       inputFileEntries = [DUMMY_FILE_ENTRY];
     }
