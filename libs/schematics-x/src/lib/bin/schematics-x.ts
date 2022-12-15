@@ -93,6 +93,7 @@ export async function main() {
         process.env['SX_VERBOSE_LOGGING'] && console.debug('cliOptions:', {...options});
         workspace && process.chdir(workspace.basePath);
         runSchematic(`${COLLECTION}:${name}`)(args, {...options}, (workspace as any)?.host);
+        // throw new Error();
       });
   }
   program.parse();
