@@ -4,10 +4,7 @@ import { Command } from 'commander';
 import { resolve } from 'path';
 import collectionJson from '../../../collection.json';
 import packageJson from '../../../package.json';
-import { runWorkflow } from './run-workflow';
-import { CliOptions, CLI_OPTIONS_KEY } from './parse-cli-options';
-
-import { getWorkspace } from './get-workspace';
+import { getWorkspace, runWorkflow, CliOptions, CLI_OPTIONS_KEY } from '../cli';
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
 const COLLECTION = process.env['SX_DEVELOPMENT'] ? COLLECTION_JSON_PATH : 'schematics-x';
