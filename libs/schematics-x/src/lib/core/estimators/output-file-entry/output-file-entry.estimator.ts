@@ -25,7 +25,7 @@ const ReduceInputFileEntries = (size: number) => {
 
 @Injectable()
 export class OutputFileEntryEstimator {
-  @ReduceInputFileEntries(1600)
+  @ReduceInputFileEntries(1024)
   async estimate(
     inputFileEntries: FileEntry[], 
     instructions: string,
@@ -36,7 +36,7 @@ export class OutputFileEntryEstimator {
     }
 
     const instructor = new Instructor();
-    const output = await instructor.instruct(inputFileEntries, instructions, [outputFilePath]);
+    const output = await instructor.instruct(inputFileEntries, instructions, [outputFilePath], undefined);
     return output.find(fileEntry => fileEntry.path === outputFilePath);
   }
 

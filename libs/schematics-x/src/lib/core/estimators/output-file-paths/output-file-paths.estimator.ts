@@ -32,7 +32,9 @@ export class OutputFilePathsEstimator {
     const instructor = new Instructor();
     const inputJson = instructor.buildInputJson(inputFilePaths);
     const prompt = BUILD_INSTRUCTIONS(instructions);
-    const fileEntries = await instructor.instruct([inputJson], prompt, ['output.json'], CONTEXT);
+    const fileEntries = await instructor.instruct([inputJson], prompt, ['output.json'], CONTEXT, {
+      maxTokens: 2048,
+    });
     const fileEntry = fileEntries.find(fileEntry => fileEntry.path === 'output.json');
     return JSON.parse(fileEntry.content.toString()).filter((path: string) => path !== DUMMY_FILE_ENTRY.path);
   }
