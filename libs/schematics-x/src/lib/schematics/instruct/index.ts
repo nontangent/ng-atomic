@@ -1,7 +1,8 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
 import { join } from 'path';
-import { SchematicsX } from '../../core/schematics-x';
+import { SchematicsX, SchematicsXModule } from '../../core/schematics-x';
 import { BaseSchema } from '../base-schema';
+import { getRootInjector } from '../injector';
 import { tryToCreateDefaultPath, updateTree } from '../utils';
 
 export interface InstructSchema extends BaseSchema {
@@ -21,7 +22,9 @@ export const instruct = (options: InstructSchema): Rule => async (tree: Tree) =>
   process.env['SX_VERBOSE_LOGGING'] && console.debug('projectDefaultPath', projectDefaultPath)
   const path = options.path ?? '.';
 
-  const schematicsX = new SchematicsX();
+  const injector = getRootInjector([SchematicsXModule.forRoot()]);
+  const schematicsX = injector.get(SchematicsX);
+
   const entries = await schematicsX.execute(tree, {
     inputScope: join(projectDefaultPath, path, options.inputScope ?? options.scope),
     outputScope: join(projectDefaultPath, path, options.outputScope ?? options.scope),

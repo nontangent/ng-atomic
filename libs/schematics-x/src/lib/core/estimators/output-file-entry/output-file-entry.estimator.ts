@@ -31,7 +31,6 @@ export class OutputFileEntryEstimator {
     instructions: string,
     outputFilePath: string
   ): Promise<FileEntry> {
-    throw new Error('Not implemented');
     if (inputFileEntries.length === 0) {
       inputFileEntries = [DUMMY_FILE_ENTRY];
     }

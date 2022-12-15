@@ -1,7 +1,9 @@
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import path from 'path';
-import { getFiles } from '../../core/utils';
+import { RootProviderService } from '../injector';
 import { createWorkspace } from '../../_testing';
+import { SchematicsX } from '../../core/schematics-x';
+import { mockSchematicsX } from '../../core/schematics-x/testing/schematics-x.mock';
 
 jest.setTimeout(300 * 1000);
 
@@ -11,7 +13,37 @@ describe('InstructSchematic', () => {
   const runner = new SchematicTestRunner('schematics-x', COLLECTION_PATH);
   let tree: UnitTestTree;
 
-  describe('Angular Workspace', () => {
+  describe('mockSchematicsX', () => {
+    beforeAll(async () => {
+      tree = await createWorkspace(runner, tree);
+
+      RootProviderService.register([
+        { provide: SchematicsX, useValue: mockSchematicsX },
+      ]);
+    });
+
+    afterAll(() => {
+      RootProviderService.clear();
+    });
+
+    it('should execute', async () => {
+      mockSchematicsX.execute.mockResolvedValue([
+        {
+          path: '/projects/app/src/app/_shared/components/example/example.module.ts' as any,
+          content: Buffer.from('test'),
+        },
+      ]);
+      await runner.runSchematicAsync('instruct', {
+        instructions: 'Generate a directory `_shared/components/expected`.',
+        project: 'app', path: '', 
+        inputScope: '_shared/components/example',
+      }, tree).toPromise();
+      expect(mockSchematicsX.execute).toBeCalled();
+    });
+
+  });
+
+  xdescribe('Angular Workspace', () => {
     beforeEach(async () => {
       tree = await createWorkspace(runner, tree);
       tree = await runner.runExternalSchematicAsync('@ng-atomic/schematics/../collection.json', 'atomic-component', {

@@ -33,11 +33,11 @@ export class ScopeResolver {
 @Injectable()
 export class SchematicsX {
   constructor(
-    private glob: Glob,
-    private scopePathFilterPipe: ScopeResolver,
-    private outputFilePathsEstimator: OutputFilePathsEstimator,
-    private outputFileEntryEstimator: OutputFileEntryEstimator,
-    private relatedFilePathsEstimator: RelatedFilePathsEstimator,
+    private readonly glob: Glob,
+    private readonly scopePathFilterPipe: ScopeResolver,
+    private readonly outputFilePathsEstimator: OutputFilePathsEstimator,
+    private readonly outputFileEntryEstimator: OutputFileEntryEstimator,
+    private readonly relatedFilePathsEstimator: RelatedFilePathsEstimator,
   ) { }
 
   async execute(tree: Tree, options: ExecuteOptions): Promise<FileEntry[]> {

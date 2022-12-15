@@ -1,4 +1,5 @@
 import { NxModule } from '@nx-ddd/core';
+import { Provider } from '@nx-ddd/core/di/interface/provider';
 import { OutputFileEntryModule, OutputFilePathsModule, RelatedFilePathsModule } from '../estimators';
 import { Glob, SchematicsX, ScopeResolver } from './schematics-x';
 
@@ -8,6 +9,13 @@ import { Glob, SchematicsX, ScopeResolver } from './schematics-x';
     OutputFilePathsModule,
     RelatedFilePathsModule,
   ],
-  providers: [SchematicsX, Glob, ScopeResolver]
+  providers: [Glob, ScopeResolver, SchematicsX]
 })
-export class SchematicsXModule { }
+export class SchematicsXModule {
+  static forRoot(extraProviders: Provider[] = []) {
+    return {
+      nxModule: SchematicsXModule,
+      providers: extraProviders
+    };
+  }
+}
