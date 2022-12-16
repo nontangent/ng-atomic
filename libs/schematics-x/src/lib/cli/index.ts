@@ -4,3 +4,4 @@ export * from './is-tty';
 export * from './nx-scoped-host';
 export * from './parse-cli-options';
 export * from './run-workflow';
+export * from './interactive';
