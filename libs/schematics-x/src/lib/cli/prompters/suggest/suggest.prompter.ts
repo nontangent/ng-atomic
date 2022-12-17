@@ -71,13 +71,12 @@ export class SuggestPrompter extends BasePrompter {
   }
 
   protected onKeyPress() {
-    logger.debug('this.readline:', this.readline);
     this.write(this.readline);
   }
 
   private autoComplete() {
     const completed = this.state.prompt + this.state.suggest;
     logger.debug('completed:', visibleSC(completed));
-    this.write(completed);
+    this.write(completed, true);
   }
 }

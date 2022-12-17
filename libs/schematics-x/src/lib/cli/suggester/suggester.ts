@@ -1,11 +1,14 @@
-import { combineLatest, map, Observable, of, ReplaySubject } from "rxjs";
+import { combineLatest, map, Observable, ReplaySubject } from "rxjs";
 
 const SUGGESTIONS: string[] = [
+  "auto pages/",
   "auto pages/users",
-  "instruct -t pages/pages.module.ts --instructions 'Add route to `users`'",
   "auto pages/groups",
-  "instruct -t pages/pages.module.ts --instructions 'Add route to `groups`'",
+  "auto pages/community",
   "instruct -t pages/pages.module.ts",
+  "instruct -t pages/pages.module.ts --instructions 'Add `users` path to routes'",
+  "instruct -t pages/pages.module.ts --instructions 'Add `groups` path to routes'",
+  "instruct -t pages/pages.module.ts --instructions 'Add `community` path to routes'",
 ];
 
 const at = (arr: any[], n: number = -100) => {

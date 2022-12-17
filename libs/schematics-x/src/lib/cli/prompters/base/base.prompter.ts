@@ -51,7 +51,7 @@ export abstract class BasePrompter {
       // takeUntil(this.events.line),
       takeUntil(this.validateSuccess$)
     ).subscribe(({key}) => {
-      logger.debug('[KeyBinding] ', key.name);
+      logger.debug('key:', key.name);
       switch(key.name) {
         case 'tab': return this.onTabKeyPress();
         case 'up': return this.onUpKeyPress();
@@ -59,7 +59,6 @@ export abstract class BasePrompter {
         case 'left': break;
         case 'right': break;
         default: {
-          logger.debug('onKeyPress()');
           return this.onKeyPress();
         }
       }
@@ -74,10 +73,12 @@ export abstract class BasePrompter {
     this.proxy.screen.done();
   };
 
-  protected write(_prompt: string) {
+  protected write(_prompt: string, clearLine = false) {
     const prompt = _prompt.replaceAll('\t', '');
-    (this.proxy.rl as any).clearLine();
-    this.proxy.rl.write(prompt)
+    if (clearLine) {
+      (this.proxy.rl as any).clearLine();
+      this.proxy.rl.write(prompt);
+    }
     this.prompt$.next(prompt);
     logger.debug('prompt:', visibleSC(prompt), this.proxy.rl.cursor);
   }
