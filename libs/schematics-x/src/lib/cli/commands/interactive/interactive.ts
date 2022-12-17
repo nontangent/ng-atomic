@@ -21,7 +21,12 @@ export async function interactive() {
       const program = new Command();
 
       program.exitOverride((error) => { throw error });
-      registerSchematics(program, COLLECTION_JSON_PATH, COLLECTION);
+      registerSchematics(program, {path: COLLECTION_JSON_PATH, name: COLLECTION});
+      registerSchematics(program, {
+        name: '@schematics/angular',
+        path: 'node_modules/@schematics/angular/collection.json', 
+      }, true);
+
       program.on('command:*', () => program.help());
 
       await program.parseAsync([,, ...commands.split(' ').filter(command => command !== '')]);
