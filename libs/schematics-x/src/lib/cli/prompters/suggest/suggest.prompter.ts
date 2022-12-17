@@ -1,0 +1,74 @@
+import { catchError, combineLatest, distinctUntilChanged, map, of, startWith, switchMap, takeUntil } from 'rxjs';
+import { BasePrompter, Proxy, Status } from '../base';
+import { Suggester } from '../../suggester';
+import { logger } from '../../logger';
+import { visibleSC } from '../../utils';
+import { SuggestPresenter } from './suggest.presenter';
+import { State } from './suggest.store';
+
+
+export class SuggestPrompter extends BasePrompter {
+
+  constructor(
+    proxy: Proxy,
+    private suggester = new Suggester(),
+    private presenter = new SuggestPresenter(),
+  ) {
+    super(proxy);
+  }
+
+  protected suggest$ = this.prompt$.pipe(
+    switchMap((prompt) => this.suggester.suggest(prompt).pipe(
+      catchError(error => (logger.debug(error), of('')))
+    )),
+    startWith(''),
+  );
+
+  protected answer$ = combineLatest({
+    answer: this.validateSuccess$.pipe(map(state => state.value)),
+    suggest: this.suggest$,
+  }).pipe(map(({answer, suggest}) => `${answer}${suggest}`));
+
+  protected state: State;
+  protected state$ = combineLatest({
+    status: this.status$.pipe(startWith<Status>('pending')),
+    prompt: this.prompt$.pipe(startWith('')),
+    suggest: this.suggest$.pipe(startWith('')),
+    answer: this.answer$.pipe(startWith('')),
+    debugs: logger.debugs$.pipe(startWith([])),
+  });
+
+  protected presence$ = this.state$.pipe(
+    map(state => this.presenter.present({...state, cursor: this.cursor})),
+    distinctUntilChanged((cur, pre) => JSON.stringify(cur) === JSON.stringify(pre)),
+  );
+
+  sxOnInit() {
+    super.sxOnInit();
+    this.state$.pipe(takeUntil(this.destroy$)).subscribe(state => this.state = {...state, cursor: this.cursor});
+    this.presence$.pipe(takeUntil(this.destroy$)).subscribe((data) => this.render(data));
+  }
+
+  protected onTabKeyPress() {
+    this.autoComplete();
+  }
+
+  protected onUpKeyPress() {
+    this.suggester.prev();
+  }
+
+  protected onDownKeyPress() {
+    this.suggester.next();
+  }
+
+  protected onKeyPress() {
+    logger.debug('this.readline:', this.readline);
+    this.write(this.readline);
+  }
+
+  private autoComplete() {
+    const completed = this.state.prompt + this.state.suggest;
+    logger.debug('completed:', visibleSC(completed));
+    this.write(completed);
+  }
+}

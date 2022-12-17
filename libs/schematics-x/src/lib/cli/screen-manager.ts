@@ -1,7 +1,7 @@
 import { Interface } from 'readline';
 
 export class CursorShifter {
-  protected shift: number;
+  protected shift = 0;
 
   constructor(private rl: Interface) { }
 

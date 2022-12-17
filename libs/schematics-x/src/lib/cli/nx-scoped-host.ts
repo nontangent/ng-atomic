@@ -23,7 +23,7 @@ export class NxScopedHost extends _NxScopedHost {
 
 function compatAngularJson(angularJson: any): any {
   return {
-    ...angularJson,
+    ...omit(angularJson, ['generators']),
     projects: Object.entries(angularJson.projects).reduce((acc, [name, config]) => ({
       ...acc, [name]: compatProjectConfig(config),
     }), {}),

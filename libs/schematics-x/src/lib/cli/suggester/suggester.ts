@@ -2,9 +2,9 @@ import { combineLatest, map, Observable, of, ReplaySubject } from "rxjs";
 
 const SUGGESTIONS: string[] = [
   "auto pages/users",
-  "instruct -t pages/pages.module.ts --instructions 'Add route for `users`'",
+  "instruct -t pages/pages.module.ts --instructions 'Add route to `users`'",
   "auto pages/groups",
-  "instruct -t pages/pages.module.ts --instructions 'Add route for `groups`'",
+  "instruct -t pages/pages.module.ts --instructions 'Add route to `groups`'",
 ];
 
 const at = (arr: any[], n: number = -100) => {
@@ -37,9 +37,7 @@ export class Suggester {
       index: this.index$,
       suggest: this._suggest(prompt),
     }).pipe(
-      map(({ index, suggest }) => {
-        return at(suggest, index).slice(prompt.length);
-      }),
+      map(({ index, suggest }) => at(suggest, index).slice(prompt.length)),
     );
   }
 
