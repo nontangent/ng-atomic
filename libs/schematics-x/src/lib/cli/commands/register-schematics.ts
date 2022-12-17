@@ -1,10 +1,10 @@
 import { getProjectByCwd } from '@angular/cli/src/utilities/config';
 import { Command } from 'commander';
 import { resolve } from 'path';
-import { getWorkspace } from './get-workspace';
-import { CLI_OPTIONS_KEY } from './parse-cli-options';
-import { runSchematic } from './run-schematic';
-import collectionJson from '../../../collection.json';
+import { getWorkspace } from '../get-workspace';
+import { CLI_OPTIONS_KEY } from '../parse-cli-options';
+import { runSchematic } from '../run-schematic';
+import collectionJson from '../../../../collection.json';
 
 export const parseBooleanOptions = (_options: object, booleanOptions: string[] = []) => {
   const parseBoolean = (value) => value === 'true' ? true : value === 'false' ? false : value;
@@ -57,9 +57,7 @@ export function registerSchematics(
 
         process.env['SX_VERBOSE_LOGGING'] && console.debug('cliOptions:', {...options});
         workspace && process.chdir(workspace.basePath);
-        return runSchematic(`${collectionName}:${name}`)(args, {...options}, (workspace as any)?.host)
-          .then(() => {});
-        // throw new Error();
+        await runSchematic(`${collectionName}:${name}`)(args, {...options}, (workspace as any)?.host);
       });
   }
 }

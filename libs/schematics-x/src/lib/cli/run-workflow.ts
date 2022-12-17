@@ -7,7 +7,7 @@
  */
 
 // symbol polyfill must go first
-import 'symbol-observable';
+// import 'symbol-observable';
 import { ProcessOutput, createConsoleLogger } from '@angular-devkit/core/node';
 import { virtualFs } from '@angular-devkit/core';
 import { UnsuccessfulWorkflowExecution } from '@angular-devkit/schematics';

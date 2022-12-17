@@ -5,6 +5,7 @@ const SUGGESTIONS: string[] = [
   "instruct -t pages/pages.module.ts --instructions 'Add route to `users`'",
   "auto pages/groups",
   "instruct -t pages/pages.module.ts --instructions 'Add route to `groups`'",
+  "instruct -t pages/pages.module.ts",
 ];
 
 const at = (arr: any[], n: number = -100) => {
@@ -13,6 +14,11 @@ const at = (arr: any[], n: number = -100) => {
   while (n >= arr.length) n -= arr.length;
   return arr?.[n];
 } 
+
+const trimN = (str: string) => {
+  return str.replaceAll('\n', '');
+}
+
 
 export class Suggester {
   private index: number;
@@ -29,7 +35,7 @@ export class Suggester {
 
   async _suggest(prompt: string): Promise<string[]> {
     const suggestions = await this.getSuggestions(prompt);
-    return suggestions.filter(s => s.startsWith(prompt.trim())) ?? [];
+    return suggestions.filter(s => s.startsWith(trimN(prompt))) ?? [];
   }
 
   suggest(prompt: string): Observable<string> {

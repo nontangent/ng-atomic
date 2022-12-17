@@ -3,7 +3,5 @@ export * from './get-workspace';
 export * from './is-tty';
 export * from './nx-scoped-host';
 export * from './parse-cli-options';
-export * from './register-schematics';
 export * from './run-schematic';
 export * from './run-workflow';
-export * from './interactive';

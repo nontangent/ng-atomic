@@ -1,4 +1,4 @@
-import { catchError, combineLatest, distinctUntilChanged, map, of, startWith, switchMap, takeUntil } from 'rxjs';
+import { catchError, combineLatest, distinctUntilChanged, filter, map, of, startWith, switchMap, take, takeUntil } from 'rxjs';
 import { BasePrompter, Proxy, Status } from '../base';
 import { Suggester } from '../../suggester';
 import { logger } from '../../logger';
@@ -34,7 +34,7 @@ export class SuggestPrompter extends BasePrompter {
     status: this.status$.pipe(startWith<Status>('pending')),
     prompt: this.prompt$.pipe(startWith('')),
     suggest: this.suggest$.pipe(startWith('')),
-    answer: this.answer$.pipe(startWith('')),
+    answer: this.answer$.pipe(startWith(null)),
     debugs: logger.debugs$.pipe(startWith([])),
   });
 
@@ -47,6 +47,15 @@ export class SuggestPrompter extends BasePrompter {
     super.sxOnInit();
     this.state$.pipe(takeUntil(this.destroy$)).subscribe(state => this.state = {...state, cursor: this.cursor});
     this.presence$.pipe(takeUntil(this.destroy$)).subscribe((data) => this.render(data));
+    this.state$.pipe(
+      filter(state => state.status === 'answered' && state.answer !== null),
+      take(1),
+    ).subscribe((state) => this.sxOnDestroy(state));
+  }
+
+  sxOnDestroy(state: any): void {
+    this.render(this.presenter.present({...state, cursor: this.cursor}));
+    super.sxOnDestroy(state);
   }
 
   protected onTabKeyPress() {

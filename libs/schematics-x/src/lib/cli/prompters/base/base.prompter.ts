@@ -33,7 +33,7 @@ export abstract class BasePrompter {
 
   protected prompt$ = new ReplaySubject<string>(1);
   protected answer$ = this.validateSuccess$.pipe(map(state => state.value));
-  protected status$ = this.validateSuccess$.pipe(map(() => 'answered' as Status));
+  protected status$: Observable<Status> = this.validateSuccess$.pipe(map(() => 'answered'));
   protected destroy$ = this.status$.pipe(filter(status => status !== 'pending'), take(1));
 
   get readline(): string {
@@ -51,7 +51,7 @@ export abstract class BasePrompter {
       // takeUntil(this.events.line),
       takeUntil(this.validateSuccess$)
     ).subscribe(({key}) => {
-      logger.debug('key detected! =>', key.name);
+      logger.debug('[KeyBinding] ', key.name);
       switch(key.name) {
         case 'tab': return this.onTabKeyPress();
         case 'up': return this.onUpKeyPress();
@@ -70,8 +70,7 @@ export abstract class BasePrompter {
     // });
   };
 
-  sxOnDestroy(): void {
-    this.destroy$.subscribe(() => this.sxOnDestroy());
+  sxOnDestroy(state: any): void {
     this.proxy.screen.done();
   };
 
