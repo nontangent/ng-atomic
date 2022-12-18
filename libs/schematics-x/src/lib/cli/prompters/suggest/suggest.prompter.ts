@@ -1,8 +1,8 @@
 import { catchError, combineLatest, distinctUntilChanged, filter, map, of, startWith, switchMap, take, takeUntil } from 'rxjs';
 import { BasePrompter, Proxy, Status } from '../base';
-import { Suggester } from '../../suggester';
 import { logger } from '../../logger';
 import { visibleSC } from '../../utils';
+import { SuggestService } from '../../services/suggest';
 import { SuggestPresenter } from './suggest.presenter';
 import { State } from './suggest.store';
 
@@ -11,14 +11,14 @@ export class SuggestPrompter extends BasePrompter {
 
   constructor(
     proxy: Proxy,
-    private suggester = new Suggester(),
+    private suggest = new SuggestService(),
     private presenter = new SuggestPresenter(),
   ) {
     super(proxy);
   }
 
   protected suggest$ = this.prompt$.pipe(
-    switchMap((prompt) => this.suggester.suggest(prompt).pipe(
+    switchMap((prompt) => this.suggest.suggest(prompt).pipe(
       catchError(error => (logger.debug(error), of('')))
     )),
     startWith(''),
@@ -63,11 +63,11 @@ export class SuggestPrompter extends BasePrompter {
   }
 
   protected onUpKeyPress() {
-    this.suggester.prev();
+    this.suggest.prev();
   }
 
   protected onDownKeyPress() {
-    this.suggester.next();
+    this.suggest.next();
   }
 
   protected onKeyPress() {

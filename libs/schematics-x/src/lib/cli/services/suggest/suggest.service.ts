@@ -1,15 +1,5 @@
 import { combineLatest, map, Observable, ReplaySubject } from "rxjs";
-
-const SUGGESTIONS: string[] = [
-  "auto pages/",
-  "auto pages/users",
-  "auto pages/groups",
-  "auto pages/community",
-  "instruct -t pages/pages.module.ts",
-  "instruct -t pages/pages.module.ts --instructions 'Add `users` path to routes'",
-  "instruct -t pages/pages.module.ts --instructions 'Add `groups` path to routes'",
-  "instruct -t pages/pages.module.ts --instructions 'Add `community` path to routes'",
-];
+import { HistoryService } from "../history";
 
 const at = (arr: any[], n: number = -100) => {
   if (!arr.length) return '';
@@ -23,17 +13,19 @@ const trimN = (str: string) => {
 }
 
 
-export class Suggester {
+export class SuggestService {
   private index: number;
   index$ = new ReplaySubject<number>();
 
-  constructor() {
+  constructor(
+    protected history = new HistoryService(),
+  ) {
     this.index$.next(0);
     this.index$.subscribe(index => this.index = index);
   }
 
   protected async getSuggestions(prompt: string): Promise<string[]> {
-    return SUGGESTIONS;
+    return this.history.list();
   }
 
   async _suggest(prompt: string): Promise<string[]> {

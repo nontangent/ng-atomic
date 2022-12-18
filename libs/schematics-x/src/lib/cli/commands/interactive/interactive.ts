@@ -4,9 +4,12 @@ import { registerSchematics } from '../register-schematics';
 import { resolve } from 'path';
 import { SuggestPrompter } from '../../prompters';
 import { AdaptInquirer } from '../../adapters/inquierer';
+import { HistoryService } from '../../services/history';
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../../../collection.json');
 const COLLECTION = process.env['SX_DEVELOPMENT'] ? COLLECTION_JSON_PATH : 'schematics-x';
+
+const history = new HistoryService();
 
 export async function interactive() {
   registerPrompt('suggest', AdaptInquirer((proxy) => new SuggestPrompter(proxy)));
@@ -29,6 +32,7 @@ export async function interactive() {
 
       program.on('command:*', () => program.help());
 
+      await history.add(commands);
       await program.parseAsync([,, ...commands.split(' ').filter(command => command !== '')]);
     } catch (error) {
       if (error.code === 'commander.help') {
