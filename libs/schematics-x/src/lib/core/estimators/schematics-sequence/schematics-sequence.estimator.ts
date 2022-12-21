@@ -14,7 +14,8 @@ export class SchematicsSequenceEstimator {
 
   async estimate(schematicSeq: Schematic[]): Promise<Schematic[]> {
     const inputs = [this.instructor.buildInputJson(schematicSeq)];
-    const outputs = await this.instructor.instruct(inputs, this.buildInstructions(), ['output.json']);
+    const expected = [this.instructor.buildOutputEntry(``, 'output.json')];
+    const outputs = await this.instructor.instruct(inputs, this.buildInstructions(), expected);
     const file = outputs.find((output) => output.path === 'output.json');
     const content = file.content.toString();
     return JSON.parse(content).slice(schematicSeq.length);

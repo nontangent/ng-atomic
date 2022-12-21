@@ -36,7 +36,8 @@ export class OutputFileEntryEstimator {
     }
 
     const instructor = new Instructor();
-    const output = await instructor.instruct(inputFileEntries, instructions, [outputFilePath], undefined);
+    const expected = [instructor.buildOutputEntry('', outputFilePath)];
+    const output = await instructor.instruct(inputFileEntries, instructions, expected, undefined);
     return output.find(fileEntry => fileEntry.path === outputFilePath);
   }
 

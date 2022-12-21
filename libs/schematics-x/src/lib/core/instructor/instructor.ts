@@ -8,7 +8,7 @@ export class Instructor {
   async instruct(
     inputs: FileEntry[],
     instructions: string,
-    outputPaths: string[],
+    outputs: FileEntry[],
     context: string = '',
     options?: WriteOptions
   ): Promise<FileEntry[]> {
@@ -26,16 +26,17 @@ export class Instructor {
 
     prompter.write(`Inputs: [${inputs.map(input => `"${input.path}"`).join(', ')}]\n`);
     prompter.write(`Instructions: ${instructions}\n`);
-    prompter.write(`Outputs: [${outputPaths.map(path => `"${path}"`).join(', ')}]\n\n`);
+    prompter.write(`Outputs: [${outputs.map(output => `"${output.path}"`).join(', ')}]\n\n`);
 
-    for (let i = 0; i < outputPaths.length; i++) {
-      prompter.write(`Output_${i}: \`\`\`${outputPaths?.[i] ?? ''}`);
+    for (let i = 0; i < outputs.length; i++) {
+      prompter.write(`Output_${i}: \`\`\`${outputs[i].path}`);
+      prompter.write(`${outputs[i].content.toString()}`);
       await prompter.autoWriteUntilEnd(options);
     }
 
     process.env['SX_VERBOSE_LOGGING'] && console.debug(prompter.prompt);
 
-    return prompter.getFileEntries().slice(-outputPaths.length);
+    return prompter.getFileEntries().slice(-outputs.length);
   }
 
   buildInputJson(obj: object, path = 'input.json'): FileEntry {
@@ -43,5 +44,9 @@ export class Instructor {
       path: path as any,
       content: Buffer.from(JSON.stringify(obj, null, 2)),
     }
+  }
+
+  buildOutputEntry(content: string, path = 'output.json'): FileEntry {
+    return { path: path as any, content: Buffer.from(content) };
   }
 }

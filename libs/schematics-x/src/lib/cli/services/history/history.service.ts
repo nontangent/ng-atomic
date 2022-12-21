@@ -4,7 +4,7 @@ import fs from 'fs';
 import { appendFile, readFile } from 'fs/promises';
 import { homedir } from 'os'
 import { dirname } from 'path';
-import { from, Observable } from 'rxjs';
+import { from, Observable, ReplaySubject, switchMap } from 'rxjs';
 
 
 export interface SchematicExecution {
@@ -24,10 +24,13 @@ export const HISTORY_PATH = new InjectionToken('Sx History Path');
 
 @Injectable()
 export class HistoryService {
+  private readonly refresh$ = new ReplaySubject<void>(1);
+
   constructor(
     @Optional() @Inject(HISTORY_PATH) protected historyPath?,
   ) {
     this.historyPath ??= `${homedir()}/.sx/history`;
+    this.refresh$.next();
   }
 
   async add(argv: string[]): Promise<void> {
@@ -40,6 +43,7 @@ export class HistoryService {
     }
 
     await appendFile(this.historyPath, `\n${command}`, { encoding: 'utf-8' })
+    this.refresh();
   }
 
   async list(): Promise<string[]> {
@@ -48,7 +52,13 @@ export class HistoryService {
   }
 
   changes(): Observable<string[]> {
-    return from(this.list());
+    return this.refresh$.pipe(
+      switchMap(() => this.list()),
+    );
+  }
+
+  refresh() {
+    this.refresh$.next();
   }
 }
 

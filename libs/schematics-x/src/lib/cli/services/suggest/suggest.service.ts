@@ -1,5 +1,5 @@
 import { Injectable } from "@nx-ddd/core";
-import { combineLatest, distinctUntilChanged, map, ReplaySubject, sampleTime, shareReplay, startWith, switchMap } from "rxjs";
+import { catchError, combineLatest, distinctUntilChanged, filter, from, map, of, ReplaySubject, sampleTime, shareReplay, startWith, switchMap } from "rxjs";
 import { HistoryService } from "../history";
 import { Logger } from "../../logger";
 import { CommandEstimator } from "../../../core/estimators/command";
@@ -31,6 +31,8 @@ export class HistoryEstimator {
 @Injectable()
 export class SuggestService {
   private index: number;
+  private suggest: string = '';
+
   prompt$ = new ReplaySubject<string>();
   protected index$ = new ReplaySubject<number>();
   protected history$ = this.history.changes();
@@ -38,15 +40,20 @@ export class SuggestService {
     history: this.history$,
     prompt: this.prompt$.pipe(startWith('')),
   }).pipe(
-    sampleTime(3000),
+    sampleTime(2000),
     distinctUntilChanged((cur, pre) => JSON.stringify(cur) === JSON.stringify(pre)),
-    switchMap(({history, prompt}) => this.historyEstimator.estimate(history.slice(-20), prompt)),
+    filter(({prompt}) => !this.suggest.startsWith(prompt) || prompt === ''),
+    switchMap(({history, prompt}) => {
+      return from(this.historyEstimator.estimate(history.slice(-20), prompt)).pipe(
+        catchError(error => (this.logger.debug(error), of([]))),
+      );
+    }),
   );
 
   protected suggests$ = combineLatest({
     prompt: this.prompt$,
     history: this.history$,
-    estimated: this.estimated$,
+    estimated: this.estimated$.pipe(startWith<string[]>([])),
   }).pipe(
     map(({ prompt, history, estimated }) => ({
       history: history.filter(s => s.startsWith(trimN(prompt))) ?? [],
@@ -55,22 +62,29 @@ export class SuggestService {
     shareReplay(1),
   );
 
-  suggest$ = combineLatest({
+  _suggest$ = combineLatest({
     index: this.index$,
-    suggests: this.suggests$,
-    prompt: this.prompt$,
+    _suggests: this.suggests$,
   }).pipe(
-    map(({ index, suggests: {history, estimated}, prompt }) => {
-      return at([...history, ...estimated], index).slice(prompt.length);
-    }),
+    map(({ index, _suggests: {history, estimated} }) => at([...history, ...estimated], index)),
+  );
+
+  suggest$ = combineLatest({
+    prompt: this.prompt$,
+    suggest: this._suggest$,
+  }).pipe(
+    map(({ suggest, prompt }) => suggest.slice(prompt.length)),
   );
 
   constructor(
     protected history: HistoryService,
     protected historyEstimator: HistoryEstimator,
+    protected logger: Logger,
   ) {
+    this.prompt$.next('');
     this.index$.next(0);
     this.index$.subscribe(index => this.index = index);
+    this._suggest$.subscribe(suggest => this.suggest = suggest);
     this.suggests$.subscribe(({history}) => this.index$.next(history.length));
   }
 

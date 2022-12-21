@@ -4,6 +4,7 @@ import { resolve } from "path";
 import { registerSchematics } from "./register-schematics";
 import { BaseCommand } from "./commands/base";
 import { HistoryService } from "./services/history";
+import { Logger } from "./logger";
 
 const COLLECTION_JSON_PATH = resolve(__dirname, '../../../collection.json');
 const COLLECTION = process.env['SX_DEVELOPMENT'] ? COLLECTION_JSON_PATH : 'schematics-x';
@@ -15,6 +16,7 @@ export class SchematicsXCli {
   constructor(
     @Optional() @Inject(CLI_PROGRAM) protected program: Command,
     protected history: HistoryService,
+    protected logger: Logger,
   ) {
     this.program ??= new Command();
   }
@@ -32,6 +34,7 @@ export class SchematicsXCli {
   }
 
   async parse(argv?: string[]) {
+    this.logger.debug('argv:', argv);
     argv && await this.history.add(argv);
     return this.program.parseAsync(argv);
   }

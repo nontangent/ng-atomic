@@ -7,8 +7,11 @@ export class CommandEstimator {
 
   async estimate(history: string[], prompt: string): Promise<string[]> {
     const inputs = [this.instructor.buildInputJson(history)];
-    const outputs = await this.instructor.instruct(inputs, BUILD_INSTRUCTIONS(prompt), ['output.json'], undefined, {
-      model: 'code-davinci-002',
+    const expected = [
+      this.instructor.buildOutputEntry(`[\n\t"${prompt}`, 'output.json'),
+    ];
+    const outputs = await this.instructor.instruct(inputs, BUILD_INSTRUCTIONS(prompt), expected, undefined, {
+      model: 'code-cushman-001',
     });
     const file = outputs.find((output) => output.path === 'output.json');
     const content = file.content.toString();
@@ -17,5 +20,5 @@ export class CommandEstimator {
 }
 
 const BUILD_INSTRUCTIONS = (prompt) => {
-  return `Estimate 5 commands starting with \`${prompt}\` and output them as a json array.`;
+  return `Estimate 5 commands starting with "${prompt}" and output them as a json array.`;
 }

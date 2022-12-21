@@ -1,13 +1,13 @@
 import { prompt, registerPrompt } from 'inquirer';
 import { Command } from 'commander';
-import { SuggestPresenter, SuggestPrompter, SuggestPrompterFactory } from '../../prompters';
+import { SuggestPrompterFactory } from '../../prompters';
 import { AdaptInquirer } from '../../adapters/inquierer';
 import { HistoryService } from '../../services/history';
 import { SchematicsXCli } from '../../cli';
 import { BaseCommand } from '../base';
 import { Injectable, Injector, resolveAndCreate } from '@nx-ddd/core';
 import { Provider } from '@nx-ddd/core/di/interface/provider';
-import { SuggestService } from '../../services/suggest';
+import { Logger } from '../../logger';
 
 export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
   return resolveAndCreate(providers, parentInjector);
@@ -18,7 +18,8 @@ export function createInjector(providers: Provider[] = [], parentInjector?: Inje
 export class InteractiveCommand extends BaseCommand {
   constructor(
     protected history: HistoryService,
-    protected suggestPrompterFactory: SuggestPrompterFactory
+    protected suggestPrompterFactory: SuggestPrompterFactory,
+    protected logger: Logger,
   ) {
     super();
   }
@@ -51,9 +52,28 @@ export class InteractiveCommand extends BaseCommand {
     const program = new Command()
       .exitOverride((error) => { throw error })
       .on('command:*', () => program.help());
-    const cli = new SchematicsXCli(program, this.history);
+    const cli = new SchematicsXCli(program, this.history, this.logger);
     cli.registerSchematicsCommand();
 
-    await cli.parse([,, ...commands.split(' ').filter(command => command !== '')]);
+    await cli.parse([,, ...parseString(commands)]);
   }
+}
+
+function parseString(str: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let isQuoted = false;
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (char === ' ' && !isQuoted) {
+      result.push(current);
+      current = '';
+    } else if (char === "'") {
+      isQuoted = !isQuoted;
+    } else {
+      current += char;
+    }
+  }
+  result.push(current);
+  return result;
 }
