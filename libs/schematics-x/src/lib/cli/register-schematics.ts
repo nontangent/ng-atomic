@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { readFileSync } from 'fs';
-import { Collection } from '../interfaces';
+import { Collection } from './interfaces';
 import { registerSchematic } from './register-schematic';
 
 export function registerSchematics(program: Command, collection: Collection, external = false) {

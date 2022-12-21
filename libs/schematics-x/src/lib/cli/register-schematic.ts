@@ -1,11 +1,11 @@
 import { getProjectByCwd } from '@angular/cli/src/utilities/config';
 import { Command } from 'commander';
 import { resolve } from 'path';
-import { getWorkspace } from '../utils/get-workspace';
-import { Collection } from '../interfaces';
-import { CLI_OPTIONS_KEY } from '../workflow-runner/options';
-import { injectSchematicRunner } from '../schematic-runner';
-import { DEBUG, STD_ERR, STD_OUT } from '../workflow-runner/handlers';
+import { getWorkspace } from './utils/get-workspace';
+import { Collection } from './interfaces';
+import { CLI_OPTIONS_KEY } from './workflow-runner/options';
+import { injectSchematicRunner } from './schematic-runner';
+import { DEBUG, STD_ERR, STD_OUT } from './workflow-runner/handlers';
 
 export const parseBooleanOptions = (_options: object, booleanOptions: string[] = []) => {
   const parseBoolean = (value) => value === 'true' ? true : value === 'false' ? false : value;
@@ -70,7 +70,7 @@ export function registerSchematic(
       workspace && process.chdir(workspace.basePath);
 
       const runner = injectSchematicRunner([
-        { provide: DEBUG, useValue: true },
+        { provide: DEBUG, useValue: !!options.debug },
         { provide: STD_OUT, useValue: process.stdout },
         { provide: STD_ERR, useValue: process.stderr },
       ]);

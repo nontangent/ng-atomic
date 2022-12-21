@@ -19,12 +19,6 @@ export interface SchematicExecution {
   }
 }
 
-// export class SchematicExecutionRepository {
-//   create(execution: SchematicExecution): Promise<SchematicExecution> {
-    
-//   }
-// }
-
 export const HISTORY_PATH = new InjectionToken('Sx History Path');
 
 @Injectable()
@@ -35,7 +29,10 @@ export class HistoryService {
     this.historyPath ??= `${homedir()}/.sx/history`;
   }
 
-  async add(command: string): Promise<void> {
+  async add(argv: string[]): Promise<void> {
+    if (argv.length < 3) return;
+    const command = argv.slice(2).join(' ');
+
     if(!fs.existsSync(this.historyPath)) {
       fs.mkdirSync(dirname(this.historyPath), {recursive: true});
       // fs.writeFileSync(this.historyPath, '', { encoding: 'utf-8' });

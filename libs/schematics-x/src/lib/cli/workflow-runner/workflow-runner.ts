@@ -11,7 +11,6 @@ import { WorkflowExecuter } from './executer';
 import { _createPromptProvider } from '../utils/create-prompt-provider';
 import { isTTY } from '../utils/is-tty';
 import { LoggingQueueService } from '../services/logging-queue';
-import {  } from './handlers/life-cycle-event';
 import { WorkflowRunnerStore } from './workflow-runner.store';
 import { LoggingService } from '../services/logging';
 
