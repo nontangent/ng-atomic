@@ -1,10 +1,11 @@
 import { getProjectByCwd } from '@angular/cli/src/utilities/config';
 import { Command } from 'commander';
 import { resolve } from 'path';
-import { getWorkspace } from '../get-workspace';
+import { getWorkspace } from '../utils/get-workspace';
 import { Collection } from '../interfaces';
-import { CLI_OPTIONS_KEY } from '../parse-cli-options';
-import { runSchematic } from '../run-schematic';
+import { CLI_OPTIONS_KEY } from '../workflow-runner/options';
+import { injectSchematicRunner } from '../schematic-runner';
+import { DEBUG, STD_ERR, STD_OUT } from '../workflow-runner/handlers';
 
 export const parseBooleanOptions = (_options: object, booleanOptions: string[] = []) => {
   const parseBoolean = (value) => value === 'true' ? true : value === 'false' ? false : value;
@@ -67,6 +68,17 @@ export function registerSchematic(
 
       process.env['SX_VERBOSE_LOGGING'] && console.debug('cliOptions:', {...options});
       workspace && process.chdir(workspace.basePath);
-      await runSchematic(`${collection.name}:${name}`)(args, {...options}, (workspace as any)?.host);
+
+      const runner = injectSchematicRunner([
+        { provide: DEBUG, useValue: true },
+        { provide: STD_OUT, useValue: process.stdout },
+        { provide: STD_ERR, useValue: process.stderr },
+      ]);
+      await runner.run({
+        schematic: `${collection.name}:${name}`,
+        schematicArgs: args,
+        options,
+        fsHost: (workspace as any)?.host
+      });
     });
 }

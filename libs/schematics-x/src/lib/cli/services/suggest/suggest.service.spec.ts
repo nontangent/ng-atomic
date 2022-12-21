@@ -1,8 +1,8 @@
-import { Suggester } from './suggester';
+import { SuggestService } from './suggest.service';
 
 describe('Suggester', () => {
   it('should suggest', async () => {
-    const suggester = new Suggester();
+    const suggester = new SuggestService();
     const suggestions = await suggester.suggest('a');
     expect(suggestions).toEqual('auto pages/users');
     // const output = [

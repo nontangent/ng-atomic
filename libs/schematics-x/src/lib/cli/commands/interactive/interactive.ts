@@ -25,10 +25,10 @@ export async function interactive() {
 
       program.exitOverride((error) => { throw error });
       registerSchematics(program, {path: COLLECTION_JSON_PATH, name: COLLECTION});
-      registerSchematics(program, {
-        name: '@schematics/angular',
-        path: 'node_modules/@schematics/angular/collection.json', 
-      }, true);
+      // registerSchematics(program, {
+      //   name: '@schematics/angular',
+      //   path: 'node_modules/@schematics/angular/collection.json', 
+      // }, true);
 
       program.on('command:*', () => program.help());
 

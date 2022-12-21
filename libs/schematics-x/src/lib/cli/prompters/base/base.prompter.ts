@@ -1,7 +1,7 @@
 import observe from 'inquirer/lib/utils/events';
 import { filter, map, Observable, ReplaySubject, shareReplay, take, takeUntil } from 'rxjs';
 import { logger } from '../../logger';
-import { CursorShifter } from '../../screen-manager';
+import { CursorShifter } from './cursor-shifter';
 import ScreenManager from 'inquirer/lib/utils/screen-manager';
 import { Interface } from 'readline';
 import { visibleSC } from '../../utils';

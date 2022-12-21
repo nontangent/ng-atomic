@@ -2,7 +2,7 @@ import Base from 'inquirer/lib/prompts/base';
 import ScreenManager from 'inquirer/lib/utils/screen-manager';
 import { Interface } from 'readline';
 import { BasePrompter, Proxy } from '../prompters';
-import { CursorShifter } from '../screen-manager';
+import { CursorShifter } from '../prompters';
 
 
 export function AdaptInquirer(prompterFactory: (proxy: Proxy) => BasePrompter): { new(...args: any[]) } {

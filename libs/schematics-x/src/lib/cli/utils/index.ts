@@ -6,3 +6,5 @@ export const visibleSC = (str: string) => {
     .replaceAll('\n', '\\n')
     .replaceAll('\r', '\\r');
 };
+
+export * from './parser';
