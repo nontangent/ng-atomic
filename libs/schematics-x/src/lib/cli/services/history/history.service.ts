@@ -4,6 +4,7 @@ import fs from 'fs';
 import { appendFile, readFile } from 'fs/promises';
 import { homedir } from 'os'
 import { dirname } from 'path';
+import { from, Observable } from 'rxjs';
 
 
 export interface SchematicExecution {
@@ -44,6 +45,10 @@ export class HistoryService {
   async list(): Promise<string[]> {
     return readFile(this.historyPath, { encoding: 'utf-8' })
       .then((content) => content.split('\n').filter((line) => line !== ''));
+  }
+
+  changes(): Observable<string[]> {
+    return from(this.list());
   }
 }
 

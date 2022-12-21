@@ -1,3 +1,4 @@
+import { Injectable } from '@nx-ddd/core';
 import chalk from 'chalk';
 import { State } from "./suggest.store";
 
@@ -12,6 +13,7 @@ const BUILD_DEBUG_MESSAGES = (debugs: string[]) => {
   return pad(debugs, 5).slice(-5).map(debug => `${chalk.white.bgGray('[DEBUG]')} ${debug.slice(0, 100)}`).join('\n');;
 }
 
+@Injectable()
 export class SuggestPresenter {
   present({prompt, suggest, debugs, status, answer, cursor}: State) {
     const message = `${this.HEAD} ${status === 'answered' ? chalk.cyan(answer) : prompt + chalk.dim(suggest)}`;

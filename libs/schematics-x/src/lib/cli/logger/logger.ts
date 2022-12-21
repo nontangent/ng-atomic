@@ -1,6 +1,8 @@
+import { Injectable } from "@nx-ddd/core";
 import { map, ReplaySubject, scan } from "rxjs";
 
-class Logger {
+@Injectable()
+export class Logger {
   private readonly _debug$ = new ReplaySubject<string>(1);
   debugs$ = this._debug$.asObservable().pipe(
     scan((acc, cur) => [...acc, cur], []),

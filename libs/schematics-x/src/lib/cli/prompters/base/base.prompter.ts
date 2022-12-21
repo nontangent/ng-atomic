@@ -44,7 +44,7 @@ export abstract class BasePrompter {
     return this.proxy.cs.getCursorPos();
   }
 
-  constructor(private proxy: Proxy) { }
+  constructor(protected proxy: Proxy) { }
 
   sxOnInit(): void {
     this.keypress$.pipe(

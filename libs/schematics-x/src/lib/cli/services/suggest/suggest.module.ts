@@ -1,11 +1,13 @@
 import { NxModule } from "@nx-ddd/core";
+import { LoggerModule } from "../../logger";
 import { HistoryModule } from "../history";
-import { SuggestService } from "./suggest.service";
+import { SuggestService, HistoryEstimator } from "./suggest.service";
 
 @NxModule({
   imports: [
     HistoryModule,
+    LoggerModule,
   ],
-  providers: [SuggestService],
+  providers: [SuggestService, HistoryEstimator],
 })
 export class SuggestModule { }

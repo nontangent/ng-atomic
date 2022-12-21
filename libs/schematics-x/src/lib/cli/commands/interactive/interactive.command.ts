@@ -1,17 +1,27 @@
 import { prompt, registerPrompt } from 'inquirer';
 import { Command } from 'commander';
-import { SuggestPrompter } from '../../prompters';
+import { SuggestPresenter, SuggestPrompter, SuggestPrompterFactory } from '../../prompters';
 import { AdaptInquirer } from '../../adapters/inquierer';
 import { HistoryService } from '../../services/history';
 import { SchematicsXCli } from '../../cli';
 import { BaseCommand } from '../base';
-import { Injectable } from '@nx-ddd/core';
+import { Injectable, Injector, resolveAndCreate } from '@nx-ddd/core';
+import { Provider } from '@nx-ddd/core/di/interface/provider';
+import { SuggestService } from '../../services/suggest';
+
+export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
+  return resolveAndCreate(providers, parentInjector);
+}
+
 
 @Injectable()
 export class InteractiveCommand extends BaseCommand {
   constructor(
     protected history: HistoryService,
-  ) { super(); }
+    protected suggestPrompterFactory: SuggestPrompterFactory
+  ) {
+    super();
+  }
 
   register(program: Command): void {
     program
@@ -21,7 +31,9 @@ export class InteractiveCommand extends BaseCommand {
   }
 
   async action() {
-    registerPrompt('suggest', AdaptInquirer((proxy) => new SuggestPrompter(proxy)));
+    registerPrompt('suggest', AdaptInquirer((proxy) => {
+      return this.suggestPrompterFactory.create(proxy);
+    }));
   
     while(true) {
       await prompt({type: 'suggest' as any, name: 'commands'})

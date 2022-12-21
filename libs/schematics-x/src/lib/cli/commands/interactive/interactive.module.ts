@@ -1,4 +1,5 @@
 import { NxModule } from "@nx-ddd/core";
+import { SuggestModule } from "../../prompters";
 import { SchematicRunnerModule } from "../../schematic-runner";
 import { HistoryModule } from "../../services/history";
 import { InteractiveCommand } from "./interactive.command";
@@ -7,6 +8,7 @@ import { InteractiveCommand } from "./interactive.command";
   imports: [
     SchematicRunnerModule,
     HistoryModule,
+    SuggestModule,
   ],
   providers: [InteractiveCommand],
 })
