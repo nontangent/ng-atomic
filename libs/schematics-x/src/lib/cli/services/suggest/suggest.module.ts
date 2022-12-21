@@ -1,4 +1,5 @@
 import { NxModule } from "@nx-ddd/core";
+import { CommandModule } from "../../../core/estimators/command";
 import { LoggerModule } from "../../logger";
 import { HistoryModule } from "../history";
 import { SuggestService, HistoryEstimator } from "./suggest.service";
@@ -7,6 +8,7 @@ import { SuggestService, HistoryEstimator } from "./suggest.service";
   imports: [
     HistoryModule,
     LoggerModule,
+    CommandModule,
   ],
   providers: [SuggestService, HistoryEstimator],
 })

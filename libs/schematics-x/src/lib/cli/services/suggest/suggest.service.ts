@@ -2,6 +2,7 @@ import { Injectable } from "@nx-ddd/core";
 import { combineLatest, distinctUntilChanged, map, ReplaySubject, sampleTime, shareReplay, startWith, switchMap } from "rxjs";
 import { HistoryService } from "../history";
 import { Logger } from "../../logger";
+import { CommandEstimator } from "../../../core/estimators/command";
 
 const at = (arr: any[], n: number = -100) => {
   if (!arr.length) return '';
@@ -18,11 +19,12 @@ const trimN = (str: string) => {
 export class HistoryEstimator {
   constructor(
     private logger: Logger,
+    private estimator: CommandEstimator,
   ) { }
 
   async estimate(history: string[], prompt = ''): Promise<string[]> {
     this.logger.debug('HistoryEstimator.estimate');
-    return ['this is a suggested'];
+    return this.estimator.estimate(history, prompt);
   }
 }
 
@@ -30,18 +32,18 @@ export class HistoryEstimator {
 export class SuggestService {
   private index: number;
   prompt$ = new ReplaySubject<string>();
-  index$ = new ReplaySubject<number>();
-  history$ = this.history.changes();
-  estimated$ = combineLatest({
+  protected index$ = new ReplaySubject<number>();
+  protected history$ = this.history.changes();
+  protected estimated$ = combineLatest({
     history: this.history$,
     prompt: this.prompt$.pipe(startWith('')),
   }).pipe(
     sampleTime(3000),
     distinctUntilChanged((cur, pre) => JSON.stringify(cur) === JSON.stringify(pre)),
-    switchMap(({history, prompt}) => this.historyEstimator.estimate(history.slice(-5), prompt)),
+    switchMap(({history, prompt}) => this.historyEstimator.estimate(history.slice(-20), prompt)),
   );
 
-  suggests$ = combineLatest({
+  protected suggests$ = combineLatest({
     prompt: this.prompt$,
     history: this.history$,
     estimated: this.estimated$,
