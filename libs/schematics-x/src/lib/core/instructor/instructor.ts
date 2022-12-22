@@ -29,12 +29,12 @@ export class Instructor {
     prompter.write(`Outputs: [${outputs.map(output => `"${output.path}"`).join(', ')}]\n\n`);
 
     for (let i = 0; i < outputs.length; i++) {
-      prompter.write(`Output_${i}: \`\`\`${outputs[i].path}`);
+      prompter.write(`Output_${i}: \`\`\`${outputs[i].path}\n`);
       prompter.write(`${outputs[i].content.toString()}`);
       await prompter.autoWriteUntilEnd(options);
     }
 
-    process.env['SX_VERBOSE_LOGGING'] && console.debug(prompter.prompt);
+    // process.env['SX_VERBOSE_LOGGING'] && console.debug(prompter.prompt);
 
     return prompter.getFileEntries().slice(-outputs.length);
   }

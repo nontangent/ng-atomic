@@ -1,9 +1,19 @@
+import { TestBed } from '@nx-ddd/core';
 import { SuggestService } from './suggest.service';
+import { SuggestModule } from './suggest.module';
 
 describe('Suggester', () => {
+  let service: SuggestService;
+
   it('should suggest', async () => {
-    const suggester = new SuggestService();
-    const suggestions = await suggester.suggest('a');
+    TestBed.configureTestingModule({
+      imports: [
+        SuggestModule
+      ],
+    });
+
+    const service = TestBed.inject(SuggestService);
+    const suggestions = await service.suggest('a');
     expect(suggestions).toEqual('auto pages/users');
     // const output = [
     //   "auto pages/users",

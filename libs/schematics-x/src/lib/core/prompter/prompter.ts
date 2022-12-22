@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 import { AxiosError } from 'axios';
 
 export interface WriteOptions {
-  model?: 'text-curie-001' | 'text-ada-001' | 'code-davinci-002' | 'code-cushman-001',
+  model?: 'text-curie-001' | 'text-babbage-001' | 'text-ada-001' | 'code-davinci-002' | 'code-cushman-001',
   temperature?: number,
   maxTokens?: number,
 }

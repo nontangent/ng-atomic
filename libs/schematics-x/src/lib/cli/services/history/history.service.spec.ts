@@ -17,7 +17,7 @@ describe('HistoryService', () => {
   });
 
   it('should add a command to the history', async () => {
-    await service.add('test');
+    await service.add(['test']);
     const history = await service.list();
     expect(history).toContain('test');
   });

@@ -1,4 +1,5 @@
 import { DUMMY_FILE_ENTRY } from '../../dummy';
+import { parseJsonFuzzy } from '../../helpers';
 import { Instructor } from '../../instructor';
 import { FilePathsReducer } from '../../reducers';
 
@@ -37,7 +38,7 @@ export class OutputFilePathsEstimator {
       maxTokens: 2048,
     });
     const fileEntry = fileEntries.find(fileEntry => fileEntry.path === 'output.json');
-    return JSON.parse(fileEntry.content.toString()).filter((path: string) => path !== DUMMY_FILE_ENTRY.path);
+    return parseJsonFuzzy(fileEntry.content.toString()).filter((path: string) => path !== DUMMY_FILE_ENTRY.path);
   }
 }
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@nx-ddd/core";
-import { catchError, combineLatest, distinctUntilChanged, filter, from, map, of, ReplaySubject, sampleTime, shareReplay, startWith, switchMap } from "rxjs";
+import { combineLatest, distinctUntilChanged, filter, map, ReplaySubject, sampleTime, shareReplay, startWith, switchMap } from "rxjs";
 import { HistoryService } from "../history";
 import { Logger } from "../../logger";
 import { CommandEstimator } from "../../../core/estimators/command";
@@ -44,8 +44,8 @@ export class SuggestService {
     distinctUntilChanged((cur, pre) => JSON.stringify(cur) === JSON.stringify(pre)),
     filter(({prompt}) => !this.suggest.startsWith(prompt) || prompt === ''),
     switchMap(({history, prompt}) => {
-      return from(this.historyEstimator.estimate(history.slice(-20), prompt)).pipe(
-        catchError(error => (this.logger.debug(error), of([]))),
+      return this.historyEstimator.estimate(history.slice(-20), prompt)
+        .catch((error) => (this.logger.debug('estimatedError:', error?.message), [])
       );
     }),
   );

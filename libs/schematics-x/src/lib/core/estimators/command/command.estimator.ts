@@ -1,4 +1,5 @@
 import { Injectable } from "@nx-ddd/core";
+import { parseJsonFuzzy } from "../../helpers";
 import { Instructor } from "../../instructor";
 
 @Injectable()
@@ -11,11 +12,10 @@ export class CommandEstimator {
       this.instructor.buildOutputEntry(`[\n\t"${prompt}`, 'output.json'),
     ];
     const outputs = await this.instructor.instruct(inputs, BUILD_INSTRUCTIONS(prompt), expected, undefined, {
-      model: 'code-cushman-001',
+      model: 'text-babbage-001',
     });
-    const file = outputs.find((output) => output.path === 'output.json');
-    const content = file.content.toString();
-    return JSON.parse(content);
+    const output = outputs.find((output) => output.path === 'output.json');
+    return parseJsonFuzzy(output.content.toString());
   }
 }
 
