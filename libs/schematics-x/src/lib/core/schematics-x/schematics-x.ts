@@ -2,6 +2,7 @@ import { FileEntry, Tree } from "@angular-devkit/schematics";
 import { OutputFileEntryEstimator, OutputFilePathsEstimator, RelatedFilePathsEstimator } from "../estimators";
 import { getFiles, promiseAllOrForLoop } from "../helpers/utils";
 import { join } from "path";
+import { Injectable } from '@nx-ddd/core';
 
 export interface ExecuteOptions {
   instructions: string;
@@ -13,6 +14,7 @@ export interface ExecuteOptions {
   parallel?: boolean;
 }
 
+@Injectable()
 export class Glob {
   async glob(param: string, tree: Tree): Promise<string[]> {
     // TODO(nontangent): Implements
@@ -20,6 +22,7 @@ export class Glob {
   }
 }
 
+@Injectable()
 export class ScopeResolver {
   filter(paths: string[], scope: string): string[] {
     // TODO(nontangent): Implements
@@ -27,13 +30,14 @@ export class ScopeResolver {
   }
 }
 
+@Injectable()
 export class SchematicsX {
   constructor(
-    private glob = new Glob(),
-    private scopePathFilterPipe = new ScopeResolver(),
-    private outputFilePathsEstimator = new OutputFilePathsEstimator(),
-    private outputFileEntryEstimator = new OutputFileEntryEstimator(),
-    private relatedFilePathsEstimator = new RelatedFilePathsEstimator(),
+    private readonly glob: Glob,
+    private readonly scopePathFilterPipe: ScopeResolver,
+    private readonly outputFilePathsEstimator: OutputFilePathsEstimator,
+    private readonly outputFileEntryEstimator: OutputFileEntryEstimator,
+    private readonly relatedFilePathsEstimator: RelatedFilePathsEstimator,
   ) { }
 
   async execute(tree: Tree, options: ExecuteOptions): Promise<FileEntry[]> {

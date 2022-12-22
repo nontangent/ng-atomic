@@ -37,4 +37,9 @@ export class LoadingService {
   removeKey(key: string): void {
     this.loadingEntries$.next([key, false]);
   }
+
+  start(callback: (done: any) => void, key: string) {
+    this.setKey(key);
+    callback(() => this.removeKey(key));
+  }
 }

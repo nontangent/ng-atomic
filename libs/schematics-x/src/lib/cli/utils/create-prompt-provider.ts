@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import 'symbol-observable';
+// import 'symbol-observable';
 import { schema } from '@angular-devkit/core';
 import { Question, QuestionCollection, prompt } from 'inquirer';
 

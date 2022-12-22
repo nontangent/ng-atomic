@@ -1,12 +1,25 @@
 import { FileEntry } from "@angular-devkit/schematics";
-import { OpenAiPrompter } from "../prompter";
+import { Injectable } from "@nx-ddd/core";
+import { PromiseQueue } from "../promise-queue";
+import { OpenAiPrompter, WriteOptions } from "../prompter";
 
 
+@Injectable()
 export class Instructor {
-  async instruct(inputs: FileEntry[], instructions: string, outputPaths: string[], context: string = ''): Promise<FileEntry[]> {
+  constructor(
+    protected promiseQueue: PromiseQueue,
+  ) { }
+
+  async instruct(
+    inputs: FileEntry[],
+    instructions: string,
+    outputs: FileEntry[],
+    context: string = '',
+    options?: WriteOptions
+  ): Promise<FileEntry[]> {
     if (!inputs.length) throw new Error('At least one input file is required!')
 
-    const prompter = new OpenAiPrompter();
+    const prompter = new OpenAiPrompter(this.promiseQueue);
     prompter.write(context.length ? '# EXAMPLES\n' + context : '');
     prompter.write(`# PRACTICE\n`);
 
@@ -18,16 +31,17 @@ export class Instructor {
 
     prompter.write(`Inputs: [${inputs.map(input => `"${input.path}"`).join(', ')}]\n`);
     prompter.write(`Instructions: ${instructions}\n`);
-    prompter.write(`Outputs: [${outputPaths.map(path => `"${path}"`).join(', ')}]\n\n`);
+    prompter.write(`Outputs: [${outputs.map(output => `"${output.path}"`).join(', ')}]\n\n`);
 
-    for (let i = 0; i < outputPaths.length; i++) {
-      prompter.write(`Output_${i}: \`\`\`${outputPaths?.[i] ?? ''}`);
-      await prompter.autoWriteUntilEnd();
+    for (let i = 0; i < outputs.length; i++) {
+      prompter.write(`Output_${i}: \`\`\`${outputs[i].path}\n`);
+      prompter.write(`${outputs[i].content.toString()}`);
+      await prompter.autoWriteUntilEnd(options);
     }
 
-    process.env['SX_VERBOSE_LOGGING'] && console.debug(prompter.prompt);
+    // process.env['SX_VERBOSE_LOGGING'] && console.debug(prompter.prompt);
 
-    return prompter.getFileEntries().slice(-outputPaths.length);
+    return prompter.getFileEntries().slice(-outputs.length);
   }
 
   buildInputJson(obj: object, path = 'input.json'): FileEntry {
@@ -35,5 +49,9 @@ export class Instructor {
       path: path as any,
       content: Buffer.from(JSON.stringify(obj, null, 2)),
     }
+  }
+
+  buildOutputEntry(content: string, path = 'output.json'): FileEntry {
+    return { path: path as any, content: Buffer.from(content) };
   }
 }

@@ -1,9 +1,13 @@
 import { FileEntry } from "@angular-devkit/schematics";
 import { Configuration, OpenAIApi } from "openai";
 import { AxiosError } from 'axios';
+import { PromiseQueue } from "../promise-queue";
+import { logger } from "../../cli/logger";
 
-export interface Options {
-  model?: 'text-curie-001' | 'code-davinci-002' | 'code-cushman-001',
+export interface WriteOptions {
+  model?: 'text-curie-001' | 'text-babbage-001' | 'text-ada-001' | 'code-davinci-002' | 'code-cushman-001',
+  temperature?: number,
+  maxTokens?: number,
 }
 
 function isAxiosError(err: Error): err is AxiosError {
@@ -14,7 +18,10 @@ export class OpenAiPrompter {
   protected _prompt: string = '';
   protected config = new Configuration({apiKey: this.token});
 
-  constructor(private token: string = process.env['OPEN_AI_TOKEN']) {
+  constructor(
+    protected promiseQueue: PromiseQueue,
+    private token: string = process.env['OPEN_AI_TOKEN'],
+  ) {
     if (!this.token?.length)
       throw new Error('OPEN_AI_TOKEN is not provided! Please `export OPEN_AI_TOKEN=<-OPEN_AI_TOKEN->`');
   }
@@ -25,16 +32,32 @@ export class OpenAiPrompter {
     return this._prompt;
   }
 
-  async autoWrite(options?: Options) {
+  async autoWrite(options?: WriteOptions) {
     try {
-      const res = await this.openai.createCompletion({
+      const maxToken = 2048 - this.prompt.length;
+      if (maxToken <= 0) {
+        this.isEnd() || (this._prompt += this.stop);
+        return;
+      }
+
+      // const res = await this.openai.createCompletion({
+      //   model: options?.model ?? 'code-cushman-001',
+      //   prompt: this._prompt,
+      //   temperature: options?.temperature ?? 0,
+      //   max_tokens: options?.maxTokens ? Math.min(options.maxTokens, maxToken) : maxToken,
+      //   stop: this.stop,
+      // });
+
+      const res = await this.promiseQueue.add(() => this.openai.createCompletion({
         model: options?.model ?? 'code-cushman-001',
         prompt: this._prompt,
-        temperature: 0,
-        max_tokens: 256,
+        temperature: options?.temperature ?? 0,
+        max_tokens: options?.maxTokens ? Math.min(options.maxTokens, maxToken) : maxToken,
         stop: this.stop,
-      });
+        // n: 1,
+      }));
 
+      logger.debug('choices:', res.data.choices.length);
       this._prompt += res.data.choices?.[0].text;
       this._prompt += res.data.choices?.[0].finish_reason === 'stop' ? this.stop : '';
     } catch (error) {
@@ -57,10 +80,10 @@ export class OpenAiPrompter {
     }
   }
 
-  async autoWriteUntilEnd(options?: Options, maxRepeat: number = 3) {
+  async autoWriteUntilEnd(options?: WriteOptions, maxRepeat: number = 3) {
     for (let i = 0; i < maxRepeat; i++) {
       if(this.isEnd()) return;
-      await this.autoWrite();
+      await this.autoWrite(options);
     }
   }
 

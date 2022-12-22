@@ -11,9 +11,9 @@
       label="パスワード"
       [control]="form.get('password')"
     ></organisms-text-input-section>
-    <organisms-action-buttons-section [items]="actionItems"></organisms-action-buttons-section>
-    <organisms-social-login-section
-      (signInWithGoogleButtonClick)="signInWithGoogleButtonClick.emit()"
-    ></organisms-social-login-section>
+    <organisms-action-buttons-section
+      [actions]="actions"
+      (action)="action.emit($event)"
+    ></organisms-action-buttons-section>
   </frames-auto-layout>
 </frames-card>

@@ -1,3 +1,3 @@
-<ng-container *ngFor="let item of items; trackBy: trackById">
-  <button mat-raised-button color="primary" (click)="action.emit(item)">{{ item?.name }}</button>
+<ng-container *ngFor="let _action of actions; trackBy: trackById">
+  <button mat-raised-button color="primary" [disabled]="_action?.disabled" (click)="action.emit(_action)">{{ _action?.name }}</button>
 </ng-container>

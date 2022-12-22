@@ -4,9 +4,9 @@ import { Action, ActionItem } from '@ng-atomic/common/models';
 import { FormControl } from '@ngneat/reactive-forms';
 
 export enum ActionId {
-  BACK = '[@ng-atomic/components/templates/smart-crud] Back',
+  BACK = '[@ng-atomic/components/templates/smart-index] Back',
+  TABLE_HEADER_CLICK = '[@ng-atomic/components/templates/smart-index] Table Header Click',
 }
-
 
 @Component({
   selector: 'templates-smart-index',
@@ -16,6 +16,7 @@ export enum ActionId {
   host: { class: 'template' },
 })
 export class SmartIndexTemplate<T> {
+  protected ActionId = ActionId;
 
   @Input()
   canBack = false;
@@ -78,14 +79,10 @@ export class SmartIndexTemplate<T> {
   @Output()
   pageChange = new EventEmitter<PageEvent>();
 
-  @Output()
-  tableHeaderClick = new EventEmitter<string>();
-
   navigatorLeftItems = [{ id: ActionId.BACK, icon: 'arrow_back' }];
 
   onAction(action: Action): void {
     switch(action.id) {
-      case ActionId.BACK: return this.backButtonClick.emit();
       default: return this.action.emit(action);
     }
   }

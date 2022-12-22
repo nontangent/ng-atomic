@@ -1,13 +1,18 @@
+import { TestBed } from "@nx-ddd/core";
 import { RelatedFilePathsEstimator } from "./related-file-paths.estimator";
+import { RelatedFilePathsModule } from "./related-file-paths.module";
 
 describe('RelatedFilePathsEstimator V2', () => {
-  let relatedFilePathsEstimator: RelatedFilePathsEstimator;
+  let estimator: RelatedFilePathsEstimator;
 
   beforeEach(() => {
-    relatedFilePathsEstimator = new RelatedFilePathsEstimator();
+    TestBed.configureTestingModule({
+      imports: [RelatedFilePathsModule],
+    });
+    estimator = TestBed.inject(RelatedFilePathsEstimator);
   });
 
   it('should create', () => {
-    expect(relatedFilePathsEstimator).toBeTruthy();
+    expect(estimator).toBeTruthy();
   });
 });

@@ -18,7 +18,7 @@
       [sortOrder]="sortOrder"
       (action)="action.emit($event)"
       (checkboxClick)="checkboxClick.emit($event)"
-      (headerClick)="tableHeaderClick.emit($event)"
+      (headerClick)="action.emit({id: ActionId.TABLE_HEADER_CLICK, payload: $event})"
     ></organisms-smart-table>
     <organisms-paginator
       *ngIf="page"

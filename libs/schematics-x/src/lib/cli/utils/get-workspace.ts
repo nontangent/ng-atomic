@@ -17,7 +17,7 @@ export class NxWorkspace extends AngularWorkspace {
   constructor(
     workspace: workspaces.WorkspaceDefinition,
     workspaceFilePath: string,
-    public host: import('nx/src/adapter/ngcli-adapter').NxScopedHost,
+    public host: import('./nx-scoped-host').NxScopedHost,
   ) {
     super(workspace, workspaceFilePath);
   }
@@ -25,7 +25,7 @@ export class NxWorkspace extends AngularWorkspace {
   static async load(workspaceFilePath: string): Promise<NxWorkspace> {
     const basePath = path.dirname(workspaceFilePath);
     const filePath = path.relative(basePath, workspaceFilePath);
-    const { NxScopedHost } = await import('nx/src/adapter/ngcli-adapter');
+    const { NxScopedHost } = await import('./nx-scoped-host');
     const host = new NxScopedHost(basePath);
     const result = await workspaces.readWorkspace(
       filePath,

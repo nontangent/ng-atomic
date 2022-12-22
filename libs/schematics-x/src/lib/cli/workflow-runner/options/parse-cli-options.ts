@@ -17,6 +17,7 @@ export const CLI_OPTIONS_KEY = [
   'listSchematics',
   'verbose',
   'interactive',
+  'workspace',
 ] as const;
 
 export type CliOptions = Partial<Record<typeof CLI_OPTIONS_KEY[number], boolean>>;
