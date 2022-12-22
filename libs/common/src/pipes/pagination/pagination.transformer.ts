@@ -1,4 +1,4 @@
-import { smartSortByTransformer } from '../smart-sort-by';
+import { smartSortByTransformer } from '@ng-atomic/common/pipes/smart-sort-by';
 
 interface Page {
   start: number;
