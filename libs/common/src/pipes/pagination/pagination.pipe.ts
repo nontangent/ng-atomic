@@ -1,23 +1,23 @@
-import { SlicePipe } from '@angular/common';
-import { Inject, Optional, Pipe, PipeTransform } from '@angular/core';
-import { smartSortByTransformer, SmartSortByTransformer, SMART_SORT_BY_TRANSFORMER } from '@ng-atomic/common/pipes/smart-sort-by';
+import { Inject, InjectionToken, Optional, Pipe, PipeTransform } from '@angular/core';
+import { PaginationTransformer, paginationTransformer } from './pagination.transformer';
+
+export const PAGINATION_TRANSFORMER = new InjectionToken('[@ng-atomic/pipes] Pagination Transformer');
 
 @Pipe({
   name: 'pagination',
   pure: true,
 })
-export class PaginationPipe implements PipeTransform {
-  private slicePipe = new SlicePipe();
+export class PaginationPipe<E> implements PipeTransform {
 
   constructor(
     @Optional()
-    @Inject(SMART_SORT_BY_TRANSFORMER)
-    private transformer: SmartSortByTransformer,
+    @Inject(PAGINATION_TRANSFORMER)
+    private transformer: PaginationTransformer<E>,
   ) {
-    this.transformer ??= smartSortByTransformer;
+    this.transformer ??= paginationTransformer;
   }
 
-  transform<T>(items: T[], {sortKey, sortOrder, start, end}: {sortKey: string, sortOrder: 'asc' | 'desc', start: number, end: number}) {
-    return this.slicePipe.transform(this.transformer(items, sortKey, sortOrder), start, end);
+  transform(items: E[], {sortKey, sortOrder, start, end}: {sortKey: string, sortOrder: 'asc' | 'desc', start: number, end: number}) {
+    return this.transformer(items, { key: sortKey, order: sortOrder, start, end });
   }
 }

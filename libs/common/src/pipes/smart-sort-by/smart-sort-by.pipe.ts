@@ -1,11 +1,7 @@
 import { Inject, InjectionToken, Optional, Pipe, PipeTransform } from '@angular/core';
-import { sortBy } from 'lodash';
+import { smartSortByTransformer, SmartSortByTransformer } from './smart-sort-by.transformer';
 
 export const SMART_SORT_BY_TRANSFORMER = new InjectionToken('[@ng-atomic/common] Smart Sort By Transformer');
-export type SmartSortByTransformer = <T>(items: T[], key: string, order: 'asc' | 'desc') => T[];
-export const smartSortByTransformer: SmartSortByTransformer = (items, key, order) => {
-  return order === 'asc' ? sortBy(items, key) : sortBy(items, key).reverse();
-}
 
 @Pipe({
   name: 'smartSortBy',

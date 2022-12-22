@@ -8,12 +8,13 @@ export interface QueryState {
 }
 
 @Injectable()
-export class QueryStore<E> extends ComponentStore<QueryState> {
+export class QueryStore<E = any> extends ComponentStore<QueryState> {
   constructor(
     protected queryResolver: QueryResolverService,
     @Optional() @Inject(DOMAIN_LANG_MAP) protected langMap: Record<string, string>,
   ) {
     super({query: ''});
+    this.langMap ??= {};
   }
 
   get query(): string { return this.get().query; }
