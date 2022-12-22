@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActionItem } from '@ng-atomic/common/models';
+import { Action, ActionItem } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'templates-menu',
@@ -13,6 +13,6 @@ export class MenuTemplate {
   items: ActionItem<string>[] = [];
 
   @Output()
-  action = new EventEmitter<string>();
+  action = new EventEmitter<Action>();
 
 }

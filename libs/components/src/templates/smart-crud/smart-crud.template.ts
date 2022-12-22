@@ -50,10 +50,10 @@ export class SmartCrudTemplate {
 
   navigatorLeftItems = [{ id: ActionId.BACK, icon: 'arrow_back' }];
 
-  get actionItems(): ActionItem[] {
+  get actions(): Action[] {
     switch (this.mode) {
-      case 'create': return [{id: ActionId.CREATE, name: '作成'}];
-      case 'update': return [{id: ActionId.UPDATE, name: '更新'}];
+      case 'create': return [{id: ActionId.CREATE, name: '作成', disabled: this.form.invalid}];
+      case 'update': return [{id: ActionId.UPDATE, name: '更新', disabled: this.form.invalid}];
     }
   }
 

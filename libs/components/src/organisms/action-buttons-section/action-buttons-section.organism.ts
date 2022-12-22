@@ -10,7 +10,7 @@ import { Action, ActionItem } from '@ng-atomic/common/models';
 })
 export class ActionButtonsSectionOrganism {
   @Input()
-  items: ActionItem[] = [];
+  actions: Action[] = [];
 
   @Output()
   action = new EventEmitter<Action>();

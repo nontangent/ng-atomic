@@ -1,6 +1,21 @@
-<mat-form-field appearance="outline">
-  <mat-label>{{ label }}</mat-label>
-  <input matInput [name]="name" [type]="type" [formControl]="control" [placeholder]="placeholder">
-  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
-</mat-form-field>
+<!-- ATTENTION(nontangent): <input matInput is not worked [type]="type"> -->
+<ng-container [ngSwitch]="type">
+  <mat-form-field *ngSwitchDefault appearance="outline">
+    <mat-label>{{ label }}</mat-label>
+      <input matInput [name]="name" type="string" [formControl]="control" [placeholder]="placeholder">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  </mat-form-field>
+  <mat-form-field *ngSwitchCase="'number'" appearance="outline">
+    <mat-label>{{ label }}</mat-label>
+      <input matInput [name]="name" type="number" [formControl]="control" [placeholder]="placeholder">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  </mat-form-field>
+  <mat-form-field *ngSwitchCase="'password'" appearance="outline">
+    <mat-label>{{ label }}</mat-label>
+      <input matInput [name]="name" type="password" [formControl]="control" [placeholder]="placeholder">
+    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  </mat-form-field>
+</ng-container>

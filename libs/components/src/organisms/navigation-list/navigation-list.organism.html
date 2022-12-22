@@ -2,6 +2,6 @@
   <molecules-navigation-list-item
     *ngFor="let item of items" 
     [item]="item"
-    (click)="action.emit(item.id)"
+    (click)="action.emit(item)"
   ></molecules-navigation-list-item>
 </mat-selection-list>
