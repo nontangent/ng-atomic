@@ -25,6 +25,10 @@ const ReduceInputFileEntries = (size: number) => {
 
 @Injectable()
 export class OutputFileEntryEstimator {
+  constructor(
+    protected instructor: Instructor
+  ) { }
+
   @ReduceInputFileEntries(1024)
   async estimate(
     inputFileEntries: FileEntry[], 
@@ -35,9 +39,8 @@ export class OutputFileEntryEstimator {
       inputFileEntries = [DUMMY_FILE_ENTRY];
     }
 
-    const instructor = new Instructor();
-    const expected = [instructor.buildOutputEntry('', outputFilePath)];
-    const output = await instructor.instruct(inputFileEntries, instructions, expected, undefined);
+    const expected = [this.instructor.buildOutputEntry('', outputFilePath)];
+    const output = await this.instructor.instruct(inputFileEntries, instructions, expected, undefined);
     return output.find(fileEntry => fileEntry.path === outputFilePath);
   }
 

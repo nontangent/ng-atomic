@@ -3,13 +3,17 @@ import { createNxModuleRef, NxModule } from '@nx-ddd/core';
 import { SchematicsXCli, SchematicsXCliModule } from '../cli';
 import { InteractiveCommand } from '../cli/commands/interactive';
 import { VersionCommand } from '../cli/commands/version';
+import { DEBUG } from '../cli/workflow-runner/handlers';
 import { GlobalProvidersManager } from '../core';
 
 
 export async function main() {
   const { injector } = createNxModuleRef(NxModule({
     imports: [SchematicsXCliModule],
-    providers: [...GlobalProvidersManager.providers],
+    providers: [
+      ...GlobalProvidersManager.providers,
+      { provide: DEBUG, useValue: false },
+    ],
   })(class {}));
 
   const cli = injector.get(SchematicsXCli);

@@ -1,10 +1,15 @@
 import { FileEntry } from "@angular-devkit/schematics";
 import { Injectable } from "@nx-ddd/core";
+import { PromiseQueue } from "../promise-queue";
 import { OpenAiPrompter, WriteOptions } from "../prompter";
 
 
 @Injectable()
 export class Instructor {
+  constructor(
+    protected promiseQueue: PromiseQueue,
+  ) { }
+
   async instruct(
     inputs: FileEntry[],
     instructions: string,
@@ -14,7 +19,7 @@ export class Instructor {
   ): Promise<FileEntry[]> {
     if (!inputs.length) throw new Error('At least one input file is required!')
 
-    const prompter = new OpenAiPrompter();
+    const prompter = new OpenAiPrompter(this.promiseQueue);
     prompter.write(context.length ? '# EXAMPLES\n' + context : '');
     prompter.write(`# PRACTICE\n`);
 

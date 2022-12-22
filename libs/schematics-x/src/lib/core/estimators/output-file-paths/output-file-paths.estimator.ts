@@ -1,3 +1,4 @@
+import { Injectable } from '@nx-ddd/core';
 import { DUMMY_FILE_ENTRY } from '../../dummy';
 import { parseJsonFuzzy } from '../../helpers';
 import { Instructor } from '../../instructor';
@@ -21,7 +22,12 @@ const ReduceInputsFilePaths = (size: number) => {
   }
 };
 
+@Injectable()
 export class OutputFilePathsEstimator {
+
+  constructor(
+    protected instructor: Instructor
+  ) { }
 
   @ReduceInputsFilePaths(50)
   async estimate(inputFilePaths: string[], instructions: string): Promise<string[]> {
@@ -30,11 +36,10 @@ export class OutputFilePathsEstimator {
       inputFilePaths = [DUMMY_FILE_ENTRY.path];
     }
 
-    const instructor = new Instructor();
-    const inputs = [instructor.buildInputJson(inputFilePaths)];
-    const expected = [instructor.buildOutputEntry('', 'output.json')];
+    const inputs = [this.instructor.buildInputJson(inputFilePaths)];
+    const expected = [this.instructor.buildOutputEntry('', 'output.json')];
     const prompt = BUILD_INSTRUCTIONS(instructions);
-    const fileEntries = await instructor.instruct(inputs, prompt, expected, CONTEXT, {
+    const fileEntries = await this.instructor.instruct(inputs, prompt, expected, CONTEXT, {
       maxTokens: 2048,
     });
     const fileEntry = fileEntries.find(fileEntry => fileEntry.path === 'output.json');
