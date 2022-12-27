@@ -9,11 +9,7 @@ import { MatColumnDef, MatTextColumn } from '@angular/material/table';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SmartColumnMolecule<T> extends MatTextColumn<T> {
-  override dataAccessor = (data, name): string => {
-    return data[name] ?? '';
-    throw new Error('dataAccessor is not allowed');
-  };
-  
+
   @Input()
   sort: 'asc' | 'desc' | 'none' = 'none';
 
