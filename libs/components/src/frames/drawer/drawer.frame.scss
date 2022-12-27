@@ -2,9 +2,12 @@
 
 :host {
   @include property(--content-width, 360px);
+  @include property(--height, 100vh);
 }
 
 :host {
+  height: var(--height);
+
   mat-drawer-content {
     width: 100%;
     // width: var(--content-width);

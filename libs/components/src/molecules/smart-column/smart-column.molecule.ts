@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Input, Output, EventEmitter, Component, ViewEncapsulation, Optional, Inject, inject } from '@angular/core';
-import { MatTextColumn } from '@angular/material/table';
+import { ChangeDetectionStrategy, Input, Output, EventEmitter, Component, ViewEncapsulation, Optional, Inject, inject, ViewChild } from '@angular/core';
+import { MatColumnDef, MatTextColumn } from '@angular/material/table';
 
 @Component({
   selector: 'molecules-smart-column',
@@ -9,7 +9,8 @@ import { MatTextColumn } from '@angular/material/table';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SmartColumnMolecule<T> extends MatTextColumn<T> {
-  override dataAccessor = (): string => {
+  override dataAccessor = (data, name): string => {
+    return data[name] ?? '';
     throw new Error('dataAccessor is not allowed');
   };
   
@@ -24,6 +25,12 @@ export class SmartColumnMolecule<T> extends MatTextColumn<T> {
   copied() {
     this.text = 'copied!';
     setTimeout(() => this.text = 'copy', 1000);
+  }
+
+  ngOnInit(): void {
+    console.debug('this.name:', this.name);
+    console.debug('this.columnDef:', this.columnDef);
+    super.ngOnInit();
   }
 
 }
