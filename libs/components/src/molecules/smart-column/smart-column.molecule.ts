@@ -26,11 +26,4 @@ export class SmartColumnMolecule<T> extends MatTextColumn<T> {
     this.text = 'copied!';
     setTimeout(() => this.text = 'copy', 1000);
   }
-
-  ngOnInit(): void {
-    console.debug('this.name:', this.name);
-    console.debug('this.columnDef:', this.columnDef);
-    super.ngOnInit();
-  }
-
 }
