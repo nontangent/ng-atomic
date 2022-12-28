@@ -64,6 +64,9 @@ export class SmartIndexTemplate<T> {
   @Input()
   queryPlaceholder = '';
 
+  @Input()
+  device: 'sp' | 'tablet' | 'pc' = 'sp';
+
   @Output()
   action = new EventEmitter<Action>();
 
