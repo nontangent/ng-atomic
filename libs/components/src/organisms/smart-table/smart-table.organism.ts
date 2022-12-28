@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Action, ActionItem } from '@ng-atomic/common/models';
+import { Actions, Action } from '@ng-atomic/common/models';
 
+interface Sort {
+  key?: string;
+  order?: 'desc' | 'asc';
+}
 
 @Component({
   selector: 'organisms-smart-table',
@@ -11,36 +15,27 @@ import { Action, ActionItem } from '@ng-atomic/common/models';
 })
 export class SmartTableOrganism<Item extends object> {
 
-  @Input()
-  columns: (keyof Item)[] = [];
+  @Input('columns')
+  _columns: (keyof Item)[] = [];
 
-  get displayedColumns(): (keyof Item | string)[] {
-    return [...this.columns];
+  get columns(): (keyof Item | string)[] {
+    return [...this._columns];
   }
 
   @Input()
   items: Item[] = [];
 
   @Input()
-  itemActions: (item: Item) => ActionItem[] = () => [];
-
-  @Input()
-  patientsSize: number = 0;
+  itemActions: Actions = () => [];
 
   @Input()
   pageSize: number = 0;
 
   @Input()
-  menuItems: ActionItem[] = [];
-
-  @Input()
   selectedIdSet = new Set<string>();
 
   @Input()
-  sortKey?: string;
-
-  @Input()
-  sortOrder?: 'asc' | 'desc';
+  sort: Sort = {};
 
   @Output()
   action = new EventEmitter<Action>();
@@ -57,5 +52,5 @@ export class SmartTableOrganism<Item extends object> {
   @Output()
   itemCheck = new EventEmitter<[Item, boolean]>();
   
-  trackByColumnName = (columnName: string) => columnName;
+  protected trackByColumnName = (columnName: string) => columnName;
 }
