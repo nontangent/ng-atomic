@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Action, ActionItem } from '@ng-atomic/common/models';
+import { Action } from '@ng-atomic/common/models';
 
 @Component({
   selector: 'organisms-navigator',
@@ -9,10 +9,10 @@ import { Action, ActionItem } from '@ng-atomic/common/models';
 })
 export class NavigatorOrganism {
   @Input()
-  rightItems: ActionItem[] = [];
+  startActions: Action[] = [];
 
   @Input()
-  leftItems: ActionItem[] = [];
+  endActions: Action[] = [];
 
   @Output()
   action = new EventEmitter<Action>();

@@ -1,16 +1,16 @@
 <mat-toolbar color="primary">
   <div>
     <atoms-smart-menu-button
-      *ngIf="leftItems.length"
-      [items]="leftItems"
+      *ngIf="startActions.length"
+      [items]="startActions"
       (action)="action.emit($event)"
     ></atoms-smart-menu-button>
     <ng-content></ng-content>
   </div>
   <div>
     <atoms-smart-menu-button
-      *ngIf="rightItems.length"
-      [items]="rightItems"
+      *ngIf="startActions.length"
+      [items]="endActions"
       (action)="action.emit($event)"
     ></atoms-smart-menu-button>
   </div>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Action, ActionItem } from '@ng-atomic/common/models';
+import { Action } from '@ng-atomic/common/models';
 import { FormGroup } from '@ngneat/reactive-forms';
 
 export enum ActionId {
@@ -19,56 +19,26 @@ export enum ActionId {
 export class SmartCrudTemplate {
 
   @Input()
-  canBack = false;
-
-  @Input()
-  name: string = '';
+  title: string = '';
 
   @Input()
   form!: FormGroup<any>;
 
   @Input()
-  mode: 'create' | 'update' = 'create';
+  navStartActions: Action[] = [{ id: ActionId.BACK, icon: 'arrow_back' }];
 
   @Input()
-  navigatorMenuItems: ActionItem[] = [{id: ActionId.DELETE, name: '削除'}];
+  navEndActions: Action[] = [{id: ActionId.DELETE, name: '削除'}];
 
   @Input()
-  title: string = 'title';
+  actions: Action[] = [{id: ActionId.CREATE, name: '作成'}];
 
   @Output()
   action = new EventEmitter<Action>();
-
-  @Output()
-  backButtonClick = new EventEmitter();
-
-  @Output()
-  createButtonClick = new EventEmitter<void>();
-
-  @Output()
-  updateButtonClick = new EventEmitter<void>();
-
-  navigatorLeftItems = [{ id: ActionId.BACK, icon: 'arrow_back' }];
-
-  get actions(): Action[] {
-    switch (this.mode) {
-      case 'create': return [{id: ActionId.CREATE, name: '作成', disabled: this.form.invalid}];
-      case 'update': return [{id: ActionId.UPDATE, name: '更新', disabled: this.form.invalid}];
-    }
-  }
 
   get controls() {
     return Object.entries(this.form.controls);
   }
 
   trackByIndex = (index: number) => index;
-
-  onAction(action: Action): void {
-    switch(action.id) {
-      case ActionId.BACK: return this.backButtonClick.emit();
-      case ActionId.CREATE: return this.createButtonClick.emit();
-      case ActionId.UPDATE: return this.updateButtonClick.emit();
-      default: return this.action.emit(action);
-    }
-  }
 }
