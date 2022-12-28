@@ -1,2 +1,2 @@
-export { SmartListOrganism } from './smart-list.organism';
-export { SmartListModule } from './smart-list.module';
+export * from './smart-list.organism';
+export * from './smart-list.module';

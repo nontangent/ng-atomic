@@ -3,6 +3,7 @@ import { get } from 'lodash';
 
 export type DataAccessor<T> = (obj: T, key: string) => string;
 export const DATA_ACCESSOR = new InjectionToken<DataAccessor<any>>('DATA_ACCESSOR');
+export const defaultDataAccessor: DataAccessor<any> = (obj, key) => get(obj, key) ?? '';
 
 @Pipe({
   name: 'dataAccessor',
@@ -14,7 +15,7 @@ export class DataAccessorPipe<T> {
   constructor(
     @Optional() @Inject(DATA_ACCESSOR) protected dataAccessor: DataAccessor<T>,
   ) {
-    this.dataAccessor ??= (obj, key) => get(obj, key) ?? '';
+    this.dataAccessor ??= defaultDataAccessor;
   }
 
   transform(data: T, key: string) {

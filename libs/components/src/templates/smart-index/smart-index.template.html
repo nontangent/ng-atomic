@@ -11,6 +11,7 @@
     <ng-container *ngIf="device === 'sp'">
       <organisms-smart-list
         [items]="items"
+        (action)="action.emit($event)"
       ></organisms-smart-list>
     </ng-container>
     <ng-container *ngIf="device !== 'sp'">
