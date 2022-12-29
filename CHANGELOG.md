@@ -1,6 +1,6 @@
-## [4.16.1](https://github.com/nontangent/ng-atomic/compare/v4.16.0...v4.16.1) (2022-12-29)
+## [4.16.2](https://github.com/nontangent/ng-atomic/compare/v4.16.1...v4.16.2) (2022-12-29)
 
 
 ### Bug Fixes
 
-* **schematics-x:** comment in `runCommnds` ([32a3471](https://github.com/nontangent/ng-atomic/commit/32a3471da0e1c4920ea10c014785b5c0c5fc4f23))
+* for update patch version ([ff4c3f5](https://github.com/nontangent/ng-atomic/commit/ff4c3f57ec8a3f132045906e6c15a5bc9479c46d))
