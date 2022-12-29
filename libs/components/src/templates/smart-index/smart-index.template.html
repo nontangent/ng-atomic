@@ -1,32 +1,39 @@
 <frames-scroll>
   <organisms-navigator
-    [leftItems]="canBack ? navigatorLeftItems : []"
-    [rightItems]="navigatorMenuItems"
+    [startActions]="navStartActions"
+    [endActions]="navEndActions"
     (action)="onAction($event)"
     navigator
   >
     <molecules-header [title]="title" [description]="description"></molecules-header>
   </organisms-navigator>
   <frames-auto-layout vertical contents>
-    <organisms-smart-table
-      [items]="items"
-      [menuItems]="rowMenuItems"
-      [itemActions]="itemActions"
-      [columns]="properties"
-      [selectedIdSet]="selectedIdSet"
-      [sortKey]="sortKey"
-      [sortOrder]="sortOrder"
-      (action)="action.emit($event)"
-      (checkboxClick)="checkboxClick.emit($event)"
-      (headerClick)="action.emit({id: ActionId.TABLE_HEADER_CLICK, payload: $event})"
-    ></organisms-smart-table>
-    <organisms-paginator
-      *ngIf="page"
-      [control]="queryControl"
-      [page]="page"
-      [pageSizeOptions]="pageSizeOptions"
-      [placeholder]="queryPlaceholder"
-      (pageChange)="pageChange.emit($event)"
-    ></organisms-paginator>
+    <ng-container *ngIf="device === 'sp'">
+      <organisms-smart-list
+        [items]="items"
+        (action)="action.emit($event)"
+      ></organisms-smart-list>
+    </ng-container>
+    <ng-container *ngIf="device !== 'sp'">
+      <organisms-smart-table
+        [items]="items"
+        [itemActions]="itemActions"
+        [columns]="properties"
+        [selectedIdSet]="selectedIdSet"
+        [sortKey]="sortKey"
+        [sortOrder]="sortOrder"
+        (action)="action.emit($event)"
+        (checkboxClick)="checkboxClick.emit($event)"
+        (headerClick)="action.emit({id: ActionId.TABLE_HEADER_CLICK, payload: $event})"
+      ></organisms-smart-table>
+      <organisms-paginator
+        *ngIf="page"
+        [control]="queryControl"
+        [page]="page"
+        [pageSizeOptions]="pageSizeOptions"
+        [placeholder]="queryPlaceholder"
+        (pageChange)="pageChange.emit($event)"
+      ></organisms-paginator>
+    </ng-container>
   </frames-auto-layout>
 </frames-scroll>

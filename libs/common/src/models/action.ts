@@ -5,3 +5,5 @@ export interface Action<T = any> {
   icon?: string;
   disabled?: boolean;
 }
+
+export type Actions = ((...args: any[]) => Action[]) | Action[];

@@ -1,8 +1,8 @@
 <frames-scroll>
   <organisms-navigator 
-    [leftItems]="canBack ? navigatorLeftItems : []"
-    [rightItems]="navigatorMenuItems"
-    (action)="onAction($event)"
+    [startActions]="navStartActions"
+    [endActions]="navEndActions"
+    (action)="action.emit($event)"
     navigator
   >
     <molecules-header [title]="title"></molecules-header>
@@ -34,7 +34,7 @@
     </ng-container>
     <organisms-action-buttons-section
       [actions]="actions"
-      (action)="onAction($event)"
+      (action)="action.emit($event)"
     ></organisms-action-buttons-section>
   </frames-auto-layout>
 </frames-scroll>

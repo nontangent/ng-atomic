@@ -1,0 +1,13 @@
+@use 'scoped-var/strict' as * with ($host: 'smart-list');
+@use 'atomic/organism' as *;
+
+:host {
+	@include organism($host);
+}
+
+:host {
+	display: block;
+	flex-direction: unset;
+	font-size: 14px;
+	height: 100%;
+}

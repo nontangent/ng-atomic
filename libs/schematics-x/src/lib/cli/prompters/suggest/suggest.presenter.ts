@@ -1,8 +1,7 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@nx-ddd/core';
 import chalk from 'chalk';
 import { DEBUG } from '../../workflow-runner/handlers';
-import { State } from "./suggest.store";
-
+import { State } from './suggest.store';
 
 const pad = (arr: any[], n: number) => {
   while(arr.length < n) { arr.push(''); }
@@ -19,9 +18,11 @@ export const SX_PATH = new InjectionToken('[schematics-x] Path');
 @Injectable()
 export class SuggestPresenter {
   constructor(
-    @Inject(DEBUG) protected debug: boolean,
+    @Optional() @Inject(DEBUG) protected debug?: boolean,
     @Optional() @Inject(SX_PATH) protected path?: string,
-  ) { }
+  ) {
+    this.debug = false;
+  }
 
   present({prompt, suggest, debugs, status, answer, cursor}: State) {
     const message = `${this.HEAD} ${status === 'answered' ? chalk.cyan(answer) : prompt + chalk.dim(suggest)}`;

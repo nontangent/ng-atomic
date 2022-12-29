@@ -1,0 +1,12 @@
+<mat-list>
+  <ng-container *ngFor="let status of statuses">
+    <div mat-subheader> {{ status }}</div>
+    <ng-container *ngFor="let item of statusMap[status]">
+      <mat-list-item lines="2" matRipple (click)="onItemClick(item)">
+        <span mat-line>{{ item | dataAccessor:'__title' }}</span>
+        <span mat-line>{{ item | dataAccessor:'__desc' }}</span>
+      </mat-list-item>
+    </ng-container>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>

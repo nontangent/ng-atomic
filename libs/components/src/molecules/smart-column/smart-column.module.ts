@@ -7,25 +7,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SmartExpModule } from '@ng-atomic/common/pipes/smart-exp';
 import { SmartColumnMolecule } from './smart-column.molecule';
-import { get } from 'lodash';
-
-@Pipe({name: 'dataAccessor', pure: true})
-export class DataAccessorPipe {
-  transform(data: any, name: string): string {
-    return get(data, name);
-  }
-}
+import { DataAccessorPipe } from '@ng-atomic/common/pipes/data-accessor';
 
 @NgModule({
   declarations: [
     SmartColumnMolecule,
-    DataAccessorPipe,
   ],
   imports: [
     CommonModule,
     ClipboardModule,
     // Pipes
     SmartExpModule,
+    DataAccessorPipe,
     // Materials
     MatButtonModule,
     MatIconModule,

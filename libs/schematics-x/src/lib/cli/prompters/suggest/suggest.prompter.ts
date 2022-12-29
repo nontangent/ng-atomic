@@ -20,6 +20,8 @@ export class SuggestPrompter extends BasePrompter {
     super(proxy);
   }
 
+  protected suggest$ = this.suggest.suggest$;
+
   protected answer$ = combineLatest({
     answer: this.validateSuccess$.pipe(map(state => state.value)),
     suggest: this.suggest.suggest$,

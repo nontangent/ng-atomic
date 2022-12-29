@@ -3,12 +3,12 @@ import { Page } from '@ng-atomic/common/utils/page';
 import { Observable, tap } from "rxjs";
 import { Injectable } from "@angular/core";
 
-export interface EntitiesState<E> {
+export interface State {
   page: Page;
 }
 
 @Injectable()
-export class PaginationStore extends ComponentStore<any> {
+export class PaginationStore extends ComponentStore<State> {
   constructor() {super({page: Page.from()})}
 
   get page() { return this.get(state => state.page); }

@@ -3,6 +3,7 @@ import { combineLatest, distinctUntilChanged, filter, map, ReplaySubject, sample
 import { HistoryService } from "../history";
 import { Logger } from "../../logger";
 import { CommandEstimator } from "../../../core/estimators/command";
+import 'core-js/features/string/replace-all';
 
 const at = (arr: any[], n: number = -100) => {
   if (!arr.length) return '';
@@ -11,9 +12,7 @@ const at = (arr: any[], n: number = -100) => {
   return arr?.[n];
 } 
 
-const trimN = (str: string) => {
-  return str.replaceAll('\n', '');
-}
+const trimN = (str: string) => str.replaceAll('\n', '');
 
 @Injectable()
 export class HistoryEstimator {

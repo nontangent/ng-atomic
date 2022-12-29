@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Action, ActionItem } from '@ng-atomic/common/models';
+import { Action } from '@ng-atomic/common/models';
 import { FormControl } from '@ngneat/reactive-forms';
 
 export enum ActionId {
@@ -19,9 +19,6 @@ export class SmartIndexTemplate<T> {
   protected ActionId = ActionId;
 
   @Input()
-  canBack = false;
-
-  @Input()
   queryControl = new FormControl<string>('');
 
   @Input()
@@ -34,13 +31,13 @@ export class SmartIndexTemplate<T> {
   items: T[] = [];
 
   @Input()
-  rowMenuItems: ActionItem[] = [];
+  itemActions: (item: T) => Action[] = () => [];
 
   @Input()
-  itemActions: (item: T) => ActionItem[] = () => [];
+  navStartActions: Action[] = [{ id: ActionId.BACK, icon: 'arrow_back' }];
 
   @Input()
-  navigatorMenuItems: ActionItem[] = [];
+  navEndActions: Action[] = [];
 
   @Input()
   properties: (keyof T)[] =  [];
@@ -67,6 +64,9 @@ export class SmartIndexTemplate<T> {
   @Input()
   queryPlaceholder = '';
 
+  @Input()
+  device: 'sp' | 'tablet' | 'pc' = 'sp';
+
   @Output()
   action = new EventEmitter<Action>();
 
@@ -78,8 +78,6 @@ export class SmartIndexTemplate<T> {
 
   @Output()
   pageChange = new EventEmitter<PageEvent>();
-
-  navigatorLeftItems = [{ id: ActionId.BACK, icon: 'arrow_back' }];
 
   onAction(action: Action): void {
     switch(action.id) {
