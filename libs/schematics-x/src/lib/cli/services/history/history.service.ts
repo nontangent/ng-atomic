@@ -39,7 +39,6 @@ export class HistoryService {
 
     if(!fs.existsSync(this.historyPath)) {
       fs.mkdirSync(dirname(this.historyPath), {recursive: true});
-      // fs.writeFileSync(this.historyPath, '', { encoding: 'utf-8' });
     }
 
     await appendFile(this.historyPath, `\n${command}`, { encoding: 'utf-8' })
@@ -47,6 +46,8 @@ export class HistoryService {
   }
 
   async list(): Promise<string[]> {
+    if(!fs.existsSync(this.historyPath)) return [];
+
     return readFile(this.historyPath, { encoding: 'utf-8' })
       .then((content) => content.split('\n').filter((line) => line !== ''));
   }
