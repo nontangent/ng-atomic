@@ -1,18 +1,28 @@
 import { prompt, registerPrompt } from 'inquirer';
 import { Command } from 'commander';
-import { SuggestPrompterFactory } from '../../prompters';
-import { AdaptInquirer } from '../../adapters/inquierer';
+import { PROMPTER_PROXY, SuggestPresenter, SuggestPrompter, SuggestPrompterFactory } from '../../prompters';
+import { InquirerAdapter } from '../../adapters/inquirer';
 import { HistoryService } from '../../services/history';
-import { SchematicsXCli } from '../../cli';
 import { BaseCommand } from '../base';
 import { Injectable, Injector, resolveAndCreate } from '@nx-ddd/core';
 import { Provider } from '@nx-ddd/core/di/interface/provider';
 import { Logger } from '../../logger';
+import { SuggestService } from '../../services/suggest';
 
 export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
   return resolveAndCreate(providers, parentInjector);
 }
 
+// export function injectPrompter(proxy, parentInjector: Injector): SuggestPrompter {
+//   return createInjector([
+//     {
+//       provide: SuggestPrompter,
+//       useFactory: (proxy, suggest, presenter) => new SuggestPrompter(proxy, suggest, presenter),
+//       deps: [ PROMPTER_PROXY, SuggestService, SuggestPresenter ],
+//     },
+//     { provide: PROMPTER_PROXY, useValue: proxy },
+//   ], parentInjector).get(SuggestPrompter);
+// }
 
 @Injectable()
 export class InteractiveCommand extends BaseCommand {
@@ -32,9 +42,7 @@ export class InteractiveCommand extends BaseCommand {
   }
 
   async action() {
-    registerPrompt('suggest', AdaptInquirer((proxy) => {
-      return this.suggestPrompterFactory.create(proxy);
-    }));
+    registerPrompt('suggest', InquirerAdapter((proxy) => this.suggestPrompterFactory.create(proxy)));
   
     while(true) {
       await prompt({type: 'suggest' as any, name: 'commands'})
@@ -49,13 +57,13 @@ export class InteractiveCommand extends BaseCommand {
   }
 
   protected async runCommands(commands: string) {
-    const program = new Command()
-      .exitOverride((error) => { throw error })
-      .on('command:*', () => program.help());
-    const cli = new SchematicsXCli(program, this.history, this.logger);
-    cli.registerSchematicsCommand();
+    // const program = new Command()
+    //   .exitOverride((error) => { throw error })
+    //   .on('command:*', () => program.help());
+    // const cli = new SchematicsXCli(program, this.history, this.logger);
+    // cli.registerSchematicsCommand();
 
-    await cli.parse([,, ...parseString(commands)]);
+    // await cli.parse([,, ...parseString(commands)]);
   }
 }
 

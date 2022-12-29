@@ -1,3 +1,5 @@
+import 'core-js/features/string/replace-all';
+
 export const visibleSC = (str: string) => {
   return str
     // .replaceAll(' ', '<SPACE>')

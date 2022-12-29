@@ -1,3 +1,4 @@
+import 'core-js/features/string/replace-all';
 import observe from 'inquirer/lib/utils/events';
 import { filter, map, Observable, ReplaySubject, shareReplay, take, takeUntil } from 'rxjs';
 import { logger } from '../../logger';

@@ -6,9 +6,11 @@ import { SX_PATH } from "../cli/prompters";
 
 function resolveSxPath(workspace: string | null): string {
   if (!workspace) return resolve(__dirname, './schematics-x.js');
-  return require.resolve('schematics-x/src/lib/bin/schematics-x.js', {
+  const path = require.resolve('schematics-x/src/lib/bin/schematics-x.js', {
     paths: [workspace]
   });
+
+  return path || resolve(__dirname, './schematics-x.js');
 }
 
 async function main() {
@@ -16,9 +18,8 @@ async function main() {
   const sxPath = resolveSxPath(workspace);
   GlobalProvidersManager.register([
     { provide: SX_PATH, useValue: sxPath },
-  ])
-  const { main } = require(sxPath);
-  main();
+  ]);
+  await require(sxPath).main();
 }
 
 main();
