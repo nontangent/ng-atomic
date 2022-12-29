@@ -1,28 +1,18 @@
 import { prompt, registerPrompt } from 'inquirer';
 import { Command } from 'commander';
-import { PROMPTER_PROXY, SuggestPresenter, SuggestPrompter, SuggestPrompterFactory } from '../../prompters';
+import { SuggestPrompterFactory } from '../../prompters';
 import { InquirerAdapter } from '../../adapters/inquirer';
 import { HistoryService } from '../../services/history';
 import { BaseCommand } from '../base';
 import { Injectable, Injector, resolveAndCreate } from '@nx-ddd/core';
 import { Provider } from '@nx-ddd/core/di/interface/provider';
 import { Logger } from '../../logger';
-import { SuggestService } from '../../services/suggest';
+import { SchematicsXCli } from '../../cli';
 
 export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
   return resolveAndCreate(providers, parentInjector);
 }
 
-// export function injectPrompter(proxy, parentInjector: Injector): SuggestPrompter {
-//   return createInjector([
-//     {
-//       provide: SuggestPrompter,
-//       useFactory: (proxy, suggest, presenter) => new SuggestPrompter(proxy, suggest, presenter),
-//       deps: [ PROMPTER_PROXY, SuggestService, SuggestPresenter ],
-//     },
-//     { provide: PROMPTER_PROXY, useValue: proxy },
-//   ], parentInjector).get(SuggestPrompter);
-// }
 
 @Injectable()
 export class InteractiveCommand extends BaseCommand {
@@ -57,13 +47,13 @@ export class InteractiveCommand extends BaseCommand {
   }
 
   protected async runCommands(commands: string) {
-    // const program = new Command()
-    //   .exitOverride((error) => { throw error })
-    //   .on('command:*', () => program.help());
-    // const cli = new SchematicsXCli(program, this.history, this.logger);
-    // cli.registerSchematicsCommand();
+    const program = new Command()
+      .exitOverride((error) => { throw error })
+      .on('command:*', () => program.help());
+    const cli = new SchematicsXCli(program, this.history, this.logger);
+    cli.registerSchematicsCommand();
 
-    // await cli.parse([,, ...parseString(commands)]);
+    await cli.parse([,, ...parseString(commands)]);
   }
 }
 
