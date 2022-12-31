@@ -2,7 +2,7 @@
 import { resolve } from "path";
 import { findUp } from "@angular/cli/src/utilities/find-up";
 import { GlobalProvidersManager } from "../core";
-import { SX_PATH } from "../cli/prompters";
+import { SX_PATH } from "../cli/prompter";
 
 function resolveSxPath(workspace: string | null): string {
   if (!workspace) return resolve(__dirname, './schematics-x.js');

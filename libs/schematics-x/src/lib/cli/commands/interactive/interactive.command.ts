@@ -1,6 +1,6 @@
 import { prompt, registerPrompt } from 'inquirer';
 import { Command } from 'commander';
-import { SuggestPrompterFactory } from '../../prompters';
+import { PrompterFactory } from '../../prompter';
 import { InquirerAdapter } from '../../adapters/inquirer';
 import { HistoryService } from '../../services/history';
 import { BaseCommand } from '../base';
@@ -18,7 +18,7 @@ export function createInjector(providers: Provider[] = [], parentInjector?: Inje
 export class InteractiveCommand extends BaseCommand {
   constructor(
     protected history: HistoryService,
-    protected suggestPrompterFactory: SuggestPrompterFactory,
+    protected prompterFactory: PrompterFactory,
     protected logger: Logger,
   ) {
     super();
@@ -32,7 +32,7 @@ export class InteractiveCommand extends BaseCommand {
   }
 
   async action() {
-    registerPrompt('suggest', InquirerAdapter((proxy) => this.suggestPrompterFactory.create(proxy)));
+    registerPrompt('suggest', InquirerAdapter((screen) => this.prompterFactory.create(screen)));
   
     while(true) {
       await prompt({type: 'suggest' as any, name: 'commands'})
