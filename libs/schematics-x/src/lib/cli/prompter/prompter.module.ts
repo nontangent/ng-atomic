@@ -1,11 +1,17 @@
 import { NxModule } from "@nx-ddd/core";
-import { Prompter, PrompterFactory } from "./prompter";
+import { RendererModule } from "../renderer";
+import { Presenter } from "./presenter";
+import { Prompter } from "./prompter";
+import { PrompterStore } from "./prompter.store";
 
 @NxModule({
-  imports: [],
+  imports: [
+    RendererModule,
+  ],
   providers: [
     Prompter,
-    PrompterFactory,
+    Presenter,
+    PrompterStore,
   ]
 })
 export class PrompterModule { }

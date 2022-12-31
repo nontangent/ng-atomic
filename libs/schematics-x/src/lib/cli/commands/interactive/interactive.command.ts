@@ -1,25 +1,38 @@
 import { prompt, registerPrompt } from 'inquirer';
 import { Command } from 'commander';
-import { PrompterFactory } from '../../prompter';
+import { Prompter, PrompterModule } from '../../prompter';
 import { InquirerAdapter } from '../../adapters/inquirer';
 import { HistoryService } from '../../services/history';
 import { BaseCommand } from '../base';
-import { Injectable, Injector, resolveAndCreate } from '@nx-ddd/core';
+import { Injectable, Injector, NxModuleFactory, resolveAndCreate } from '@nx-ddd/core';
 import { Provider } from '@nx-ddd/core/di/interface/provider';
 import { Logger } from '../../logger';
 import { SchematicsXCli } from '../../cli';
+import { SxScreen, SX_SCREEN } from '../../renderer';
 
 export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
   return resolveAndCreate(providers, parentInjector);
 }
 
+@Injectable()
+export class InteractivePrompterFactory {
+  constructor(private injector: Injector) { }
+
+  create(screen: SxScreen) {
+    const providers = [{ provide: SX_SCREEN, useValue: screen }];
+    const injector = createInjector(providers, this.injector)
+    const factory = new NxModuleFactory(PrompterModule);
+    const nxModuleRef = factory.create(injector);
+    return nxModuleRef.injector.get(Prompter);
+  }
+}
 
 @Injectable()
 export class InteractiveCommand extends BaseCommand {
   constructor(
     protected history: HistoryService,
-    protected prompterFactory: PrompterFactory,
     protected logger: Logger,
+    protected prompterFactory: InteractivePrompterFactory,
   ) {
     super();
   }
@@ -32,7 +45,9 @@ export class InteractiveCommand extends BaseCommand {
   }
 
   async action() {
-    registerPrompt('suggest', InquirerAdapter((screen) => this.prompterFactory.create(screen)));
+    registerPrompt('suggest', InquirerAdapter((screen) => {
+      return this.prompterFactory.create(screen);
+    }));
   
     while(true) {
       await prompt({type: 'suggest' as any, name: 'commands'})

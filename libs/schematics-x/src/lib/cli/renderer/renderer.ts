@@ -1,13 +1,7 @@
-import { Injectable } from "@nx-ddd/core";
+import { Inject, Injectable, InjectionToken } from "@nx-ddd/core";
 import ScreenManager from "inquirer/lib/utils/screen-manager";
 import { Interface } from "readline";
 import { CursorShifter } from "../utils/cursor-shifter";
-
-export interface Proxy {
-  rl: Interface;
-  cs: CursorShifter;
-  screen: ScreenManager;
-}
 
 export class SxScreen {
   constructor(
@@ -47,13 +41,13 @@ export interface Cursor {
   rows: number;
 }
 
-interface State {
-  prompt: string;
-}
+export const SX_SCREEN = new InjectionToken('[schematics-x] Screen');
 
 @Injectable()
-export class Renderer<State> {
-  constructor(protected screen: SxScreen) { }
+export class Renderer {
+  constructor(
+    @Inject(SX_SCREEN) protected screen: SxScreen,
+  ) { }
 
   get readline(): string {
     return this.screen.line;
