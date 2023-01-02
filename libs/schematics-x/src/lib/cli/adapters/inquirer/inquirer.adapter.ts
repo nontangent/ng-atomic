@@ -2,9 +2,9 @@ import Base from 'inquirer/lib/prompts/base';
 import observe from 'inquirer/lib/utils/events';
 import ScreenManager from 'inquirer/lib/utils/screen-manager';
 import { Interface } from 'readline';
-import { map, ReplaySubject, shareReplay, take, takeUntil } from 'rxjs';
+import { map, Observable, ReplaySubject, shareReplay, switchMap, take, takeUntil } from 'rxjs';
 import { KeyEventHandler, KEY_EVENT_HANDLER} from '../../core';
-import { Prompter } from '../../prompter';
+import { Prompter } from '../../prompters';
 import { SxScreen } from '../../renderer/renderer';
 import { CursorShifter } from '../../utils/cursor-shifter';
 
@@ -55,7 +55,7 @@ export function InquirerAdapter(prompterFactory: (sxScreen: SxScreen) => Prompte
       ).subscribe(({key}) => {
         this.prompt$.next(this.rl.line);
         const handler = this.prompter[KEY_EVENT_HANDLER] as KeyEventHandler;
-        handler.handle(key);
+        handler.handle(this.prompter, key);
       });
     }
 

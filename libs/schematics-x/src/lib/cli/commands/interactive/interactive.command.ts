@@ -1,38 +1,21 @@
-import { prompt, registerPrompt } from 'inquirer';
+import { prompt } from 'inquirer';
 import { Command } from 'commander';
-import { Prompter, PrompterModule } from '../../prompter';
-import { InquirerAdapter } from '../../adapters/inquirer';
 import { HistoryService } from '../../services/history';
 import { BaseCommand } from '../base';
-import { Injectable, Injector, NxModuleFactory, resolveAndCreate } from '@nx-ddd/core';
-import { Provider } from '@nx-ddd/core/di/interface/provider';
+import { Injectable, Injector } from '@nx-ddd/core';
 import { Logger } from '../../logger';
 import { SchematicsXCli } from '../../cli';
-import { SxScreen, SX_SCREEN } from '../../renderer';
+import { PromptsRegistry } from '../../core/prompts-registry';
+import { sleep } from '../../../core/helpers/utils';
 
-export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
-  return resolveAndCreate(providers, parentInjector);
-}
-
-@Injectable()
-export class InteractivePrompterFactory {
-  constructor(private injector: Injector) { }
-
-  create(screen: SxScreen) {
-    const providers = [{ provide: SX_SCREEN, useValue: screen }];
-    const injector = createInjector(providers, this.injector)
-    const factory = new NxModuleFactory(PrompterModule);
-    const nxModuleRef = factory.create(injector);
-    return nxModuleRef.injector.get(Prompter);
-  }
-}
 
 @Injectable()
 export class InteractiveCommand extends BaseCommand {
   constructor(
     protected history: HistoryService,
     protected logger: Logger,
-    protected prompterFactory: InteractivePrompterFactory,
+    protected promptsRegistry: PromptsRegistry,
+    protected injector: Injector,
   ) {
     super();
   }
@@ -41,23 +24,24 @@ export class InteractiveCommand extends BaseCommand {
     program
       .command('interactive', { isDefault: true })
       .description('Interactive mode')
-      .action(async () => await this.action());
+      .action(() => this.action());
   }
 
   async action() {
-    registerPrompt('suggest', InquirerAdapter((screen) => {
-      return this.prompterFactory.create(screen);
-    }));
-  
     while(true) {
+      // MEMO(nontangent): Add Micro Task for ErrorHandling;
+      await sleep(0);
       await prompt({type: 'suggest' as any, name: 'commands'})
-        .then(({commands}) => this.runCommands(commands))
+        .then(({commands}) => {
+          console.debug('commands:', commands);
+          return this.runCommands(commands)
+        })
         .catch((error) => this.handleError(error));
     }
   }
 
   protected handleError(error: any) {
-    if (error.code === 'commander.help') return;
+    if (error?.code === 'commander.help') return;
     console.error(error);
   }
 

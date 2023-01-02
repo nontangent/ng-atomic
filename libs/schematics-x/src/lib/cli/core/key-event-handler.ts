@@ -1,4 +1,4 @@
-type Fn = () => void;
+type Fn = (self: any) => void;
 
 export class KeyEventHandler {
   private keyNameMap = new Map<string, Fn>();
@@ -12,23 +12,23 @@ export class KeyEventHandler {
     this.keyNameMap.set(name, fn);
   }
 
-  handle(event: {name?: string}) {
+  handle(self, event: {name?: string}) {
     if (event?.name) {
-      return this.keyNameMap.get(event.name)?.();
+      return this.keyNameMap.get(event.name)?.(self);
     } else {
-      return this.defaultFn?.();
+      return this.defaultFn?.(self);
     }
   }
 }
 
 export const KEY_EVENT_HANDLER = '__keyEventHandler__';
 
-export function KeyBinding(param?: {name?: string}) {
+export const KeyBinding = (param?: {name?: string}) => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const handler = target[KEY_EVENT_HANDLER] ??= new KeyEventHandler();
     const originalMethod = descriptor.value;
-    const fn = function (...args: any[]) {
-      return originalMethod.apply(this, args);
+    const fn = (self, ...args: any[]) => {
+      return originalMethod.apply(self, args);
     };
 
     if (param?.name) {

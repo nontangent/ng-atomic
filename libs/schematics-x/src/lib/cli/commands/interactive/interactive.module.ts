@@ -1,8 +1,9 @@
 import { NxModule } from "@nx-ddd/core";
+import { PromptsRegistry } from "../../core/prompts-registry";
 import { LoggerModule } from "../../logger";
 import { SchematicRunnerModule } from "../../schematic-runner";
 import { HistoryModule } from "../../services/history";
-import { InteractiveCommand, InteractivePrompterFactory } from "./interactive.command";
+import { InteractiveCommand } from "./interactive.command";
 
 @NxModule({
   imports: [
@@ -12,7 +13,7 @@ import { InteractiveCommand, InteractivePrompterFactory } from "./interactive.co
   ],
   providers: [
     InteractiveCommand,
-    InteractivePrompterFactory,
+    PromptsRegistry,
   ],
 })
 export class InteractiveModule { }

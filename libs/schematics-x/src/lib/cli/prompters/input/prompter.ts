@@ -3,7 +3,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 import { Injectable, InjectionToken } from '@nx-ddd/core';
 import { Presenter } from './presenter';
 import { PrompterStore } from './prompter.store';
-import { KeyBinding } from '../core';
+import { KeyBinding } from '../../core';
 
 export const SX_PATH = new InjectionToken('[schematics-x] Path');
 export const PROMPTER_PROXY = new InjectionToken('[schematics-x] Prompter Proxy');
