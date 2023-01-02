@@ -26,10 +26,8 @@
       "@ng-atomic/executors": ["libs/executors/src/index.ts"],
       "@ng-atomic/schematics": ["libs/schematics/src/index.ts"],
       "@ng-atomic/schematics/*": ["libs/schematics/src/*"],
-      "@ng-atomic/schematics2": ["libs/schematics2/src/index.ts"],
       "@ng-atomic/storybook": ["libs/storybook/src/index.ts"],
-      "@ng-atomic/web-api": ["libs/web-api/src/index.ts"],
-      "schematics-x": ["libs/schematics-x/src/index.ts"]
+      "@ng-atomic/web-api": ["libs/web-api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
