@@ -3,6 +3,10 @@ import { resolve } from "path";
 import { findUp } from "@angular/cli/src/utilities/find-up";
 import { GlobalProvidersManager } from "../core";
 import { SX_PATH } from "../cli/prompters";
+import { config } from "rxjs";
+import { logger } from "../cli/logger";
+
+config.onUnhandledError = logger.error;
 
 function resolveSxPath(workspace: string | null): string {
   if (!workspace) return resolve(__dirname, './schematics-x.js');

@@ -1,7 +1,8 @@
 import { Interface } from 'readline';
+import { Cursor } from '../renderer';
 
 export class CursorShifter {
-  protected shift = 0;
+  protected shift: Cursor = {rows: 0, cols: 0};
 
   constructor(private rl: Interface) { }
 
@@ -12,7 +13,7 @@ export class CursorShifter {
     return (this.rl as any).output;
   }
 
-  setShift(shift: number) {
+  setShift(shift: Cursor) {
     this.shift = shift;
   }
 
@@ -22,7 +23,7 @@ export class CursorShifter {
 
   _getCursorPos() {
     const {cols, rows} = this.rl.getCursorPos();
-    return { cols: cols + this.shift, rows };
+    return { cols: cols + this.shift.cols, rows: rows + this.shift.rows};
   }
 
   getCursorPos() {

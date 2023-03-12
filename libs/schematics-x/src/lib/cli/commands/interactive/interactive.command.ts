@@ -1,25 +1,21 @@
-import { prompt, registerPrompt } from 'inquirer';
+import { prompt } from 'inquirer';
 import { Command } from 'commander';
-import { SuggestPrompterFactory } from '../../prompters';
-import { InquirerAdapter } from '../../adapters/inquirer';
 import { HistoryService } from '../../services/history';
 import { BaseCommand } from '../base';
-import { Injectable, Injector, resolveAndCreate } from '@nx-ddd/core';
-import { Provider } from '@nx-ddd/core/di/interface/provider';
+import { Injectable, Injector } from '@nx-ddd/core';
 import { Logger } from '../../logger';
 import { SchematicsXCli } from '../../cli';
-
-export function createInjector(providers: Provider[] = [], parentInjector?: Injector) {
-  return resolveAndCreate(providers, parentInjector);
-}
+import { PromptsRegistry } from '../../core/prompts-registry';
+import { sleep } from '../../../core/helpers/utils';
 
 
 @Injectable()
 export class InteractiveCommand extends BaseCommand {
   constructor(
     protected history: HistoryService,
-    protected suggestPrompterFactory: SuggestPrompterFactory,
     protected logger: Logger,
+    protected promptsRegistry: PromptsRegistry,
+    protected injector: Injector,
   ) {
     super();
   }
@@ -28,21 +24,24 @@ export class InteractiveCommand extends BaseCommand {
     program
       .command('interactive', { isDefault: true })
       .description('Interactive mode')
-      .action(async () => await this.action());
+      .action(() => this.action());
   }
 
   async action() {
-    registerPrompt('suggest', InquirerAdapter((proxy) => this.suggestPrompterFactory.create(proxy)));
-  
     while(true) {
+      // MEMO(nontangent): Add Micro Task for ErrorHandling;
+      await sleep(0);
       await prompt({type: 'suggest' as any, name: 'commands'})
-        .then(({commands}) => this.runCommands(commands))
+        .then(({commands}) => {
+          console.debug('commands:', commands);
+          return this.runCommands(commands)
+        })
         .catch((error) => this.handleError(error));
     }
   }
 
   protected handleError(error: any) {
-    if (error.code === 'commander.help') return;
+    if (error?.code === 'commander.help') return;
     console.error(error);
   }
 

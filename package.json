@@ -76,6 +76,7 @@
     "commander": "^9.4.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.11.7",
+    "figures": "^3.2.0",
     "flat": "^5.0.2",
     "idb-keyval": "^6.1.0",
     "inquirer": "^8.2.5",
