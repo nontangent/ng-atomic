@@ -38,8 +38,12 @@ export class LoadingService {
     this.loadingEntries$.next([key, false]);
   }
 
-  start(callback: (done: any) => void, key: string) {
+  start(callback: (done: any) => void, key: string = randomStr(16)) {
     this.setKey(key);
     callback(() => this.removeKey(key));
   }
+}
+
+export function randomStr(n: number = 16): string {
+  return Math.random().toString(36).substr(2, n);
 }
